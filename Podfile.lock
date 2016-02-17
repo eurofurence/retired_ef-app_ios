@@ -1,0 +1,41 @@
+PODS:
+  - Alamofire (3.2.0)
+  - ReachabilitySwift (2.3.3)
+  - Realm (0.98.1):
+    - Realm/Headers (= 0.98.1)
+  - Realm/Headers (0.98.1)
+  - RealmSwift (0.98.1):
+    - Realm (= 0.98.1)
+  - SlideMenuControllerSwift (2.0.5)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.0)
+  - ReachabilitySwift (from `https://github.com/ashleymills/Reachability.swift`)
+  - RealmSwift
+  - SlideMenuControllerSwift
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+
+EXTERNAL SOURCES:
+  ReachabilitySwift:
+    :git: https://github.com/ashleymills/Reachability.swift
+  SwiftyJSON:
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  ReachabilitySwift:
+    :commit: ec4b33a7e439e5b203b0cae0f71383ca803ad031
+    :git: https://github.com/ashleymills/Reachability.swift
+  SwiftyJSON:
+    :commit: 42bdb102d2624b143c07850ebdc1537d5b6579b6
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+SPEC CHECKSUMS:
+  Alamofire: 4da478599fccddff361205c8929333d7fe18dceb
+  ReachabilitySwift: e0f6b6f280effb47731acfaaa2d5ffe223703793
+  Realm: ca4a4122e939e228e10694fc49011386cb2ecb07
+  RealmSwift: 7d3c7033427816a2c3417ba0d004d694987e503a
+  SlideMenuControllerSwift: 9dcae36265e14c4f42e729f212463beb60d2cf96
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+COCOAPODS: 0.39.0

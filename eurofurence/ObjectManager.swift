@@ -9,14 +9,39 @@
 import Foundation
 
 class ObjectFromString {
-        static let sharedInstance = ObjectFromString()
+    static let sharedInstance = ObjectFromString()
     
     func instanciate(className:String) -> AnyObject?{
         switch className {
-            case "EventEntry":
-                if let classObject = NSClassFromString("Eurofurence." + className) as? EventEntry.Type {
-                    let object = classObject.init()
-                    return object
+        case ConfigManager.sharedInstance.eventEntry:
+            if let classObject = NSClassFromString("Eurofurence." + className) as? EventEntry.Type {
+                let object = classObject.init()
+                return object
+            }
+        case ConfigManager.sharedInstance.eventConferenceTrack:
+            if let classObject = NSClassFromString("Eurofurence." + className) as? EventConferenceTrack.Type {
+                let object = classObject.init()
+                return object
+            }
+        case ConfigManager.sharedInstance.eventConferenceRoom:
+            if let classObject = NSClassFromString("Eurofurence." + className) as? EventConferenceRoom.Type {
+                let object = classObject.init()
+                return object
+            }
+        case ConfigManager.sharedInstance.eventConferenceDay:
+            if let classObject = NSClassFromString("Eurofurence." + className) as? EventConferenceDay.Type {
+                let object = classObject.init()
+                return object
+            }
+        case ConfigManager.sharedInstance.infoGroup:
+            if let classObject = NSClassFromString("Eurofurence." + className) as? InfoGroup.Type {
+                let object = classObject.init()
+                return object
+            }
+        case ConfigManager.sharedInstance.info:
+            if let classObject = NSClassFromString("Eurofurence." + className) as? Info.Type {
+                let object = classObject.init()
+                return object
             }
         default :
             print("Class not found")

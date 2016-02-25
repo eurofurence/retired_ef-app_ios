@@ -26,21 +26,10 @@ class Event {
 
 class EventTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate  {
     let searchController = UISearchController(searchResultsController: nil)
-    var events = [Event]()
-    
-    func loadSampleEvents() {
-        let event1 = Event(name: "Event1", beginDate: "10:30 10/20", endDate: "10:30 10/20", room: "366")
-        
-        let event2 = Event(name: "Event2", beginDate: "10:30 10/20", endDate: "10:30 10/20", room: "366")
-        
-        let event3 = Event(name: "Event3", beginDate: "10:30 10/20", endDate: "10:30 10/20", room: "366")
-        
-        self.events = [event1, event2, event3];
-    }
+    var events = EventEntry.getAll();
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSampleEvents();
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.searchBar.scopeButtonTitles = ["All", "Today", "Now"]
@@ -60,7 +49,17 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func refreshEvent() {
+        let updateString = "Last Updated at "
+        self.refreshControl!.attributedTitle = NSAttributedString(string: updateString)
+        if self.refreshControl!.refreshing
+        {
+            self.refreshControl!.endRefreshing()
+        }
+        
+        self.tableView?.reloadData()
+    }
     // MARK: - Table view data source
     func updateSearchResultsForSearchController(searchController: UISearchController)
     {
@@ -74,38 +73,35 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.events.count;
+        return self.events!.count;
     }
 
     func createCellCustom() -> UIView{
-    let whiteRoundedCornerView = UIView(frame: CGRectMake(5,10,self.view.bounds.width-10,190))
+    let whiteRoundedCornerView = UIView(frame: CGRectMake(5,10,self.view.bounds.width-10,200))
     whiteRoundedCornerView.backgroundColor = UIColor(red: 0/255.0, green: 120/255.0, blue: 106/255.0, alpha: 1.0)
     whiteRoundedCornerView.layer.masksToBounds = false
-    whiteRoundedCornerView.layer.shadowOpacity = 1.55;
-    whiteRoundedCornerView.layer.shadowOffset = CGSizeMake(1, 0);
-    whiteRoundedCornerView.layer.shadowColor = UIColor(red: 53/255.0, green: 143/255.0, blue: 185/255.0, alpha: 1.0).CGColor
-    whiteRoundedCornerView.layer.cornerRadius = 3.0
-    whiteRoundedCornerView.layer.shadowOffset = CGSizeMake(-1, -1)
-    whiteRoundedCornerView.layer.shadowOpacity = 0.5
         return whiteRoundedCornerView
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        
-        
         let cellIdentifier = "EventTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! EventTableViewCell
-        let event = self.events[indexPath.row]
-        cell.contentView.backgroundColor=UIColor.clearColor()
-        
+        let event = self.events![indexPath.row]
+        cell.contentView.backgroundColor=UIColor(red: 2/255.0, green: 189/255.0, blue: 189/255.0, alpha: 1.0)
         let whiteRoundedCornerView = createCellCustom()
         cell.contentView.addSubview(whiteRoundedCornerView)
         cell.contentView.sendSubviewToBack(whiteRoundedCornerView)
-        cell.eventNameLabel.text = event.name;
-        cell.eventDateLabel.text = "Tuesday - 10h00";
-        cell.eventRoomLabel.text = "Location : " + event.room;
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        let formatedStartTime = (event.StartTime).characters.split{$0 == ":"}.map(String.init)
+        let formatedDuration = (event.Duration).characters.split{$0 == ":"}.map(String.init)
+        let day = EventConferenceDay.getById(event.ConferenceDayId)
+        let room = EventConferenceRoom.getById(event.ConferenceRoomId)
+        cell.eventNameLabel.text = event.Title
+        cell.eventDateLabel.text = " " + formatedStartTime[0] + "h" + formatedStartTime[1]
+        cell.eventDurationLabel.text = " "  + formatedDuration[0] + " hour(s) " + formatedDuration[1] + " min"
+        cell.eventRoomLabel.text = " " + room!.Name
+        cell.eventDayLabel.text = day!.Name
+        cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
+        cell.tintColor = UIColor.whiteColor()
 
         return cell
     }
@@ -146,14 +142,16 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "EventTableViewSegue"
+        {
+            if let destinationVC = segue.destinationViewController as? EventViewController{
+                let index = self.tableView.indexPathForSelectedRow!
+                destinationVC.event = self.events![index.row]
+            }
+        }
     }
-    */
 
 }

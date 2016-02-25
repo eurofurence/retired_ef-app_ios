@@ -16,6 +16,10 @@
 		BF00E07E1C4FEDE700F998AA /* eurofurenceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E07D1C4FEDE700F998AA /* eurofurenceUITests.swift */; };
 		BF1530921C73C0AA0085DF4C /* InfoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1530911C73C0AA0085DF4C /* InfoCollectionViewController.swift */; };
 		BF1530941C73C0D40085DF4C /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1530931C73C0D40085DF4C /* InfoCollectionViewCell.swift */; };
+		BF2B01831C7E19BA00499E4B /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01821C7E19BA00499E4B /* NewsTableViewController.swift */; };
+		BF2B01851C7E1BE500499E4B /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01841C7E1BE500499E4B /* NewsTableViewCell.swift */; };
+		BF2B01871C7E252B00499E4B /* NewsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01861C7E252B00499E4B /* NewsHeaderTableViewCell.swift */; };
+		BF2B01891C7E2C8800499E4B /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01881C7E2C8800499E4B /* NewsViewController.swift */; };
 		BF3FB3E31C65162D006E2EBB /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FB3E21C65162D006E2EBB /* EventViewController.swift */; };
 		BF61C0891C70CFB8005F5C5B /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */; };
 		BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */; };
@@ -24,6 +28,12 @@
 		BF61C0921C70F3A3005F5C5B /* ObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C0911C70F3A3005F5C5B /* ObjectManager.swift */; };
 		BF6C4AA81C64C314002D250E /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C4AA71C64C314002D250E /* EventTableViewCell.swift */; };
 		BF6C4AAA1C64E11E002D250E /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C4AA91C64E11E002D250E /* EventTableViewController.swift */; };
+		BF994C6C1C777F5400371862 /* EventConferenceTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C6B1C777F5400371862 /* EventConferenceTrack.swift */; };
+		BF994C6E1C777F6A00371862 /* EventConferenceDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C6D1C777F6A00371862 /* EventConferenceDay.swift */; };
+		BF994C701C777F7400371862 /* EventConferenceRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C6F1C777F7400371862 /* EventConferenceRoom.swift */; };
+		BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C711C777F7C00371862 /* InfoGroup.swift */; };
+		BF994C741C777F8300371862 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C731C777F8300371862 /* Info.swift */; };
+		BF994C761C778A2200371862 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C751C778A2200371862 /* Loader.swift */; };
 		BFD220671C72832D00C98A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD220661C72832D00C98A1E /* MapViewController.swift */; };
 		FB0803C99528EAE2BFB4C356 /* Pods_eurofurence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C87EAEBCBA8B8F6901D981 /* Pods_eurofurence.framework */; };
 /* End PBXBuildFile section */
@@ -63,6 +73,10 @@
 		BF00E07F1C4FEDE700F998AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF1530911C73C0AA0085DF4C /* InfoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewController.swift; sourceTree = "<group>"; };
 		BF1530931C73C0D40085DF4C /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		BF2B01821C7E19BA00499E4B /* NewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
+		BF2B01841C7E1BE500499E4B /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		BF2B01861C7E252B00499E4B /* NewsHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		BF2B01881C7E2C8800499E4B /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		BF3FB3E21C65162D006E2EBB /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
@@ -71,6 +85,12 @@
 		BF61C0911C70F3A3005F5C5B /* ObjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectManager.swift; sourceTree = "<group>"; };
 		BF6C4AA71C64C314002D250E /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		BF6C4AA91C64E11E002D250E /* EventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
+		BF994C6B1C777F5400371862 /* EventConferenceTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventConferenceTrack.swift; sourceTree = "<group>"; };
+		BF994C6D1C777F6A00371862 /* EventConferenceDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventConferenceDay.swift; sourceTree = "<group>"; };
+		BF994C6F1C777F7400371862 /* EventConferenceRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventConferenceRoom.swift; sourceTree = "<group>"; };
+		BF994C711C777F7C00371862 /* InfoGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoGroup.swift; sourceTree = "<group>"; };
+		BF994C731C777F8300371862 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		BF994C751C778A2200371862 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		BFD220661C72832D00C98A1E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		DB734E7424C37FCED3741EDC /* Pods-eurofurence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,6 +189,11 @@
 			isa = PBXGroup;
 			children = (
 				BF61C08F1C70EBBE005F5C5B /* EventEntry.swift */,
+				BF994C6B1C777F5400371862 /* EventConferenceTrack.swift */,
+				BF994C6D1C777F6A00371862 /* EventConferenceDay.swift */,
+				BF994C6F1C777F7400371862 /* EventConferenceRoom.swift */,
+				BF994C711C777F7C00371862 /* InfoGroup.swift */,
+				BF994C731C777F8300371862 /* Info.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -189,6 +214,8 @@
 				BF3FB3E21C65162D006E2EBB /* EventViewController.swift */,
 				BFD220661C72832D00C98A1E /* MapViewController.swift */,
 				BF1530911C73C0AA0085DF4C /* InfoCollectionViewController.swift */,
+				BF2B01821C7E19BA00499E4B /* NewsTableViewController.swift */,
+				BF2B01881C7E2C8800499E4B /* NewsViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -200,6 +227,7 @@
 				BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */,
 				BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */,
 				BF61C0911C70F3A3005F5C5B /* ObjectManager.swift */,
+				BF994C751C778A2200371862 /* Loader.swift */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -209,6 +237,8 @@
 			children = (
 				BF6C4AA71C64C314002D250E /* EventTableViewCell.swift */,
 				BF1530931C73C0D40085DF4C /* InfoCollectionViewCell.swift */,
+				BF2B01841C7E1BE500499E4B /* NewsTableViewCell.swift */,
+				BF2B01861C7E252B00499E4B /* NewsHeaderTableViewCell.swift */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -235,6 +265,7 @@
 				BF00E0581C4FEDE600F998AA /* Resources */,
 				328B40210F95092FAAC5767F /* Embed Pods Frameworks */,
 				7ED9BCCAB9661CE02205CFA8 /* Copy Pods Resources */,
+				BF7EAE1B1C74A91500A3F7D2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -398,6 +429,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BF7EAE1B1C74A91500A3F7D2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 2de28adb0682e1ae06f0a4d508a45bc361b13342 87aed714c096487213254ac42c3275341289cd1c5abdd31aa637004ebdaf5da6";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -407,13 +451,23 @@
 			files = (
 				BFD220671C72832D00C98A1E /* MapViewController.swift in Sources */,
 				BF3FB3E31C65162D006E2EBB /* EventViewController.swift in Sources */,
+				BF2B01891C7E2C8800499E4B /* NewsViewController.swift in Sources */,
+				BF994C6C1C777F5400371862 /* EventConferenceTrack.swift in Sources */,
+				BF994C741C777F8300371862 /* Info.swift in Sources */,
 				BF61C0901C70EBBE005F5C5B /* EventEntry.swift in Sources */,
+				BF994C6E1C777F6A00371862 /* EventConferenceDay.swift in Sources */,
 				BF61C0921C70F3A3005F5C5B /* ObjectManager.swift in Sources */,
+				BF994C761C778A2200371862 /* Loader.swift in Sources */,
+				BF2B01851C7E1BE500499E4B /* NewsTableViewCell.swift in Sources */,
+				BF2B01831C7E19BA00499E4B /* NewsTableViewController.swift in Sources */,
 				BF1530921C73C0AA0085DF4C /* InfoCollectionViewController.swift in Sources */,
 				BF6C4AA81C64C314002D250E /* EventTableViewCell.swift in Sources */,
 				BF00E0601C4FEDE600F998AA /* ViewController.swift in Sources */,
+				BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */,
 				BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */,
+				BF2B01871C7E252B00499E4B /* NewsHeaderTableViewCell.swift in Sources */,
 				BF6C4AAA1C64E11E002D250E /* EventTableViewController.swift in Sources */,
+				BF994C701C777F7400371862 /* EventConferenceRoom.swift in Sources */,
 				BF61C0891C70CFB8005F5C5B /* NetworkHelper.swift in Sources */,
 				BF00E05E1C4FEDE600F998AA /* AppDelegate.swift in Sources */,
 				BF61C08E1C70EA56005F5C5B /* ConfigManager.swift in Sources */,
@@ -561,8 +615,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				INFOPLIST_FILE = eurofurence/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = EF.Eurofurence;
 				PRODUCT_NAME = Eurofurence;
@@ -576,7 +631,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = eurofurence/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = EF.Eurofurence;
 				PRODUCT_NAME = Eurofurence;

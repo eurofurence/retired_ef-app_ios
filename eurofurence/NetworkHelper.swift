@@ -32,16 +32,21 @@ class NetworkManager {
             // be on the main thread, like this:
             dispatch_async(dispatch_get_main_queue()) {
                 if reachability.isReachableViaWiFi() {
-                    print("Reachable via WiFi")
                     if (self.isDatabaseAlreadyDownloadedOnce() == false) {
                         let alert = UIAlertController(title: "Download database", message: "It seems that you are connected over wifi, would you like to download the content data, it will allow you to use the app offline?", preferredStyle: UIAlertControllerStyle.Alert)
                         ApiManager.sharedInstance.getAll();
-                        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: nil))
-                        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: nil))
+                        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+                        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: ApiManager.sharedInstance.getAllFromAlert))
                         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
                     }
                 } else {
-                    print("Reachable via Cellular")
+                    if (self.isDatabaseAlreadyDownloadedOnce() == false) {
+                        let alert = UIAlertController(title: "Download database", message: "It seems that you are connected over cellular data, would you like to download the content data, it will allow you to use the app offline?", preferredStyle: UIAlertControllerStyle.Alert)
+                        ApiManager.sharedInstance.getAll();
+                        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+                        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: ApiManager.sharedInstance.getAllFromAlert))
+                        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                    }
                 }
             }
         }

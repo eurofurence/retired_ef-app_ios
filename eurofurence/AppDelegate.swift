@@ -34,7 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             //
         }
-        
+        let notification = UILocalNotification()
+        notification.alertBody = "Eurofurence app is running !"
+        notification.alertAction = "open"
+        notification.fireDate = NSDate(timeInterval: 120, sinceDate: NSDate())
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.userInfo = ["UUID": "11_11_11", ]
+        notification.category = "test"
+        notification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
         NetworkManager.sharedInstance?.startNetworkManager();
         return true
     }
@@ -60,6 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        NSNotificationCenter.defaultCenter().postNotificationName("NewsListShouldRefresh", object: self)
     }
     
     

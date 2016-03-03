@@ -7,26 +7,12 @@
 //
 
 import UIKit
-
-class Event {
-    var name: String = ""
-    var beginDate: String = ""
-    var endDate: String = ""
-    var room: String = ""
-
-   
-    init(name: String, beginDate: String, endDate: String, room: String) {
-        self.name = name
-        self.beginDate = beginDate;
-        self.endDate = endDate;
-        self.room = room;
-        
-    }
-}
+import RealmSwift
 
 class EventTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate  {
     let searchController = UISearchController(searchResultsController: nil)
     var events = EventEntry.getAll();
+    var lastUpdate = NSDate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +24,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         self.searchController.searchBar.tintColor = UIColor.whiteColor();
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+        self.refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -50,15 +37,21 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         // Dispose of any resources that can be recreated.
     }
     
-    func refreshEvent() {
-        let updateString = "Last Updated at "
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        let dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
+        let lastChange = dateFormatter.stringFromDate(self.lastUpdate);
+        let updateString = "Last Updated at " + lastChange;
         self.refreshControl!.attributedTitle = NSAttributedString(string: updateString)
-        if self.refreshControl!.refreshing
-        {
-            self.refreshControl!.endRefreshing()
-        }
-        
-        self.tableView?.reloadData()
+        ApiManager.sharedInstance.get(ObjectFromString.sharedInstance.instanciate("EventEntry") as! Object, objectName: "EventEntry",  completion: {
+                    (result: String) in
+                    self.lastUpdate = NSDate()
+                    self.refreshControl!.attributedTitle = NSAttributedString(string: updateString)
+                    self.events = EventEntry.getAll();
+                    self.tableView.reloadData()
+                    refreshControl.endRefreshing()
+            
+        });
     }
     // MARK: - Table view data source
     func updateSearchResultsForSearchController(searchController: UISearchController)

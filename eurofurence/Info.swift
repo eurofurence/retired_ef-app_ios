@@ -15,7 +15,7 @@ class Info: Object {
     dynamic var IsDeleted = ""
     dynamic var Title = ""
     dynamic var Text = ""
-    dynamic var Order = ""
+    dynamic var Position = ""
     
     override static func primaryKey() -> String? {
         return "Id"

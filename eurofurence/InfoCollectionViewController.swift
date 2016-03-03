@@ -9,11 +9,10 @@
 import UIKit
 
 private let reuseIdentifier = "cell"
-private let sectionMenu = ["Hotel", "General", "Charity", "Dance"]
 
 
 class InfoCollectionViewController: UICollectionViewController {
-
+var sectionMenu = InfoGroup.getAll();
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,7 +47,7 @@ class InfoCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 4
+        return  (sectionMenu?.count)!
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
@@ -70,7 +69,7 @@ class InfoCollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! InfoCollectionViewCell
-        cell.cellTitle.text = sectionMenu[indexPath.row]
+        cell.cellTitle.text = sectionMenu![indexPath.row].Name;
     
         // Configure the cell
         cell.contentView.backgroundColor=UIColor.clearColor()

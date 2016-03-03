@@ -12,6 +12,7 @@ import RealmSwift
 import SwiftyJSON
 
 class ApiManager {
+    var lastDateTimeUtc = ""
     var progressView: UIProgressView?
     var progressLabel: UILabel?
     static let sharedInstance = ApiManager()
@@ -40,10 +41,18 @@ class ApiManager {
     }
     
     func getAll() {
+        LoadingOverlay.sharedInstance.showOverlay()
         for object in self.objects {
             if let objectInstance = ObjectFromString.sharedInstance.instanciate(object) {
                 self.get(objectInstance as! Object, objectName: object, completion: {
                     (result: String) in
+                    self.requestedObjects++;
+                    if (self.requestedObjects == self.objects.count) {
+                        LoadingOverlay.sharedInstance.hideOverlay()
+                        let defaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setBool(true, forKey: "isDatabaseAlreadyDownloaded")
+                        self.requestedObjects = 0
+                    }
                     return
                 });
             } else {
@@ -52,10 +61,64 @@ class ApiManager {
         }
     }
     
+    func getDiff() {
+        if (self.lastDateTimeUtc != "") {
+            let realm = try! Realm();
+            let endpoints = realm.objects(Endpoint);
+            let dateFormatter = NSDateFormatter();
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+            let lastChange = dateFormatter.dateFromString((endpoints.first?.Entities.first?.LastChangeDateTimeUtc)!);
+            let lastCall = dateFormatter.dateFromString(self.lastDateTimeUtc);
+            let compareResult = lastCall!.compare(lastChange!);
+            if (compareResult == NSComparisonResult.OrderedAscending) {
+                getAll()
+            }
+        }
+        getEndPoint({
+            (result: String) in
+            let realm = try! Realm()
+            let endpoints = realm.objects(Endpoint);
+            if (self.lastDateTimeUtc == "") {
+                self.lastDateTimeUtc = (endpoints.first?.CurrentDateTimeUtc)!;
+             }
+            }
+        )
+        
+    }
+    
+    func getEndPoint(completion: (result: String) -> Void) {
+        let queue = dispatch_queue_create("com.cnoon.manager-response-queue", DISPATCH_QUEUE_CONCURRENT)
+        let url = ConfigManager.sharedInstance.apiBaseUrl + "Endpoint"
+        let request = Alamofire.request(.GET, url, encoding: .JSON)
+        request.response(
+            queue: queue,
+            responseSerializer: Request.JSONResponseSerializer(options: .AllowFragments),
+            completionHandler: { response in
+                switch (response.result) {
+                case .Success:
+                    let realm = try! Realm()
+                    let responseDictionary = response.result.value! as! NSDictionary
+                    let test = JSON(responseDictionary)
+                    try! realm.write {
+                        realm.create(Endpoint.self, value: test.object, update: true)
+                    }
+                    
+                    
+                case .Failure:
+                    print("Error with api manager");
+                }
+                
+                // To update anything on the main thread, just jump back on like so.
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(result: "test")
+                }
+            }
+        )
+    }
+    
     func get(dbObject:Object, objectName:String, completion: (result: String) -> Void) {
         let queue = dispatch_queue_create("com.cnoon.manager-response-queue", DISPATCH_QUEUE_CONCURRENT)
         let url = ConfigManager.sharedInstance.apiBaseUrl + objectName
-        print(url);
         let request = Alamofire.request(.GET, url, encoding: .JSON)
         request.response(
             queue: queue,
@@ -75,7 +138,7 @@ class ApiManager {
                 case .Failure:
                     print("Error with api manager");
                 }
-
+                
                 // To update anything on the main thread, just jump back on like so.
                 dispatch_async(dispatch_get_main_queue()) {
                     completion(result: "test")

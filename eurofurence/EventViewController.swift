@@ -68,24 +68,30 @@ class EventViewController: UIViewController {
         
         switch (status) {
         case EKAuthorizationStatus.NotDetermined:
-            // This happens on first-run
             requestAccessToCalendar()
         case EKAuthorizationStatus.Authorized:
             insertEvent()
-            // Things are in line with being able to show the calendars in the table view
         case EKAuthorizationStatus.Restricted, EKAuthorizationStatus.Denied: break
-            // We need to help them give us permission
         }
     }
     
     func insertEvent() {
-        let startDate = NSDate()
-        let endDate = startDate.dateByAddingTimeInterval(2 * 60 * 60)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
         let event = EKEvent(eventStore: eventStore.self)
-        event.title = "New Meeting"
-        event.startDate = startDate
-        event.endDate = endDate
-        event.calendar = self.eventStore.defaultCalendarForNewEvents
+        let room = EventConferenceRoom.getById(self.event.ConferenceRoomId)
+        let day = EventConferenceDay.getById(self.event.ConferenceDayId)
+        let formatedDate = day!.Date + " " + self.event.StartTime
+        let startDate = dateFormatter.dateFromString(formatedDate)
+        let formatedDuration = (self.event.Duration).characters.split{$0 == ":"}.map(String.init)
+        let endDate = startDate!.dateByAddingTimeInterval( (Double(formatedDuration[0])! * 60 + Double(formatedDuration[1])!) * 60)
+        event.title = self.event.Title;
+        event.notes = self.event.Description;
+        event.location = room?.Name;
+        event.startDate = startDate!;
+        event.endDate = endDate;
+        event.addAlarm(EKAlarm(absoluteDate: startDate!.dateByAddingTimeInterval( -30 * 60)));
+        event.calendar = self.eventStore.defaultCalendarForNewEvents;
         
         do {
             try self.eventStore.saveEvent(event, span: .ThisEvent)

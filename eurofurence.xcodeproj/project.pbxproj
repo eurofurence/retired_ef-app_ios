@@ -26,6 +26,7 @@
 		BF61C08E1C70EA56005F5C5B /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */; };
 		BF61C0901C70EBBE005F5C5B /* EventEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08F1C70EBBE005F5C5B /* EventEntry.swift */; };
 		BF61C0921C70F3A3005F5C5B /* ObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C0911C70F3A3005F5C5B /* ObjectManager.swift */; };
+		BF67807C1C811E0100E8630F /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF67807B1C811E0100E8630F /* Endpoint.swift */; };
 		BF6C4AA81C64C314002D250E /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C4AA71C64C314002D250E /* EventTableViewCell.swift */; };
 		BF6C4AAA1C64E11E002D250E /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6C4AA91C64E11E002D250E /* EventTableViewController.swift */; };
 		BF994C6C1C777F5400371862 /* EventConferenceTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C6B1C777F5400371862 /* EventConferenceTrack.swift */; };
@@ -83,6 +84,7 @@
 		BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		BF61C08F1C70EBBE005F5C5B /* EventEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEntry.swift; sourceTree = "<group>"; };
 		BF61C0911C70F3A3005F5C5B /* ObjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectManager.swift; sourceTree = "<group>"; };
+		BF67807B1C811E0100E8630F /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		BF6C4AA71C64C314002D250E /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		BF6C4AA91C64E11E002D250E /* EventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
 		BF994C6B1C777F5400371862 /* EventConferenceTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventConferenceTrack.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				BF994C6F1C777F7400371862 /* EventConferenceRoom.swift */,
 				BF994C711C777F7C00371862 /* InfoGroup.swift */,
 				BF994C731C777F8300371862 /* Info.swift */,
+				BF67807B1C811E0100E8630F /* Endpoint.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				BF2B01831C7E19BA00499E4B /* NewsTableViewController.swift in Sources */,
 				BF1530921C73C0AA0085DF4C /* InfoCollectionViewController.swift in Sources */,
 				BF6C4AA81C64C314002D250E /* EventTableViewCell.swift in Sources */,
+				BF67807C1C811E0100E8630F /* Endpoint.swift in Sources */,
 				BF00E0601C4FEDE600F998AA /* ViewController.swift in Sources */,
 				BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */,
 				BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */,

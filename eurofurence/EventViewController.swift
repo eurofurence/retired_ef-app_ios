@@ -15,6 +15,7 @@ class EventViewController: UIViewController {
 
     @IBOutlet weak var eventTitleLabel: UILabel!
     @IBOutlet weak var eventLocationLabel: UILabel!
+    @IBOutlet weak var eventSubTitleLabel: UILabel!
     @IBOutlet weak var eventStartTimeLabel: UILabel!
     @IBOutlet weak var eventDurationLabel: UILabel!
     @IBOutlet weak var eventHostLabel: UILabel!
@@ -28,6 +29,8 @@ class EventViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         let formatedStartTime = (event.StartTime).characters.split{$0 == ":"}.map(String.init)
         let formatedDuration = (event.Duration).characters.split{$0 == ":"}.map(String.init)
+        let separators = NSCharacterSet(charactersInString: "–")
+        let formatedTitle = (event.Title).componentsSeparatedByCharactersInSet(separators)
         let day = EventConferenceDay.getById(event.ConferenceDayId)
         let room = EventConferenceRoom.getById(event.ConferenceRoomId)
         self.eventLocationLabel.text = room?.Name
@@ -35,7 +38,13 @@ class EventViewController: UIViewController {
         self.eventDurationLabel.text = ""  + formatedDuration[0] + " hour(s) " + formatedDuration[1] + " min"
         self.title = day!.Name
         self.eventHostLabel.text = event.PanelHosts
-        self.eventTitleLabel.text = event.Title
+        self.eventTitleLabel.text = formatedTitle[0]
+        if (formatedTitle.count > 1) {
+            self.eventSubTitleLabel.text = formatedTitle[1]
+        }
+        else {
+             self.eventSubTitleLabel.text = ""
+        }
         self.eventDescTextView.text = event.Description
         self.eventDescTextView.scrollsToTop = true
         self.eventDescTextView.textColor = UIColor.whiteColor()

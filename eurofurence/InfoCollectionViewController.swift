@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 private let reuseIdentifier = "cell"
 
@@ -15,6 +16,7 @@ class InfoCollectionViewController: UICollectionViewController {
 var sectionMenu = InfoGroup.getAll();
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.sectionMenu = InfoGroup.getAll();
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -51,11 +53,11 @@ var sectionMenu = InfoGroup.getAll();
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        return CGSize(width: collectionView.frame.size.width/2, height: 150)
+        return CGSize(width: collectionView.frame.size.width, height: 100)
     }
 
     func createCollectionCellCustom() -> UIView{
-        let whiteRoundedCornerView = UIView(frame: CGRectMake(5,10,(collectionView!.frame.size.width/2)-10,140))
+        let whiteRoundedCornerView = UIView(frame: CGRectMake(5,10,(collectionView!.frame.size.width)-10,110))
         whiteRoundedCornerView.backgroundColor = UIColor(red: 0/255.0, green: 120/255.0, blue: 106/255.0, alpha: 1.0)
         whiteRoundedCornerView.layer.masksToBounds = false
         whiteRoundedCornerView.layer.shadowOpacity = 1.55;
@@ -74,9 +76,9 @@ var sectionMenu = InfoGroup.getAll();
         // Configure the cell
         cell.contentView.backgroundColor=UIColor.clearColor()
         
-        let whiteRoundedCornerView = createCollectionCellCustom()
-        cell.contentView.addSubview(whiteRoundedCornerView)
-        cell.contentView.sendSubviewToBack(whiteRoundedCornerView)
+        //let whiteRoundedCornerView = createCollectionCellCustom()
+        //cell.contentView.addSubview(whiteRoundedCornerView)
+        //cell.contentView.sendSubviewToBack(whiteRoundedCornerView)
         return cell
     }
 
@@ -110,5 +112,18 @@ var sectionMenu = InfoGroup.getAll();
     
     }
     */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "InfoCollectionViewSegue"
+        {
+            if let destinationVC = segue.destinationViewController as? InfoViewController{
+                let cell = sender as! InfoCollectionViewCell
+                let index = self.collectionView?.indexPathForCell(cell)
+                destinationVC.infoGroup = sectionMenu![index!.row]
+            }
+        }
+    }
 
 }

@@ -12,7 +12,7 @@ class NewsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -40,7 +40,7 @@ class NewsTableViewController: UITableViewController {
     
     func createCellCustom() -> UIView{
         let whiteRoundedCornerView = UIView(frame: CGRectMake(5,10,self.view.bounds.width-10,200))
-        whiteRoundedCornerView.backgroundColor = UIColor(red: 0/255.0, green: 120/255.0, blue: 106/255.0, alpha: 1.0)
+        whiteRoundedCornerView.backgroundColor = UIColor(red: 22/255.0, green: 49/255.0, blue: 68/255.0, alpha: 1.0)
         whiteRoundedCornerView.layer.masksToBounds = false
         return whiteRoundedCornerView
     }
@@ -53,7 +53,7 @@ class NewsTableViewController: UITableViewController {
         else {
             cell = tableView.dequeueReusableCellWithIdentifier("NewsTableViewCell", forIndexPath: indexPath)
             cell.tintColor = UIColor.whiteColor()
-            cell.contentView.backgroundColor=UIColor(red: 2/255.0, green: 189/255.0, blue: 189/255.0, alpha: 1.0)
+            cell.contentView.backgroundColor=UIColor.blackColor()
             let whiteRoundedCornerView = createCellCustom()
             cell.contentView.addSubview(whiteRoundedCornerView)
             cell.contentView.sendSubviewToBack(whiteRoundedCornerView)

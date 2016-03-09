@@ -20,7 +20,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.searchBar.scopeButtonTitles = ["All", "Today", "Now"]
         self.searchController.searchBar.delegate = self
-        self.searchController.searchBar.barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 0.5);
+        //self.searchController.searchBar.barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 0.5);
         self.searchController.searchBar.tintColor = UIColor.whiteColor();
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
@@ -70,7 +70,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     }
 
     func createCellCustom() -> UIView{
-    let whiteRoundedCornerView = UIView(frame: CGRectMake(5,10,self.view.bounds.width-10,200))
+    let whiteRoundedCornerView = UIView(frame: CGRectMake(5,10,self.view.bounds.width-10,118))
     whiteRoundedCornerView.backgroundColor = UIColor(red: 0/255.0, green: 120/255.0, blue: 106/255.0, alpha: 1.0)
     whiteRoundedCornerView.layer.masksToBounds = false
         return whiteRoundedCornerView
@@ -80,19 +80,27 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         let cellIdentifier = "EventTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! EventTableViewCell
         let event = self.events![indexPath.row]
-        cell.contentView.backgroundColor=UIColor(red: 2/255.0, green: 189/255.0, blue: 189/255.0, alpha: 1.0)
+        //cell.contentView.backgroundColor=UIColor(red: 2/255.0, green: 189/255.0, blue: 189/255.0, alpha: 1.0)
         let whiteRoundedCornerView = createCellCustom()
         cell.contentView.addSubview(whiteRoundedCornerView)
         cell.contentView.sendSubviewToBack(whiteRoundedCornerView)
         let formatedStartTime = (event.StartTime).characters.split{$0 == ":"}.map(String.init)
         let formatedDuration = (event.Duration).characters.split{$0 == ":"}.map(String.init)
+        let separators = NSCharacterSet(charactersInString: "–")
+        let formatedTitle = (event.Title).componentsSeparatedByCharactersInSet(separators)
         let day = EventConferenceDay.getById(event.ConferenceDayId)
         let room = EventConferenceRoom.getById(event.ConferenceRoomId)
-        cell.eventNameLabel.text = event.Title
+        cell.eventNameLabel.text = formatedTitle[0]
+        if (formatedTitle.count > 1) {
+            cell.eventSubNameLabel.text = "| " + formatedTitle[1]
+        }
+        else {
+            cell.eventSubNameLabel.text = ""
+        }
         cell.eventDateLabel.text = " " + formatedStartTime[0] + "h" + formatedStartTime[1]
         cell.eventDurationLabel.text = " "  + formatedDuration[0] + " hour(s) " + formatedDuration[1] + " min"
         cell.eventRoomLabel.text = " " + room!.Name
-        cell.eventDayLabel.text = day!.Name
+        cell.eventDayLabel.text = " | " + day!.Name
         cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
         cell.tintColor = UIColor.whiteColor()
 

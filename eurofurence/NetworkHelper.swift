@@ -28,8 +28,6 @@ class NetworkManager {
     
     func startNetworkManager() {
         self.reachability!.whenReachable = { reachability in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
             dispatch_async(dispatch_get_main_queue()) {
                 if reachability.isReachableViaWiFi() {
                     print("Wifi");
@@ -37,7 +35,7 @@ class NetworkManager {
                         ApiManager.sharedInstance.getAll();
                     }
                     else {
-                        ApiManager.sharedInstance.getDiff()
+                        //ApiManager.sharedInstance.getDiff()
                     }
                 } else {
                     print("Cellular");
@@ -49,16 +47,19 @@ class NetworkManager {
                         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
                     }
                     else {
-                        ApiManager.sharedInstance.getDiff()
+                        //ApiManager.sharedInstance.getDiff()
                     }
                 }
             }
         }
         self.reachability!.whenUnreachable = { reachability in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
             dispatch_async(dispatch_get_main_queue()) {
                 print("Not reachable")
+                if (self.isDatabaseAlreadyDownloadedOnce() == false) {
+                    let alert = UIAlertController(title: "Download database", message: "You should connect to a wifi or a cellular connexion to initiate the app data", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+                    UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                }
             }
         }
         do {

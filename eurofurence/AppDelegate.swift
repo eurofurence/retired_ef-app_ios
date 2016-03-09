@@ -11,6 +11,16 @@ import ReachabilitySwift
 import Fabric
 import Crashlytics
 
+extension UIImage {
+    func makeImageWithColorAndSize(color: UIColor, size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(CGRectMake(0, 0, size.width, size.height))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,13 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
         UINavigationBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         UINavigationBar.appearance().barStyle = .Black
-        UITabBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
-        UITabBar.appearance().tintColor = UIColor.whiteColor();
+        UITabBar.appearance().tintColor = UIColor(red: 0/255.0, green: 137/255.0, blue: 122/255.0, alpha: 1.0)
+        //UITabBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
         if(UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:")))
         {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound , .Alert , .Badge], categories: nil))
@@ -34,19 +43,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             //
         }
+        
+        
         let notification = UILocalNotification()
         notification.alertBody = "Eurofurence app is running !"
         notification.alertAction = "open"
-        notification.fireDate = NSDate(timeInterval: 120, sinceDate: NSDate())
+        notification.fireDate = NSDate(timeInterval: 20, sinceDate: NSDate())
         notification.soundName = UILocalNotificationDefaultSoundName
         notification.userInfo = ["UUID": "11_11_11", ]
         notification.category = "test"
         notification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        
+        
         NetworkManager.sharedInstance?.startNetworkManager();
+        
+        
+        if (!self.isTutorialAlreadyShown()) {
+          self.showTutorial()
+        }
+        else {
+            UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+        }
         return true
     }
     
+    func showTutorial() {
+        let rootVC = UIStoryboard(name: "Tutorial", bundle: nil).instantiateViewControllerWithIdentifier("TutorialPage") as! TutorialPageViewController
+        rootVC.view.frame = UIScreen.mainScreen().bounds
+        UIView.transitionWithView(self.window!, duration: 0.5, options: .TransitionCrossDissolve, animations: {
+            self.window!.rootViewController = rootVC
+            }, completion: nil)
+    }
+    
+    func isTutorialAlreadyShown()->Bool{
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let _ = defaults.stringForKey("appRunningForTheFirstTime"){
+            return true
+        }
+        else{
+            //defaults.setBool(true, forKey: "isAppAlreadyLaunchedOnce")
+            print("App is running for the first time")
+            return false
+        }
+    }
     
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

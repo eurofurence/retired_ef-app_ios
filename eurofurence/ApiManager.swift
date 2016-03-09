@@ -138,8 +138,6 @@ class ApiManager {
                 case .Failure:
                     print("Error with api manager");
                 }
-                
-                // To update anything on the main thread, just jump back on like so.
                 dispatch_async(dispatch_get_main_queue()) {
                     completion(result: "test")
                 }

@@ -35,7 +35,11 @@
 		BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C711C777F7C00371862 /* InfoGroup.swift */; };
 		BF994C741C777F8300371862 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C731C777F8300371862 /* Info.swift */; };
 		BF994C761C778A2200371862 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C751C778A2200371862 /* Loader.swift */; };
+		BFCD6C071C90465E009D5C58 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFCD6C061C90465E009D5C58 /* Tutorial.storyboard */; };
+		BFCD6C091C904786009D5C58 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C081C904786009D5C58 /* TutorialPageViewController.swift */; };
+		BFCD6C0B1C907577009D5C58 /* MapTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C0A1C907577009D5C58 /* MapTutorialViewController.swift */; };
 		BFD220671C72832D00C98A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD220661C72832D00C98A1E /* MapViewController.swift */; };
+		BFEC72AD1C8A04C800A0E6BB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC72AC1C8A04C800A0E6BB /* InfoViewController.swift */; };
 		FB0803C99528EAE2BFB4C356 /* Pods_eurofurence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C87EAEBCBA8B8F6901D981 /* Pods_eurofurence.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,7 +97,11 @@
 		BF994C711C777F7C00371862 /* InfoGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoGroup.swift; sourceTree = "<group>"; };
 		BF994C731C777F8300371862 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		BF994C751C778A2200371862 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		BFCD6C061C90465E009D5C58 /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
+		BFCD6C081C904786009D5C58 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
+		BFCD6C0A1C907577009D5C58 /* MapTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTutorialViewController.swift; sourceTree = "<group>"; };
 		BFD220661C72832D00C98A1E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		BFEC72AC1C8A04C800A0E6BB /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		DB734E7424C37FCED3741EDC /* Pods-eurofurence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,7 +171,6 @@
 				BF00E05D1C4FEDE600F998AA /* AppDelegate.swift */,
 				BF00E05F1C4FEDE600F998AA /* ViewController.swift */,
 				BF00E0641C4FEDE700F998AA /* Assets.xcassets */,
-				BF00E0661C4FEDE700F998AA /* LaunchScreen.storyboard */,
 				BF00E0691C4FEDE700F998AA /* Info.plist */,
 			);
 			path = eurofurence;
@@ -204,8 +211,10 @@
 		BF3CCA9E1C64BB220025A14E /* views */ = {
 			isa = PBXGroup;
 			children = (
+				BF00E0661C4FEDE700F998AA /* LaunchScreen.storyboard */,
 				BF6C4AA61C64C2AC002D250E /* cells */,
 				BF00E0611C4FEDE700F998AA /* Main.storyboard */,
+				BFCD6C061C90465E009D5C58 /* Tutorial.storyboard */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -219,6 +228,9 @@
 				BF1530911C73C0AA0085DF4C /* InfoCollectionViewController.swift */,
 				BF2B01821C7E19BA00499E4B /* NewsTableViewController.swift */,
 				BF2B01881C7E2C8800499E4B /* NewsViewController.swift */,
+				BFEC72AC1C8A04C800A0E6BB /* InfoViewController.swift */,
+				BFCD6C081C904786009D5C58 /* TutorialPageViewController.swift */,
+				BFCD6C0A1C907577009D5C58 /* MapTutorialViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -366,6 +378,7 @@
 			files = (
 				BF00E0681C4FEDE700F998AA /* LaunchScreen.storyboard in Resources */,
 				BF00E0651C4FEDE700F998AA /* Assets.xcassets in Resources */,
+				BFCD6C071C90465E009D5C58 /* Tutorial.storyboard in Resources */,
 				BF00E0631C4FEDE700F998AA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,10 +466,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFD220671C72832D00C98A1E /* MapViewController.swift in Sources */,
+				BFCD6C0B1C907577009D5C58 /* MapTutorialViewController.swift in Sources */,
 				BF3FB3E31C65162D006E2EBB /* EventViewController.swift in Sources */,
 				BF2B01891C7E2C8800499E4B /* NewsViewController.swift in Sources */,
 				BF994C6C1C777F5400371862 /* EventConferenceTrack.swift in Sources */,
+				BFEC72AD1C8A04C800A0E6BB /* InfoViewController.swift in Sources */,
 				BF994C741C777F8300371862 /* Info.swift in Sources */,
+				BFCD6C091C904786009D5C58 /* TutorialPageViewController.swift in Sources */,
 				BF61C0901C70EBBE005F5C5B /* EventEntry.swift in Sources */,
 				BF994C6E1C777F6A00371862 /* EventConferenceDay.swift in Sources */,
 				BF61C0921C70F3A3005F5C5B /* ObjectManager.swift in Sources */,

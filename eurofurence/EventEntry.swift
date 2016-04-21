@@ -51,4 +51,52 @@ class EventEntry: Object {
         }
         return nil
     }
+    
+    static func getByTitle(title:String) -> Results<EventEntry>?{
+        do {
+            let realm = try Realm()
+            let predicate = NSPredicate(format: "Title CONTAINS[c] %@", title)
+            let eventEntry = realm.objects(EventEntry).filter(predicate)
+            return eventEntry
+        } catch let error as NSError {
+            print(error)
+        }
+        return nil
+    }
+    
+    static func getByDayId(primaryKey:String) -> Results<EventEntry>?{
+        do {
+            let realm = try Realm()
+            let predicate = NSPredicate(format: "ConferenceDayId = %@", primaryKey)
+            let eventEntry = realm.objects(EventEntry).filter(predicate)
+            return eventEntry
+        } catch let error as NSError {
+            print(error)
+        }
+        return nil
+    }
+    
+    static func getByRoomId(primaryKey:String) -> Results<EventEntry>?{
+        do {
+            let realm = try Realm()
+            let predicate = NSPredicate(format: "ConferenceRoomId = %@", primaryKey)
+            let eventEntry = realm.objects(EventEntry).filter(predicate)
+            return eventEntry
+        } catch let error as NSError {
+            print(error)
+        }
+        return nil
+    }
+    
+    static func getByTrackId(primaryKey:String) -> Results<EventEntry>?{
+        do {
+            let realm = try Realm()
+            let predicate = NSPredicate(format: "ConferenceTrackId = %@", primaryKey)
+            let eventEntry = realm.objects(EventEntry).filter(predicate)
+            return eventEntry
+        } catch let error as NSError {
+            print(error)
+        }
+        return nil
+    }
 }

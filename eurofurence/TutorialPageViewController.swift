@@ -33,7 +33,8 @@ class TutorialPageViewController: UIPageViewController {
         }
         view.backgroundColor = UIColor.whiteColor()
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.lightGrayColor()
-        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.blackColor()
+        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.whiteColor()
+        UIPageControl.appearance().backgroundColor = UIColor(red: 4/255.0, green: 96/255.0, blue: 88/255.0, alpha: 0.9)
         // Do any additional setup after loading the view.
     }
 

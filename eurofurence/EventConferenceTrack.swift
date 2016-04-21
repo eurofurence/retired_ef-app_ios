@@ -22,7 +22,7 @@ class EventConferenceTrack: Object {
     static func getAll() -> Results<EventConferenceTrack>?{
         do {
             let realm = try Realm()
-            let eventConferenceTrack = realm.objects(EventConferenceTrack)
+            let eventConferenceTrack = realm.objects(EventConferenceTrack).sorted("Name")
             return eventConferenceTrack
         } catch let error as NSError {
             print(error)

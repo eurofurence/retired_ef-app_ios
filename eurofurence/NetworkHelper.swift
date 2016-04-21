@@ -35,7 +35,7 @@ class NetworkManager {
                         ApiManager.sharedInstance.getAll();
                     }
                     else {
-                        //ApiManager.sharedInstance.getDiff()
+                        ApiManager.sharedInstance.getDiff()
                     }
                 } else {
                     print("Cellular");
@@ -47,7 +47,7 @@ class NetworkManager {
                         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
                     }
                     else {
-                        //ApiManager.sharedInstance.getDiff()
+                        ApiManager.sharedInstance.getDiff()
                     }
                 }
             }

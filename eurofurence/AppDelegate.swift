@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(nil, forKey: "appRunningForTheFirstTime")
         UINavigationBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
@@ -60,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         if (!self.isTutorialAlreadyShown()) {
-          self.showTutorial()
+            self.showTutorial()
         }
         else {
             UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
@@ -104,6 +106,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        //GetDiff, ReloadTable
     }
     
     func applicationWillTerminate(application: UIApplication) {

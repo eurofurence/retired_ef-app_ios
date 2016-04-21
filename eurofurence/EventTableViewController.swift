@@ -12,13 +12,15 @@ import RealmSwift
 class EventTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate  {
     let searchController = UISearchController(searchResultsController: nil)
     var events = EventEntry.getAll();
+    var filteredEvent = Results<EventEntry>?()
+    var eventByType = ""
+    var eventTypeKey = ""
     var lastUpdate = NSDate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
-        self.searchController.searchBar.scopeButtonTitles = ["All", "Today", "Now"]
         self.searchController.searchBar.delegate = self
         //self.searchController.searchBar.barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 0.5);
         self.searchController.searchBar.tintColor = UIColor.whiteColor();
@@ -35,6 +37,27 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        switch self.eventByType {
+        case "":
+            self.searchController.searchBar.selectedScopeButtonIndex = 0;
+            self.events = EventEntry.getAll();
+        case "Room":
+            self.searchController.searchBar.selectedScopeButtonIndex = 1;
+            self.events = EventEntry.getByRoomId(self.eventTypeKey);
+        case "Track":
+            self.searchController.searchBar.selectedScopeButtonIndex = 2;
+            self.events = EventEntry.getByTrackId(self.eventTypeKey);
+        case "Day":
+            self.searchController.searchBar.selectedScopeButtonIndex = 3;
+            self.events = EventEntry.getByDayId(self.eventTypeKey);
+        default:
+            break
+        }
+        self.tableView.reloadData()
+
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
@@ -54,19 +77,17 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         });
     }
     // MARK: - Table view data source
-    func updateSearchResultsForSearchController(searchController: UISearchController)
-    {
 
-        
-        self.tableView.reloadData()
-    }
-    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.events!.count;
+        if searchController.active && searchController.searchBar.text != "" {
+            return self.filteredEvent!.count
+        }
+         return self.events!.count;
+       
     }
 
     func createCellCustom() -> UIView{
@@ -79,7 +100,13 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "EventTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! EventTableViewCell
-        let event = self.events![indexPath.row]
+        let event: EventEntry
+        if searchController.active && searchController.searchBar.text != "" {
+             event = self.filteredEvent![indexPath.row]
+        } else {
+             event = self.events![indexPath.row]
+        }
+        
         //cell.contentView.backgroundColor=UIColor(red: 2/255.0, green: 189/255.0, blue: 189/255.0, alpha: 1.0)
         let whiteRoundedCornerView = createCellCustom()
         cell.contentView.addSubview(whiteRoundedCornerView)
@@ -107,7 +134,17 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         return cell
     }
     
+    func updateSearchResultsForSearchController(searchController: UISearchController)
+    {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
 
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        filteredEvent = EventEntry.getByTitle(searchText);
+        tableView.reloadData()
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

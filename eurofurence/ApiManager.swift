@@ -19,6 +19,16 @@ class ApiManager {
     let objects = [ConfigManager.sharedInstance.eventEntry, ConfigManager.sharedInstance.eventConferenceTrack, ConfigManager.sharedInstance.eventConferenceDay, ConfigManager.sharedInstance.eventConferenceRoom, ConfigManager.sharedInstance.infoGroup, ConfigManager.sharedInstance.info]
     var requestedObjects = 0
     
+    func deleteOldElements(dbObject:Object) {
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "IsDeleted = %@", "1")
+        let results = realm.objects(dbObject.dynamicType).filter(predicate)
+            try! realm.write {
+                realm.delete(results);
+            }
+
+    }
+    
     func getAllFromAlert(alert: UIAlertAction) -> Void {
         LoadingOverlay.sharedInstance.showOverlay()
         for object in self.objects {
@@ -139,6 +149,7 @@ class ApiManager {
                     print("Error with api manager");
                 }
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.deleteOldElements(dbObject);
                     completion(result: "test")
                 }
             }

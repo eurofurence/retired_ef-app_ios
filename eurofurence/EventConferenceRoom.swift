@@ -22,7 +22,7 @@ class EventConferenceRoom: Object {
     static func getAll() -> Results<EventConferenceRoom>?{
         do {
             let realm = try Realm()
-            let eventConferenceRoom = realm.objects(EventConferenceRoom)
+            let eventConferenceRoom = realm.objects(EventConferenceRoom).sorted("Name")
             return eventConferenceRoom
         } catch let error as NSError {
             print(error)

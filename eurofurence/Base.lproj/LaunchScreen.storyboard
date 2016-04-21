@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,29 +13,17 @@
                         <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleAspectFit" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ef-logo-bigger" translatesAutoresizingMaskIntoConstraints="NO" id="a8v-bU-6QB">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                                <color key="backgroundColor" red="0.0039215686274509803" green="0.38431372549019605" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.94999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="a8v-bU-6QB">
+                                <rect key="frame" x="128" y="20" width="472" height="580"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eurofurence " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6X-SN-nII">
-                                <rect key="frame" x="230" y="524" width="140" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="t6X-SN-nII" secondAttribute="height" multiplier="145:46" id="Bdz-Al-Bhd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.074509803921568626" green="0.41176470588235292" blue="0.38431372549019605" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="t6X-SN-nII" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="2No-J7-dkE"/>
                             <constraint firstItem="a8v-bU-6QB" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="720-F9-FMM"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="t6X-SN-nII" secondAttribute="bottom" constant="32" id="JDP-D8-5sh"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="a8v-bU-6QB" secondAttribute="bottom" id="PvK-H4-Ibd"/>
                             <constraint firstItem="a8v-bU-6QB" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="bWY-Q8-Xui"/>
                             <constraint firstAttribute="trailing" secondItem="a8v-bU-6QB" secondAttribute="trailing" id="udU-Hz-RUR"/>
@@ -49,6 +36,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ef-logo-bigger" width="256" height="256"/>
+        <image name="Launchscreen" width="375" height="667"/>
     </resources>
 </document>

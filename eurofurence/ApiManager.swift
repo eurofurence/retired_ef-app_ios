@@ -35,7 +35,7 @@ class ApiManager {
             if let objectInstance = ObjectFromString.sharedInstance.instanciate(object) {
                 self.get(objectInstance as! Object, objectName: object, completion: {
                     (result: String) in
-                    self.requestedObjects++;
+                    self.requestedObjects += 1;
                     if (self.requestedObjects == self.objects.count) {
                         LoadingOverlay.sharedInstance.hideOverlay()
                         let defaults = NSUserDefaults.standardUserDefaults()
@@ -56,7 +56,7 @@ class ApiManager {
             if let objectInstance = ObjectFromString.sharedInstance.instanciate(object) {
                 self.get(objectInstance as! Object, objectName: object, completion: {
                     (result: String) in
-                    self.requestedObjects++;
+                    self.requestedObjects += 1;
                     if (self.requestedObjects == self.objects.count) {
                         LoadingOverlay.sharedInstance.hideOverlay()
                         let defaults = NSUserDefaults.standardUserDefaults()

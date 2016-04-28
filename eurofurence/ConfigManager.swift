@@ -16,6 +16,7 @@ class ConfigManager {
     let eventConferenceRoom = "EventConferenceRoom"
     let infoGroup = "InfoGroup"
     let info = "Info"
+    let announcement = "Announcement"
     let image = "Image"
     
   static let sharedInstance = ConfigManager()

@@ -15,7 +15,7 @@ class Info: Object {
     dynamic var IsDeleted = ""
     dynamic var Title = ""
     dynamic var Text = ""
-    dynamic var InfoGroupEntryId = ""
+    dynamic var InfoGroupId = ""
     dynamic var Position = ""
     
     override static func primaryKey() -> String? {
@@ -47,7 +47,7 @@ class Info: Object {
     static func getByGroupId(primaryKey:String) -> Info?{
         do {
             let realm = try Realm()
-            let predicate = NSPredicate(format: "InfoGroupEntryId = %@", primaryKey)
+            let predicate = NSPredicate(format: "InfoGroupId = %@", primaryKey)
             let info = realm.objects(Info).filter(predicate)
             return info.first
         } catch let error as NSError {

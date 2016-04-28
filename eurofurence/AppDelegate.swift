@@ -84,8 +84,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         else{
-            //defaults.setBool(true, forKey: "isAppAlreadyLaunchedOnce")
-            print("App is running for the first time")
+            defaults.setBool(true, forKey: "isAppAlreadyLaunchedOnce")
+            //print("App is running for the first time")
             return false
         }
     }

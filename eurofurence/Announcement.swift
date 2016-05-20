@@ -12,11 +12,13 @@ import RealmSwift
 class Announcement: Object {
     dynamic var Id = ""
     dynamic var LastChangeDateTimeUtc = ""
+    dynamic var ValidFromDateTimeUtc = ""
+    dynamic var ValidUntilDateTimeUtc = ""
+    dynamic var Area = ""
+    dynamic var Author = ""
     dynamic var IsDeleted = ""
     dynamic var Title = ""
-    dynamic var Text = ""
-    dynamic var InfoGroupId = ""
-    dynamic var Position = ""
+    dynamic var Content = ""
     
     override static func primaryKey() -> String? {
         return "Id"

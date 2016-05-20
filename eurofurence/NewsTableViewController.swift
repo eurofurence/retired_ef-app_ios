@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NewsTableViewController: UITableViewController {
+    var annoucements = Announcement.getAll();
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 70
-        tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.backgroundColor = UIColor.blackColor();
+        tableView.estimatedRowHeight = 70;
+        tableView.rowHeight = UITableViewAutomaticDimension;
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -35,7 +38,13 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return (self.annoucements!.count + 1)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.annoucements = Announcement.getAll();
+        self.tableView.reloadData()
+        
     }
     
     func createCellCustom() -> UIView{
@@ -45,24 +54,35 @@ class NewsTableViewController: UITableViewController {
         return whiteRoundedCornerView
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell;
-        if (indexPath.row == 0) {
-            cell = tableView.dequeueReusableCellWithIdentifier("NewsHeaderTableViewCell", forIndexPath: indexPath)
+    func instanciateCell(index :NSIndexPath, tableView: UITableView) -> UITableViewCell{
+        if (index.row == 0) {
+            let cell = tableView.dequeueReusableCellWithIdentifier("NewsHeaderTableViewCell", forIndexPath: index)
+            return cell as UITableViewCell;
+            
         }
         else {
-            cell = tableView.dequeueReusableCellWithIdentifier("NewsTableViewCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("NewsTableViewCell", forIndexPath: index) as! NewsTableViewCell
             cell.tintColor = UIColor.whiteColor()
             cell.contentView.backgroundColor=UIColor.blackColor()
             let whiteRoundedCornerView = createCellCustom()
             cell.contentView.addSubview(whiteRoundedCornerView)
             cell.contentView.sendSubviewToBack(whiteRoundedCornerView)
+            cell.titleLabel.text = self.annoucements![index.row - 1].Title;
+            cell.descLabel.text = self.annoucements![index.row - 1].Content;
+            return cell as UITableViewCell;
         }
+
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = instanciateCell(indexPath, tableView: tableView);
         
         
-        // Configure the cell...
         
         return cell
+        // Configure the cell...
+        
+
     }
     
     /*
@@ -109,5 +129,17 @@ class NewsTableViewController: UITableViewController {
     // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "NewsTableViewSegue"
+        {
+            if let destinationVC = segue.destinationViewController as? NewsViewController{
+                let index = self.tableView.indexPathForSelectedRow!
+                destinationVC.news = self.annoucements![index.row - 1]
+            }
+        }
+    }
     
 }

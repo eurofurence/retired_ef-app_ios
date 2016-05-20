@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF006C4D1CD3B299006F5871 /* InfosTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF006C4C1CD3B299006F5871 /* InfosTutorialViewController.swift */; };
 		BF00E05E1C4FEDE600F998AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E05D1C4FEDE600F998AA /* AppDelegate.swift */; };
 		BF00E0601C4FEDE600F998AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E05F1C4FEDE600F998AA /* ViewController.swift */; };
 		BF00E0631C4FEDE700F998AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF00E0611C4FEDE700F998AA /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C711C777F7C00371862 /* InfoGroup.swift */; };
 		BF994C741C777F8300371862 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C731C777F8300371862 /* Info.swift */; };
 		BF994C761C778A2200371862 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C751C778A2200371862 /* Loader.swift */; };
+		BFACDCF81CEB08E700977690 /* InfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFACDCF71CEB08E700977690 /* InfoTableViewController.swift */; };
 		BFCD6C071C90465E009D5C58 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFCD6C061C90465E009D5C58 /* Tutorial.storyboard */; };
 		BFCD6C091C904786009D5C58 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C081C904786009D5C58 /* TutorialPageViewController.swift */; };
 		BFCD6C0B1C907577009D5C58 /* MapTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C0A1C907577009D5C58 /* MapTutorialViewController.swift */; };
@@ -67,6 +69,7 @@
 /* Begin PBXFileReference section */
 		17C87EAEBCBA8B8F6901D981 /* Pods_eurofurence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eurofurence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA1ACB751A2737ECDEDC4E5 /* Pods-eurofurence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.release.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.release.xcconfig"; sourceTree = "<group>"; };
+		BF006C4C1CD3B299006F5871 /* InfosTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfosTutorialViewController.swift; sourceTree = "<group>"; };
 		BF00E05A1C4FEDE600F998AA /* Eurofurence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eurofurence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF00E05D1C4FEDE600F998AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF00E05F1C4FEDE600F998AA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 		BF994C711C777F7C00371862 /* InfoGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoGroup.swift; sourceTree = "<group>"; };
 		BF994C731C777F8300371862 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		BF994C751C778A2200371862 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		BFACDCF71CEB08E700977690 /* InfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewController.swift; sourceTree = "<group>"; };
 		BFCD6C061C90465E009D5C58 /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
 		BFCD6C081C904786009D5C58 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		BFCD6C0A1C907577009D5C58 /* MapTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTutorialViewController.swift; sourceTree = "<group>"; };
@@ -297,6 +301,7 @@
 			children = (
 				BFCD6C081C904786009D5C58 /* TutorialPageViewController.swift */,
 				BFCD6C0A1C907577009D5C58 /* MapTutorialViewController.swift */,
+				BF006C4C1CD3B299006F5871 /* InfosTutorialViewController.swift */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -306,6 +311,7 @@
 			children = (
 				BF1530911C73C0AA0085DF4C /* InfoCollectionViewController.swift */,
 				BFEC72AC1C8A04C800A0E6BB /* InfoViewController.swift */,
+				BFACDCF71CEB08E700977690 /* InfoTableViewController.swift */,
 			);
 			name = Info;
 			sourceTree = "<group>";
@@ -536,7 +542,9 @@
 				BF1530921C73C0AA0085DF4C /* InfoCollectionViewController.swift in Sources */,
 				BF6C4AA81C64C314002D250E /* EventTableViewCell.swift in Sources */,
 				BF67807C1C811E0100E8630F /* Endpoint.swift in Sources */,
+				BF006C4D1CD3B299006F5871 /* InfosTutorialViewController.swift in Sources */,
 				BF00E0601C4FEDE600F998AA /* ViewController.swift in Sources */,
+				BFACDCF81CEB08E700977690 /* InfoTableViewController.swift in Sources */,
 				BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */,
 				BFCD6C0D1C908FD1009D5C58 /* EventCollectionViewController.swift in Sources */,
 				BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */,
@@ -638,7 +646,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -677,7 +685,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

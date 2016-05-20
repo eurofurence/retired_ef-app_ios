@@ -44,12 +44,12 @@ class Info: Object {
         return nil
     }
     
-    static func getByGroupId(primaryKey:String) -> Info?{
+    static func getByGroupId(primaryKey:String) -> Results<Info>?{
         do {
             let realm = try Realm()
             let predicate = NSPredicate(format: "InfoGroupId = %@", primaryKey)
             let info = realm.objects(Info).filter(predicate)
-            return info.first
+            return info
         } catch let error as NSError {
             print(error)
         }

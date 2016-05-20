@@ -16,7 +16,7 @@ class EventFilterTableViewController: UITableViewController {
     var track = EventConferenceTrack.getAll();
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tableView.backgroundColor =  UIColor(red: 0/255.0, green: 120/255.0, blue: 106/255.0, alpha: 1.0);
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -34,10 +34,13 @@ class EventFilterTableViewController: UITableViewController {
         case "All":
            self.performSegueWithIdentifier("EventFilterToEventTableSegue", sender: self);
         case "Room":
+            self.navigationItem.title = "Room";
             room = EventConferenceRoom.getAll();
         case "Track":
+            self.navigationItem.title = "Track";
             track = EventConferenceTrack.getAll();
         case "Day":
+            self.navigationItem.title = "Day";
             day = EventConferenceDay.getAll();
         default:
             break

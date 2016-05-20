@@ -13,8 +13,8 @@ class MapTutorialViewController: UIViewController {
     @IBOutlet weak var quitTutorialButtonDesign: UIButton!
     @IBAction func quitTutorialButton(sender: AnyObject) {
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setBool(false, forKey: "appRunningForTheFirstTime")
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+        defaults.setBool(true, forKey: "appRunningForTheFirstTime")
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         showApp()
     }
     

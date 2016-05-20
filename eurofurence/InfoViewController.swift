@@ -11,7 +11,7 @@ import UIKit
 class InfoViewController: UIViewController {
     @IBOutlet weak var InfoTitleLabel: UILabel!
     @IBOutlet weak var InfoDescTextView: UITextView!
-    var infoGroup = InfoGroup();
+    var info = Info();
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +20,9 @@ class InfoViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        let info = Info.getByGroupId(infoGroup.Id)
-        InfoTitleLabel.text = info!.Title;
-        InfoDescTextView.text = info!.Text;
+        self.InfoTitleLabel.text = self.info.Title;
+        self.InfoDescTextView.text = self.info.Text;
+        
     }
 
     override func didReceiveMemoryWarning() {

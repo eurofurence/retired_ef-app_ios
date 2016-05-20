@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NewsViewController: UIViewController {
-
+        var news = Announcement()
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +24,10 @@ class NewsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+       override func viewWillAppear(animated: Bool) {
+        self.titleLabel.text = news.Title;
+        self.descriptionLabel.text = news.Content;
+    }
 
     /*
     // MARK: - Navigation

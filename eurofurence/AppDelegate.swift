@@ -29,24 +29,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(nil, forKey: "appRunningForTheFirstTime")
+        //let defaults = NSUserDefaults.standardUserDefaults()
+        //defaults.setObject(nil, forKey: "appRunningForTheFirstTime")
         UINavigationBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         UINavigationBar.appearance().barStyle = .Black
         UITabBar.appearance().tintColor = UIColor(red: 0/255.0, green: 137/255.0, blue: 122/255.0, alpha: 1.0)
         //UITabBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
-        if(UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:")))
-        {
-            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound , .Alert , .Badge], categories: nil))
-        }
-        else
-        {
-            //
-        }
+
         
-        
+        /*
         let notification = UILocalNotification()
         notification.alertBody = "Eurofurence app is running !"
         notification.alertAction = "open"
@@ -56,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         notification.category = "test"
         notification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
-        
+        */
         
         NetworkManager.sharedInstance?.startNetworkManager();
         
@@ -65,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.showTutorial()
         }
         else {
-            UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+            UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         }
         return true
     }
@@ -81,12 +74,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func isTutorialAlreadyShown()->Bool{
         let defaults = NSUserDefaults.standardUserDefaults()
         if let _ = defaults.stringForKey("appRunningForTheFirstTime"){
-            return true
+            return true;
         }
         else{
-            defaults.setBool(true, forKey: "isAppAlreadyLaunchedOnce")
+            //defaults.setBool(true, forKey: "isAppAlreadyLaunchedOnce")
             //print("App is running for the first time")
-            return false
+            return false;
         }
     }
     

@@ -116,9 +116,9 @@ var sectionMenu = InfoGroup.getAll();
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "InfoCollectionViewSegue"
+        if segue.identifier == "infoCatToListSegue"
         {
-            if let destinationVC = segue.destinationViewController as? InfoViewController{
+            if let destinationVC = segue.destinationViewController as? InfoTableViewController{
                 let cell = sender as! InfoCollectionViewCell
                 let index = self.collectionView?.indexPathForCell(cell)
                 destinationVC.infoGroup = sectionMenu![index!.row]

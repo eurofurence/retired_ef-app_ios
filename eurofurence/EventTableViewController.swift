@@ -89,10 +89,17 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
          return self.events!.count;
        
     }
+    private func addBorderUtility(x x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, color: UIColor) ->CALayer {
+        let border = CALayer()
+        border.backgroundColor = color.CGColor
+        border.frame = CGRect(x: x, y: y, width: width, height: height)
+        return border;
+    }
 
-    func createCellCustom() -> UIView{
-    let whiteRoundedCornerView = UIView(frame: CGRectMake(5,10,self.view.bounds.width-10,118))
-    whiteRoundedCornerView.backgroundColor = UIColor(red: 0/255.0, green: 120/255.0, blue: 106/255.0, alpha: 1.0)
+    func createCellCustom(frame: CGRect) -> UIView{
+
+    let whiteRoundedCornerView = UIView(frame: frame)
+    whiteRoundedCornerView.backgroundColor = UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
     whiteRoundedCornerView.layer.masksToBounds = false
         return whiteRoundedCornerView
     }
@@ -106,9 +113,11 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         } else {
              event = self.events![indexPath.row]
         }
-        
+        let frame = CGRectMake(5,10,self.view.bounds.width-10,118);
         //cell.contentView.backgroundColor=UIColor(red: 2/255.0, green: 189/255.0, blue: 189/255.0, alpha: 1.0)
-        let whiteRoundedCornerView = createCellCustom()
+        let whiteRoundedCornerView = createCellCustom(frame)
+        let whiteBorder = addBorderUtility(x: 0, y: frame.height - 1.0, width: frame.width, height: 1.0, color: UIColor(red: 86/255.0, green: 87/255.0, blue: 89/255.0, alpha: 1.0))
+                cell.layer.addSublayer(whiteBorder)
         cell.contentView.addSubview(whiteRoundedCornerView)
         cell.contentView.sendSubviewToBack(whiteRoundedCornerView)
         let formatedStartTime = (event.StartTime).characters.split{$0 == ":"}.map(String.init)

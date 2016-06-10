@@ -52,6 +52,10 @@ class InfoTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView(frame: .zero)
+    }
+
 
     /*
     // Override to support conditional editing of the table view.

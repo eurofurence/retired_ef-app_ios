@@ -21,6 +21,8 @@
 		BF2B01851C7E1BE500499E4B /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01841C7E1BE500499E4B /* NewsTableViewCell.swift */; };
 		BF2B01871C7E252B00499E4B /* NewsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01861C7E252B00499E4B /* NewsHeaderTableViewCell.swift */; };
 		BF2B01891C7E2C8800499E4B /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01881C7E2C8800499E4B /* NewsViewController.swift */; };
+		BF37FFB11D1441BD00F25791 /* Dealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF37FFB01D1441BD00F25791 /* Dealer.swift */; };
+		BF37FFB41D144A4800F25791 /* DealerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF37FFB31D144A4800F25791 /* DealerTableViewController.swift */; };
 		BF3FB3E31C65162D006E2EBB /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FB3E21C65162D006E2EBB /* EventViewController.swift */; };
 		BF61C0891C70CFB8005F5C5B /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */; };
 		BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */; };
@@ -89,6 +91,8 @@
 		BF2B01841C7E1BE500499E4B /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		BF2B01861C7E252B00499E4B /* NewsHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		BF2B01881C7E2C8800499E4B /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		BF37FFB01D1441BD00F25791 /* Dealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dealer.swift; sourceTree = "<group>"; };
+		BF37FFB31D144A4800F25791 /* DealerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealerTableViewController.swift; sourceTree = "<group>"; };
 		BF3FB3E21C65162D006E2EBB /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
@@ -206,6 +210,14 @@
 			path = eurofurenceUITests;
 			sourceTree = "<group>";
 		};
+		BF37FFB21D144A3200F25791 /* Dealer */ = {
+			isa = PBXGroup;
+			children = (
+				BF37FFB31D144A4800F25791 /* DealerTableViewController.swift */,
+			);
+			name = Dealer;
+			sourceTree = "<group>";
+		};
 		BF3CCA9D1C64BB190025A14E /* models */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +229,7 @@
 				BF994C731C777F8300371862 /* Info.swift */,
 				BF67807B1C811E0100E8630F /* Endpoint.swift */,
 				BF8CC9CC1CD2405800011D09 /* Announcement.swift */,
+				BF37FFB01D1441BD00F25791 /* Dealer.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -235,6 +248,7 @@
 		BF3CCA9F1C64BB2A0025A14E /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				BF37FFB21D144A3200F25791 /* Dealer */,
 				BFCD6C121C909019009D5C58 /* Info */,
 				BFCD6C111C908FFB009D5C58 /* Tutorial */,
 				BFCD6C101C908FF7009D5C58 /* Map */,
@@ -335,6 +349,7 @@
 				21CFEAB701EBB076B72905A9 /* Check Pods Manifest.lock */,
 				BF00E0561C4FEDE600F998AA /* Sources */,
 				BF00E0571C4FEDE600F998AA /* Frameworks */,
+				BFB2FB201D0ABD7800A5CF44 /* ShellScript */,
 				BF00E0581C4FEDE600F998AA /* Resources */,
 				328B40210F95092FAAC5767F /* Embed Pods Frameworks */,
 				7ED9BCCAB9661CE02205CFA8 /* Copy Pods Resources */,
@@ -516,6 +531,19 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run 2de28adb0682e1ae06f0a4d508a45bc361b13342 87aed714c096487213254ac42c3275341289cd1c5abdd31aa637004ebdaf5da6";
 		};
+		BFB2FB201D0ABD7800A5CF44 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# xcode-build-bump.sh\n# @desc Auto-increment the build number every time the project is run.\n# @usage\n# 1. Select: your Target in Xcode\n# 2. Select: Build Phases Tab\n# 3. Select: Add Build Phase -> Add Run Script\n# 4. Paste code below in to new \"Run Script\" section\n# 5. Drag the \"Run Script\" below \"Link Binaries With Libraries\"\n# 6. Insure that your starting build number is set to a whole integer and not a float (e.g. 1, not 1.0)\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -531,6 +559,7 @@
 				BFEC72AD1C8A04C800A0E6BB /* InfoViewController.swift in Sources */,
 				BF994C741C777F8300371862 /* Info.swift in Sources */,
 				BFCD6C091C904786009D5C58 /* TutorialPageViewController.swift in Sources */,
+				BF37FFB41D144A4800F25791 /* DealerTableViewController.swift in Sources */,
 				BF61C0901C70EBBE005F5C5B /* EventEntry.swift in Sources */,
 				BF994C6E1C777F6A00371862 /* EventConferenceDay.swift in Sources */,
 				BF61C0921C70F3A3005F5C5B /* ObjectManager.swift in Sources */,
@@ -545,6 +574,7 @@
 				BF006C4D1CD3B299006F5871 /* InfosTutorialViewController.swift in Sources */,
 				BF00E0601C4FEDE600F998AA /* ViewController.swift in Sources */,
 				BFACDCF81CEB08E700977690 /* InfoTableViewController.swift in Sources */,
+				BF37FFB11D1441BD00F25791 /* Dealer.swift in Sources */,
 				BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */,
 				BFCD6C0D1C908FD1009D5C58 /* EventCollectionViewController.swift in Sources */,
 				BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */,

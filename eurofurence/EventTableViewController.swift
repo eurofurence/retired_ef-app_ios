@@ -137,7 +137,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         cell.eventDurationLabel.text = " "  + formatedDuration[0] + " hour(s) " + formatedDuration[1] + " min"
         cell.eventRoomLabel.text = " " + room!.Name
         cell.eventDayLabel.text = " | " + day!.Name
-        cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         cell.tintColor = UIColor.whiteColor()
 
         return cell

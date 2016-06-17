@@ -131,53 +131,5 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eurofurence/ApiManager.swift"
-            timestampString = "484649664.712269"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "getDiff()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Eurofurence.ApiManager.(getDiff () -&gt; ()).(closure #1)"
-                  moduleName = "Eurofurence"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bonmar_v/Documents/IOS/eurofurence/eurofurence/ApiManager.swift"
-                  timestampString = "484649664.735085"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "476">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Eurofurence.ApiManager.(getDiff () -&gt; ()).(closure #1)"
-                  moduleName = "Eurofurence"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bonmar_v/Documents/IOS/eurofurence/eurofurence/ApiManager.swift"
-                  timestampString = "484649664.736931"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "800">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

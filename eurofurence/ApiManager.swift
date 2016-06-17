@@ -16,7 +16,7 @@ class ApiManager {
     var progressView: UIProgressView?
     var progressLabel: UILabel?
     static let sharedInstance = ApiManager()
-    let objects = [ConfigManager.sharedInstance.eventEntry, ConfigManager.sharedInstance.eventConferenceTrack, ConfigManager.sharedInstance.eventConferenceDay, ConfigManager.sharedInstance.eventConferenceRoom, ConfigManager.sharedInstance.infoGroup, ConfigManager.sharedInstance.info, ConfigManager.sharedInstance.announcement]
+    let objects = [ConfigManager.sharedInstance.eventEntry, ConfigManager.sharedInstance.eventConferenceTrack, ConfigManager.sharedInstance.eventConferenceDay, ConfigManager.sharedInstance.eventConferenceRoom, ConfigManager.sharedInstance.infoGroup, ConfigManager.sharedInstance.info, ConfigManager.sharedInstance.announcement, ConfigManager.sharedInstance.dealer]
     var requestedObjects = 0
     
     func deleteOldElements(dbObject:Object) {

@@ -9,7 +9,7 @@
 import Foundation
 
 class ConfigManager {
-    let apiBaseUrl = "http://eurofurencewebapi.azurewebsites.net/"
+    let apiBaseUrl = "https://app.eurofurence.org/api/"
     let eventEntry = "EventEntry"
     let eventConferenceTrack = "EventConferenceTrack"
     let eventConferenceDay = "EventConferenceDay"
@@ -18,6 +18,7 @@ class ConfigManager {
     let info = "Info"
     let announcement = "Announcement"
     let image = "Image"
+    let dealer = "Dealer"
     
   static let sharedInstance = ConfigManager()
 }

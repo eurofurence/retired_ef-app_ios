@@ -48,6 +48,11 @@ class ObjectFromString {
                 let object = classObject.init()
                 return object
             }
+        case ConfigManager.sharedInstance.dealer:
+            if let classObject = NSClassFromString("Eurofurence." + className) as? Dealer.Type {
+                let object = classObject.init()
+                return object
+            }
         default :
             print("Class not found")
         }

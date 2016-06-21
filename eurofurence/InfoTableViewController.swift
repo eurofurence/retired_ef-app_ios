@@ -46,6 +46,7 @@ class InfoTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("infoCell", forIndexPath: indexPath)
+        cell.backgroundColor = UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         cell.textLabel!.text = infoList![indexPath.row].Title;
         // Configure the cell...
 

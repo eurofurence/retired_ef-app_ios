@@ -27,6 +27,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         self.refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -117,6 +118,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         //cell.contentView.backgroundColor=UIColor(red: 2/255.0, green: 189/255.0, blue: 189/255.0, alpha: 1.0)
         let whiteRoundedCornerView = createCellCustom(frame)
         let whiteBorder = addBorderUtility(x: 0, y: frame.height - 1.0, width: frame.width, height: 1.0, color: UIColor(red: 86/255.0, green: 87/255.0, blue: 89/255.0, alpha: 1.0))
+        cell.backgroundColor = UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
                 cell.layer.addSublayer(whiteBorder)
         cell.contentView.addSubview(whiteRoundedCornerView)
         cell.contentView.sendSubviewToBack(whiteRoundedCornerView)
@@ -154,6 +156,9 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         tableView.reloadData()
     }
     
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView(frame: .zero)
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

@@ -8,13 +8,15 @@
 
 import UIKit
 import RealmSwift
+import Alamofire
+import AlamofireImage
 
 class DealerTableViewController: UITableViewController {
     var dealers = Dealer.getAll();
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -46,9 +48,22 @@ class DealerTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("dealersCell", forIndexPath: indexPath)
-
-        cell.textLabel!.text = self.dealers![indexPath.row].DisplayName;
+        let cell = tableView.dequeueReusableCellWithIdentifier("DealersTableViewCell", forIndexPath: indexPath) as! DealersTableViewCell
+        cell.displayNameDealerLabel!.text = self.dealers![indexPath.row].AttendeeNickname;
+        if let subname = self.dealers![indexPath.row].DisplayName {
+            cell.subnameDealerLabel!.text = subname;
+        }
+        cell.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
+        cell.shortDescriptionDealerLabel!.text = self.dealers![indexPath.row].ShortDescription;
+        let baseImage = ConfigManager.sharedInstance.apiBaseUrl +  "ImageData/"
+        if let url =   self.dealers![indexPath.row].ArtistThumbnailImageId {
+        let downloadUrl = NSURL(string: baseImage + url)!
+            print(downloadUrl)
+            cell.artistDealerImage.af_setImageWithURL(downloadUrl);
+        }
+        else {
+             cell.artistDealerImage.image = UIImage(named: "defaultAvatar");
+        }
 
         return cell
     }

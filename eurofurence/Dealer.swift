@@ -34,7 +34,7 @@ class Dealer: Object {
     static func getAll() -> Results<Dealer>?{
         do {
             let realm = try Realm()
-            let dealer = realm.objects(Dealer)
+            let dealer = realm.objects(Dealer).sorted("AttendeeNickname")
             return dealer
         } catch let error as NSError {
             print(error)

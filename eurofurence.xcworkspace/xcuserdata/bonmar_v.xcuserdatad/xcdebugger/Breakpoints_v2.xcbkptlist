@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eurofurence/EventTableViewController.swift"
-            timestampString = "487242192.534199"
+            timestampString = "488205085.682807"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "EventTableViewController"
             landmarkType = "3">
          </BreakpointContent>

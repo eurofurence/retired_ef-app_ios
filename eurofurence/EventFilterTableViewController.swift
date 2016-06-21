@@ -16,8 +16,7 @@ class EventFilterTableViewController: UITableViewController {
     var track = EventConferenceTrack.getAll();
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.backgroundColor =  UIColor(red: 0/255.0, green: 120/255.0, blue: 106/255.0, alpha: 1.0);
-        // Uncomment the following line to preserve selection between presentations
+        self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)        // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -75,7 +74,7 @@ class EventFilterTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("eventFilterCell", forIndexPath: indexPath)
-        
+        cell.backgroundColor = UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         switch category {
         case "All":
             break
@@ -93,7 +92,9 @@ class EventFilterTableViewController: UITableViewController {
         return cell
     }
     
-    
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView(frame: .zero)
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

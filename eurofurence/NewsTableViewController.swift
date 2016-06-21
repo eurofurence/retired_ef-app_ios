@@ -63,6 +63,7 @@ class NewsTableViewController: UITableViewController {
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("NewsTableViewCell", forIndexPath: index) as! NewsTableViewCell
             cell.tintColor = UIColor.whiteColor()
+            cell.backgroundColor = UIColor.redColor();
             cell.contentView.backgroundColor=UIColor.blackColor()
             let whiteRoundedCornerView = createCellCustom()
             cell.contentView.addSubview(whiteRoundedCornerView)

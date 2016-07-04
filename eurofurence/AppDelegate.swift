@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         UINavigationBar.appearance().barStyle = .Black
         UITabBar.appearance().tintColor = UIColor(red: 0/255.0, green: 137/255.0, blue: 122/255.0, alpha: 1.0)
+
         //UITabBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
 
         
@@ -61,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         }
+        
         return true
     }
     

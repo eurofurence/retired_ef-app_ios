@@ -40,6 +40,7 @@
 		BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C711C777F7C00371862 /* InfoGroup.swift */; };
 		BF994C741C777F8300371862 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C731C777F8300371862 /* Info.swift */; };
 		BF994C761C778A2200371862 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C751C778A2200371862 /* Loader.swift */; };
+		BFA6F0DD1D1D5D81007369F4 /* DealerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA6F0DC1D1D5D81007369F4 /* DealerViewController.swift */; };
 		BFACDCF81CEB08E700977690 /* InfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFACDCF71CEB08E700977690 /* InfoTableViewController.swift */; };
 		BFCD6C071C90465E009D5C58 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFCD6C061C90465E009D5C58 /* Tutorial.storyboard */; };
 		BFCD6C091C904786009D5C58 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C081C904786009D5C58 /* TutorialPageViewController.swift */; };
@@ -111,6 +112,7 @@
 		BF994C711C777F7C00371862 /* InfoGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoGroup.swift; sourceTree = "<group>"; };
 		BF994C731C777F8300371862 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		BF994C751C778A2200371862 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		BFA6F0DC1D1D5D81007369F4 /* DealerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealerViewController.swift; sourceTree = "<group>"; };
 		BFACDCF71CEB08E700977690 /* InfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewController.swift; sourceTree = "<group>"; };
 		BFCD6C061C90465E009D5C58 /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
 		BFCD6C081C904786009D5C58 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				BF37FFB31D144A4800F25791 /* DealerTableViewController.swift */,
+				BFA6F0DC1D1D5D81007369F4 /* DealerViewController.swift */,
 			);
 			name = Dealer;
 			sourceTree = "<group>";
@@ -584,6 +587,7 @@
 				BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */,
 				BF2B01871C7E252B00499E4B /* NewsHeaderTableViewCell.swift in Sources */,
 				BF6C4AAA1C64E11E002D250E /* EventTableViewController.swift in Sources */,
+				BFA6F0DD1D1D5D81007369F4 /* DealerViewController.swift in Sources */,
 				BF994C701C777F7400371862 /* EventConferenceRoom.swift in Sources */,
 				BF61C0891C70CFB8005F5C5B /* NetworkHelper.swift in Sources */,
 				BF00E05E1C4FEDE600F998AA /* AppDelegate.swift in Sources */,
@@ -739,6 +743,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.eurofurence;
 				PRODUCT_NAME = Eurofurence;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -753,6 +758,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.eurofurence;
 				PRODUCT_NAME = Eurofurence;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

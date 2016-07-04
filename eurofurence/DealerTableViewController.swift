@@ -13,7 +13,11 @@ import AlamofireImage
 
 class DealerTableViewController: UITableViewController {
     var dealers = Dealer.getAll();
-    
+    let imageCache = AutoPurgingImageCache(
+        memoryCapacity: 100 * 1024 * 1024,
+        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
+    )
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
@@ -56,13 +60,26 @@ class DealerTableViewController: UITableViewController {
         cell.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         cell.shortDescriptionDealerLabel!.text = self.dealers![indexPath.row].ShortDescription;
         let baseImage = ConfigManager.sharedInstance.apiBaseUrl +  "ImageData/"
-        if let url =   self.dealers![indexPath.row].ArtistThumbnailImageId {
-        let downloadUrl = NSURL(string: baseImage + url)!
-            print(downloadUrl)
-            cell.artistDealerImage.af_setImageWithURL(downloadUrl);
+        if let url =   self.dealers![indexPath.row].ArtistThumbnailImageId {             
+        let downloadUrl = NSURLRequest(URL:NSURL(string: baseImage + url)!)
+            let avatarImage = UIImage(named: "defaultAvatar")!.af_imageRoundedIntoCircle()
+            let cachedAvatarImage = imageCache.imageForRequest(
+                downloadUrl,
+                withAdditionalIdentifier: "circle"
+            )
+            if ((cachedAvatarImage) == nil) {
+                self.imageCache.addImage(
+                    avatarImage,
+                    forRequest: downloadUrl,
+                    withAdditionalIdentifier: "circle"
+                )
+            }
+            cell.artistDealerImage.af_setImageWithURLRequest(downloadUrl, placeholderImage: avatarImage, filter: CircleFilter(), imageTransition: .CrossDissolve(0.5), runImageTransitionIfCached: false)
+
+            //cell.artistDealerImage.af_setImageWithURL(downloadUrl);
         }
         else {
-             cell.artistDealerImage.image = UIImage(named: "defaultAvatar");
+             cell.artistDealerImage.image = UIImage(named: "defaultAvatar")!.af_imageRoundedIntoCircle();
         }
 
         return cell
@@ -104,14 +121,16 @@ class DealerTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "DealerTableToDetailViewSegue"
+        {
+            if let destinationVC = segue.destinationViewController as? DealerViewController{
+                let index = self.tableView.indexPathForSelectedRow!
+                destinationVC.dealer = self.dealers![index.row]
+            }
+        }
     }
-    */
 
 }

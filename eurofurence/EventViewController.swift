@@ -47,6 +47,7 @@ class EventViewController: UIViewController {
         }
         self.eventDescTextView.text = event.Description
         self.eventDescTextView.scrollsToTop = true
+        self.eventDescTextView.scrollRangeToVisible(NSMakeRange(0, 0))
         self.eventDescTextView.textColor = UIColor.whiteColor()
     }
     
@@ -119,6 +120,11 @@ class EventViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.eventDescTextView.setContentOffset(CGPointZero, animated: false)
     }
     
     

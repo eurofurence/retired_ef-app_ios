@@ -92,7 +92,27 @@ class DealerViewController: UIViewController {
             self.artistThumbImageView.image = UIImage(named: "defaultAvatar")!.af_imageRoundedIntoCircle();
         }
 
+    
+    
+    if let urlArtPreview =   self.dealer.ArtPreviewImageId {
+        let downloadUrl = NSURLRequest(URL:NSURL(string: baseImage + urlArtPreview)!)
+        let avatarImage = UIImage(named: "defaultAvatar")!
+        let cachedAvatarImage = imageCache.imageForRequest(
+            downloadUrl
+        )
+        if ((cachedAvatarImage) == nil) {
+            self.imageCache.addImage(
+                avatarImage,
+                forRequest: downloadUrl
+            )
+        }
+        self.artImageView.af_setImageWithURLRequest(downloadUrl, placeholderImage: avatarImage, imageTransition: .CrossDissolve(0.5), runImageTransitionIfCached: false)
     }
+    else {
+    self.artImageView.image = UIImage(named: "defaultAvatar")!;
+    }
+    
+}
     /*
     // MARK: - Navigation
 

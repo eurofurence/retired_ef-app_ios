@@ -68,7 +68,7 @@ class EventEntry: Object {
         do {
             let realm = try Realm()
             let predicate = NSPredicate(format: "ConferenceDayId = %@", primaryKey)
-            let eventEntry = realm.objects(EventEntry).filter(predicate)
+            let eventEntry = realm.objects(EventEntry).filter(predicate).sorted("StartTime")
             return eventEntry
         } catch let error as NSError {
             print(error)

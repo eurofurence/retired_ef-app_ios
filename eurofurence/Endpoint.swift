@@ -13,11 +13,7 @@ class Configurations: Object {
     dynamic var Id = ""
     dynamic var RessourceKey = ""
     dynamic var Value = ""
-    var owners: [Endpoint] {
-        // Realm doesn't persist this property because it only has a getter defined
-        // Define "owners" as the inverse relationship to Person.dogs
-        return linkingObjects(Endpoint.self, forProperty: "Configuration")
-    }
+    let owners = LinkingObjects(fromType: Endpoint.self, property: "Configuration")
     
     override static func primaryKey() -> String? {
         return "Id"
@@ -31,11 +27,7 @@ class Entity: Object {
     dynamic var SelectFields = ""
     dynamic var LastChangeDateTimeUtc = ""
     dynamic var count = ""
-    var owners: [Endpoint] {
-        // Realm doesn't persist this property because it only has a getter defined
-        // Define "owners" as the inverse relationship to Person.dogs
-        return linkingObjects(Endpoint.self, forProperty: "Entities")
-    }
+    let owners = LinkingObjects(fromType: Endpoint.self, property: "Entities")
     
     override static func primaryKey() -> String? {
         return "Id"

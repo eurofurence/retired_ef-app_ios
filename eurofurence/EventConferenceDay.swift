@@ -23,7 +23,8 @@ class EventConferenceDay: Object {
     static func getAll() -> Results<EventConferenceDay>?{
         do {
             let realm = try Realm()
-            let eventConferenceDay = realm.objects(EventConferenceDay).sorted("Name")
+            let sortProperties = [SortDescriptor(property: "Date")]
+            let eventConferenceDay = realm.objects(EventConferenceDay).sorted(sortProperties)
             return eventConferenceDay
         } catch let error as NSError {
             print(error)

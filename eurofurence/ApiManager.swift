@@ -128,7 +128,9 @@ class ApiManager {
     
     func get(dbObject:Object, objectName:String, completion: (result: String) -> Void) {
         let queue = dispatch_queue_create("com.cnoon.manager-response-queue", DISPATCH_QUEUE_CONCURRENT)
-        let url = ConfigManager.sharedInstance.apiBaseUrl + objectName
+        let currDate = NSDate();
+        let url = ConfigManager.sharedInstance.apiBaseUrl + objectName + "?since=" + NSDate.ISOStringFromDate(currDate)
+        print(url);
         let request = Alamofire.request(.GET, url, encoding: .JSON)
         request.response(
             queue: queue,
@@ -136,6 +138,7 @@ class ApiManager {
             completionHandler: { response in
                 switch (response.result) {
                 case .Success:
+                    print(response.result.value!);
                     let realm = try! Realm()
                     let responseArray = response.result.value! as! NSArray
                     for reponseObject in responseArray {

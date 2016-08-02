@@ -300,8 +300,23 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         if segue.identifier == "EventTableViewSegue"
         {
             if let destinationVC = segue.destinationViewController as? EventViewController{
-                let index = self.tableView.indexPathForSelectedRow!
-                destinationVC.event = self.events![index.row]
+                let indexPath = self.tableView.indexPathForSelectedRow!
+                if searchController.active && searchController.searchBar.text != "" {
+                    destinationVC.event = self.filteredEvent![indexPath.row]
+                } else {
+                    switch self.searchController.searchBar.selectedScopeButtonIndex {
+                    case 0:
+                        destinationVC.event = self.eventByDays[indexPath.section][indexPath.row]
+                    case 1:
+                        destinationVC.event = self.eventByRooms[indexPath.section][indexPath.row]
+                    case 2:
+                        destinationVC.event = self.eventByTracks[indexPath.section][indexPath.row]
+                    default:
+                        destinationVC.event = self.eventByDays[indexPath.section][indexPath.row]
+                    }
+                                    //destinationVC.event = self.events![index.row]
+                }
+
             }
         }
     }

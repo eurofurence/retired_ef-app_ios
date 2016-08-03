@@ -30,7 +30,6 @@ class NetworkManager {
         self.reachability!.whenReachable = { reachability in
             dispatch_async(dispatch_get_main_queue()) {
                 if reachability.isReachableViaWiFi() {
-                    print("Wifi");
                     if (self.isDatabaseAlreadyDownloadedOnce() == false) {
                         ApiManager.sharedInstance.getAll();
                     }
@@ -38,7 +37,7 @@ class NetworkManager {
                         ApiManager.sharedInstance.getDiff()
                     }
                 } else {
-                    print("Cellular");
+
                     if (self.isDatabaseAlreadyDownloadedOnce() == false) {
                         let alert = UIAlertController(title: "Download database", message: "It seems that you are connected over cellular data, would you like to download the content data, it will allow you to use the app offline?", preferredStyle: UIAlertControllerStyle.Alert)
                         ApiManager.sharedInstance.getAll();

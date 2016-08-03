@@ -75,20 +75,21 @@ class ApiManager {
         if (self.lastDateTimeUtc != "") {
             let realm = try! Realm();
             let endpoints = realm.objects(Endpoint);
-            let dateFormatter = NSDateFormatter();
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-            let lastChange = dateFormatter.dateFromString((endpoints.first?.Entities.first?.LastChangeDateTimeUtc)!);
-            let lastCall = dateFormatter.dateFromString(self.lastDateTimeUtc);
-            let compareResult = lastCall!.compare(lastChange!);
+            let lastChange = NSDate.dateFromISOString((endpoints.first?.Entities.first?.LastChangeDateTimeUtc)!);
+            let lastCall = NSDate.dateFromISOString(self.lastDateTimeUtc);
+            let compareResult = lastCall.compare(lastChange);
             if (compareResult == NSComparisonResult.OrderedAscending) {
                 getAll()
             }
+        }
+        else {
+            getAll();
         }
         getEndPoint({
             (result: String) in
             let realm = try! Realm()
             let endpoints = realm.objects(Endpoint);
-            if (self.lastDateTimeUtc == "") {
+            if (ApiManager.sharedInstance.lastDateTimeUtc == "") {
                 self.lastDateTimeUtc = (endpoints.first?.CurrentDateTimeUtc)!;
              }
             }
@@ -128,9 +129,7 @@ class ApiManager {
     
     func get(dbObject:Object, objectName:String, completion: (result: String) -> Void) {
         let queue = dispatch_queue_create("com.cnoon.manager-response-queue", DISPATCH_QUEUE_CONCURRENT)
-        let currDate = NSDate();
-        let url = ConfigManager.sharedInstance.apiBaseUrl + objectName + "?since=" + NSDate.ISOStringFromDate(currDate)
-        print(url);
+        let url = ConfigManager.sharedInstance.apiBaseUrl + objectName;
         let request = Alamofire.request(.GET, url, encoding: .JSON)
         request.response(
             queue: queue,
@@ -138,7 +137,7 @@ class ApiManager {
             completionHandler: { response in
                 switch (response.result) {
                 case .Success:
-                    print(response.result.value!);
+                    //print(response.result.value!);
                     let realm = try! Realm()
                     let responseArray = response.result.value! as! NSArray
                     for reponseObject in responseArray {

@@ -589,6 +589,10 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Map" id="PQi-Sz-LWX"/>
+                    <connections>
+                        <outlet property="mapContainerView" destination="UPi-G5-x8h" id="A4a-c2-bKl"/>
+                        <outlet property="mapSwitchControl" destination="dID-qv-DXc" id="Djz-7f-oZf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ha8-mi-NqH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

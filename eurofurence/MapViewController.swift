@@ -14,20 +14,16 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     static let AREA_MAP:    Int = 2
     static let DEFAULT_MAP: Int = HOTEL_MAP
     
-    var mapContainerView: UIScrollView!
-    var mapSwitchControl: UISegmentedControl!
+    @IBOutlet weak var mapContainerView: UIScrollView!
+    @IBOutlet weak var mapSwitchControl: UISegmentedControl!
     var hotelMapView: UIImageView!
     var ddenMapView: UIImageView!
     var doubleTap: UITapGestureRecognizer!
     var currentMap: Int = -1
-    var mapSelectionAlert: UIAlertController!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        mapContainerView = view.viewWithTag(1) as! UIScrollView
-        mapSwitchControl = view.viewWithTag(2) as! UISegmentedControl
         
         // initialize map for Hotel
         hotelMapView = UIImageView(image: UIImage(named: "ef21map"))
@@ -67,7 +63,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     ///   - mapId: id of map to be displayed (see class constants for details)
     func switchToMap(mapID : Int) {
         if mapID == currentMap {
-            print("mapID is already current map. Nothing to do here!")
+            // mapID is already current map. Nothing to do here!
             return
         }
         
@@ -83,7 +79,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
             mapContainerView.addSubview(ddenMapView)
             break
         default:
-            print("Unrecognized mapID!")
+            // Unrecognized mapID, switch to default
             switchToMap(MapViewController.DEFAULT_MAP)
             return
         }
@@ -94,20 +90,17 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     func mapSwitchChanged(segmentedControl: UISegmentedControl) {
         switch segmentedControl.selectedSegmentIndex {
         case MapViewController.HOTEL_MAP:
-            print("Selected map: Hotel")
             switchToMap(MapViewController.HOTEL_MAP)
             break
         case MapViewController.DDEN_MAP:
-            print("Selected map: Dealer's Den")
             switchToMap(MapViewController.DDEN_MAP)
             break
         case MapViewController.AREA_MAP:
-            print("Selected map: Area")
             presentViewController(RoutingAppChooser.sharedInstance.getAlertForAddress("Estrel Hotel Berlin", house: "225", street: "Sonnenallee", zip: "12057", city: "Berlin", country: "Germany"), animated: true, completion:nil)
             segmentedControl.selectedSegmentIndex = currentMap
             break
         default:
-            print("Unrecognized map, switching to default.")
+            ()
         }
     }
     

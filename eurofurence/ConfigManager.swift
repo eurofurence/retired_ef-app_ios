@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import AlamofireImage
 
 class ConfigManager {
     let apiBaseUrl = "https://app.eurofurence.org/api/"
@@ -43,4 +44,14 @@ class ConfigManager {
     })
 
   static let sharedInstance = ConfigManager()
+    
+    func diskImageDownloader(diskSpaceMB: Int = 150) -> ImageDownloader {
+        let diskCapacity = diskSpaceMB * 1024 * 1024
+        let diskCache = NSURLCache(memoryCapacity: 0, diskCapacity: diskCapacity, diskPath: "image_disk_cache")
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.URLCache = diskCache;
+        let downloader = ImageDownloader(configuration: configuration,     downloadPrioritization: .FIFO, maximumActiveDownloads: 10)
+        UIImageView.af_sharedImageDownloader = downloader
+        return downloader
+    }
 }

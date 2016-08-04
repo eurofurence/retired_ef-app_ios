@@ -11,19 +11,34 @@ import RealmSwift
 
 class NewsTableViewController: UITableViewController {
     var annoucements = Results<Announcement>?();
-    
+    var filteredAnnouncements : [Announcement] = [];
     override func viewDidLoad() {
         super.viewDidLoad()
-        //schemaConfigRealm()
         self.annoucements = Announcement.getAll();
         self.tableView.backgroundColor = UIColor.blackColor();
         tableView.estimatedRowHeight = 70;
         tableView.rowHeight = UITableViewAutomaticDimension;
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.refreshControl?.addTarget(self, action: #selector(DealerTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    // Pull to refresh function
+    func refresh(sender:AnyObject)
+    {
+        let objects = [ConfigManager.sharedInstance.announcement]
+        var updatedObjects = 0;
+        for object in objects {
+            if let objectInstance = ObjectFromString.sharedInstance.instanciate(object) {
+                ApiManager.sharedInstance.get(objectInstance as! Object, objectName: object) {
+                    (result: String) in
+                    updatedObjects += 1;
+                    if (updatedObjects == objects.count) {
+                        self.tableView.reloadData()
+                        self.refreshControl?.endRefreshing()
+                        return;
+                    }
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,11 +55,20 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (self.annoucements!.count + 1)
+        return (self.filteredAnnouncements.count + 1)
     }
     
     override func viewWillAppear(animated: Bool) {
         self.annoucements = Announcement.getAll();
+       self.filteredAnnouncements = [];
+        for announcement in annoucements! {
+            let fromDate = NSDate.dateFromISOString(announcement.ValidFromDateTimeUtc);
+            let untilDate = NSDate.dateFromISOString(announcement.ValidUntilDateTimeUtc);
+            let currentDate = NSDate();
+            if ((fromDate <= currentDate) && (untilDate >= currentDate)) {
+                self.filteredAnnouncements.append(announcement);
+            }
+        }
         self.tableView.reloadData()
         
     }
@@ -58,7 +82,10 @@ class NewsTableViewController: UITableViewController {
     
     func instanciateCell(index :NSIndexPath, tableView: UITableView) -> UITableViewCell{
         if (index.row == 0) {
-            let cell = tableView.dequeueReusableCellWithIdentifier("NewsHeaderTableViewCell", forIndexPath: index)
+            let cell = tableView.dequeueReusableCellWithIdentifier("NewsHeaderTableViewCell", forIndexPath: index) as! NewsHeaderTableViewCell
+            if (self.filteredAnnouncements.count == 0) {
+               cell.newsHeaderLabel.text = "No announcement available";   
+            }
             return cell as UITableViewCell;
             
         }
@@ -70,8 +97,8 @@ class NewsTableViewController: UITableViewController {
             let whiteRoundedCornerView = createCellCustom()
             cell.contentView.addSubview(whiteRoundedCornerView)
             cell.contentView.sendSubviewToBack(whiteRoundedCornerView)
-            cell.titleLabel.text = self.annoucements![index.row - 1].Title;
-            cell.descLabel.text = self.annoucements![index.row - 1].Content;
+            cell.titleLabel.text = self.filteredAnnouncements[index.row - 1].Title;
+            cell.descLabel.text = self.filteredAnnouncements[index.row - 1].Content;
             return cell as UITableViewCell;
         }
 
@@ -88,35 +115,6 @@ class NewsTableViewController: UITableViewController {
 
     }
     
-    func schemaConfigRealm() {
-        // Inside your application(application:didFinishLaunchingWithOptions:)
-        
-        let config = Realm.Configuration(
-            // Set the new schema version. This must be greater than the previously used
-            // version (if you've never set a schema version before, the version is 0).
-            schemaVersion: 2,
-            deleteRealmIfMigrationNeeded: true,
-            // Set the block which will be called automatically when opening a Realm with
-            // a schema version lower than the one set above
-            migrationBlock: { migration, oldSchemaVersion in
-                // We haven’t migrated anything yet, so oldSchemaVersion == 0
-                if (oldSchemaVersion < 1) {
-                    // Nothing to do!
-                    // Realm will automatically detect new properties and removed properties
-                    // And will update the schema on disk automatically
-                }
-                if (oldSchemaVersion < 2) {
-                    // Nothing to do!
-                    // Realm will automatically detect new properties and removed properties
-                    // And will update the schema on disk automatically
-                }
-        })
-        // Tell Realm to use this new configuration object for the default Realm
-        Realm.Configuration.defaultConfiguration = config
-        // Now that we've told Realm how to handle the schema change, opening the file
-        // will automatically perform the migration
-        _ = try! Realm()
-    }
     
     /*
     // Override to support conditional editing of the table view.
@@ -170,7 +168,7 @@ class NewsTableViewController: UITableViewController {
         {
             if let destinationVC = segue.destinationViewController as? NewsViewController{
                 let index = self.tableView.indexPathForSelectedRow!
-                destinationVC.news = self.annoucements![index.row - 1]
+                destinationVC.news = self.filteredAnnouncements[index.row - 1]
             }
         }
     }

@@ -17,11 +17,27 @@ class DealerTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.refreshControl?.addTarget(self, action: #selector(DealerTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    // Pull to refresh function
+    func refresh(sender:AnyObject)
+    {
+        let objects = [ConfigManager.sharedInstance.dealer]
+        var updatedObjects = 0;
+        for object in objects {
+            if let objectInstance = ObjectFromString.sharedInstance.instanciate(object) {
+                ApiManager.sharedInstance.get(objectInstance as! Object, objectName: object) {
+                    (result: String) in
+                    updatedObjects += 1;
+                    if (updatedObjects == objects.count) {
+                        self.tableView.reloadData()
+                        self.refreshControl?.endRefreshing()
+                        return;
+                    }
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

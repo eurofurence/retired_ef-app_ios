@@ -17,6 +17,8 @@ class ImageManager {
     
     func cacheDealersImages() {
         let dealers = Dealer.getAll();
+        //LoadingOverlay.sharedInstance.changeMessage("Caching images ...");
+        //LoadingOverlay.sharedInstance.showOverlay()
         for dealer in dealers! {
             if (dealer.ArtistThumbnailImageId != nil) {
                 cacheImage(dealer.ArtistThumbnailImageId!);
@@ -28,6 +30,8 @@ class ImageManager {
                 cacheImage(dealer.ArtPreviewImageId!);
             }
         }
+        
+        //LoadingOverlay.sharedInstance.hideOverlay()
     }
     
     func cacheMapImages() {
@@ -36,6 +40,7 @@ class ImageManager {
     
     func cacheAllImages() {
         cacheDealersImages();
+        //LoadingOverlay.sharedInstance.hideOverlay();
     }
     
     func documentsPathWithFileName(fileName : String) -> String {

@@ -28,17 +28,33 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.searchBar.delegate = self
-        //self.searchController.searchBar.barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 0.5);
         self.searchController.searchBar.tintColor = UIColor.whiteColor();
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-        self.refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
         self.searchController.searchBar.scopeButtonTitles = ["Day", "Room", "Track"]
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.refreshControl?.addTarget(self, action: #selector(EventTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.backgroundColor = UIColor.clearColor()
+    }
+    
+    // Pull to refresh function
+    func refresh(sender:AnyObject)
+    {
+        let objects = [ConfigManager.sharedInstance.eventConferenceDay, ConfigManager.sharedInstance.eventConferenceRoom, ConfigManager.sharedInstance.eventConferenceTrack]
+        var updatedObjects = 0;
+        for object in objects {
+            if let objectInstance = ObjectFromString.sharedInstance.instanciate(object) {
+                ApiManager.sharedInstance.get(objectInstance as! Object, objectName: object) {
+                    (result: String) in
+                    updatedObjects += 1;
+                    if (updatedObjects == (objects.count - 1)) {
+                        self.tableView.reloadData()
+                        self.refreshControl?.endRefreshing()
+                        return;
+                    }
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,22 +92,24 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         
     }
     
-    func handleRefresh(refreshControl: UIRefreshControl) {
-        let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
-        let lastChange = dateFormatter.stringFromDate(self.lastUpdate);
-        let updateString = "Last Updated at " + lastChange;
-        self.refreshControl!.attributedTitle = NSAttributedString(string: updateString)
-        ApiManager.sharedInstance.get(ObjectFromString.sharedInstance.instanciate("EventEntry") as! Object, objectName: "EventEntry",  completion: {
-            (result: String) in
-            self.lastUpdate = NSDate()
-            self.refreshControl!.attributedTitle = NSAttributedString(string: updateString)
-            self.events = EventEntry.getAll();
-            self.tableView.reloadData()
-            refreshControl.endRefreshing()
-            
-        });
-    }
+    /*
+     func handleRefresh(refreshControl: UIRefreshControl) {
+     let dateFormatter = NSDateFormatter();
+     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
+     let lastChange = dateFormatter.stringFromDate(self.lastUpdate);
+     let updateString = "Last Updated at " + lastChange;
+     self.refreshControl!.attributedTitle = NSAttributedString(string: updateString)
+     ApiManager.sharedInstance.get(ObjectFromString.sharedInstance.instanciate("EventEntry") as! Object, objectName: "EventEntry",  completion: {
+     (result: String) in
+     self.lastUpdate = NSDate()
+     self.refreshControl!.attributedTitle = NSAttributedString(string: updateString)
+     self.events = EventEntry.getAll();
+     self.tableView.reloadData()
+     refreshControl.endRefreshing()
+     
+     });
+     }
+     */
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -314,9 +332,9 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
                     default:
                         destinationVC.event = self.eventByDays[indexPath.section][indexPath.row]
                     }
-                                    //destinationVC.event = self.events![index.row]
+                    //destinationVC.event = self.events![index.row]
                 }
-
+                
             }
         }
     }

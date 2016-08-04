@@ -46,6 +46,7 @@ class Endpoint: Object {
     
     static func getAll() -> Results<Endpoint>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let endpoint = realm.objects(Endpoint)
             return endpoint
@@ -57,6 +58,7 @@ class Endpoint: Object {
     
     static func getById(primaryKey:String) -> Endpoint?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let endpoint = realm.objectForPrimaryKey(Endpoint.self, key: primaryKey)
             return endpoint

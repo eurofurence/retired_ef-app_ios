@@ -32,6 +32,7 @@ class EventEntry: Object {
     
     static func getAll() -> Results<EventEntry>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let eventEntry = realm.objects(EventEntry)
             return eventEntry
@@ -43,6 +44,7 @@ class EventEntry: Object {
     
     static func getById(primaryKey:String) -> EventEntry?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let eventEntry = realm.objectForPrimaryKey(EventEntry.self, key: primaryKey)
             return eventEntry
@@ -54,6 +56,7 @@ class EventEntry: Object {
     
     static func getByTitle(title:String) -> Results<EventEntry>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let predicate = NSPredicate(format: "Title CONTAINS[c] %@", title)
             let eventEntry = realm.objects(EventEntry).filter(predicate)
@@ -66,6 +69,7 @@ class EventEntry: Object {
     
     static func getByDayId(primaryKey:String) -> Results<EventEntry>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let predicate = NSPredicate(format: "ConferenceDayId = %@", primaryKey)
             let eventEntry = realm.objects(EventEntry).filter(predicate).sorted("StartTime")
@@ -78,6 +82,7 @@ class EventEntry: Object {
     
     static func getByRoomId(primaryKey:String) -> Results<EventEntry>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let predicate = NSPredicate(format: "ConferenceRoomId = %@", primaryKey)
             let eventEntry = realm.objects(EventEntry).filter(predicate)
@@ -90,6 +95,7 @@ class EventEntry: Object {
     
     static func getByTrackId(primaryKey:String) -> Results<EventEntry>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let predicate = NSPredicate(format: "ConferenceTrackId = %@", primaryKey)
             let eventEntry = realm.objects(EventEntry).filter(predicate)

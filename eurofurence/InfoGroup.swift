@@ -21,6 +21,7 @@ class InfoGroup: Object {
     
     static func getAll() -> Results<InfoGroup>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let infoGroup = realm.objects(InfoGroup)
             return infoGroup
@@ -32,6 +33,7 @@ class InfoGroup: Object {
     
     static func getById(primaryKey:String) -> InfoGroup?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let infoGroup = realm.objectForPrimaryKey(InfoGroup.self, key: primaryKey)
             return infoGroup

@@ -50,3 +50,9 @@ public extension String {
         return nsSt.stringByAppendingPathComponent(path)
     }
 }
+
+extension UIView {
+    var isViewEmpty : Bool {
+        return  self.subviews.count == 0 ;
+    }
+}

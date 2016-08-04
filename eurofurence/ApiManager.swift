@@ -59,7 +59,7 @@ class ApiManager {
                     (result: String) in
                     self.requestedObjects += 1;
                     if (self.requestedObjects == self.objects.count) {
-                        ImageManager.sharedInstance.cachingAllImages();
+                        ImageManager.sharedInstance.cacheAllImages();
                         LoadingOverlay.sharedInstance.hideOverlay()
                         let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setBool(true, forKey: "isDatabaseAlreadyDownloaded")

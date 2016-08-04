@@ -55,39 +55,8 @@ class DealerTableViewController: UITableViewController {
         }
         cell.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         cell.shortDescriptionDealerLabel!.text = self.dealers![indexPath.row].ShortDescription;
-        if let url =   self.dealers![indexPath.row].ArtistThumbnailImageId {
-            cell.artistDealerImage.image = ImageManager.sharedInstance.retrieveFromCache(url)!.af_imageRoundedIntoCircle();
-            
-            
-            /**          let downloader = ConfigManager.sharedInstance.diskImageDownloader();
-             let URLRequest = NSURLRequest(URL: NSURL(string: baseImage + url)!)
-             let filter = AspectScaledToFillSizeCircleFilter(size: CGSize(width: 100.0, height: 100.0))
-             
-             downloader.downloadImage(URLRequest: URLRequest, filter: filter) { response in
-             print(response.request)
-             print(response.response)
-             debugPrint(response.result)
-             
-             if let image = response.result.value {
-             cell.artistDealerImage.image = image;
-             }
-             }
-             
-             let cachedAvatarImage = imageCache.imageForRequest(
-             downloadUrl,
-             withAdditionalIdentifier: "circle"
-             )
-             if ((cachedAvatarImage) == nil) {
-             self.imageCache.addImage(
-             avatarImage,
-             forRequest: downloadUrl,
-             withAdditionalIdentifier: "circle"
-             )
-             }
-             
-             cell.artistDealerImage.af_setImageWithURLRequest(downloadUrl, placeholderImage: avatarImage, filter: CircleFilter(), imageTransition: .CrossDissolve(0.5), runImageTransitionIfCached: false)
-             **/
-            //cell.artistDealerImage.af_setImageWithURL(downloadUrl);
+        if let artistThumbnailImageId =   self.dealers![indexPath.row].ArtistThumbnailImageId {
+            cell.artistDealerImage.image = ImageManager.sharedInstance.retrieveFromCache(artistThumbnailImageId, imagePlaceholder: UIImage(named: "defaultAvatar")!.af_imageRoundedIntoCircle())!.af_imageRoundedIntoCircle();
         }
         else {
             cell.artistDealerImage.image = UIImage(named: "defaultAvatar")!.af_imageRoundedIntoCircle();

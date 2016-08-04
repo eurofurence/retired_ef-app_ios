@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import Alamofire
+import AlamofireImage
 
 public extension NSDate {
     public class func ISOStringFromDate(date: NSDate) -> String {
@@ -36,5 +38,15 @@ public extension UIImage {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+    }
+}
+
+public extension String {
+    
+    func stringByAppendingPathComponent(path: String) -> String {
+        
+        let nsSt = self as NSString
+        
+        return nsSt.stringByAppendingPathComponent(path)
     }
 }

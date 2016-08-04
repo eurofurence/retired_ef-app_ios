@@ -33,6 +33,7 @@ class Dealer: Object {
     
     static func getAll() -> Results<Dealer>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let dealer = realm.objects(Dealer).sorted("AttendeeNickname")
             return dealer
@@ -44,6 +45,7 @@ class Dealer: Object {
     
     static func getById(primaryKey:String) -> Dealer?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let dealer = realm.objectForPrimaryKey(Dealer.self, key: primaryKey)
             return dealer

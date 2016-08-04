@@ -21,6 +21,7 @@ class EventConferenceRoom: Object {
     
     static func getAll() -> Results<EventConferenceRoom>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let eventConferenceRoom = realm.objects(EventConferenceRoom).sorted("Name")
             return eventConferenceRoom
@@ -32,6 +33,7 @@ class EventConferenceRoom: Object {
     
     static func getById(primaryKey:String) -> EventConferenceRoom?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let eventConferenceRoom = realm.objectForPrimaryKey(EventConferenceRoom.self, key: primaryKey)
             return eventConferenceRoom

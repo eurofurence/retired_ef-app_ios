@@ -21,6 +21,7 @@ class EventConferenceTrack: Object {
     
     static func getAll() -> Results<EventConferenceTrack>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let eventConferenceTrack = realm.objects(EventConferenceTrack).sorted("Name")
             return eventConferenceTrack
@@ -32,6 +33,7 @@ class EventConferenceTrack: Object {
     
     static func getById(primaryKey:String) -> EventConferenceTrack?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let eventConferenceTrack = realm.objectForPrimaryKey(EventConferenceTrack.self, key: primaryKey)
             return eventConferenceTrack

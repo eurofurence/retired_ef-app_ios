@@ -53,6 +53,11 @@ class ObjectFromString {
                 let object = classObject.init()
                 return object
             }
+        case ConfigManager.sharedInstance.map:
+            if let classObject = NSClassFromString("Eurofurence." + className) as? Map.Type {
+                let object = classObject.init()
+                return object
+            }
         default :
             print("Class not found")
         }

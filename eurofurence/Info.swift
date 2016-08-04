@@ -24,6 +24,7 @@ class Info: Object {
     
     static func getAll() -> Results<Info>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let info = realm.objects(Info)
             return info
@@ -35,6 +36,7 @@ class Info: Object {
     
     static func getById(primaryKey:String) -> Info?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let info = realm.objectForPrimaryKey(Info.self, key: primaryKey)
             return info
@@ -46,6 +48,7 @@ class Info: Object {
     
     static func getByGroupId(primaryKey:String) -> Results<Info>?{
         do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let predicate = NSPredicate(format: "InfoGroupId = %@", primaryKey)
             let info = realm.objects(Info).filter(predicate)

@@ -16,17 +16,18 @@ class ApiManager {
     var progressView: UIProgressView?
     var progressLabel: UILabel?
     static let sharedInstance = ApiManager()
-    let objects = [ConfigManager.sharedInstance.eventEntry, ConfigManager.sharedInstance.eventConferenceTrack, ConfigManager.sharedInstance.eventConferenceDay, ConfigManager.sharedInstance.eventConferenceRoom, ConfigManager.sharedInstance.infoGroup, ConfigManager.sharedInstance.info, ConfigManager.sharedInstance.announcement, ConfigManager.sharedInstance.dealer]
+    let objects = [ConfigManager.sharedInstance.eventEntry, ConfigManager.sharedInstance.eventConferenceTrack, ConfigManager.sharedInstance.eventConferenceDay, ConfigManager.sharedInstance.eventConferenceRoom, ConfigManager.sharedInstance.infoGroup, ConfigManager.sharedInstance.info, ConfigManager.sharedInstance.announcement, ConfigManager.sharedInstance.dealer, ConfigManager.sharedInstance.map]
     var requestedObjects = 0
     
     func deleteOldElements(dbObject:Object) {
+        Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
         let realm = try! Realm()
         let predicate = NSPredicate(format: "IsDeleted = %@", "1")
         let results = realm.objects(dbObject.dynamicType).filter(predicate)
-            try! realm.write {
-                realm.delete(results);
-            }
-
+        try! realm.write {
+            realm.delete(results);
+        }
+        
     }
     
     func getAllFromAlert(alert: UIAlertAction) -> Void {
@@ -73,6 +74,7 @@ class ApiManager {
     
     func getDiff() {
         if (self.lastDateTimeUtc != "") {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try! Realm();
             let endpoints = realm.objects(Endpoint);
             let lastChange = NSDate.dateFromISOString((endpoints.first?.Entities.first?.LastChangeDateTimeUtc)!);
@@ -87,11 +89,12 @@ class ApiManager {
         }
         getEndPoint({
             (result: String) in
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try! Realm()
             let endpoints = realm.objects(Endpoint);
             if (ApiManager.sharedInstance.lastDateTimeUtc == "") {
                 self.lastDateTimeUtc = (endpoints.first?.CurrentDateTimeUtc)!;
-             }
+            }
             }
         )
         
@@ -107,6 +110,7 @@ class ApiManager {
             completionHandler: { response in
                 switch (response.result) {
                 case .Success:
+                    Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
                     let realm = try! Realm()
                     let responseDictionary = response.result.value! as! NSDictionary
                     let test = JSON(responseDictionary)
@@ -137,7 +141,7 @@ class ApiManager {
             completionHandler: { response in
                 switch (response.result) {
                 case .Success:
-                    //print(response.result.value!);
+                    Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
                     let realm = try! Realm()
                     let responseArray = response.result.value! as! NSArray
                     for reponseObject in responseArray {

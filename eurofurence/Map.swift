@@ -47,4 +47,31 @@ class Map: Object {
         return nil
     }
     
+    /// Checks whether this entity is valid at the timestamp given in
+    /// `dateTimeUtc`, which must adhere to the format `yyyy-MM-dd'T'HH:mm:ss.SSSZ`.
+    ///
+    /// - returns: true if `dateTimeUtc` is between `ValidFromDateTimeUtc` inclusive
+    ///     and `ValidUntilDateTimeUtc` inclusive. If either boundary is invalid,
+    ///     it will be ignored.
+    func isValidAtDateTimeUtcString(dateTimeUtcString: String)->Bool {
+        let dateTimeUtc = NSDate.dateFromISOString(dateTimeUtcString)
+        
+        return dateTimeUtc != nil && isValidAtDateTimeUtc(dateTimeUtc!)
+    }
+    
+    /// Checks whether this entity is valid at `dateTimeUtc`.
+    ///
+    /// - returns: true if `dateTimeUtc` is between `ValidFromDateTimeUtc` inclusive
+    ///     and `ValidUntilDateTimeUtc` inclusive. If either boundary is invalid,
+    ///     it will be ignored.
+    func isValidAtDateTimeUtc(dateTimeUtc: NSDate)->Bool {
+        let fromDate = NSDate.dateFromISOString(ValidFromDateTimeUtc)
+        let untilDate = NSDate.dateFromISOString(ValidUntilDateTimeUtc)
+        
+        return (fromDate == nil || dateTimeUtc.compare(fromDate!) == NSComparisonResult.OrderedDescending ||
+            dateTimeUtc.compare(fromDate!) == NSComparisonResult.OrderedSame) &&
+            (untilDate == nil || dateTimeUtc.compare(untilDate!) == NSComparisonResult.OrderedAscending ||
+                dateTimeUtc.compare(untilDate!) == NSComparisonResult.OrderedSame)
+    }
+    
 }

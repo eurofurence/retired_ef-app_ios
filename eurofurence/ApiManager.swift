@@ -79,8 +79,7 @@ class ApiManager {
             let endpoints = realm.objects(Endpoint);
             let lastChange = NSDate.dateFromISOString((endpoints.first?.Entities.first?.LastChangeDateTimeUtc)!);
             let lastCall = NSDate.dateFromISOString(self.lastDateTimeUtc);
-            let compareResult = lastCall.compare(lastChange);
-            if (compareResult == NSComparisonResult.OrderedAscending) {
+            if (lastChange != nil || lastCall != nil || lastCall!.compare(lastChange!) == NSComparisonResult.OrderedAscending) {
                 getAll()
             }
         }

@@ -23,6 +23,14 @@ class ImageManager {
             }
             
         }
+        
+        if let maps = Map.getAll() {
+            for map in maps {
+                if(map.ImageId != nil) {
+                    cachingImage(map.ImageId!)
+                }
+            }
+        }
     }
     
     func cachingImage(imageId : String) {

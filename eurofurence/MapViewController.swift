@@ -3,10 +3,13 @@
 //  eurofurence
 //
 //  Created by Vincent BONMARCHAND on 15/02/2016.
+//  Updated by Dominik Schöner on 03/08/2016
 //  Copyright © 2016 eurofurence. All rights reserved.
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class MapViewController: UIViewController, UIScrollViewDelegate {
     static let HOTEL_MAP:   Int = 0
@@ -25,8 +28,22 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let baseImage = ConfigManager.sharedInstance.apiBaseUrl +  "ImageData/"
+        var imageId: String!
+        let maps = Map.getAll()
+        for map in maps! {
+            if map.isValidAtDateTimeUtc(NSDate.init()) {
+                print(map.Id, "is currently valid")
+            } else {
+                print(map.Id, "is currently invalid")
+            }
+            print("ImageID=", map.ImageId!, ", Description=", map.Description!, ", URL=", baseImage + map.ImageId!)
+            imageId = map.ImageId
+        }
+        
+        print(imageId)
         // initialize map for Hotel
-        hotelMapView = UIImageView(image: UIImage(named: "ef21map"))
+        hotelMapView = UIImageView(image: ImageManager.sharedInstance.retrieveFromCache(imageId))
         hotelMapView.contentMode = UIViewContentMode.ScaleAspectFit
         hotelMapView!.layer.cornerRadius = 11.0
         hotelMapView!.clipsToBounds = false

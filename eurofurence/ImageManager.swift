@@ -16,10 +16,11 @@ class ImageManager {
     static let sharedInstance = ImageManager();
     let dispatchGroup = dispatch_group_create()
     
+    /// Get all dealers in the Realm Database to cache all images with cacheImage
     func cacheDealersImages() {
         let dealersOptional = Dealer.getAll();
         if let dealers = dealersOptional {
-            LoadingOverlay.sharedInstance.changeMessage("Caching images ...");
+            LoadingOverlay.sharedInstance.changeMessage("Caching dealers images ...");
             LoadingOverlay.sharedInstance.showOverlay();
             for dealer in dealers {
                 if (dealer.ArtistThumbnailImageId != nil) {
@@ -48,29 +49,26 @@ class ImageManager {
                 LoadingOverlay.sharedInstance.hideOverlay();
             })
         }
-        //LoadingOverlay.sharedInstance.changeMessage("Caching images ...");
-        //LoadingOverlay.sharedInstance.showOverlay()
-
-        
-        //LoadingOverlay.sharedInstance.hideOverlay()
     }
     
 
-    
+    //TODO
     func cacheMapImages() {
         
     }
     
+    //Caching all entities images
     func cacheAllImages() {
         cacheDealersImages();
-        //LoadingOverlay.sharedInstance.hideOverlay();
     }
     
+    //Retrieve cache path in the document directory
     func documentsPathWithFileName(fileName : String) -> String {
         let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0]
         return documentsDirectoryPath.stringByAppendingPathComponent(fileName)
     }
     
+    //Delete image from cache
     func deleteFromCache(imagePath: String) {
         do {
             try NSFileManager.defaultManager().removeItemAtPath(imagePath)
@@ -79,6 +77,7 @@ class ImageManager {
         }
     }
     
+    //Cache image in the CachesDirectory
     func cacheImage(imageId : String, completion: (result: Bool) -> Void) {
         let URLRequest = NSURLRequest(URL: NSURL(string: self.baseImage + imageId)!)
         self.downloader.downloadImage(URLRequest: URLRequest) { response in
@@ -97,6 +96,8 @@ class ImageManager {
             }
         }
     }
+    
+    //Retrieve image from directory
     func retrieveFromCache(imageId: String, imagePlaceholder: UIImage?) -> UIImage? {
         let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
         if paths.count > 0

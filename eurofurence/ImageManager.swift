@@ -14,36 +14,28 @@ class ImageManager {
     let baseImage = ConfigManager.sharedInstance.apiBaseUrl +  "ImageData/";
     let downloader = ConfigManager.sharedInstance.diskImageDownloader();
     static let sharedInstance = ImageManager();
-    let dispatchGroup = dispatch_group_create()
+    let dispatchGroup = dispatch_group_create();
+    
+    func dispatchEntity(entityId: String?) {
+        if (entityId != nil) {
+            dispatch_group_enter(self.dispatchGroup)
+            cacheImage(entityId!) {
+                (result: Bool) in
+                dispatch_group_leave(self.dispatchGroup)
+            };
+        }
+    }
     
     /// Get all dealers in the Realm Database to cache all images with cacheImage
     func cacheDealersImages() {
         let dealersOptional = Dealer.getAll();
         if let dealers = dealersOptional {
-            LoadingOverlay.sharedInstance.changeMessage("Caching dealers images ...");
+            LoadingOverlay.sharedInstance.changeMessage("Caching images");
             LoadingOverlay.sharedInstance.showOverlay();
             for dealer in dealers {
-                if (dealer.ArtistThumbnailImageId != nil) {
-                    dispatch_group_enter(self.dispatchGroup)
-                    cacheImage(dealer.ArtistThumbnailImageId!) {
-                        (result: Bool) in
-                        dispatch_group_leave(self.dispatchGroup)
-                    };
-                }
-                if (dealer.ArtistImageId != nil) {
-                    dispatch_group_enter(self.dispatchGroup)
-                    cacheImage(dealer.ArtistImageId!){
-                        (result: Bool) in
-                        dispatch_group_leave(self.dispatchGroup)
-                    };
-                }
-                if (dealer.ArtPreviewImageId != nil) {
-                    dispatch_group_enter(self.dispatchGroup)
-                    cacheImage(dealer.ArtPreviewImageId!){
-                        (result: Bool) in
-                        dispatch_group_leave(self.dispatchGroup)
-                    };
-                }
+                dispatchEntity(dealer.ArtistThumbnailImageId);
+                dispatchEntity(dealer.ArtistImageId);
+                dispatchEntity(dealer.ArtPreviewImageId);
             }
             dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), {
                 LoadingOverlay.sharedInstance.hideOverlay();

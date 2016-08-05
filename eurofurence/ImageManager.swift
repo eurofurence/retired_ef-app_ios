@@ -14,25 +14,48 @@ class ImageManager {
     let baseImage = ConfigManager.sharedInstance.apiBaseUrl +  "ImageData/";
     let downloader = ConfigManager.sharedInstance.diskImageDownloader();
     static let sharedInstance = ImageManager();
+    let dispatchGroup = dispatch_group_create()
     
     func cacheDealersImages() {
-        let dealers = Dealer.getAll();
+        let dealersOptional = Dealer.getAll();
+        if let dealers = dealersOptional {
+            LoadingOverlay.sharedInstance.changeMessage("Caching images ...");
+            LoadingOverlay.sharedInstance.showOverlay();
+            for dealer in dealers {
+                if (dealer.ArtistThumbnailImageId != nil) {
+                    dispatch_group_enter(self.dispatchGroup)
+                    cacheImage(dealer.ArtistThumbnailImageId!) {
+                        (result: Bool) in
+                        dispatch_group_leave(self.dispatchGroup)
+                    };
+                }
+                if (dealer.ArtistImageId != nil) {
+                    dispatch_group_enter(self.dispatchGroup)
+                    cacheImage(dealer.ArtistImageId!){
+                        (result: Bool) in
+                        dispatch_group_leave(self.dispatchGroup)
+                    };
+                }
+                if (dealer.ArtPreviewImageId != nil) {
+                    dispatch_group_enter(self.dispatchGroup)
+                    cacheImage(dealer.ArtPreviewImageId!){
+                        (result: Bool) in
+                        dispatch_group_leave(self.dispatchGroup)
+                    };
+                }
+            }
+            dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), {
+                LoadingOverlay.sharedInstance.hideOverlay();
+            })
+        }
         //LoadingOverlay.sharedInstance.changeMessage("Caching images ...");
         //LoadingOverlay.sharedInstance.showOverlay()
-        for dealer in dealers! {
-            if (dealer.ArtistThumbnailImageId != nil) {
-                cacheImage(dealer.ArtistThumbnailImageId!);
-            }
-            if (dealer.ArtistImageId != nil) {
-                cacheImage(dealer.ArtistImageId!);
-            }
-            if (dealer.ArtPreviewImageId != nil) {
-                cacheImage(dealer.ArtPreviewImageId!);
-            }
-        }
+
         
         //LoadingOverlay.sharedInstance.hideOverlay()
     }
+    
+
     
     func cacheMapImages() {
         
@@ -56,7 +79,7 @@ class ImageManager {
         }
     }
     
-    func cacheImage(imageId : String) {
+    func cacheImage(imageId : String, completion: (result: Bool) -> Void) {
         let URLRequest = NSURLRequest(URL: NSURL(string: self.baseImage + imageId)!)
         self.downloader.downloadImage(URLRequest: URLRequest) { response in
             if let image = response.result.value {
@@ -66,8 +89,10 @@ class ImageManager {
                 if !imageData!.writeToFile(imagePath, atomically: false)
                 {
                     print("Error with imageData on image caching manager")
+                    completion(result: false)
                 } else {
                     NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "imagePath")
+                    completion(result: true)
                 }
             }
         }
@@ -84,7 +109,9 @@ class ImageManager {
                     return image;
                 }
                 else {
-                    cacheImage(imageId);
+                    cacheImage(imageId){
+                        (result: Bool) in
+                    };
                     return retrieveFromCache(imageId, imagePlaceholder: imagePlaceholder)
                 }
                 

@@ -12,10 +12,6 @@ import AlamofireImage
 
 class DealerViewController: UIViewController {
     var dealer = Dealer();
-    let imageCache = AutoPurgingImageCache(
-        memoryCapacity: 100 * 1024 * 1024,
-        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
-    )
     @IBOutlet weak var artistThumbImageView: UIImageView!
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var artistShortDesc: UILabel!
@@ -26,7 +22,7 @@ class DealerViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,7 +41,7 @@ class DealerViewController: UIViewController {
         else {
             self.artistShortDesc.text = finalStringShortDesc;
         }
-
+        
         self.artistShortDesc.sizeToFit();
         
         let AboutArtist = self.dealer.AboutTheArtistText!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
@@ -68,59 +64,31 @@ class DealerViewController: UIViewController {
         }
         self.aboutArtLabel.sizeToFit();
         
-        
-        
-        //Image Process
-        let baseImage = ConfigManager.sharedInstance.apiBaseUrl +  "ImageData/"
-        if let url =   self.dealer.ArtistThumbnailImageId {
-            let downloadUrl = NSURLRequest(URL:NSURL(string: baseImage + url)!)
-            let avatarImage = UIImage(named: "defaultAvatar")!.af_imageRoundedIntoCircle()
-            let cachedAvatarImage = imageCache.imageForRequest(
-                downloadUrl,
-                withAdditionalIdentifier: "circle"
-            )
-            if ((cachedAvatarImage) == nil) {
-                self.imageCache.addImage(
-                    avatarImage,
-                    forRequest: downloadUrl,
-                    withAdditionalIdentifier: "circle"
-                )
-            }
-           self.artistThumbImageView.af_setImageWithURLRequest(downloadUrl, placeholderImage: avatarImage, filter: CircleFilter(), imageTransition: .CrossDissolve(0.5), runImageTransitionIfCached: false)
+        if let  artistThumbnailImageId = self.dealer.ArtistThumbnailImageId {
+            self.artistThumbImageView.image = ImageManager.sharedInstance.retrieveFromCache(artistThumbnailImageId, imagePlaceholder: UIImage(named: "defaultAvatar"))
         }
         else {
-            self.artistThumbImageView.image = UIImage(named: "defaultAvatar")!.af_imageRoundedIntoCircle();
+            self.artistThumbImageView.image = UIImage(named: "defaultAvatar")!;
         }
-
-    
-    
-    if let urlArtPreview =   self.dealer.ArtPreviewImageId {
-        let downloadUrl = NSURLRequest(URL:NSURL(string: baseImage + urlArtPreview)!)
-        let avatarImage = UIImage(named: "defaultAvatar")!
-        let cachedAvatarImage = imageCache.imageForRequest(
-            downloadUrl
-        )
-        if ((cachedAvatarImage) == nil) {
-            self.imageCache.addImage(
-                avatarImage,
-                forRequest: downloadUrl
-            )
+        
+        
+        
+        if let artPreviewImageId =   self.dealer.ArtPreviewImageId {
+            self.artistThumbImageView.image = ImageManager.sharedInstance.retrieveFromCache(artPreviewImageId, imagePlaceholder: UIImage(named: "defaultAvatar"))
         }
-        self.artImageView.af_setImageWithURLRequest(downloadUrl, placeholderImage: avatarImage, imageTransition: .CrossDissolve(0.5), runImageTransitionIfCached: false)
+        else {
+            self.artImageView.image = UIImage(named: "defaultAvatar")!;
+        }
+        
     }
-    else {
-    self.artImageView.image = UIImage(named: "defaultAvatar")!;
-    }
-    
-}
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

@@ -10,21 +10,29 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
+public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
+}
+
+public func <(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.compare(rhs) == .OrderedAscending
+}
+
+extension NSDate: Comparable { }
+
 public extension NSDate {
     public class func ISOStringFromDate(date: NSDate) -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
         
-        return dateFormatter.stringFromDate(date).stringByAppendingString("Z")
+        return dateFormatter.stringFromDate(date);
     }
     
     public class func dateFromISOString(string: String) -> NSDate? {
         let dateFormatter = NSDateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        dateFormatter.timeZone = NSTimeZone.localTimeZone()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
         
         return dateFormatter.dateFromString(string)
     }
@@ -48,5 +56,11 @@ public extension String {
         let nsSt = self as NSString
         
         return nsSt.stringByAppendingPathComponent(path)
+    }
+}
+
+extension UIView {
+    var isViewEmpty : Bool {
+        return  self.subviews.count == 0 ;
     }
 }

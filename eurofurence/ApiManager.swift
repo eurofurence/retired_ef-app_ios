@@ -31,6 +31,7 @@ class ApiManager {
     }
     
     func getAllFromAlert(alert: UIAlertAction) -> Void {
+        LoadingOverlay.sharedInstance.changeMessage("Downloading database ...");
         LoadingOverlay.sharedInstance.showOverlay()
         for object in self.objects {
             if let objectInstance = ObjectFromString.sharedInstance.instanciate(object) {
@@ -52,6 +53,7 @@ class ApiManager {
     }
     
     func getAll() {
+        LoadingOverlay.sharedInstance.changeMessage("Downloading data...");
         LoadingOverlay.sharedInstance.showOverlay()
         for object in self.objects {
             if let objectInstance = ObjectFromString.sharedInstance.instanciate(object) {
@@ -59,8 +61,8 @@ class ApiManager {
                     (result: String) in
                     self.requestedObjects += 1;
                     if (self.requestedObjects == self.objects.count) {
-                        ImageManager.sharedInstance.cachingAllImages();
                         LoadingOverlay.sharedInstance.hideOverlay()
+                        ImageManager.sharedInstance.cacheAllImages();
                         let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setBool(true, forKey: "isDatabaseAlreadyDownloaded")
                         self.requestedObjects = 0

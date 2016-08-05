@@ -214,6 +214,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Dealers den" id="E1g-dV-CWP"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="SDt-e5-KzB">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <attributedString key="attributedTitle">
+                            <fragment content="Refreshing data ...">
+                                <attributes>
+                                    <color key="NSColor" red="1" green="0.36078431372549019" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" metaFont="controlContent" size="11"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yqt-Bb-GAP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -270,7 +282,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsHeaderTableViewCell" rowHeight="160" id="M2m-p7-tgm" customClass="NewsTableViewCell" customModule="Eurofurence">
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsHeaderTableViewCell" rowHeight="160" id="M2m-p7-tgm" customClass="NewsHeaderTableViewCell" customModule="Eurofurence">
                                 <rect key="frame" x="0.0" y="92" width="600" height="160"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M2m-p7-tgm" id="021-6p-4V9">
@@ -298,6 +310,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.0078431372550000003" green="0.74117647060000003" blue="0.74117647060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="newsHeaderLabel" destination="sIx-Z7-pg0" id="K5y-78-V1V"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NewsTableViewCell" id="3AP-Zn-j65" customClass="NewsTableViewCell" customModule="Eurofurence">
                                 <rect key="frame" x="0.0" y="252" width="600" height="90"/>
@@ -364,6 +379,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="News" id="7BE-Jk-IfU"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Lib-z5-LMC">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <attributedString key="attributedTitle">
+                            <fragment content="Refreshing data ...">
+                                <attributes>
+                                    <color key="NSColor" red="1" green="0.36078431372549019" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" metaFont="controlContent" size="11"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qwK-rU-fqC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -811,7 +838,15 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Y1E-e3-P8J">
                         <autoresizingMask key="autoresizingMask"/>
-                        <attributedString key="attributedTitle"/>
+                        <attributedString key="attributedTitle">
+                            <fragment content="Refreshing data ...">
+                                <attributes>
+                                    <color key="NSColor" red="1" green="0.36078431372549019" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" metaFont="controlContent" size="11"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                     </refreshControl>
                     <connections>
                         <outlet property="searchDisplayController" destination="pva-oT-55t" id="tQH-nu-owA"/>
@@ -1245,7 +1280,7 @@
         <image name="News" width="25" height="25"/>
         <image name="Time Span-50" width="25" height="25"/>
         <image name="dealers" width="25" height="25"/>
-        <image name="defaultAvatar" width="500" height="500"/>
+        <image name="defaultAvatar" width="50" height="50"/>
         <image name="ef" width="176" height="89"/>
         <image name="ef-bg-news" width="540" height="181"/>
         <image name="eventBackground" width="800" height="162"/>

@@ -15,33 +15,57 @@ class ImageManager {
     let downloader = ConfigManager.sharedInstance.diskImageDownloader();
     static let sharedInstance = ImageManager();
     
-    func cachingAllImages() {
+    func cacheDealersImages() {
         let dealers = Dealer.getAll();
+        //LoadingOverlay.sharedInstance.changeMessage("Caching images ...");
+        //LoadingOverlay.sharedInstance.showOverlay()
         for dealer in dealers! {
             if (dealer.ArtistThumbnailImageId != nil) {
-                cachingImage(dealer.ArtistThumbnailImageId!);
+                cacheImage(dealer.ArtistThumbnailImageId!);
             }
-            
+            if (dealer.ArtistImageId != nil) {
+                cacheImage(dealer.ArtistImageId!);
+            }
+            if (dealer.ArtPreviewImageId != nil) {
+                cacheImage(dealer.ArtPreviewImageId!);
+            }
         }
         
-        if let maps = Map.getAll() {
-            for map in maps {
-                if(map.ImageId != nil) {
-                    cachingImage(map.ImageId!)
-                }
-            }
+        //LoadingOverlay.sharedInstance.hideOverlay()
+    }
+    
+    func cacheMapImages() {
+        
+    }
+    
+    func cacheAllImages() {
+        cacheDealersImages();
+        //LoadingOverlay.sharedInstance.hideOverlay();
+    }
+    
+    func documentsPathWithFileName(fileName : String) -> String {
+        
+        // Get file path to document directory root
+        let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0]
+        return documentsDirectoryPath.stringByAppendingPathComponent(fileName)
+    }
+    
+    func deleteFromCache(imagePath: String) {
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(imagePath)
+        } catch {
+            print("Can not delete image");
         }
     }
     
-    func cachingImage(imageId : String) {
+    func cacheImage(imageId : String, imageWidth: CGFloat = 100.0, imageHeight: CGFloat = 100.0) {
         let URLRequest = NSURLRequest(URL: NSURL(string: self.baseImage + imageId)!)
-        let filter = AspectScaledToFillSizeCircleFilter(size: CGSize(width: 100.0, height: 100.0))
-        self.downloader.downloadImage(URLRequest: URLRequest, filter: filter) { response in
+        //let filter = AspectScaledToFillSizeCircleFilter(size: CGSize(width: imageWidth, height: imageHeight))
+        self.downloader.downloadImage(URLRequest: URLRequest) { response in
             if let image = response.result.value {
                 let imageData = UIImageJPEGRepresentation(image,  1.0);
-                let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-                let imagePath = paths.stringByAppendingPathComponent(imageId + ".jpg")
-                
+                let imagePath = self.documentsPathWithFileName(imageId + ".jpg")
+                self.deleteFromCache(imagePath);
                 if !imageData!.writeToFile(imagePath, atomically: false)
                 {
                     print("Error with imageData on image caching manager")
@@ -51,7 +75,7 @@ class ImageManager {
             }
         }
     }
-    func retrieveFromCache(imageId: String) -> UIImage? {
+    func retrieveFromCache(imageId: String, imagePlaceholder: UIImage?) -> UIImage? {
         let nsDocumentDirectory = NSSearchPathDirectory.DocumentDirectory
         let nsUserDomainMask = NSSearchPathDomainMask.UserDomainMask
         let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
@@ -60,10 +84,17 @@ class ImageManager {
             let dirPath = paths[0]
             if (dirPath != "") {
                 let readPath = dirPath.stringByAppendingPathComponent(imageId + ".jpg");
-                let image    = UIImage(contentsOfFile: readPath);
-                return image;
+                if (readPath != "") {
+                    let image = UIImage(contentsOfFile: readPath);
+                    return image;
+                }
+                else {
+                    cacheImage(imageId);
+                    return retrieveFromCache(imageId, imagePlaceholder: imagePlaceholder)
+                }
+                
             }
         }
-        return nil;
+        return imagePlaceholder != nil ? imagePlaceholder : nil;
     }
 };

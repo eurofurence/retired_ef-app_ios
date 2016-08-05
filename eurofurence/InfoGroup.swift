@@ -14,6 +14,7 @@ class InfoGroup: Object {
     dynamic var LastChangeDateTimeUtc = ""
     dynamic var IsDeleted = ""
     dynamic var Name = ""
+    dynamic var Position = ""
     
     override static func primaryKey() -> String? {
         return "Id"
@@ -23,7 +24,7 @@ class InfoGroup: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let infoGroup = realm.objects(InfoGroup)
+            let infoGroup = realm.objects(InfoGroup).sorted("Position")
             return infoGroup
         } catch let error as NSError {
             print(error)

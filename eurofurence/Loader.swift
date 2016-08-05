@@ -41,4 +41,8 @@ public class LoadingOverlay{
             UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(false, completion:  nil)
         }
     }
+    
+    public func changeMessage(message: String) {
+        self.alert.message = message;
+    }
 }

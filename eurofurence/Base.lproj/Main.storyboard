@@ -595,22 +595,24 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                             </view>
                             <segmentedControl opaque="NO" tag="2" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dID-qv-DXc" userLabel="MapSwitch">
-                                <rect key="frame" x="162.5" y="451" width="275" height="29"/>
+                                <rect key="frame" x="241.5" y="449" width="117" height="29"/>
                                 <segments>
-                                    <segment title="Hotel"/>
-                                    <segment title="Dealer's Den"/>
+                                    <segment title="Default"/>
                                     <segment title="Area"/>
                                 </segments>
                                 <color key="tintColor" red="0.0" green="0.38431372549019605" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="mapSwitchChanged:" destination="7qp-Gf-BX9" eventType="primaryActionTriggered" id="lOy-hx-lmU"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="obc-LS-xAB" firstAttribute="top" secondItem="UPi-G5-x8h" secondAttribute="bottom" id="4Ny-4l-gyc"/>
                             <constraint firstItem="UPi-G5-x8h" firstAttribute="top" secondItem="utz-1H-XtR" secondAttribute="bottom" id="CUE-BK-6je"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="dID-qv-DXc" secondAttribute="bottom" constant="8" id="LpZ-CZ-mLb"/>
+                            <constraint firstItem="obc-LS-xAB" firstAttribute="top" secondItem="dID-qv-DXc" secondAttribute="bottom" constant="10" id="Gtj-vL-ybO"/>
                             <constraint firstItem="UPi-G5-x8h" firstAttribute="leading" secondItem="aFv-9D-bDX" secondAttribute="leading" id="TB4-UK-ko7"/>
-                            <constraint firstItem="dID-qv-DXc" firstAttribute="centerX" secondItem="aFv-9D-bDX" secondAttribute="centerX" id="ZZg-PT-DVv"/>
+                            <constraint firstItem="dID-qv-DXc" firstAttribute="centerX" secondItem="aFv-9D-bDX" secondAttribute="centerX" id="efy-ij-QZ5"/>
                             <constraint firstAttribute="trailing" secondItem="UPi-G5-x8h" secondAttribute="trailing" id="nW5-PQ-pU0"/>
                         </constraints>
                     </view>

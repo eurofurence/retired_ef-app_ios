@@ -12,47 +12,43 @@ import Alamofire
 import AlamofireImage
 
 class MapViewController: UIViewController, UIScrollViewDelegate {
-    static let HOTEL_MAP:   Int = 0
-    static let DDEN_MAP:    Int = 1
-    static let AREA_MAP:    Int = 2
-    static let DEFAULT_MAP: Int = HOTEL_MAP
+    static let imagePlaceholder = UIImage(named: "ef")
     
     @IBOutlet weak var mapContainerView: UIScrollView!
     @IBOutlet weak var mapSwitchControl: UISegmentedControl!
-    var hotelMapView: UIImageView!
-    var ddenMapView: UIImageView!
+    var mapViews: [UIImageView] = []
     var doubleTap: UITapGestureRecognizer!
     var currentMap: Int = -1
+    let defaultImageView = UIImageView(image: imagePlaceholder)
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let baseImage = ConfigManager.sharedInstance.apiBaseUrl +  "ImageData/"
-        var imageId: String!
+        var firstMapAdded = false
         let maps = Map.getAll()
         for map in maps! {
-            if map.isValidAtDateTimeUtc(NSDate.init()) {
-                print(map.Id, "is currently valid")
+            if map.isValidAtDateTimeUtc(NSDate.init()) && map.ImageId != nil && map.Description != nil {
+                print(map.Description, "(", map.Id, ") is currently valid, added!")
+                let mapView = UIImageView(image: ImageManager.sharedInstance.retrieveFromCache(map.ImageId!, imagePlaceholder: MapViewController.imagePlaceholder))
+                mapView.contentMode = UIViewContentMode.ScaleAspectFit
+                mapView.layer.cornerRadius = 11.0
+                mapView.clipsToBounds = false
+                mapViews.append(mapView)
+                if firstMapAdded {
+                    mapSwitchControl.insertSegmentWithTitle(map.Description, atIndex: mapSwitchControl.numberOfSegments - 1, animated: false)
+                } else {
+                    mapSwitchControl.setTitle(map.Description, forSegmentAtIndex: 0)
+                    firstMapAdded = true
+                }
             } else {
-                print(map.Id, "is currently invalid")
+                print(map.Description, "(", map.Id, ") is currently not valid, skipping...")
             }
-            print("ImageID=", map.ImageId!, ", Description=", map.Description!, ", URL=", baseImage + map.ImageId!)
-            imageId = map.ImageId
         }
         
-        print(imageId)
-        // initialize map for Hotel
-        hotelMapView = UIImageView(image: ImageManager.sharedInstance.retrieveFromCache(imageId))
-        hotelMapView.contentMode = UIViewContentMode.ScaleAspectFit
-        hotelMapView!.layer.cornerRadius = 11.0
-        hotelMapView!.clipsToBounds = false
-        
-        // initialize map for Dealer's Den
-        ddenMapView = UIImageView(image: UIImage(named: "ef"))
-        ddenMapView.contentMode = UIViewContentMode.ScaleAspectFit
-        ddenMapView!.layer.cornerRadius = 11.0
-        ddenMapView!.clipsToBounds = false
+        if(!firstMapAdded) {
+            mapSwitchControl.removeSegmentAtIndex(0, animated: false)
+        }
         
         // setup map container
         mapContainerView.delegate = self
@@ -66,9 +62,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         doubleTap!.numberOfTouchesRequired = 1
         mapContainerView!.addGestureRecognizer(doubleTap!)
         
-        mapSwitchControl.addTarget(self, action: #selector(MapViewController.mapSwitchChanged(_:)), forControlEvents: UIControlEvents.AllEvents)
-        
-        switchToMap(MapViewController.DEFAULT_MAP)
+        switchToMap(0)
     }
     @IBAction func ShowLegendBarButtonItem(sender: AnyObject) {
         
@@ -78,46 +72,34 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     /// given map is already being displayed
     /// - parameters:
     ///   - mapId: id of map to be displayed (see class constants for details)
-    func switchToMap(mapID : Int) {
-        if mapID == currentMap {
+    func switchToMap(mapId : Int) {
+        if mapId == currentMap {
             // mapID is already current map. Nothing to do here!
             return
         }
         
         mapContainerView.subviews.forEach({ $0.removeFromSuperview() })
         
-        switch mapID {
-        case 0:
-            mapContainerView.contentSize = hotelMapView.bounds.size
-            mapContainerView.addSubview(hotelMapView)
-            break
-        case 1:
-            mapContainerView.contentSize = ddenMapView.bounds.size
-            mapContainerView.addSubview(ddenMapView)
-            break
-        default:
-            // Unrecognized mapID, switch to default
-            switchToMap(MapViewController.DEFAULT_MAP)
+        if mapId < mapViews.count {
+            let mapView = mapViews[mapId]
+            mapContainerView.contentSize = mapView.bounds.size
+            mapContainerView.addSubview(mapView)
+        } else if mapViews.count > 0 {
+            switchToMap(0)
+        } else {
+            print("No maps available!")
             return
         }
         
-        currentMap = mapID
+        currentMap = mapId
     }
     
-    func mapSwitchChanged(segmentedControl: UISegmentedControl) {
-        switch segmentedControl.selectedSegmentIndex {
-        case MapViewController.HOTEL_MAP:
-            switchToMap(MapViewController.HOTEL_MAP)
-            break
-        case MapViewController.DDEN_MAP:
-            switchToMap(MapViewController.DDEN_MAP)
-            break
-        case MapViewController.AREA_MAP:
+    @IBAction func mapSwitchChanged(segmentedControl: UISegmentedControl) {
+        if segmentedControl.selectedSegmentIndex == mapViews.count {
             presentViewController(RoutingAppChooser.sharedInstance.getAlertForAddress("Estrel Hotel Berlin", house: "225", street: "Sonnenallee", zip: "12057", city: "Berlin", country: "Germany"), animated: true, completion:nil)
             segmentedControl.selectedSegmentIndex = currentMap
-            break
-        default:
-            ()
+        } else {
+            switchToMap(segmentedControl.selectedSegmentIndex)
         }
     }
     

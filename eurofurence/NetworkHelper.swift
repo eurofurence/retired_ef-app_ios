@@ -30,31 +30,24 @@ class NetworkManager {
         self.reachability!.whenReachable = { reachability in
             dispatch_async(dispatch_get_main_queue()) {
                 if reachability.isReachableViaWiFi() {
-                    if (self.isDatabaseAlreadyDownloadedOnce() == false) {
-                        ApiManager.sharedInstance.getAll();
+                    if !ApiManager.sharedInstance.isDatabaseDownloaded() {
+                        ApiManager.sharedInstance.updateAllEntities(true);
                     }
                     else {
-                        ApiManager.sharedInstance.getDiff()
+                        ApiManager.sharedInstance.updateAllEntities()
                     }
                 } else {
-
-                    if (self.isDatabaseAlreadyDownloadedOnce() == false) {
-                        let alert = UIAlertController(title: "Download database", message: "It seems that you are connected over cellular data, would you like to download the content data, it will allow you to use the app offline?", preferredStyle: UIAlertControllerStyle.Alert)
-                        ApiManager.sharedInstance.getAll();
-                        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
-                        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: ApiManager.sharedInstance.getAllFromAlert))
-                        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
-                    }
-                    else {
-                        ApiManager.sharedInstance.getDiff()
-                    }
+                    let alert = UIAlertController(title: "Download database", message: "It seems that you are connected over cellular data, would you like to download/update the content data, it will allow you to use the app offline?", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: ApiManager.sharedInstance.getAllFromAlert))
+                    UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
                 }
             }
         }
         self.reachability!.whenUnreachable = { reachability in
             dispatch_async(dispatch_get_main_queue()) {
                 print("Not reachable")
-                if (self.isDatabaseAlreadyDownloadedOnce() == false) {
+                if !ApiManager.sharedInstance.isDatabaseDownloaded() {
                     let alert = UIAlertController(title: "Download database", message: "You should connect to a wifi or a cellular connexion to initiate the app data", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
                     UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
@@ -67,17 +60,5 @@ class NetworkManager {
             print("Unable to start notifier")
         }
         
-    }
-    
-    func isDatabaseAlreadyDownloadedOnce()->Bool{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let _ = defaults.stringForKey("isDatabaseAlreadyDownloaded"){
-            return true
-        }
-        else{
-            //defaults.setBool(true, forKey: "isAppAlreadyLaunchedOnce")
-            print("DB never downloaded")
-            return false
-        }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gjr-9L-0Tf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gjr-9L-0Tf">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -588,11 +588,40 @@
                         <viewControllerLayoutGuide type="bottom" id="obc-LS-xAB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="aFv-9D-bDX">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view tag="1" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="UPi-G5-x8h" userLabel="MapContainer" customClass="UIScrollView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                            </view>
+                            <segmentedControl opaque="NO" tag="2" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dID-qv-DXc" userLabel="MapSwitch">
+                                <rect key="frame" x="241.5" y="449" width="117" height="29"/>
+                                <segments>
+                                    <segment title="Default"/>
+                                    <segment title="Area"/>
+                                </segments>
+                                <color key="tintColor" red="0.0" green="0.38431372549019605" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="mapSwitchChanged:" destination="7qp-Gf-BX9" eventType="primaryActionTriggered" id="lOy-hx-lmU"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="obc-LS-xAB" firstAttribute="top" secondItem="UPi-G5-x8h" secondAttribute="bottom" id="4Ny-4l-gyc"/>
+                            <constraint firstItem="UPi-G5-x8h" firstAttribute="top" secondItem="utz-1H-XtR" secondAttribute="bottom" id="CUE-BK-6je"/>
+                            <constraint firstItem="obc-LS-xAB" firstAttribute="top" secondItem="dID-qv-DXc" secondAttribute="bottom" constant="10" id="Gtj-vL-ybO"/>
+                            <constraint firstItem="UPi-G5-x8h" firstAttribute="leading" secondItem="aFv-9D-bDX" secondAttribute="leading" id="TB4-UK-ko7"/>
+                            <constraint firstItem="dID-qv-DXc" firstAttribute="centerX" secondItem="aFv-9D-bDX" secondAttribute="centerX" id="efy-ij-QZ5"/>
+                            <constraint firstAttribute="trailing" secondItem="UPi-G5-x8h" secondAttribute="trailing" id="nW5-PQ-pU0"/>
+                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Map" id="PQi-Sz-LWX"/>
+                    <connections>
+                        <outlet property="mapContainerView" destination="UPi-G5-x8h" id="A4a-c2-bKl"/>
+                        <outlet property="mapSwitchControl" destination="dID-qv-DXc" id="Djz-7f-oZf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ha8-mi-NqH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

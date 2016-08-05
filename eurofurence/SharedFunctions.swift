@@ -29,15 +29,13 @@ public extension NSDate {
         return dateFormatter.stringFromDate(date);
     }
     
-    public class func dateFromISOString(string: String) -> NSDate {
+    public class func dateFromISOString(string: String) -> NSDate? {
         let dateFormatter = NSDateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
         
-        return dateFormatter.dateFromString(string)!;
+        return dateFormatter.dateFromString(string)
     }
-    
-    
 }
 
 public extension UIImage {

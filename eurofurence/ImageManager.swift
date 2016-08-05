@@ -76,8 +76,7 @@ class ImageManager {
                 let imageData = UIImageJPEGRepresentation(image,  1.0);
                 let imagePath = self.documentsPathWithFileName(imageId + ".jpg")
                 self.deleteFromCache(imagePath);
-                if !imageData!.writeToFile(imagePath, atomically: false)
-                {
+                if !imageData!.writeToFile(imagePath, atomically: false) {
                     print("Error with imageData on image caching manager")
                     completion(result: false)
                 } else {
@@ -89,25 +88,29 @@ class ImageManager {
     }
     
     //Retrieve image from directory
-    func retrieveFromCache(imageId: String, imagePlaceholder: UIImage?) -> UIImage? {
+    func retrieveFromCache(imageId: String, imagePlaceholder: UIImage? = nil) -> UIImage? {
         let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
-        if paths.count > 0
-        {
+        if paths.count > 0 {
             let dirPath = paths[0]
             if (dirPath != "") {
-                let readPath = dirPath.stringByAppendingPathComponent(imageId + ".jpg");
-                if (readPath != "") {
-                    let image = UIImage(contentsOfFile: readPath);
+                let readPath = dirPath.stringByAppendingPathComponent(imageId + ".jpg")
+                if let image = UIImage(contentsOfFile: readPath) {
                     return image;
                 }
                 else {
-                    cacheImage(imageId){
+                    var success = false
+                    cacheImage(imageId) {
                         (result: Bool) in
-                    };
-                    return retrieveFromCache(imageId, imagePlaceholder: imagePlaceholder)
+                        success = result
+                    }
+                    if success {
+                        return retrieveFromCache(imageId, imagePlaceholder: imagePlaceholder)
+                    } else {
+                        return imagePlaceholder
+                    }
                 }
             }
         }
-        return imagePlaceholder != nil ? imagePlaceholder : nil;
+        return imagePlaceholder
     }
-};
+}

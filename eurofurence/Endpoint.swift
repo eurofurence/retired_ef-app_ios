@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Configurations: Object {
+class ConfigurationValue: Object {
     dynamic var Id = ""
     dynamic var RessourceKey = ""
     dynamic var Value = ""
@@ -24,9 +24,9 @@ class Entity: Object {
     dynamic var Id = ""
     dynamic var Name = ""
     dynamic var TableName = ""
-    dynamic var SelectFields = ""
     dynamic var LastChangeDateTimeUtc = ""
-    dynamic var count = ""
+    dynamic var DeltaStartDateTimeUtc = ""
+    dynamic var Count = ""
     let owners = LinkingObjects(fromType: Endpoint.self, property: "Entities")
     
     override static func primaryKey() -> String? {
@@ -35,36 +35,39 @@ class Entity: Object {
 }
 
 class Endpoint: Object {
-    dynamic var Id = 0
     dynamic var CurrentDateTimeUtc = ""
-    let Configuration = List<Configurations>()
+    let Configuration = List<ConfigurationValue>()
     let Entities = List<Entity>()
     
     override static func primaryKey() -> String? {
-        return "Id"
+        return "CurrentDateTimeUtc"
     }
     
-    static func getAll() -> Results<Endpoint>?{
+    static func get() -> Endpoint?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let endpoint = realm.objects(Endpoint)
-            return endpoint
+            return endpoint.first
         } catch let error as NSError {
             print(error)
         }
         return nil
     }
     
-    static func getById(primaryKey:String) -> Endpoint?{
-        do {
-            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
-            let realm = try Realm()
-            let endpoint = realm.objectForPrimaryKey(Endpoint.self, key: primaryKey)
-            return endpoint
-        } catch let error as NSError {
-            print(error)
-        }
-        return nil
+    func getEntityByName(name: String)->Entity? {
+        return Entities.filter(NSPredicate(format: "Name = %@", name)).first
+    }
+    
+    func getEntityById(id: String)->Entity? {
+        return Entities.filter(NSPredicate(format: "Id = %@", id)).first
+    }
+    
+    func getConfigurationsById(id: String)->ConfigurationValue? {
+        return Configuration.filter(NSPredicate(format: "Id = %@", id)).first
+    }
+    
+    func getCurrentDateTimeUtc()->NSDate? {
+        return NSDate.dateFromISOString(CurrentDateTimeUtc)
     }
 }

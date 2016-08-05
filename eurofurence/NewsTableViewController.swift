@@ -22,23 +22,13 @@ class NewsTableViewController: UITableViewController {
     }
     
     // Pull to refresh function
-    func refresh(sender:AnyObject)
-    {
-        let objects = [ConfigManager.sharedInstance.announcement]
-        var updatedObjects = 0;
-        for object in objects {
-            if let objectInstance = ObjectFromString.sharedInstance.instanciate(object) {
-                ApiManager.sharedInstance.get(objectInstance as! Object, objectName: object) {
-                    (result: String) in
-                    updatedObjects += 1;
-                    if (updatedObjects == objects.count) {
-                        self.tableView.reloadData()
-                        self.refreshControl?.endRefreshing()
-                        return;
-                    }
-                }
+    func refresh(sender:AnyObject) {
+        ApiManager.sharedInstance.updateAllEntities(false, completion: {(isDataUpdated: Bool) in
+            if isDataUpdated {
+                self.tableView.reloadData()
             }
-        }
+            self.refreshControl?.endRefreshing()
+        })
     }
     
     override func didReceiveMemoryWarning() {

@@ -13,6 +13,11 @@ class ObjectFromString {
     
     func instanciate(className:String) -> AnyObject?{
         switch className {
+        case ConfigManager.sharedInstance.endpoint:
+            if let classObject = NSClassFromString("Eurofurence." + className) as? Endpoint.Type {
+                let object = classObject.init()
+                return object
+            }
         case ConfigManager.sharedInstance.eventEntry:
             if let classObject = NSClassFromString("Eurofurence." + className) as? EventEntry.Type {
                 let object = classObject.init()

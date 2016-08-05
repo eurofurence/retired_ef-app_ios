@@ -86,7 +86,9 @@ class ApiManager {
                             self.requestedObjects -= 1
                             if (self.requestedObjects == 0) {
                                 LoadingOverlay.sharedInstance.hideOverlay()
+                                //Find a way to show loader on cacheAllImages (Slow perf on this)
                                 ImageManager.sharedInstance.cacheAllImages()
+                                NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: nil)
                                 let defaults = NSUserDefaults.standardUserDefaults()
                                 defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
                                 self.isUpdating = false

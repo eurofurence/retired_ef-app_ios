@@ -51,7 +51,7 @@ class ImageManager {
         }
     }
     
-
+    
     //TODO
     func cacheMapImages() {
         
@@ -73,7 +73,6 @@ class ImageManager {
         do {
             try NSFileManager.defaultManager().removeItemAtPath(imagePath)
         } catch {
-            print("Can not delete image");
         }
     }
     
@@ -115,7 +114,6 @@ class ImageManager {
                     };
                     return retrieveFromCache(imageId, imagePlaceholder: imagePlaceholder)
                 }
-                
             }
         }
         return imagePlaceholder != nil ? imagePlaceholder : nil;

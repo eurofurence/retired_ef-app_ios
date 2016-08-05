@@ -50,7 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         }
-        
         return true
     }
     

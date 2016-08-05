@@ -62,7 +62,11 @@ class DealerTableViewController: UITableViewController {
         cell.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         cell.shortDescriptionDealerLabel!.text = self.dealers![indexPath.row].ShortDescription;
         if let artistThumbnailImageId =   self.dealers![indexPath.row].ArtistThumbnailImageId {
-            cell.artistDealerImage.image = ImageManager.sharedInstance.retrieveFromCache(artistThumbnailImageId, imagePlaceholder: UIImage(named: "defaultAvatar")!.af_imageRoundedIntoCircle())!.af_imageRoundedIntoCircle();
+            let optionalDealerImage = ImageManager.sharedInstance.retrieveFromCache(artistThumbnailImageId, imagePlaceholder: UIImage(named: "defaultAvatar"))
+            if let dealerImage = optionalDealerImage {
+                cell.artistDealerImage.image = dealerImage.af_imageRoundedIntoCircle().af_imageRoundedIntoCircle();
+            }
+
         }
         else {
             cell.artistDealerImage.image = UIImage(named: "defaultAvatar")!.af_imageRoundedIntoCircle();

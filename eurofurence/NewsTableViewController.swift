@@ -14,6 +14,7 @@ class NewsTableViewController: UITableViewController {
     var filteredAnnouncements : [Announcement] = [];
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewsTableViewController.notificationRefresh(_:)),name:"reloadData", object: nil)
         self.annoucements = Announcement.getAll();
         self.tableView.backgroundColor = UIColor.blackColor();
         tableView.estimatedRowHeight = 70;
@@ -30,6 +31,25 @@ class NewsTableViewController: UITableViewController {
             self.refreshControl?.endRefreshing()
         })
     }
+    
+    func notificationRefresh(notification: NSNotification){
+        self.updateAnnouncements();
+        self.tableView.reloadData()
+    }
+    
+    func updateAnnouncements() {
+        self.annoucements = Announcement.getAll();
+        self.filteredAnnouncements = [];
+        for announcement in annoucements! {
+            let fromDate = NSDate.dateFromISOString(announcement.ValidFromDateTimeUtc);
+            let untilDate = NSDate.dateFromISOString(announcement.ValidUntilDateTimeUtc);
+            let currentDate = NSDate();
+            if ((fromDate <= currentDate) && (untilDate >= currentDate)) {
+                self.filteredAnnouncements.append(announcement);
+            }
+        }
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -49,17 +69,8 @@ class NewsTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.annoucements = Announcement.getAll();
-       self.filteredAnnouncements = [];
-        for announcement in annoucements! {
-            let fromDate = NSDate.dateFromISOString(announcement.ValidFromDateTimeUtc);
-            let untilDate = NSDate.dateFromISOString(announcement.ValidUntilDateTimeUtc);
-            let currentDate = NSDate();
-            if ((fromDate <= currentDate) && (untilDate >= currentDate)) {
-                self.filteredAnnouncements.append(announcement);
-            }
-        }
-        self.tableView.reloadData()
+        self.updateAnnouncements();
+        self.tableView.reloadData();
         
     }
     

@@ -14,53 +14,63 @@ class ImageManager {
     let baseImage = ConfigManager.sharedInstance.apiBaseUrl +  "ImageData/";
     let downloader = ConfigManager.sharedInstance.diskImageDownloader();
     static let sharedInstance = ImageManager();
+    let dispatchGroup = dispatch_group_create();
     
-    func cacheDealersImages() {
-        let dealers = Dealer.getAll();
-        //LoadingOverlay.sharedInstance.changeMessage("Caching images ...");
-        //LoadingOverlay.sharedInstance.showOverlay()
-        for dealer in dealers! {
-            if (dealer.ArtistThumbnailImageId != nil) {
-                cacheImage(dealer.ArtistThumbnailImageId!);
-            }
-            if (dealer.ArtistImageId != nil) {
-                cacheImage(dealer.ArtistImageId!);
-            }
-            if (dealer.ArtPreviewImageId != nil) {
-                cacheImage(dealer.ArtPreviewImageId!);
-            }
+    func dispatchEntity(entityId: String?) {
+        if (entityId != nil) {
+            dispatch_group_enter(self.dispatchGroup)
+            cacheImage(entityId!) {
+                (result: Bool) in
+                dispatch_group_leave(self.dispatchGroup)
+            };
         }
-        
-        //LoadingOverlay.sharedInstance.hideOverlay()
     }
     
+    /// Get all dealers in the Realm Database to cache all images with cacheImage
+    func cacheDealersImages() {
+        let dealersOptional = Dealer.getAll();
+        if let dealers = dealersOptional {
+            LoadingOverlay.sharedInstance.changeMessage("Caching images");
+            LoadingOverlay.sharedInstance.showOverlay();
+            for dealer in dealers {
+                dispatchEntity(dealer.ArtistThumbnailImageId);
+                dispatchEntity(dealer.ArtistImageId);
+                dispatchEntity(dealer.ArtPreviewImageId);
+            }
+            dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), {
+                LoadingOverlay.sharedInstance.hideOverlay();
+            })
+        }
+    }
+    
+    
+    //TODO
     func cacheMapImages() {
         
     }
     
+    //Caching all entities images
     func cacheAllImages() {
         cacheDealersImages();
-        //LoadingOverlay.sharedInstance.hideOverlay();
     }
     
+    //Retrieve cache path in the document directory
     func documentsPathWithFileName(fileName : String) -> String {
-        
-        // Get file path to document directory root
         let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0]
         return documentsDirectoryPath.stringByAppendingPathComponent(fileName)
     }
     
+    //Delete image from cache
     func deleteFromCache(imagePath: String) {
         do {
             try NSFileManager.defaultManager().removeItemAtPath(imagePath)
         } catch {
-            print("Can not delete image");
         }
     }
     
-    func cacheImage(imageId : String, imageWidth: CGFloat = 100.0, imageHeight: CGFloat = 100.0) {
+    //Cache image in the CachesDirectory
+    func cacheImage(imageId : String, completion: (result: Bool) -> Void) {
         let URLRequest = NSURLRequest(URL: NSURL(string: self.baseImage + imageId)!)
-        //let filter = AspectScaledToFillSizeCircleFilter(size: CGSize(width: imageWidth, height: imageHeight))
         self.downloader.downloadImage(URLRequest: URLRequest) { response in
             if let image = response.result.value {
                 let imageData = UIImageJPEGRepresentation(image,  1.0);
@@ -69,16 +79,18 @@ class ImageManager {
                 if !imageData!.writeToFile(imagePath, atomically: false)
                 {
                     print("Error with imageData on image caching manager")
+                    completion(result: false)
                 } else {
                     NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "imagePath")
+                    completion(result: true)
                 }
             }
         }
     }
+    
+    //Retrieve image from directory
     func retrieveFromCache(imageId: String, imagePlaceholder: UIImage?) -> UIImage? {
-        let nsDocumentDirectory = NSSearchPathDirectory.DocumentDirectory
-        let nsUserDomainMask = NSSearchPathDomainMask.UserDomainMask
-        let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
         if paths.count > 0
         {
             let dirPath = paths[0]
@@ -89,10 +101,11 @@ class ImageManager {
                     return image;
                 }
                 else {
-                    cacheImage(imageId);
+                    cacheImage(imageId){
+                        (result: Bool) in
+                    };
                     return retrieveFromCache(imageId, imagePlaceholder: imagePlaceholder)
                 }
-                
             }
         }
         return imagePlaceholder != nil ? imagePlaceholder : nil;

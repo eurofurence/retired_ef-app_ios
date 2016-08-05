@@ -62,7 +62,9 @@ class ApiManager {
                     self.requestedObjects += 1;
                     if (self.requestedObjects == self.objects.count) {
                         LoadingOverlay.sharedInstance.hideOverlay()
+                        //Find a way to show loader on cacheAllImages (Slow perf on this)
                         ImageManager.sharedInstance.cacheAllImages();
+                        NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: nil)
                         let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setBool(true, forKey: "isDatabaseAlreadyDownloaded")
                         self.requestedObjects = 0
@@ -74,6 +76,7 @@ class ApiManager {
             }
         }
     }
+    
     
     func getDiff() {
         if (self.lastDateTimeUtc != "") {

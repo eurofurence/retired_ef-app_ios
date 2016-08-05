@@ -44,8 +44,6 @@ class ImageManager {
     }
     
     func documentsPathWithFileName(fileName : String) -> String {
-        
-        // Get file path to document directory root
         let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0]
         return documentsDirectoryPath.stringByAppendingPathComponent(fileName)
     }
@@ -58,9 +56,8 @@ class ImageManager {
         }
     }
     
-    func cacheImage(imageId : String, imageWidth: CGFloat = 100.0, imageHeight: CGFloat = 100.0) {
+    func cacheImage(imageId : String) {
         let URLRequest = NSURLRequest(URL: NSURL(string: self.baseImage + imageId)!)
-        //let filter = AspectScaledToFillSizeCircleFilter(size: CGSize(width: imageWidth, height: imageHeight))
         self.downloader.downloadImage(URLRequest: URLRequest) { response in
             if let image = response.result.value {
                 let imageData = UIImageJPEGRepresentation(image,  1.0);
@@ -76,9 +73,7 @@ class ImageManager {
         }
     }
     func retrieveFromCache(imageId: String, imagePlaceholder: UIImage?) -> UIImage? {
-        let nsDocumentDirectory = NSSearchPathDirectory.DocumentDirectory
-        let nsUserDomainMask = NSSearchPathDomainMask.UserDomainMask
-        let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
         if paths.count > 0
         {
             let dirPath = paths[0]

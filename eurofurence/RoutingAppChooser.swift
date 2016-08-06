@@ -27,10 +27,17 @@ class RoutingAppChooser {
          %city%       - city
          %country%    - country
          %country-a3% - ISO 3166-1 alpha-3 code for country [http://unstats.un.org/unsd/methods/m49/m49alpha.htm]
+         %lat%        - latitude
+         %lon%        - longitude
          */
+        
+        /* Need support for more routing apps? Open for any suggestions! =D */
         routingApps["Apple Maps"] = "http://maps.apple.com/?q=%name%,%house%,%street%,%city%,%country%"
         routingApps["Google Maps"] = "comgooglemaps://?q=%name%,%house%,%street%,%city%,%country%"
         routingApps["Navigon"] = "navigon://address/%name%/%country-a3%/%zip%/%city%/%street%/%house%"
+        routingApps["Garmin StreetPilot"] = "garminonboardwesterneurope://gm?action=map&name=%name%&address=%street%+%house%&%city=%city%" // this is purely guesswork and might potentially not work
+        routingApps["Navmii"] = "navmii://%lat%,%lon%"
+        routingApps["Waze"] = "waze://?q=%name%,%house%,%street%,%city%,%country%"
         
         pruneUnavailableApps()
         
@@ -73,20 +80,15 @@ class RoutingAppChooser {
         return routingApps[routingApp] != nil && UIApplication.sharedApplication().canOpenURL(NSURL(string: routingApps[routingApp]!.stringByReplacingOccurrencesOfString("%", withString: ""))!)
     }
     
-    func getCountryAlpha3(country: String?)->String? {
-        //TODO: map english country names to alpha-3 strings
-        return ""
-    }
-    
     private func validateForURL(text: String?)->String {
         if text == nil || text!.isEmpty {
             return ""
         } else {
-            return text!.stringByReplacingOccurrencesOfString(" ", withString: "+").stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+            return text!.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
         }
     }
     
-    func getAppURLForAddress(routingApp: String, name: String, house: String, street: String, zip: String, city: String, country: String)->NSURL? {
+    func getAppURLForAddress(routingApp: String, name: String, house: String, street: String, zip: String, city: String, country: String, lat: CGFloat, lon: CGFloat)->NSURL? {
         return getAppURLForAddress(
             routingApp,
             name: validateForURL(name),
@@ -95,10 +97,12 @@ class RoutingAppChooser {
             zip: validateForURL(zip),
             city: validateForURL(city),
             country: validateForURL(country),
-            countryAlpha3: validateForURL(getCountryAlpha3(country)))
+            countryAlpha3: validateForURL(CountryAlpha3Converter.getAlpha3ForCountry(country)),
+            lat: lat,
+            lon: lon)
     }
     
-    private func getAppURLForAddress(routingApp: String, name: String, house: String, street: String, zip: String, city: String, country: String, countryAlpha3: String)->NSURL? {
+    private func getAppURLForAddress(routingApp: String, name: String, house: String, street: String, zip: String, city: String, country: String, countryAlpha3: String, lat: CGFloat, lon: CGFloat)->NSURL? {
         if routingApps[routingApp] == nil {
             return nil
         } else {
@@ -110,18 +114,21 @@ class RoutingAppChooser {
                 .stringByReplacingOccurrencesOfString("%city%", withString: city)
                 .stringByReplacingOccurrencesOfString("%country%", withString: country)
                 .stringByReplacingOccurrencesOfString("%country-a3%", withString: countryAlpha3)
+                .stringByReplacingOccurrencesOfString("%lat%", withString: String(lat))
+                .stringByReplacingOccurrencesOfString("%lon%", withString: String(lon))
+            
             return NSURL(string: appURL)
         }
     }
     
-    private func generateURLsForAddress(name: String, house: String, street: String, zip: String, city: String, country: String, countryAlpha3: String) {
+    private func generateURLsForAddress(name: String, house: String, street: String, zip: String, city: String, country: String, countryAlpha3: String, lat: CGFloat, lon: CGFloat) {
         currentURLs = [:]
         for routingApp in routingApps.keys {
-            currentURLs[routingApp] = getAppURLForAddress(routingApp, name: name, house: house, street: street, zip: zip, city: city, country: country, countryAlpha3: countryAlpha3)
+            currentURLs[routingApp] = getAppURLForAddress(routingApp, name: name, house: house, street: street, zip: zip, city: city, country: country, countryAlpha3: countryAlpha3, lat: lat, lon: lon)
         }
     }
     
-    func getAlertForAddress(name: String, house: String, street: String, zip: String, city: String, country: String)->UIAlertController {
+    func getAlertForAddress(name: String, house: String, street: String, zip: String, city: String, country: String, lat: CGFloat, lon: CGFloat)->UIAlertController {
         generateURLsForAddress(
             validateForURL(name),
             house: validateForURL(house),
@@ -129,7 +136,9 @@ class RoutingAppChooser {
             zip: validateForURL(zip),
             city: validateForURL(city),
             country: validateForURL(country),
-            countryAlpha3: validateForURL(getCountryAlpha3(country)))
+            countryAlpha3: validateForURL(CountryAlpha3Converter.getAlpha3ForCountry(country)),
+            lat: lat,
+            lon: lon)
         return selectionAlert
     }
 }

@@ -12,12 +12,19 @@ import AlamofireImage
 
 class DealerViewController: UIViewController {
     var dealer = Dealer();
-    @IBOutlet weak var artistThumbImageView: UIImageView!
+    @IBOutlet weak var artistImage: UIImageView!
     @IBOutlet weak var artistName: UILabel!
-    @IBOutlet weak var artistShortDesc: UILabel!
+    @IBOutlet weak var artistShortDescription: UILabel!
     @IBOutlet weak var aboutArtist: UILabel!
-    @IBOutlet weak var artImageView: UIImageView!
-    @IBOutlet weak var aboutArtLabel: UILabel!
+    @IBOutlet weak var artPreviewImage: UIImageView!
+    @IBOutlet weak var artPreviewCaption: UILabel!
+    @IBOutlet weak var aboutArt: UILabel!
+    @IBOutlet weak var dealersDenMapImage: UIImageView!
+    
+    func canRotate()->Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -30,22 +37,29 @@ class DealerViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         
-        self.artistName.text = self.dealer.AttendeeNickname;
-        
         let newlineChars = NSCharacterSet.newlineCharacterSet()
-        let ShortDesc = self.dealer.ShortDescription!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
-        let finalStringShortDesc = ShortDesc.joinWithSeparator("\n");
-        if (finalStringShortDesc == "") {
-            self.artistShortDesc.text = "N/A"
+        
+        if let  artistImageId = self.dealer.ArtistImageId {
+            self.artistImage.image = ImageManager.sharedInstance.retrieveFromCache(artistImageId, imagePlaceholder: UIImage(named: "defaultAvatar"))
         }
         else {
-            self.artistShortDesc.text = finalStringShortDesc;
+            self.artistImage.image = UIImage(named: "defaultAvatar")!;
         }
         
-        self.artistShortDesc.sizeToFit();
+        self.artistName.text = self.dealer.AttendeeNickname;
         
-        let AboutArtist = self.dealer.AboutTheArtistText!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
-        let finalStringAboutArtist = AboutArtist.joinWithSeparator("\n");
+        let shortDescription = self.dealer.ShortDescription!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
+        let finalStringShortDescription = shortDescription.joinWithSeparator("\n");
+        if (finalStringShortDescription == "") {
+            self.artistShortDescription.text = "N/A"
+        }
+        else {
+            self.artistShortDescription.text = finalStringShortDescription;
+        }
+        self.artistShortDescription.sizeToFit();
+        
+        let aboutArtist = self.dealer.AboutTheArtistText!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
+        let finalStringAboutArtist = aboutArtist.joinWithSeparator("\n");
         if (finalStringAboutArtist == "") {
             self.aboutArtist.text = "N/A"
         }
@@ -54,31 +68,32 @@ class DealerViewController: UIViewController {
         }
         self.aboutArtist.sizeToFit();
         
+        if let artPreviewImageId =   self.dealer.ArtPreviewImageId {
+            self.artPreviewImage.image = ImageManager.sharedInstance.retrieveFromCache(artPreviewImageId, imagePlaceholder: UIImage(named: "defaultAvatar"))
+        }
+        else {
+            self.artPreviewImage.image = UIImage(named: "defaultAvatar")!;
+        }
+        
+        let artPreviewCaption = self.dealer.ArtPreviewCaption!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
+        let finalStringArtPreviewCaption = artPreviewCaption.joinWithSeparator("\n");
+        if (finalStringArtPreviewCaption == "") {
+            self.artPreviewCaption.text = "N/A"
+        }
+        else {
+            self.artPreviewCaption.text = finalStringArtPreviewCaption;
+        }
+        self.artPreviewCaption.sizeToFit();
+        
         let AboutArt = self.dealer.AboutTheArtText!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
         let finalStringAboutArt = AboutArt.joinWithSeparator("\n");
         if (finalStringAboutArt == "") {
-            self.aboutArtLabel.text = "N/A"
+            self.aboutArt.text = "N/A"
         }
         else {
-            self.aboutArtLabel.text = finalStringAboutArt;
+            self.aboutArt.text = finalStringAboutArt;
         }
-        self.aboutArtLabel.sizeToFit();
-        
-        if let  artistThumbnailImageId = self.dealer.ArtistThumbnailImageId {
-            self.artistThumbImageView.image = ImageManager.sharedInstance.retrieveFromCache(artistThumbnailImageId, imagePlaceholder: UIImage(named: "defaultAvatar"))
-        }
-        else {
-            self.artistThumbImageView.image = UIImage(named: "defaultAvatar")!;
-        }
-        
-        
-        
-        if let artPreviewImageId =   self.dealer.ArtPreviewImageId {
-            self.artistThumbImageView.image = ImageManager.sharedInstance.retrieveFromCache(artPreviewImageId, imagePlaceholder: UIImage(named: "defaultAvatar"))
-        }
-        else {
-            self.artImageView.image = UIImage(named: "defaultAvatar")!;
-        }
+        self.aboutArt.sizeToFit();
         
     }
     /*

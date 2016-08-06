@@ -37,6 +37,10 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>comgooglemaps</string>
+		<string>navigon</string>
+		<string>garminonboardwesterneurope</string>
+		<string>navmii</string>
+		<string>waze</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

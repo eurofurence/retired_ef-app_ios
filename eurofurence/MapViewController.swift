@@ -13,6 +13,9 @@ import AlamofireImage
 
 class MapViewController: UIViewController, UIScrollViewDelegate {
     static let imagePlaceholder = UIImage(named: "ef")
+    static let ZOOM_STEPS = 3
+    static let MAX_ZOOM_SCALE_FACTOR: CGFloat = 5.0
+    static let MIN_ZOOM_SCALE_FACTOR: CGFloat = 1.0
     
     @IBOutlet weak var mapContainerView: UIScrollView!
     @IBOutlet weak var mapSwitchControl: UISegmentedControl!
@@ -84,6 +87,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
             let mapView = mapViews[mapId]
             mapContainerView.contentSize = mapView.bounds.size
             mapContainerView.addSubview(mapView)
+            adjustZoomToFit()
         } else if mapViews.count > 0 {
             switchToMap(0)
         } else {
@@ -108,14 +112,34 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func zoom(tapGesture: UITapGestureRecognizer) {
-        if (mapContainerView!.zoomScale == mapContainerView!.minimumZoomScale) {
-            let center = tapGesture.locationInView(mapContainerView!)
-            let size = (self.mapContainerView.subviews.first as! UIImageView).image!.size
-            let zoomRect = CGRectMake(center.x, center.y, (size.width / 4), (size.height / 4))
-            mapContainerView!.zoomToRect(zoomRect, animated: true)
+        if (mapContainerView.zoomScale < mapContainerView.maximumZoomScale) {
+            mapContainerView.setZoomScale(mapContainerView.zoomScale + mapContainerView.maximumZoomScale /  CGFloat(MapViewController.ZOOM_STEPS), animated: true)
         } else {
-            mapContainerView!.setZoomScale(mapContainerView!.minimumZoomScale, animated: true)
+            mapContainerView.setZoomScale(mapContainerView.minimumZoomScale, animated: true)
         }
+    }
+    
+    func adjustZoomToFit() {
+        let imageView = mapContainerView.subviews.first as! UIImageView
+        let imageSize = imageView.image!.size
+        
+        let deltaWidth = abs(imageSize.width - mapContainerView.frame.width)
+        let deltaHeight = abs(imageSize.height - mapContainerView.frame.width)
+        
+        var zoomFactor: CGFloat!
+        // Determine whether height or width are more dominant and zoom to fit the less dominant factor
+        if deltaWidth / mapContainerView.frame.width < deltaHeight / mapContainerView.frame.height {
+            // scale for width
+            zoomFactor = mapContainerView.frame.width/imageSize.width
+        } else {
+            //scale for height
+            zoomFactor = mapContainerView.frame.height/imageSize.height
+        }
+        
+        zoomFactor = CGFloat(min(1.0, zoomFactor))
+        mapContainerView.minimumZoomScale = zoomFactor * MapViewController.MIN_ZOOM_SCALE_FACTOR
+        mapContainerView.maximumZoomScale = zoomFactor * MapViewController.MAX_ZOOM_SCALE_FACTOR
+        mapContainerView!.setZoomScale(zoomFactor, animated: true)
     }
 
     override func didReceiveMemoryWarning() {

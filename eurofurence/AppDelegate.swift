@@ -53,6 +53,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
+        if let rootViewController = self.topViewControllerWithRootViewController(window?.rootViewController) {
+            if (rootViewController.respondsToSelector(Selector("canRotate"))) {
+                // Unlock landscape view orientations for this view controller
+                return .AllButUpsideDown;
+            }
+        }
+        
+        // Only allow portrait (standard behaviour)
+        return .Portrait;
+    }
+    
+    private func topViewControllerWithRootViewController(rootViewController: UIViewController!) -> UIViewController? {
+        if (rootViewController == nil) { return nil }
+        if (rootViewController.isKindOfClass(UITabBarController)) {
+            return topViewControllerWithRootViewController((rootViewController as! UITabBarController).selectedViewController)
+        } else if (rootViewController.isKindOfClass(UINavigationController)) {
+            return topViewControllerWithRootViewController((rootViewController as! UINavigationController).visibleViewController)
+        } else if (rootViewController.presentedViewController != nil) {
+            return topViewControllerWithRootViewController(rootViewController.presentedViewController)
+        }
+        return rootViewController
+    }
+    
     func showTutorial() {
         let rootVC = UIStoryboard(name: "Tutorial", bundle: nil).instantiateViewControllerWithIdentifier("TutorialPage") as! TutorialPageViewController
         rootVC.view.frame = UIScreen.mainScreen().bounds
@@ -90,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        //ApiManager.sharedInstance.getDiff()
+        //ApiManager.sharedInstance.updateAllEntities()
         //GetDiff, ReloadTable
     }
     

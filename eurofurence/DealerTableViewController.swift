@@ -20,6 +20,10 @@ class DealerTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: #selector(DealerTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
     }
     
+    func canRotate()->Bool {
+        return true
+    }
+    
     // Pull to refresh function
     func refresh(sender:AnyObject) {
         ApiManager.sharedInstance.updateAllEntities(false, completion: {(isDataUpdated: Bool) in

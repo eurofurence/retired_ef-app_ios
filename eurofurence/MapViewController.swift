@@ -110,7 +110,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func mapSwitchChanged(segmentedControl: UISegmentedControl) {
         if segmentedControl.selectedSegmentIndex == mapViews.count {
-            presentViewController(RoutingAppChooser.sharedInstance.getAlertForAddress("Estrel Hotel Berlin", house: "225", street: "Sonnenallee", zip: "12057", city: "Berlin", country: "Germany"), animated: true, completion:nil)
+            presentViewController(RoutingAppChooser.sharedInstance.getAlertForAddress("Estrel Hotel Berlin", house: "225", street: "Sonnenallee", zip: "12057", city: "Berlin", country: "Germany", lat: 52.473336, lon: 13.458729), animated: true, completion:nil)
             segmentedControl.selectedSegmentIndex = currentMap
         } else {
             switchToMap(segmentedControl.selectedSegmentIndex)

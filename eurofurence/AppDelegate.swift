@@ -61,6 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        if UIDevice.currentDevice().orientation != .Portrait {
+            UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation")
+        }
+        
         // Only allow portrait (standard behaviour)
         return .Portrait;
     }

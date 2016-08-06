@@ -67,6 +67,16 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         
         switchToMap(0)
     }
+    
+    func canRotate()->Bool {
+        return true
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        adjustZoomToFit()
+    }
+    
     @IBAction func ShowLegendBarButtonItem(sender: AnyObject) {
         
     }

@@ -18,6 +18,10 @@ class DealerTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         self.refreshControl?.addTarget(self, action: #selector(DealerTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        /*
+         * TODO: Implement alphabetical scroll bar for dealer's den
+         *  http://www.appcoda.com/ios-programming-index-list-uitableview/
+         */
     }
     
     func canRotate()->Bool {

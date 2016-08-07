@@ -69,10 +69,10 @@ class DealerViewController: UIViewController {
         self.aboutArtist.sizeToFit();
         
         if let artPreviewImageId =   self.dealer.ArtPreviewImageId {
-            self.artPreviewImage.image = ImageManager.sharedInstance.retrieveFromCache(artPreviewImageId, imagePlaceholder: UIImage(named: "defaultAvatar"))
+            self.artPreviewImage.image = ImageManager.sharedInstance.retrieveFromCache(artPreviewImageId, imagePlaceholder: UIImage(named: "ef"))
         }
         else {
-            self.artPreviewImage.image = UIImage(named: "defaultAvatar")!;
+            self.artPreviewImage.image = UIImage(named: "ef")!;
         }
         
         let artPreviewCaption = self.dealer.ArtPreviewCaption!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
@@ -95,7 +95,47 @@ class DealerViewController: UIViewController {
         }
         self.aboutArt.sizeToFit();
         
+        if let mapEntry = MapEntry.getByTargetId(self.dealer.Id), let map = Map.getById(mapEntry.MapId), let mapImage = ImageManager.sharedInstance.retrieveFromCache(map.ImageId!), let relativeX = Double.init(mapEntry.RelativeX), let relativeY = Double.init(mapEntry.RelativeY), let relativeTapRadius = Double(mapEntry.RelativeTapRadius) {
+            
+            let ratio = self.dealersDenMapImage.bounds.width / self.dealersDenMapImage.bounds.height
+            
+            let radius = CGFloat(relativeTapRadius) * mapImage.size.height
+            let segmentHeight = radius * 3.0
+            let segmentWidth = segmentHeight * ratio
+            
+            
+            let absoluteX = CGFloat(relativeX/100) * mapImage.size.width
+            let absoluteY = CGFloat(relativeY/100) * mapImage.size.height
+            
+            let offsetX = min(max(0.0, absoluteX - segmentWidth / 2.0), mapImage.size.width - segmentWidth)
+            let offsetY = min(max(0.0, absoluteY - segmentHeight / 2.0), mapImage.size.height - segmentHeight)
+            
+            if let croppedMap = CGImageCreateWithImageInRect(mapImage.CGImage, CGRect(x: offsetX, y: offsetY, width: segmentWidth, height: segmentHeight)) {
+            
+                // Initialise the context
+                let size = CGSize(width: segmentWidth, height: segmentHeight)
+                let opaque = true
+                let scale: CGFloat = 0
+                UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
+                let context = UIGraphicsGetCurrentContext()
+                
+                // Draw the map segment
+                UIImage(CGImage: croppedMap).drawInRect(CGRect(origin: CGPoint.zero, size: size))
+                
+                CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
+                CGContextSetLineWidth(context, 2.0)
+                
+                let highlightRect = CGRect(x: absoluteX - offsetX - radius, y: absoluteY - offsetY - radius, width: radius * 2, height: radius * 2)
+                CGContextStrokeEllipseInRect(context, highlightRect)
+                
+                // Drawing complete, retrieve the finished image and cleanup
+                self.dealersDenMapImage.image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+            }
+            
+        }
     }
+    
     /*
      // MARK: - Navigation
      

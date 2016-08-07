@@ -16,14 +16,14 @@
                         <viewControllerLayoutGuide type="bottom" id="RfQ-96-wN7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="56l-fy-TI6">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="x27-ve-1W5">
-                                <rect key="frame" x="0.0" y="64" width="414" height="1087"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="1187"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AoI-8K-uoH" userLabel="Container View">
-                                        <rect key="frame" x="8" y="0.0" width="398" height="1106.5"/>
+                                        <rect key="frame" x="8" y="0.0" width="398" height="1145.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaC-vI-SFG">
                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="363"/>
@@ -44,7 +44,7 @@
                                                         <size key="shadowOffset" width="2" height="2"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A wide range of jewellery made with gems and semi-precious stones made by Faolan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMg-Yj-gMo">
-                                                        <rect key="frame" x="32" y="306.5" width="334" height="40.5"/>
+                                                        <rect key="frame" x="32" y="306" width="334" height="40.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <color key="textColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -120,15 +120,15 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dealer's Den" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uro-zy-vZ8">
-                                                <rect key="frame" x="8" y="923.5" width="382" height="26"/>
+                                                <rect key="frame" x="8" y="923" width="382" height="26"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ef" translatesAutoresizingMaskIntoConstraints="NO" id="Mxk-6q-DQR">
-                                                <rect key="frame" x="8" y="957.5" width="382" height="141"/>
+                                                <rect key="frame" x="8" y="957" width="382" height="180"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="141" id="hW3-VY-Rk1"/>
+                                                    <constraint firstAttribute="width" secondItem="Mxk-6q-DQR" secondAttribute="height" multiplier="191:90" id="hlD-nA-hql"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
@@ -191,7 +191,7 @@
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="1200"/>
+                    <size key="freeformSize" width="414" height="1300"/>
                     <connections>
                         <outlet property="aboutArt" destination="JfM-Xq-vKA" id="m4n-vl-aES"/>
                         <outlet property="aboutArtist" destination="T1F-Hp-C7x" id="NfH-eX-QZ9"/>
@@ -231,20 +231,20 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eg6-wB-97m">
-                                            <rect key="frame" x="114" y="8" width="445" height="21"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <rect key="frame" x="114" y="8" width="445" height="32.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1M2-oq-DH1">
-                                            <rect key="frame" x="114" y="51" width="445" height="14.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <rect key="frame" x="114" y="61" width="445" height="13.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cko-EE-V9P">
-                                            <rect key="frame" x="114" y="26" width="445" height="17"/>
-                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                            <rect key="frame" x="114" y="37.5" width="445" height="19.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -259,7 +259,7 @@
                                         <constraint firstItem="eg6-wB-97m" firstAttribute="leading" secondItem="ske-Ca-8KF" secondAttribute="trailing" constant="22.5" id="ODE-Yg-i3L"/>
                                         <constraint firstItem="ske-Ca-8KF" firstAttribute="leading" secondItem="XRd-W8-hBZ" secondAttribute="leadingMargin" id="a0f-io-kqp"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Cko-EE-V9P" secondAttribute="trailing" id="bCT-Qc-72x"/>
-                                        <constraint firstItem="1M2-oq-DH1" firstAttribute="top" secondItem="Cko-EE-V9P" secondAttribute="bottom" constant="8" id="qUa-AC-Cjz"/>
+                                        <constraint firstItem="1M2-oq-DH1" firstAttribute="top" secondItem="Cko-EE-V9P" secondAttribute="bottom" constant="4" id="qUa-AC-Cjz"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="ske-Ca-8KF" secondAttribute="bottom" id="qVa-ov-dj9"/>
                                         <constraint firstItem="Cko-EE-V9P" firstAttribute="leading" secondItem="ske-Ca-8KF" secondAttribute="trailing" constant="22.5" id="w5Z-Ky-fbG"/>
                                         <constraint firstItem="ske-Ca-8KF" firstAttribute="top" secondItem="XRd-W8-hBZ" secondAttribute="topMargin" id="wTk-i5-5bg"/>

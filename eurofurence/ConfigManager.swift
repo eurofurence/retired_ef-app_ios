@@ -23,10 +23,11 @@ class ConfigManager {
     let image = "Image"
     let dealer = "Dealer"
     let map = "Map"
+    let mapEntry = "MapEntry"
     let config = Realm.Configuration(
         // Set the new schema version. This must be greater than the previously used
         // version (if you've never set a schema version before, the version is 0).
-        schemaVersion: 12,
+        schemaVersion: 13,
         deleteRealmIfMigrationNeeded: true,
         // Set the block which will be called automatically when opening a Realm with
         // a schema version lower than the one set above

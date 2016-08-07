@@ -11,6 +11,9 @@ import Alamofire
 import AlamofireImage
 
 class DealerViewController: UIViewController {
+    /// Higher numbers zoom out farther
+    static var MAP_SEGMENT_ZOOM = CGFloat(8.0)
+    
     var dealer = Dealer();
     @IBOutlet weak var artistImage: UIImageView!
     @IBOutlet weak var artistName: UILabel!
@@ -100,7 +103,7 @@ class DealerViewController: UIViewController {
             let ratio = self.dealersDenMapImage.bounds.width / self.dealersDenMapImage.bounds.height
             
             let radius = CGFloat(relativeTapRadius) * mapImage.size.height
-            let segmentHeight = radius * 3.0
+            let segmentHeight = radius * DealerViewController.MAP_SEGMENT_ZOOM
             let segmentWidth = segmentHeight * ratio
             
             

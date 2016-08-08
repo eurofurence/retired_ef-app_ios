@@ -103,15 +103,15 @@ class ApiManager {
                                 NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: nil)
                                 let defaults = NSUserDefaults.standardUserDefaults()
                                 defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+                                if completion != nil {
+                                    completion!(isDataUpdated: true)
+                                }
                                 self.isUpdating = false
                             }
                             if !isSuccessful {
                                 print("Error during update of ", entity.Name, ":",result)
                             } else {
                                 print("Entity", entity.Name, "updated successfully")
-                            }
-                            if completion != nil {
-                                completion!(isDataUpdated: isSuccessful)
                             }
                         }) {
                             self.requestedObjects -= 1
@@ -210,12 +210,14 @@ class ApiManager {
     }
     
     func getLastUpdate()->NSDate? {
+        verifyRealm()
         let defaults = NSUserDefaults.standardUserDefaults()
         return defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? NSDate
     }
     
     /// Checks whether the database has been downloaded at least once
     func isDatabaseDownloaded()->Bool {
+        verifyRealm()
         let defaults = NSUserDefaults.standardUserDefaults()
         return defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT) != nil
     }

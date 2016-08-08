@@ -7,10 +7,8 @@
 //
 
 import UIKit
-import EventKit
 
 class EventViewController: UIViewController {
-    let eventStore = EKEventStore()
     var event = EventEntry()
 
     @IBOutlet weak var eventTitleLabel: UILabel!
@@ -52,70 +50,13 @@ class EventViewController: UIViewController {
     }
     
     @IBAction func exportAsEvent(sender: AnyObject) {
-        let alert = UIAlertController(title: "Export event", message: "Export the event to the calendar ?", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Export event", message: "Export the event to the calendar ?", preferredStyle: UIAlertControllerStyle.ActionSheet)
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: checkCalendarAuthorizationStatus))
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { alert in EventManager.sharedInstance.checkCalendarAuthorizationStatus(self.event)}))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    func requestAccessToCalendar() {
-        self.eventStore.requestAccessToEntityType(EKEntityType.Event, completion: {
-            (accessGranted: Bool, error: NSError?) in
-            
-            if accessGranted == true {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.insertEvent()
-                })
-            } else {
-                dispatch_async(dispatch_get_main_queue(), {
-                })
-            }
-        })
-    }
-    
-    func checkCalendarAuthorizationStatus(alert:UIAlertAction) -> Void{
-        let status = EKEventStore.authorizationStatusForEntityType(EKEntityType.Event)
-        
-        switch (status) {
-        case EKAuthorizationStatus.NotDetermined:
-            requestAccessToCalendar()
-        case EKAuthorizationStatus.Authorized:
-            insertEvent()
-        case EKAuthorizationStatus.Restricted, EKAuthorizationStatus.Denied: break
-        }
-    }
-    
-    func insertEvent() {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
-        let event = EKEvent(eventStore: eventStore.self)
-        let room = EventConferenceRoom.getById(self.event.ConferenceRoomId)
-        let day = EventConferenceDay.getById(self.event.ConferenceDayId)
-        let formatedDate = day!.Date + " " + self.event.StartTime
-        let startDate = dateFormatter.dateFromString(formatedDate)
-        let formatedDuration = (self.event.Duration).characters.split{$0 == ":"}.map(String.init)
-        let endDate = startDate!.dateByAddingTimeInterval( (Double(formatedDuration[0])! * 60 + Double(formatedDuration[1])!) * 60)
-        event.title = self.event.Title;
-        event.notes = self.event.Description;
-        event.location = room?.Name;
-        event.startDate = startDate!;
-        event.endDate = endDate;
-        event.addAlarm(EKAlarm(absoluteDate: startDate!.dateByAddingTimeInterval( -30 * 60)));
-        event.calendar = self.eventStore.defaultCalendarForNewEvents;
-        
-        do {
-            try self.eventStore.saveEvent(event, span: .ThisEvent)
-            let alert = UIAlertController(title: "Export succes", message: "Event exported succefuly", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        } catch let specError as NSError {
-            print("A specific error occurred: \(specError)")
-        } catch {
-            print("An error occurred")
-        }
-        
-        
-    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

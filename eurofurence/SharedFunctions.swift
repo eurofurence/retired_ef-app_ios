@@ -57,6 +57,12 @@ public extension String {
         
         return nsSt.stringByAppendingPathComponent(path)
     }
+    
+    func firstCharacterUpperCase() -> String {
+        let lowercaseString = self.lowercaseString
+        
+        return lowercaseString.stringByReplacingCharactersInRange(lowercaseString.startIndex...lowercaseString.startIndex, withString: String(lowercaseString[lowercaseString.startIndex]).uppercaseString)
+    }
 }
 
 extension UIView {
@@ -64,3 +70,4 @@ extension UIView {
         return  self.subviews.count == 0 ;
     }
 }
+

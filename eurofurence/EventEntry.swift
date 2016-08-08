@@ -25,6 +25,7 @@ class EventEntry: Object {
     dynamic var EndTime = ""
     dynamic var Duration = ""
     dynamic var PanelHosts = ""
+    let favorited = RealmOptional<Bool>()
     
     override static func primaryKey() -> String? {
         return "Id"

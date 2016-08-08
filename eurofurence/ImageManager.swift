@@ -15,43 +15,73 @@ class ImageManager {
     let downloader = ConfigManager.sharedInstance.diskImageDownloader();
     static let sharedInstance = ImageManager();
     let dispatchGroup = dispatch_group_create();
+    var isCaching = false
+    var toCacheCount = 0
+    var doneCachingCount = 0
     
-    func dispatchEntity(entityId: String?) {
+    private func dispatchEntity(entityId: String?) {
         if (entityId != nil) {
+            toCacheCount += 1
+            if LoadingOverlay.sharedInstance.presented {
+                LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(doneCachingCount)/\(toCacheCount))")
+            }
             dispatch_group_enter(self.dispatchGroup)
             cacheImage(entityId!) {
-                (result: Bool) in
+                (image: UIImage?) in
+                self.doneCachingCount += 1
+                if LoadingOverlay.sharedInstance.presented {
+                    LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
+                }
                 dispatch_group_leave(self.dispatchGroup)
             };
         }
     }
     
     /// Get all dealers in the Realm Database to cache all images with cacheImage
-    func cacheDealersImages() {
+    private func cacheDealersImages() {
         let dealersOptional = Dealer.getAll();
         if let dealers = dealersOptional {
-            LoadingOverlay.sharedInstance.changeMessage("Caching images");
-            LoadingOverlay.sharedInstance.showOverlay();
             for dealer in dealers {
                 dispatchEntity(dealer.ArtistThumbnailImageId);
                 dispatchEntity(dealer.ArtistImageId);
                 dispatchEntity(dealer.ArtPreviewImageId);
             }
-            dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), {
-                LoadingOverlay.sharedInstance.hideOverlay();
-            })
         }
     }
     
-    
-    //TODO
-    func cacheMapImages() {
-        
+    private func cacheMapImages() {
+        if let maps = Map.getAll() {
+            for map in maps {
+                dispatchEntity(map.ImageId)
+            }
+        }
     }
     
-    //Caching all entities images
-    func cacheAllImages() {
-        cacheDealersImages();
+    /// Caches all images for given `imageIds` or for all currently stored
+    /// entities if no IDs are given.
+    func cacheAllImages(imageIds: [String]? = nil) {
+        if isCaching {
+            print("Caching already in progress!")
+            return
+        }
+        isCaching = true
+        
+        LoadingOverlay.sharedInstance.changeMessage("Caching images");
+        LoadingOverlay.sharedInstance.showOverlay();
+        if imageIds == nil {
+            cacheDealersImages()
+            cacheMapImages()
+        } else {
+            for imageId in imageIds! {
+                dispatchEntity(imageId)
+            }
+        }
+        dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), {
+            LoadingOverlay.sharedInstance.hideOverlay()
+            self.toCacheCount = 0
+            self.doneCachingCount = 0
+            self.isCaching = false
+        })
     }
     
     //Retrieve cache path in the document directory
@@ -65,51 +95,59 @@ class ImageManager {
         do {
             try NSFileManager.defaultManager().removeItemAtPath(imagePath)
         } catch {
+            //print("Failed to delete image at", imagePath)
         }
     }
     
-    //Cache image in the CachesDirectory
-    func cacheImage(imageId : String, completion: (result: Bool) -> Void) {
+    /// Attempts to retrieve and cache an image with given `imageID`, calling
+    /// `completion` with the result of this operation once done.
+    func cacheImage(imageId : String, completion: (image: UIImage?) -> Void) {
         let URLRequest = NSURLRequest(URL: NSURL(string: self.baseImage + imageId)!)
-        self.downloader.downloadImage(URLRequest: URLRequest) { response in
-            if let image = response.result.value {
-                let imageData = UIImageJPEGRepresentation(image,  1.0);
+        let receipt = self.downloader.downloadImage(URLRequest: URLRequest) { response in
+            if let image = response.result.value, let imageData = UIImageJPEGRepresentation(image,  1.0) {
                 let imagePath = self.documentsPathWithFileName(imageId + ".jpg")
-                self.deleteFromCache(imagePath);
-                if !imageData!.writeToFile(imagePath, atomically: false) {
-                    print("Error with imageData on image caching manager")
-                    completion(result: false)
+                self.deleteFromCache(imagePath)
+                if imageData.writeToFile(imagePath, atomically: false) {
+                    completion(image: image)
+                    return
                 } else {
-                    NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "imagePath")
-                    completion(result: true)
+                    print("Error with imageData on image caching manager")
                 }
             }
+            completion(image: nil)
+        }
+        
+        // in case of a cache hit, completion must be called manually
+        if receipt == nil {
+            completion(image: retrieveFromCache(imageId))
         }
     }
     
-    //Retrieve image from directory
-    func retrieveFromCache(imageId: String, imagePlaceholder: UIImage? = nil) -> UIImage? {
+    /// Attempts to retrieve an image from the cache and will try caching it in
+    /// case of a cache miss, in which case `imagePlaceholder` is returned until
+    /// the final result can be made available via `completion`.
+    func retrieveFromCache(imageId: String, imagePlaceholder: UIImage? = nil, completion: ((image: UIImage?) -> Void)? = nil) -> UIImage? {
         let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
         if paths.count > 0 {
             let dirPath = paths[0]
             if (dirPath != "") {
                 let readPath = dirPath.stringByAppendingPathComponent(imageId + ".jpg")
                 if let image = UIImage(contentsOfFile: readPath) {
+                    completion != nil ? completion!(image: image) : ()
                     return image;
                 }
                 else {
-                    var success = false
-                    cacheImage(imageId) {
-                        (result: Bool) in
-                        success = result
-                    }
-                    if success {
-                        return retrieveFromCache(imageId, imagePlaceholder: imagePlaceholder)
+                    if completion == nil {
+                        cacheImage(imageId, completion: {image in ()})
                     } else {
-                        return imagePlaceholder
+                        cacheImage(imageId, completion: completion!)
                     }
                 }
+            } else {
+                completion != nil ? completion!(image: imagePlaceholder) : ()
             }
+        } else {
+            completion != nil ? completion!(image: imagePlaceholder) : ()
         }
         return imagePlaceholder
     }

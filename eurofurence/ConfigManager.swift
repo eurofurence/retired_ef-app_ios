@@ -27,7 +27,7 @@ class ConfigManager {
     let config = Realm.Configuration(
         // Set the new schema version. This must be greater than the previously used
         // version (if you've never set a schema version before, the version is 0).
-        schemaVersion: 13,
+        schemaVersion: 14,
         deleteRealmIfMigrationNeeded: true,
         // Set the block which will be called automatically when opening a Realm with
         // a schema version lower than the one set above
@@ -44,8 +44,8 @@ class ConfigManager {
                 // And will update the schema on disk automatically
             }
     })
-
-  static let sharedInstance = ConfigManager()
+    
+    static let sharedInstance = ConfigManager()
     
     func diskImageDownloader(diskSpaceMB: Int = 150) -> ImageDownloader {
         let diskCapacity = diskSpaceMB * 1024 * 1024

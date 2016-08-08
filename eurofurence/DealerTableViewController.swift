@@ -13,15 +13,13 @@ import AlamofireImage
 
 class DealerTableViewController: UITableViewController {
     var dealers = Dealer.getAll();
+    var dealersWithSection = [String: [Dealer]]();
+    var sortedKeys = [String]();
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         self.refreshControl?.addTarget(self, action: #selector(DealerTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        /*
-         * TODO: Implement alphabetical scroll bar for dealer's den
-         *  http://www.appcoda.com/ios-programming-index-list-uitableview/
-         */
     }
     
     func canRotate()->Bool {
@@ -47,34 +45,65 @@ class DealerTableViewController: UITableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return dealersWithSection.keys.count;
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (self.dealers!.count)
+        let key = sortedKeys[section];
+        if let dealersWithLetter = dealersWithSection[key] {
+            return (dealersWithLetter.count)
+        }
+        else {
+            return 0
+        }
+    }
+    
+    func orderDealersAlphabeticaly() {
+        if let unwrapedDealers = self.dealers {
+            for dealer in unwrapedDealers {
+                if let dealerName = dealer.AttendeeNickname {
+                    let upperDealerName = dealerName.firstCharacterUpperCase();
+                    let firstLetter = String(upperDealerName[upperDealerName.startIndex]);
+                    if var dealersWithLetter = dealersWithSection[firstLetter]{
+                        dealersWithLetter.append(dealer);
+                        dealersWithSection.updateValue(dealersWithLetter, forKey: firstLetter)
+                    }
+                    else {
+                        var initDealerNameArray = [Dealer]();
+                        initDealerNameArray.append(dealer);
+                        dealersWithSection.updateValue(initDealerNameArray, forKey: firstLetter)
+                    }
+                }
+            }
+            self.sortedKeys = dealersWithSection.keys.sort();
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.dealersWithSection = [String: [Dealer]]();
+        var sortedKeys = [String]();
         self.dealers = Dealer.getAll();
+        orderDealersAlphabeticaly();
         self.tableView.reloadData()
         
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DealersTableViewCell", forIndexPath: indexPath) as! DealersTableViewCell
-        cell.displayNameDealerLabel!.text = self.dealers![indexPath.row].AttendeeNickname;
-        if let subname = self.dealers![indexPath.row].DisplayName {
+        let dealer = self.dealersWithSection[sortedKeys[indexPath.section]]![indexPath.row]
+        cell.displayNameDealerLabel!.text = dealer.AttendeeNickname;
+        if let subname = dealer.DisplayName {
             cell.subnameDealerLabel!.text = subname;
         }
         cell.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
-        cell.shortDescriptionDealerLabel!.text = self.dealers![indexPath.row].ShortDescription;
-        if let artistThumbnailImageId =   self.dealers![indexPath.row].ArtistThumbnailImageId {
+        cell.shortDescriptionDealerLabel!.text = dealer.ShortDescription;
+        if let artistThumbnailImageId =   dealer.ArtistThumbnailImageId {
             let optionalDealerImage = ImageManager.sharedInstance.retrieveFromCache(artistThumbnailImageId, imagePlaceholder: UIImage(named: "defaultAvatar"))
             if let dealerImage = optionalDealerImage {
                 cell.artistDealerImage.image = dealerImage.af_imageRoundedIntoCircle().af_imageRoundedIntoCircle();
             }
-
+            
         }
         else {
             cell.artistDealerImage.image = UIImage(named: "defaultAvatar")!.af_imageRoundedIntoCircle();
@@ -83,7 +112,13 @@ class DealerTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView( tableView : UITableView,  titleForHeaderInSection section: Int)->String {
+        return sortedKeys[section]
+    }
     
+    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+        return sortedKeys
+    }
     /*
      // Override to support conditional editing of the table view.
      override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

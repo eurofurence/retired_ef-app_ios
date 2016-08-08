@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		89B2D70FFCCF379DFDAF9590 /* Pods_eurofurence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5EC644872E2106E173C2C16 /* Pods_eurofurence.framework */; };
 		96DC52F6D1E8C83049BB76F9 /* Pods_eurofurenceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1675ABCE261AEC093023EE1 /* Pods_eurofurenceTests.framework */; };
+		9A35AEEC1D58FC1800ECFD0F /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A35AEEB1D58FC1800ECFD0F /* Markdown.swift */; };
 		9A458BBF1D562E4B00CA9C49 /* CountryAlpha3Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */; };
 		9A458BC11D56A29100CA9C49 /* MapEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A458BC01D56A29100CA9C49 /* MapEntry.swift */; };
 		9A8AEA511D526755004A17E3 /* RoutingAppChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */; };
@@ -85,6 +86,7 @@
 		33C87D0B541CC54B669E6EE1 /* Pods-eurofurenceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurenceUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurenceUITests/Pods-eurofurenceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5D5D53B69DEF95B58C22F4E3 /* Pods_eurofurenceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eurofurenceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CE2419A176FC2F300B80B20 /* Pods-eurofurence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.release.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.release.xcconfig"; sourceTree = "<group>"; };
+		9A35AEEB1D58FC1800ECFD0F /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
 		9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryAlpha3Converter.swift; sourceTree = "<group>"; };
 		9A458BC01D56A29100CA9C49 /* MapEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapEntry.swift; sourceTree = "<group>"; };
 		9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingAppChooser.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				BFB1C1DE1D535EAB003306BF /* ImageManager.swift */,
 				9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */,
 				9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */,
+				9A35AEEB1D58FC1800ECFD0F /* Markdown.swift */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				BF230AD51D4F9E0B00F7E472 /* SharedFunctions.swift in Sources */,
 				BF994C701C777F7400371862 /* EventConferenceRoom.swift in Sources */,
 				BF61C0891C70CFB8005F5C5B /* NetworkHelper.swift in Sources */,
+				9A35AEEC1D58FC1800ECFD0F /* Markdown.swift in Sources */,
 				BF00E05E1C4FEDE600F998AA /* AppDelegate.swift in Sources */,
 				BF61C08E1C70EA56005F5C5B /* ConfigManager.swift in Sources */,
 				BFCD6C161C9096FC009D5C58 /* EventFilterTableViewController.swift in Sources */,

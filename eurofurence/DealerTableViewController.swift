@@ -20,6 +20,7 @@ class DealerTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         self.refreshControl?.addTarget(self, action: #selector(DealerTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.sectionIndexColor = UIColor.whiteColor()
     }
     
     func canRotate()->Bool {
@@ -82,7 +83,7 @@ class DealerTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         self.dealersWithSection = [String: [Dealer]]();
-        var sortedKeys = [String]();
+        self.sortedKeys = [String]();
         self.dealers = Dealer.getAll();
         orderDealersAlphabeticaly();
         self.tableView.reloadData()
@@ -119,6 +120,14 @@ class DealerTableViewController: UITableViewController {
     override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
         return sortedKeys
     }
+    
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView //recast your view as a UITableViewHeaderFooterView
+        header.contentView.backgroundColor = UIColor(red: 68/255, green: 69/255, blue: 72/255, alpha: 1.0) //make the background color light blue
+        header.textLabel!.textColor = UIColor.whiteColor() //make the text white
+        header.alpha = 0.8 //make the header transparent
+    }
+    
     /*
      // Override to support conditional editing of the table view.
      override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

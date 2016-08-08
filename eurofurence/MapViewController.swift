@@ -33,10 +33,17 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         for map in maps! {
             if map.isValidAtDateTimeUtc(NSDate.init()) && map.ImageId != nil && map.Description != nil {
                 print(map.Description, "(", map.Id, ") is currently valid, added!")
-                let mapView = UIImageView(image: ImageManager.sharedInstance.retrieveFromCache(map.ImageId!, imagePlaceholder: MapViewController.imagePlaceholder))
+                let mapView = UIImageView(image: MapViewController.imagePlaceholder)
+                ImageManager.sharedInstance.retrieveFromCache(map.ImageId!, imagePlaceholder: MapViewController.imagePlaceholder, completion: {
+                    image in
+                    mapView.image = image
+                    mapView.sizeToFit()
+                    self.adjustZoomToFit()
+                })
                 mapView.contentMode = UIViewContentMode.ScaleAspectFit
                 mapView.layer.cornerRadius = 11.0
                 mapView.clipsToBounds = false
+                mapView.backgroundColor = UIColor.whiteColor()
                 mapViews.append(mapView)
                 if firstMapAdded {
                     mapSwitchControl.insertSegmentWithTitle(map.Description, atIndex: mapSwitchControl.numberOfSegments - 1, animated: false)

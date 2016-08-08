@@ -21,6 +21,7 @@
 		BF00E07E1C4FEDE700F998AA /* eurofurenceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E07D1C4FEDE700F998AA /* eurofurenceUITests.swift */; };
 		BF1530921C73C0AA0085DF4C /* InfoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1530911C73C0AA0085DF4C /* InfoCollectionViewController.swift */; };
 		BF1530941C73C0D40085DF4C /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1530931C73C0D40085DF4C /* InfoCollectionViewCell.swift */; };
+		BF173E431D587AEF008E6870 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF173E421D587AEF008E6870 /* EventManager.swift */; };
 		BF230AD31D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF230AD21D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift */; };
 		BF230AD51D4F9E0B00F7E472 /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF230AD41D4F9E0B00F7E472 /* SharedFunctions.swift */; };
 		BF2B01831C7E19BA00499E4B /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01821C7E19BA00499E4B /* NewsTableViewController.swift */; };
@@ -58,7 +59,6 @@
 		BFCD6C161C9096FC009D5C58 /* EventFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C151C9096FC009D5C58 /* EventFilterTableViewController.swift */; };
 		BFD220671C72832D00C98A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD220661C72832D00C98A1E /* MapViewController.swift */; };
 		BFEC72AD1C8A04C800A0E6BB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC72AC1C8A04C800A0E6BB /* InfoViewController.swift */; };
-		FB0803C99528EAE2BFB4C356 /* Pods_eurofurence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C87EAEBCBA8B8F6901D981 /* Pods_eurofurence.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +102,7 @@
 		BF00E07F1C4FEDE700F998AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF1530911C73C0AA0085DF4C /* InfoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewController.swift; sourceTree = "<group>"; };
 		BF1530931C73C0D40085DF4C /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		BF173E421D587AEF008E6870 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		BF230AD21D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHeaderCellTableViewCell.swift; sourceTree = "<group>"; };
 		BF230AD41D4F9E0B00F7E472 /* SharedFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 		BF2B01821C7E19BA00499E4B /* NewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
@@ -301,6 +302,7 @@
 				BF230AD41D4F9E0B00F7E472 /* SharedFunctions.swift */,
 				BFB1C1DE1D535EAB003306BF /* ImageManager.swift */,
 				9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */,
+				BF173E421D587AEF008E6870 /* EventManager.swift */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -392,6 +394,7 @@
 				BF7EAE1B1C74A91500A3F7D2 /* ShellScript */,
 				5E618AB929A55897FA5706E2 /* [CP] Embed Pods Frameworks */,
 				B835C410307703CA640082B9 /* [CP] Copy Pods Resources */,
+				5A6C19BDB114152073C6C5C8 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -544,6 +547,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurenceUITests/Pods-eurofurenceUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5A6C19BDB114152073C6C5C8 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5E618AB929A55897FA5706E2 /* [CP] Embed Pods Frameworks */ = {
@@ -709,6 +727,7 @@
 				BF00E05E1C4FEDE600F998AA /* AppDelegate.swift in Sources */,
 				BF61C08E1C70EA56005F5C5B /* ConfigManager.swift in Sources */,
 				BFCD6C161C9096FC009D5C58 /* EventFilterTableViewController.swift in Sources */,
+				BF173E431D587AEF008E6870 /* EventManager.swift in Sources */,
 				9A8AEA511D526755004A17E3 /* RoutingAppChooser.swift in Sources */,
 				BF1530941C73C0D40085DF4C /* InfoCollectionViewCell.swift in Sources */,
 			);

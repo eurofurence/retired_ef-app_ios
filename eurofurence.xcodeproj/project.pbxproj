@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		30EAFB1EFB03FF3436A4FF5D /* Pods_eurofurence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05801EAB1038037B8C6B88D3 /* Pods_eurofurence.framework */; };
+		9A458BBF1D562E4B00CA9C49 /* CountryAlpha3Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */; };
+		9A458BC11D56A29100CA9C49 /* MapEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A458BC01D56A29100CA9C49 /* MapEntry.swift */; };
 		9A8AEA511D526755004A17E3 /* RoutingAppChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */; };
 		AF7C86A8486C96F30EA82C97 /* Pods_eurofurenceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAE4E9C9F201F2FC015A02E /* Pods_eurofurenceUITests.framework */; };
 		B5CC1EB46E0B038559BE69FA /* Pods_eurofurenceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F41801A912ED4BF6864DF7 /* Pods_eurofurenceTests.framework */; };
@@ -83,6 +85,8 @@
 		3DAE4E9C9F201F2FC015A02E /* Pods_eurofurenceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eurofurenceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		631E6BFA8677490B2DF2497F /* Pods-eurofurenceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurenceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurenceTests/Pods-eurofurenceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		895F2372A68F4D1473A9B5F2 /* Pods-eurofurence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.debug.xcconfig"; sourceTree = "<group>"; };
+		9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryAlpha3Converter.swift; sourceTree = "<group>"; };
+		9A458BC01D56A29100CA9C49 /* MapEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapEntry.swift; sourceTree = "<group>"; };
 		9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingAppChooser.swift; sourceTree = "<group>"; };
 		B3420FB3736D14C0F8703835 /* Pods-eurofurence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.release.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.release.xcconfig"; sourceTree = "<group>"; };
 		B6F41801A912ED4BF6864DF7 /* Pods_eurofurenceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eurofurenceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -262,6 +266,7 @@
 				BF8CC9CC1CD2405800011D09 /* Announcement.swift */,
 				BF37FFB01D1441BD00F25791 /* Dealer.swift */,
 				BFB1C1DC1D533AEA003306BF /* Map.swift */,
+				9A458BC01D56A29100CA9C49 /* MapEntry.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -301,6 +306,7 @@
 				BF230AD41D4F9E0B00F7E472 /* SharedFunctions.swift */,
 				BFB1C1DE1D535EAB003306BF /* ImageManager.swift */,
 				9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */,
+				9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -694,6 +700,7 @@
 				BF67807C1C811E0100E8630F /* Endpoint.swift in Sources */,
 				BF006C4D1CD3B299006F5871 /* InfosTutorialViewController.swift in Sources */,
 				BF00E0601C4FEDE600F998AA /* ViewController.swift in Sources */,
+				9A458BC11D56A29100CA9C49 /* MapEntry.swift in Sources */,
 				BFACDCF81CEB08E700977690 /* InfoTableViewController.swift in Sources */,
 				BF37FFB11D1441BD00F25791 /* Dealer.swift in Sources */,
 				BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */,
@@ -703,6 +710,7 @@
 				BF6C4AAA1C64E11E002D250E /* EventTableViewController.swift in Sources */,
 				BFA6F0DD1D1D5D81007369F4 /* DealerViewController.swift in Sources */,
 				BF230AD31D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift in Sources */,
+				9A458BBF1D562E4B00CA9C49 /* CountryAlpha3Converter.swift in Sources */,
 				BF230AD51D4F9E0B00F7E472 /* SharedFunctions.swift in Sources */,
 				BF994C701C777F7400371862 /* EventConferenceRoom.swift in Sources */,
 				BF61C0891C70CFB8005F5C5B /* NetworkHelper.swift in Sources */,

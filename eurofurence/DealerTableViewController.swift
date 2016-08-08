@@ -169,8 +169,8 @@ class DealerTableViewController: UITableViewController {
         if segue.identifier == "DealerTableToDetailViewSegue"
         {
             if let destinationVC = segue.destinationViewController as? DealerViewController{
-                let index = self.tableView.indexPathForSelectedRow!
-                destinationVC.dealer = self.dealers![index.row]
+                let indexPath = self.tableView.indexPathForSelectedRow!
+                destinationVC.dealer = self.dealersWithSection[sortedKeys[indexPath.section]]![indexPath.row]
             }
         }
     }

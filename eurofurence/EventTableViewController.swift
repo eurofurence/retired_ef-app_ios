@@ -140,32 +140,6 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if searchController.active && searchController.searchBar.text != "" {
-            return "Search results for : " + searchController.searchBar.text!;
-        }
-        
-        
-        switch self.searchController.searchBar.selectedScopeButtonIndex {
-        case 0:
-            if section < eventsDays!.count {
-                return eventsDays![section].Name
-            }
-        case 1:
-            if section < eventsRooms!.count {
-                return eventsRooms![section].Name
-            }
-        case 2:
-            if section < eventsTracks!.count {
-                return eventsTracks![section].Name
-            }
-        default:
-            break
-        }
-        
-        return nil
-    }
-    
     private func addBorderUtility(x x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, color: UIColor) ->CALayer {
         let border = CALayer()
         border.backgroundColor = color.CGColor
@@ -241,17 +215,36 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var sectionName = "";
         let  headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell") as! EventHeaderCellTableViewCell
-        
+        let dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "yyyy-MM-dd";
+        if let eventDate = dateFormatter.dateFromString(self.eventsDays![section].Date) {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "EEEE dd MMMM"
+            let dayOfWeekString = dateFormatter.stringFromDate(eventDate)
+            sectionName = eventsDays![section].Name + "\n" + dayOfWeekString.firstCharacterUpperCase();
+        }
         switch self.searchController.searchBar.selectedScopeButtonIndex {
+            
         case 0:
-            headerCell.headerCellLabel.text = self.eventsDays![section].Name;
+            if (sectionName != "") {
+                headerCell.headerCellLabel.text = sectionName;
+            }
+            else {
+                headerCell.headerCellLabel.text = self.eventsDays![section].Name;
+            }
         case 1:
             headerCell.headerCellLabel.text = self.eventsRooms![section].Name;
         case 2:
             headerCell.headerCellLabel.text = self.eventsTracks![section].Name;
         default:
-            headerCell.headerCellLabel.text = self.eventsDays![section].Name;
+            if (sectionName != "") {
+                headerCell.headerCellLabel.text = sectionName;
+            }
+            else {
+                headerCell.headerCellLabel.text = self.eventsDays![section].Name;
+            }
         }
         
         return headerCell

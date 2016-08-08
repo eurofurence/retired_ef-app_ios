@@ -106,9 +106,8 @@ class InfoTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "infosListToViewSegue"
-        {
-            if let destinationVC = segue.destinationViewController as? InfoViewController{
+        if segue.identifier == "infosListToViewSegue" {
+            if let destinationVC = segue.destinationViewController as? InfoViewController {
                 let index = self.tableView.indexPathForSelectedRow!
                 destinationVC.info = self.infoList![index.row]
             }

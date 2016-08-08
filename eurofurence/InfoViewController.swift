@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftyMarkdown
 
 class InfoViewController: UIViewController {
     @IBOutlet weak var groupLabel: UILabel!

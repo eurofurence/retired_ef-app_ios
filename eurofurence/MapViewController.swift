@@ -21,7 +21,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var mapSwitchControl: UISegmentedControl!
     var mapViews: [UIImageView] = []
     var doubleTap: UITapGestureRecognizer!
-    var currentMap: Int = -1
+    var currentMap: Int = 0
     let defaultImageView = UIImageView(image: imagePlaceholder)
     
 
@@ -38,7 +38,6 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
                     image in
                     mapView.image = image
                     mapView.sizeToFit()
-                    self.adjustZoomToFit()
                 })
                 mapView.contentMode = UIViewContentMode.ScaleAspectFit
                 mapView.layer.cornerRadius = 11.0
@@ -71,33 +70,28 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         doubleTap!.numberOfTapsRequired = 2
         doubleTap!.numberOfTouchesRequired = 1
         mapContainerView!.addGestureRecognizer(doubleTap!)
-        
-        switchToMap(0)
     }
     
     func canRotate()->Bool {
         return true
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        adjustZoomToFit()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if currentMap >= 0 && currentMap < mapViews.count {
+            switchToMap(currentMap)
+        }
     }
     
     @IBAction func ShowLegendBarButtonItem(sender: AnyObject) {
         
     }
     
-    /// Switches the currently displayed map to `mapID`. Will do nothing if 
+    /// Switches the currently displayed map to `mapID`. Will do reload map if
     /// given map is already being displayed
     /// - parameters:
     ///   - mapId: id of map to be displayed (see class constants for details)
     func switchToMap(mapId : Int) {
-        if mapId == currentMap {
-            // mapID is already current map. Nothing to do here!
-            return
-        }
-        
         mapContainerView.subviews.forEach({ $0.removeFromSuperview() })
         
         if mapId < mapViews.count {
@@ -140,23 +134,31 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         let imageView = mapContainerView.subviews.first as! UIImageView
         let imageSize = imageView.image!.size
         
-        let deltaWidth = abs(imageSize.width - mapContainerView.frame.width)
-        let deltaHeight = abs(imageSize.height - mapContainerView.frame.width)
+        let deltaWidth = abs(imageSize.width - mapContainerView.bounds.width)
+        let deltaHeight = abs(imageSize.height - mapContainerView.bounds.height)
         
         var zoomFactor: CGFloat!
         // Determine whether height or width are more dominant and zoom to fit the less dominant factor
-        if deltaWidth / mapContainerView.frame.width < deltaHeight / mapContainerView.frame.height {
+        if deltaWidth / mapContainerView.bounds.width < deltaHeight / mapContainerView.bounds.height {
             // scale for width
-            zoomFactor = mapContainerView.frame.width/imageSize.width
+            zoomFactor = mapContainerView.bounds.width/imageSize.width
         } else {
             //scale for height
-            zoomFactor = mapContainerView.frame.height/imageSize.height
+            zoomFactor = mapContainerView.bounds.height/imageSize.height
         }
         
         zoomFactor = CGFloat(min(1.0, zoomFactor))
         mapContainerView.minimumZoomScale = zoomFactor * MapViewController.MIN_ZOOM_SCALE_FACTOR
         mapContainerView.maximumZoomScale = zoomFactor * MapViewController.MAX_ZOOM_SCALE_FACTOR
-        mapContainerView!.setZoomScale(zoomFactor, animated: true)
+        mapContainerView!.setZoomScale(zoomFactor, animated: false)
+        
+        let scrollRect = CGRect(
+            x: imageSize.width * zoomFactor / 2 - mapContainerView.bounds.width / 2,
+            y: imageSize.height * zoomFactor / 2 - mapContainerView.bounds.height / 2,
+            width: mapContainerView.bounds.width,
+            height: mapContainerView.bounds.height)
+        print(scrollRect)
+        mapContainerView.scrollRectToVisible(scrollRect, animated: false)
     }
 
     override func didReceiveMemoryWarning() {

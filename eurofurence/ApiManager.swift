@@ -45,6 +45,17 @@ class ApiManager {
         }
     }
     
+    /// Checks whether Realm is still valid, otherwise causes a next refresh to 
+    /// reload all data from the backend
+    private func verifyRealm() {
+        if Endpoint.get() == nil {
+            print("Realm verification failed! Full update from backend required!")
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+            //TODO: Clear image cache
+        }
+    }
+    
     func getAllFromAlert(alert: UIAlertAction) -> Void {
         updateAllEntities()
     }
@@ -57,8 +68,9 @@ class ApiManager {
         isUpdating = true
         LoadingOverlay.sharedInstance.changeMessage("Downloading data...");
         LoadingOverlay.sharedInstance.showOverlay()
+        verifyRealm()
         
-        updateEntity(ConfigManager.sharedInstance.endpoint, completion: { (result:String, isSuccessful:Bool) -> Void in
+        updateEntity(ConfigManager.sharedInstance.endpoint, completion: { (result:String, isSuccessful:Bool) in
             let defaults = NSUserDefaults.standardUserDefaults()
             let lastDatabaseUpdate = defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? NSDate
             let endpoint = Endpoint.get()

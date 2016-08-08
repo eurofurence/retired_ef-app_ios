@@ -44,8 +44,8 @@ class ConfigManager {
                 // And will update the schema on disk automatically
             }
     })
-
-  static let sharedInstance = ConfigManager()
+    
+    static let sharedInstance = ConfigManager()
     
     func diskImageDownloader(diskSpaceMB: Int = 150) -> ImageDownloader {
         let diskCapacity = diskSpaceMB * 1024 * 1024

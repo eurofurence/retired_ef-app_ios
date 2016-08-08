@@ -21,7 +21,7 @@ class InfosTutorialViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     override func viewWillAppear(animated: Bool) {
-        if(UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:")))
+        if(UIApplication.instancesRespondToSelector(#selector(UIApplication.registerUserNotificationSettings(_:))))
         {
             UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound , .Alert , .Badge], categories: nil))
         }

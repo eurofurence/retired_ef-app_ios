@@ -359,8 +359,8 @@
                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ef-bg-news" translatesAutoresizingMaskIntoConstraints="NO" id="736-r6-WhT">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="152"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest News " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-Z7-pg0">
-                                            <rect key="frame" x="8" y="119.5" width="150.5" height="32.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest News " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-Z7-pg0">
+                                            <rect key="frame" x="8" y="119.5" width="584" height="32.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -371,8 +371,11 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="736-r6-WhT" secondAttribute="bottom" id="6ym-Xd-JlW"/>
                                         <constraint firstItem="736-r6-WhT" firstAttribute="top" secondItem="021-6p-4V9" secondAttribute="top" id="KmT-F3-OPx"/>
                                         <constraint firstAttribute="trailing" secondItem="736-r6-WhT" secondAttribute="trailing" id="NQQ-4e-Vt8"/>
+                                        <constraint firstItem="sIx-Z7-pg0" firstAttribute="bottom" secondItem="021-6p-4V9" secondAttribute="bottomMargin" id="VIK-lF-SIv"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="sIx-Z7-pg0" secondAttribute="bottom" id="Yrg-fl-2N4"/>
+                                        <constraint firstItem="sIx-Z7-pg0" firstAttribute="leading" secondItem="021-6p-4V9" secondAttribute="leadingMargin" id="dZi-yU-Wn2"/>
                                         <constraint firstItem="sIx-Z7-pg0" firstAttribute="leading" secondItem="021-6p-4V9" secondAttribute="leadingMargin" id="fCr-10-qi6"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="sIx-Z7-pg0" secondAttribute="trailing" id="lH2-XG-spv"/>
                                         <constraint firstItem="736-r6-WhT" firstAttribute="leading" secondItem="021-6p-4V9" secondAttribute="leading" id="qQp-pc-UPM"/>
                                     </constraints>
                                 </tableViewCellContentView>

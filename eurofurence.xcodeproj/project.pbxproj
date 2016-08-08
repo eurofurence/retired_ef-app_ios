@@ -48,6 +48,7 @@
 		BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C711C777F7C00371862 /* InfoGroup.swift */; };
 		BF994C741C777F8300371862 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C731C777F8300371862 /* Info.swift */; };
 		BF994C761C778A2200371862 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF994C751C778A2200371862 /* Loader.swift */; };
+		BFA2F06F1D588F5000918FF8 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA2F06E1D588F5000918FF8 /* EventManager.swift */; };
 		BFA6F0DD1D1D5D81007369F4 /* DealerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA6F0DC1D1D5D81007369F4 /* DealerViewController.swift */; };
 		BFACDCF81CEB08E700977690 /* InfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFACDCF71CEB08E700977690 /* InfoTableViewController.swift */; };
 		BFB1C1DD1D533AEA003306BF /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB1C1DC1D533AEA003306BF /* Map.swift */; };
@@ -60,7 +61,6 @@
 		BFCD6C161C9096FC009D5C58 /* EventFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C151C9096FC009D5C58 /* EventFilterTableViewController.swift */; };
 		BFD220671C72832D00C98A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD220661C72832D00C98A1E /* MapViewController.swift */; };
 		BFEC72AD1C8A04C800A0E6BB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC72AC1C8A04C800A0E6BB /* InfoViewController.swift */; };
-		FB0803C99528EAE2BFB4C356 /* Pods_eurofurence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C87EAEBCBA8B8F6901D981 /* Pods_eurofurence.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +131,7 @@
 		BF994C711C777F7C00371862 /* InfoGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoGroup.swift; sourceTree = "<group>"; };
 		BF994C731C777F8300371862 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		BF994C751C778A2200371862 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		BFA2F06E1D588F5000918FF8 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		BFA6F0DC1D1D5D81007369F4 /* DealerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealerViewController.swift; sourceTree = "<group>"; };
 		BFACDCF71CEB08E700977690 /* InfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewController.swift; sourceTree = "<group>"; };
 		BFB1C1DC1D533AEA003306BF /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
@@ -298,6 +299,7 @@
 		BF3CCAA01C64BB3D0025A14E /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				BFA2F06E1D588F5000918FF8 /* EventManager.swift */,
 				BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */,
 				BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */,
 				BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */,
@@ -398,6 +400,7 @@
 				BF7EAE1B1C74A91500A3F7D2 /* ShellScript */,
 				5E618AB929A55897FA5706E2 /* [CP] Embed Pods Frameworks */,
 				B835C410307703CA640082B9 /* [CP] Copy Pods Resources */,
+				FF0EA45149E930AA08B740C3 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -668,6 +671,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurenceTests/Pods-eurofurenceTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FF0EA45149E930AA08B740C3 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -675,6 +693,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA2F06F1D588F5000918FF8 /* EventManager.swift in Sources */,
 				BFD220671C72832D00C98A1E /* MapViewController.swift in Sources */,
 				BFCD6C0B1C907577009D5C58 /* MapTutorialViewController.swift in Sources */,
 				BFB1C1DF1D535EAB003306BF /* ImageManager.swift in Sources */,
@@ -809,7 +828,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -848,7 +867,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

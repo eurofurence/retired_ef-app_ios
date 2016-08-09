@@ -35,9 +35,9 @@ class ApiManager {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try! Realm()
             let predicate = NSPredicate(format: "IsDeleted = %@", "1")
-            let results = realm.objects(entityInstance.dynamicType)
+            var results = realm.objects(entityInstance.dynamicType)
             if prune {
-                results.filter(predicate)
+                results = results.filter(predicate)
             }
             try! realm.write {
                 realm.delete(results)
@@ -96,6 +96,15 @@ class ApiManager {
                         if !self.updateEntity(entity.Name, since: lastDatabaseUpdate, completion: {
                             (result: String, isSuccessful:Bool) in
                             self.requestedObjects -= 1
+                            if isSuccessful {
+                                // Prune entities with isDeleted = true
+                                if let entityInstance = ObjectFromString.sharedInstance.instanciate(entity.Name) as? Object {
+                                    self.deleteEntityData(entityInstance)
+                                }
+                                print("Entity", entity.Name, "updated successfully")
+                            } else {
+                                print("Error during update of ", entity.Name, ":",result)
+                            }
                             if (self.requestedObjects == 0) {
                                 LoadingOverlay.sharedInstance.hideOverlay()
                                 //Find a way to show loader on cacheAllImages (Slow perf on this)
@@ -107,11 +116,6 @@ class ApiManager {
                                     completion!(isDataUpdated: true)
                                 }
                                 self.isUpdating = false
-                            }
-                            if !isSuccessful {
-                                print("Error during update of ", entity.Name, ":",result)
-                            } else {
-                                print("Entity", entity.Name, "updated successfully")
                             }
                         }) {
                             self.requestedObjects -= 1
@@ -167,35 +171,34 @@ class ApiManager {
                 queue: queue,
                 responseSerializer: Request.JSONResponseSerializer(options: .AllowFragments),
                 completionHandler: { response in
-                    var isSuccessful = false
-                    switch (response.result) {
-                    case .Success:
-                        // delete entity data from cache if it is too outdated for an update
-                        if !self.isEntityDeltaSufficient(entityName) {
-                            self.deleteEntityData(entityInstance, false)
-                        }
-                        isSuccessful = true
-                        Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config
-                        let realm = try! Realm()
-                        if let responseArray = response.result.value! as? NSArray {
-                            for reponseObject in responseArray {
-                                let responseJSON = JSON(reponseObject)
+                    dispatch_async(dispatch_get_main_queue()) {
+                        var isSuccessful = false
+                        switch (response.result) {
+                        case .Success:
+                            // delete entity data from cache if it is too outdated for an update
+                            if !self.isEntityDeltaSufficient(entityName) {
+                                self.deleteEntityData(entityInstance, false)
+                            }
+                            isSuccessful = true
+                            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config
+                            let realm = try! Realm()
+                            if let responseArray = response.result.value! as? NSArray {
+                                for reponseObject in responseArray {
+                                    let responseJSON = JSON(reponseObject)
+                                    try! realm.write {
+                                        realm.create(entityInstance.dynamicType, value: responseJSON.object, update: true)
+                                    }
+                                }
+                            } else {
+                                let responseJSON = JSON(response.result.value!)
                                 try! realm.write {
                                     realm.create(entityInstance.dynamicType, value: responseJSON.object, update: true)
                                 }
                             }
-                        } else {
-                            let responseJSON = JSON(response.result.value!)
-                            try! realm.write {
-                                realm.create(entityInstance.dynamicType, value: responseJSON.object, update: true)
-                            }
+                            break
+                        case .Failure:
+                            print("Request for", entityName, "failed!");
                         }
-                        break
-                    case .Failure:
-                        print("Request for", entityName, "failed!");
-                    }
-                    dispatch_async(dispatch_get_main_queue()) {
-                        //self.deleteEntityData(entityInstance)
                         if completion != nil {
                             completion!(result: response.result.debugDescription, isSuccessful: isSuccessful)
                         }

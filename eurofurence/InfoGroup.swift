@@ -17,7 +17,7 @@ class InfoGroup: Object {
     dynamic var Position = ""
     
     override static func primaryKey() -> String? {
-        return "Name"
+        return "Id"
     }
     
     static func getAll() -> Results<InfoGroup>?{

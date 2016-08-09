@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gjr-9L-0Tf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gjr-9L-0Tf">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1394,50 +1394,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sae-9p-oY2">
-                                <rect key="frame" x="0.0" y="64" width="600" height="100"/>
-                                <color key="backgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info Group" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="nqD-SB-8Gd">
+                                <rect key="frame" x="0.0" y="64" width="600" height="30"/>
+                                <color key="backgroundColor" red="0.13725490200000001" green="0.14117647059999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="6yy-0u-I0q"/>
+                                    <constraint firstAttribute="height" constant="30" id="Jvr-qE-as4"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zU6-H9-knQ">
-                                <rect key="frame" x="0.0" y="163" width="600" height="388"/>
-                                <color key="backgroundColor" red="0.13725490196078433" green="0.14117647058823529" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="8" y="172" width="584" height="371"/>
+                                <color key="tintColor" red="0.0" green="0.38431372549999998" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sae-9p-oY2">
+                                <rect key="frame" x="0.0" y="94" width="600" height="70"/>
+                                <color key="backgroundColor" red="0.19215686274509802" green="0.19607843137254902" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="6yy-0u-I0q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
+                        <color key="backgroundColor" red="0.13725490200000001" green="0.14117647059999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Sae-9p-oY2" firstAttribute="leading" secondItem="a2J-gA-Stu" secondAttribute="leading" id="1N6-48-gzA"/>
-                            <constraint firstItem="zU6-H9-knQ" firstAttribute="leading" secondItem="a2J-gA-Stu" secondAttribute="leading" id="5eh-SD-LYV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Sae-9p-oY2" secondAttribute="trailing" id="EIV-jc-ekP"/>
-                            <constraint firstItem="zU6-H9-knQ" firstAttribute="top" secondItem="Sae-9p-oY2" secondAttribute="bottom" constant="-1" id="UjL-F7-voD"/>
-                            <constraint firstItem="bie-i3-4Uv" firstAttribute="top" secondItem="zU6-H9-knQ" secondAttribute="bottom" id="aUK-Jw-U5Z"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="zU6-H9-knQ" secondAttribute="trailing" id="cKx-Bi-uUH"/>
-                            <constraint firstItem="Sae-9p-oY2" firstAttribute="top" secondItem="UUd-l0-GNc" secondAttribute="bottom" id="iAM-wc-i08"/>
-                            <constraint firstAttribute="trailing" secondItem="zU6-H9-knQ" secondAttribute="trailing" id="iVT-eK-D4Z"/>
-                            <constraint firstAttribute="trailing" secondItem="Sae-9p-oY2" secondAttribute="trailing" id="ied-7W-HTm"/>
-                            <constraint firstItem="Sae-9p-oY2" firstAttribute="leading" secondItem="a2J-gA-Stu" secondAttribute="leadingMargin" id="oJ4-4H-sz0"/>
-                            <constraint firstItem="zU6-H9-knQ" firstAttribute="leading" secondItem="a2J-gA-Stu" secondAttribute="leadingMargin" id="tGb-ch-7iG"/>
+                            <constraint firstItem="Sae-9p-oY2" firstAttribute="leading" secondItem="a2J-gA-Stu" secondAttribute="leading" id="7Ib-qm-YuK"/>
+                            <constraint firstAttribute="trailing" secondItem="zU6-H9-knQ" secondAttribute="trailing" constant="8" id="U6C-H9-Iow"/>
+                            <constraint firstItem="nqD-SB-8Gd" firstAttribute="centerX" secondItem="a2J-gA-Stu" secondAttribute="centerX" id="XHg-Ma-Te0"/>
+                            <constraint firstItem="zU6-H9-knQ" firstAttribute="top" secondItem="Sae-9p-oY2" secondAttribute="bottom" constant="8" id="a9i-Sa-NSz"/>
+                            <constraint firstItem="nqD-SB-8Gd" firstAttribute="leading" secondItem="a2J-gA-Stu" secondAttribute="leading" id="aAI-KM-tRP"/>
+                            <constraint firstAttribute="trailing" secondItem="nqD-SB-8Gd" secondAttribute="trailing" id="cQd-3Q-eyS"/>
+                            <constraint firstItem="Sae-9p-oY2" firstAttribute="top" secondItem="nqD-SB-8Gd" secondAttribute="bottom" id="cbi-xV-Ov2"/>
+                            <constraint firstAttribute="trailing" secondItem="Sae-9p-oY2" secondAttribute="trailing" id="eTz-W7-M7e"/>
+                            <constraint firstItem="Sae-9p-oY2" firstAttribute="centerX" secondItem="a2J-gA-Stu" secondAttribute="centerX" id="ggn-Nc-4DO"/>
+                            <constraint firstItem="zU6-H9-knQ" firstAttribute="centerX" secondItem="a2J-gA-Stu" secondAttribute="centerX" id="oUS-q5-eSV"/>
+                            <constraint firstItem="zU6-H9-knQ" firstAttribute="leading" secondItem="a2J-gA-Stu" secondAttribute="leading" constant="8" id="ru4-y1-foY"/>
+                            <constraint firstItem="bie-i3-4Uv" firstAttribute="top" secondItem="zU6-H9-knQ" secondAttribute="bottom" constant="8" id="ufC-Gw-354"/>
+                            <constraint firstItem="nqD-SB-8Gd" firstAttribute="top" secondItem="UUd-l0-GNc" secondAttribute="bottom" id="zFM-6c-hsS"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="EIV-jc-ekP"/>
-                                <exclude reference="oJ4-4H-sz0"/>
-                                <exclude reference="cKx-Bi-uUH"/>
-                                <exclude reference="tGb-ch-7iG"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="InfoDescTextView" destination="zU6-H9-knQ" id="caf-KC-cNr"/>
-                        <outlet property="InfoTitleLabel" destination="Sae-9p-oY2" id="CeK-VS-qTG"/>
+                        <outlet property="groupLabel" destination="nqD-SB-8Gd" id="z8B-am-1Wx"/>
+                        <outlet property="textView" destination="zU6-H9-knQ" id="1eV-Xl-p2E"/>
+                        <outlet property="titleLabel" destination="Sae-9p-oY2" id="c3v-zW-hjO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jlC-nH-Bxw" userLabel="First Responder" sceneMemberID="firstResponder"/>

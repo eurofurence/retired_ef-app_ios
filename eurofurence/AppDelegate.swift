@@ -11,7 +11,7 @@ import ReachabilitySwift
 import Fabric
 import Crashlytics
 import RealmSwift
-
+import SlideMenuControllerSwift
 
 
 @UIApplicationMain
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          notification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
          UIApplication.sharedApplication().scheduleLocalNotification(notification)
          */
-
+        
         NetworkManager.sharedInstance?.startNetworkManager();
         if (!self.isTutorialAlreadyShown()) {
             self.showTutorial()
@@ -50,7 +50,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         }
+        createSliderMenu();
         return true
+    }
+    
+    func createSliderMenu() {
+        let menuStoryboard = UIStoryboard(name: "SlideMenu", bundle: nil);
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil);
+        let mainViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
+        let leftViewController = menuStoryboard.instantiateViewControllerWithIdentifier("LeftView") as! LeftViewController
+        
+        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController)
+        self.window?.rootViewController = slideMenuController
+        self.window?.makeKeyAndVisible()
     }
     
     func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {

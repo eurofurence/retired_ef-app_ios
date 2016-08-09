@@ -63,11 +63,48 @@ public extension String {
         
         return lowercaseString.stringByReplacingCharactersInRange(lowercaseString.startIndex...lowercaseString.startIndex, withString: String(lowercaseString[lowercaseString.startIndex]).uppercaseString)
     }
+    
+    static func className(aClass: AnyClass) -> String {
+        return NSStringFromClass(aClass).componentsSeparatedByString(".").last!
+    }
+    
+    func substring(from: Int) -> String {
+        return self.substringFromIndex(self.startIndex.advancedBy(from))
+    }
+    
+    var length: Int {
+        return self.characters.count
+    }
 }
 
 extension UIView {
     var isViewEmpty : Bool {
         return  self.subviews.count == 0 ;
+    }
+}
+
+public extension UITableView {
+    
+    func registerCellClass(cellClass: AnyClass) {
+        let identifier = String.className(cellClass)
+        self.registerClass(cellClass, forCellReuseIdentifier: identifier)
+    }
+    
+    func registerCellNib(cellClass: AnyClass) {
+        let identifier = String.className(cellClass)
+        let nib = UINib(nibName: identifier, bundle: nil)
+        self.registerNib(nib, forCellReuseIdentifier: identifier)
+    }
+    
+    func registerHeaderFooterViewClass(viewClass: AnyClass) {
+        let identifier = String.className(viewClass)
+        self.registerClass(viewClass, forHeaderFooterViewReuseIdentifier: identifier)
+    }
+    
+    func registerHeaderFooterViewNib(viewClass: AnyClass) {
+        let identifier = String.className(viewClass)
+        let nib = UINib(nibName: identifier, bundle: nil)
+        self.registerNib(nib, forHeaderFooterViewReuseIdentifier: identifier)
     }
 }
 

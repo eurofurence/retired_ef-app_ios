@@ -32,20 +32,28 @@ class ApiManager {
     
     func deleteEntityData(entityInstance:Object, _ prune:Bool = true) {
         if entityInstance.respondsToSelector("setIsDeleted:") || !prune {
-            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
-            let realm = try! Realm()
-            let predicate = NSPredicate(format: "IsDeleted = %@", "1")
-            var results = realm.objects(entityInstance.dynamicType)
-            if prune {
-                results = results.filter(predicate)
-            }
-            try! realm.write {
-                realm.delete(results)
+            let entityType = entityInstance.dynamicType
+            dispatch_async(dispatch_get_main_queue()) {
+                autoreleasepool {
+                    do {
+                        let realm = try Realm(configuration: ConfigManager.sharedInstance.config)
+                        let predicate = NSPredicate(format: "IsDeleted = %@", "1")
+                        var results = realm.objects(entityType)
+                        if prune {
+                            results = results.filter(predicate)
+                        }
+                        try realm.write {
+                            realm.delete(results)
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
             }
         }
     }
     
-    /// Checks whether Realm is still valid, otherwise causes a next refresh to 
+    /// Checks whether Realm is still valid, otherwise causes a next refresh to
     /// reload all data from the backend
     private func verifyRealm() {
         if Endpoint.get() == nil {
@@ -90,25 +98,25 @@ class ApiManager {
                 
                 for entity in endpoint!.Entities {
                     if entity.Name != ConfigManager.sharedInstance.endpoint && (forceUpdate || lastDatabaseUpdate == nil || !self.isEntityUpToDate(entity.Name)) {
-                        print("Updating entity", entity.Name, "from", entity.LastChangeDateTimeUtc)
+                        
+                        let entityName = entity.Name
+                        print("Updating entity", entityName, "from", entity.LastChangeDateTimeUtc)
                         self.requestedObjects += 1
                         
-                        if !self.updateEntity(entity.Name, since: lastDatabaseUpdate, completion: {
+                        if !self.updateEntity(entityName, since: lastDatabaseUpdate, completion: {
                             (result: String, isSuccessful:Bool) in
                             self.requestedObjects -= 1
                             if isSuccessful {
                                 // Prune entities with isDeleted = true
-                                if let entityInstance = ObjectFromString.sharedInstance.instanciate(entity.Name) as? Object {
+                                if let entityInstance = ObjectFromString.sharedInstance.instanciate(entityName) as? Object {
                                     self.deleteEntityData(entityInstance)
                                 }
-                                print("Entity", entity.Name, "updated successfully")
+                                print("Entity", entityName, "updated successfully")
                             } else {
-                                print("Error during update of ", entity.Name, ":",result)
+                                print("Error during update of ", entityName, ":",result)
                             }
                             if (self.requestedObjects == 0) {
-                                LoadingOverlay.sharedInstance.hideOverlay()
                                 //Find a way to show loader on cacheAllImages (Slow perf on this)
-                                ImageManager.sharedInstance.cacheAllImages()
                                 NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: nil)
                                 let defaults = NSUserDefaults.standardUserDefaults()
                                 defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
@@ -116,10 +124,12 @@ class ApiManager {
                                     completion!(isDataUpdated: true)
                                 }
                                 self.isUpdating = false
+                                LoadingOverlay.sharedInstance.hideOverlay()
+                                ImageManager.sharedInstance.cacheAllImages()
                             }
                         }) {
                             self.requestedObjects -= 1
-                            print("Entity", entity.Name, "failed to instantiate")
+                            print("Entity", entityName, "failed to instantiate")
                         }
                     }
                 }
@@ -128,17 +138,17 @@ class ApiManager {
             // Seems nothing was updated, so we need to clean up on our own
             if self.isUpdating && self.requestedObjects == 0 {
                 print("Nothing to update")
-                LoadingOverlay.sharedInstance.hideOverlay()
-                if forceUpdate {
-                    ImageManager.sharedInstance.cacheAllImages()
-                }
                 if endpointCurrentDateTimeUtc != nil {
                     let defaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
                 }
-                self.isUpdating = false
                 if completion != nil {
                     completion!(isDataUpdated: false)
+                }
+                self.isUpdating = false
+                LoadingOverlay.sharedInstance.hideOverlay()
+                if forceUpdate {
+                    ImageManager.sharedInstance.cacheAllImages()
                 }
             }
         })
@@ -150,11 +160,11 @@ class ApiManager {
     /// - parameters:
     ///     - entityName: Name of the API endpoint
     ///     - since: (Optional) fetches only entries updated since given NSDate
-    ///     - completion: (Optional) function to be called upon completion with 
+    ///     - completion: (Optional) function to be called upon completion with
     ///         detailed information on result as parameter
-    /// - returns: `true` if update was successfully triggered (this does not 
+    /// - returns: `true` if update was successfully triggered (this does not
     ///     neccessarily mean that the update also completed successfully!)
-    func updateEntity(entityName:String, since:NSDate? = nil, completion: ((result: String, isSuccessful: Bool) -> Void)? = nil)->Bool {
+    func updateEntity(entityName: String, since: NSDate? = nil, completion: ((result: String, isSuccessful: Bool) -> Void)? = nil)->Bool {
         let queue = dispatch_queue_create("com.cnoon.manager-response-queue", DISPATCH_QUEUE_CONCURRENT)
         let url = ConfigManager.sharedInstance.apiBaseUrl + entityName
         
@@ -171,34 +181,45 @@ class ApiManager {
                 queue: queue,
                 responseSerializer: Request.JSONResponseSerializer(options: .AllowFragments),
                 completionHandler: { response in
-                    dispatch_async(dispatch_get_main_queue()) {
-                        var isSuccessful = false
-                        switch (response.result) {
-                        case .Success:
-                            // delete entity data from cache if it is too outdated for an update
-                            if !self.isEntityDeltaSufficient(entityName) {
-                                self.deleteEntityData(entityInstance, false)
-                            }
-                            isSuccessful = true
-                            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config
-                            let realm = try! Realm()
-                            if let responseArray = response.result.value! as? NSArray {
-                                for reponseObject in responseArray {
-                                    let responseJSON = JSON(reponseObject)
-                                    try! realm.write {
-                                        realm.create(entityInstance.dynamicType, value: responseJSON.object, update: true)
-                                    }
-                                }
-                            } else {
-                                let responseJSON = JSON(response.result.value!)
-                                try! realm.write {
-                                    realm.create(entityInstance.dynamicType, value: responseJSON.object, update: true)
-                                }
-                            }
-                            break
-                        case .Failure:
-                            print("Request for", entityName, "failed!");
+                    var isSuccessful = false
+                    switch (response.result) {
+                    case .Success:
+                        // delete entity data from cache if it is too outdated for an update
+                        if !self.isEntityDeltaSufficient(entityName) {
+                            self.deleteEntityData(entityInstance, false)
                         }
+                        
+                        let entityType = entityInstance.dynamicType
+                        isSuccessful = true
+                        dispatch_async(dispatch_get_main_queue()) {
+                            autoreleasepool {
+                                do {
+                                    let realm = try Realm(configuration: ConfigManager.sharedInstance.config)
+                                    if let responseArray = response.result.value! as? NSArray {
+                                        for reponseObject in responseArray {
+                                            let responseJSON = JSON(reponseObject)
+                                            try! realm.write {
+                                                realm.create(entityType, value: responseJSON.object, update: true)
+                                            }
+                                        }
+                                    } else {
+                                        let responseJSON = JSON(response.result.value!)
+                                        try! realm.write {
+                                            realm.create(entityType, value: responseJSON.object, update: true)
+                                        }
+                                    }
+                                    if completion != nil {
+                                        completion!(result: response.result.debugDescription, isSuccessful: isSuccessful)
+                                    }
+                                } catch let error as NSError {
+                                    print(error)
+                                    completion!(result: response.result.debugDescription, isSuccessful: false)
+                                }
+                            }
+                        }
+                        break
+                    case .Failure:
+                        print("Request for", entityName, "failed!");
                         if completion != nil {
                             completion!(result: response.result.debugDescription, isSuccessful: isSuccessful)
                         }
@@ -236,7 +257,7 @@ class ApiManager {
     }
     
     
-    /// Checks whether the current delta is sufficient for updating (`true`) or 
+    /// Checks whether the current delta is sufficient for updating (`true`) or
     /// all data for the entity should be flushed for a full refresh (`false`).
     func isEntityDeltaSufficient(entityName: String)->Bool {
         let defaults = NSUserDefaults.standardUserDefaults()

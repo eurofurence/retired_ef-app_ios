@@ -21,19 +21,21 @@ class ImageManager {
     
     private func dispatchEntity(entityId: String?) {
         if (entityId != nil) {
-            toCacheCount += 1
-            if LoadingOverlay.sharedInstance.presented {
-                LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(doneCachingCount)/\(toCacheCount))")
+            self.toCacheCount += 1
+            if LoadingOverlay.sharedInstance.isPresented() {
+                LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
             }
             dispatch_group_enter(self.dispatchGroup)
-            cacheImage(entityId!) {
-                (image: UIImage?) in
-                self.doneCachingCount += 1
-                if LoadingOverlay.sharedInstance.presented {
-                    LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
-                }
-                dispatch_group_leave(self.dispatchGroup)
-            };
+            dispatch_async(dispatch_get_main_queue()) {
+                self.cacheImage(entityId!) {
+                    (image: UIImage?) in
+                    self.doneCachingCount += 1
+                    if LoadingOverlay.sharedInstance.isPresented() {
+                        LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
+                    }
+                };
+            }
+            dispatch_group_leave(self.dispatchGroup)
         }
     }
     

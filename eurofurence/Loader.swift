@@ -9,40 +9,50 @@
 import Foundation
 import UIKit
 
-public class LoadingOverlay{
+public class LoadingOverlay {
     
     let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .Alert)
-    var overlayView : UIView!
     var activityIndicator : UIActivityIndicatorView!
-    var presented : Bool = false
+    private var presented = false
     
     static let sharedInstance = LoadingOverlay()
     
-    init(){
-        self.overlayView = UIView()
-        self.activityIndicator = UIActivityIndicatorView()
-        self.alert.view.tintColor = UIColor.blackColor()
-        self.activityIndicator = UIActivityIndicatorView(frame: CGRectMake(10, 5, 50, 50)) as UIActivityIndicatorView
-        self.activityIndicator.hidesWhenStopped = true
-        self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+    init() {
+        activityIndicator = UIActivityIndicatorView()
+        alert.view.tintColor = UIColor.blackColor()
+        activityIndicator = UIActivityIndicatorView(frame: CGRectMake(10, 5, 50, 50)) as UIActivityIndicatorView
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         
-        self.alert.view.addSubview(self.activityIndicator)
+        alert.view.addSubview(self.activityIndicator)
+    }
+    
+    public func isPresented()->Bool {
+        return presented
     }
     
     public func showOverlay() {
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(self.alert, animated: true, completion: nil)
-        self.activityIndicator.startAnimating()
-        self.presented = true
+        dispatch_async(dispatch_get_main_queue()) {
+            if !self.presented {
+                self.presented = true
+                UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(self.alert, animated: true, completion: {
+                    self.presented = false
+                })
+                self.activityIndicator.startAnimating()
+            }
+        }
     }
     
     public func hideOverlay() {
-        if (presented) {
-            self.activityIndicator.stopAnimating()
-            UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(false, completion:  nil)
+        dispatch_async(dispatch_get_main_queue()) {
+            if self.presented {
+                self.activityIndicator.stopAnimating()
+                UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(false, completion: nil)
+            }
         }
     }
     
     public func changeMessage(message: String) {
-        self.alert.message = message;
+        alert.message = message;
     }
 }

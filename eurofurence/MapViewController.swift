@@ -176,5 +176,10 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func openMenu(sender: AnyObject) {
+        if let _ = self.slideMenuController() {
+            self.slideMenuController()?.openLeft()
+        }
+    }
 
 }

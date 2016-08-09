@@ -230,20 +230,20 @@
                                                 <constraint firstAttribute="width" secondItem="ske-Ca-8KF" secondAttribute="height" multiplier="1:1" id="4Yc-Va-eAB"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eg6-wB-97m">
-                                            <rect key="frame" x="114" y="8" width="445" height="32.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eg6-wB-97m">
+                                            <rect key="frame" x="114" y="8" width="445" height="25.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1M2-oq-DH1">
-                                            <rect key="frame" x="114" y="61" width="445" height="13.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1M2-oq-DH1">
+                                            <rect key="frame" x="114" y="51.5" width="445" height="14.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cko-EE-V9P">
-                                            <rect key="frame" x="114" y="37.5" width="445" height="19.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cko-EE-V9P">
+                                            <rect key="frame" x="114" y="30.5" width="445" height="17"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" red="0.0078431372550000003" green="0.74117647060000003" blue="0.6588235294" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -281,7 +281,13 @@
                             <outlet property="delegate" destination="fbh-19-XeE" id="r89-Qy-GsG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Dealer's Den" id="E1g-dV-CWP"/>
+                    <navigationItem key="navigationItem" title="Dealer's Den" id="E1g-dV-CWP">
+                        <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="aaa-9N-KLa">
+                            <connections>
+                                <action selector="openMenu:" destination="fbh-19-XeE" id="vA6-Nq-CAq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="SDt-e5-KzB">
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle">
@@ -449,7 +455,13 @@
                             <outlet property="delegate" destination="83V-W9-tcx" id="2h4-cL-mSp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="News" id="7BE-Jk-IfU"/>
+                    <navigationItem key="navigationItem" title="News" id="7BE-Jk-IfU">
+                        <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="cMK-5e-PRC">
+                            <connections>
+                                <action selector="openMenu:" destination="83V-W9-tcx" id="kLi-vE-oOO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Lib-z5-LMC">
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle">
@@ -797,7 +809,13 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Map" id="PQi-Sz-LWX"/>
+                    <navigationItem key="navigationItem" title="Map" id="PQi-Sz-LWX">
+                        <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="Fac-Rl-ohY">
+                            <connections>
+                                <action selector="openMenu:" destination="7qp-Gf-BX9" id="F4T-56-uAV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <keyCommands/>
                     <connections>
                         <outlet property="mapContainerView" destination="UPi-G5-x8h" id="A4a-c2-bKl"/>
@@ -867,8 +885,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEE-D0-acQ">
-                                            <rect key="frame" x="8" y="9.5" width="398" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEE-D0-acQ">
+                                            <rect key="frame" x="8" y="11.5" width="398" height="17"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -1017,7 +1035,13 @@
                             <outlet property="delegate" destination="R6H-1L-KBn" id="sHd-XX-KEg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Events" id="DYu-28-d1N"/>
+                    <navigationItem key="navigationItem" title="Events" id="DYu-28-d1N">
+                        <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="Wcg-wP-QYb">
+                            <connections>
+                                <action selector="openMenu:" destination="R6H-1L-KBn" id="Vjd-3F-CSV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Y1E-e3-P8J">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1304,7 +1328,13 @@
                             <outlet property="delegate" destination="D34-Wf-mE7" id="G4r-7D-geI"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="General informations" id="eSu-I7-tEa"/>
+                    <navigationItem key="navigationItem" title="General informations" id="eSu-I7-tEa">
+                        <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="6G0-WA-Or3">
+                            <connections>
+                                <action selector="openMenu:" destination="D34-Wf-mE7" id="6mb-LL-H8t"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wFr-TN-14F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1454,6 +1484,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Burger Menu" width="25" height="25"/>
         <image name="Calendar" width="25" height="25"/>
         <image name="Center Direction-50" width="25" height="25"/>
         <image name="Future-50" width="25" height="25"/>

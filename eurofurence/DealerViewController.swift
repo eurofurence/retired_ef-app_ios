@@ -38,8 +38,15 @@ class DealerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func willMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        if parent == nil {
+            self.tabBarController?.tabBar.hidden = false
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
-        
+        self.tabBarController?.tabBar.hidden = true
         let newlineChars = NSCharacterSet.newlineCharacterSet()
         
         if let  artistImageId = self.dealer.ArtistImageId {

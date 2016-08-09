@@ -223,7 +223,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "EEEE dd MMMM"
             let dayOfWeekString = dateFormatter.stringFromDate(eventDate)
-            sectionName = eventsDays![section].Name + "\n" + dayOfWeekString.firstCharacterUpperCase();
+            sectionName = eventsDays![section].Name + "\n" + dayOfWeekString;
         }
         switch self.searchController.searchBar.selectedScopeButtonIndex {
             
@@ -319,6 +319,12 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
                 }
                 
             }
+        }
+    }
+    
+    @IBAction func openMenu(sender: AnyObject) {
+        if let _ = self.slideMenuController() {
+            self.slideMenuController()?.openLeft()
         }
     }
     

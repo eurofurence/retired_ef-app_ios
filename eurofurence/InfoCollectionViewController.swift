@@ -126,4 +126,9 @@ var sectionMenu = InfoGroup.getAll();
         }
     }
 
+    @IBAction func openMenu(sender: AnyObject) {
+        if let _ = self.slideMenuController() {
+            self.slideMenuController()?.openLeft()
+        }
+    }
 }

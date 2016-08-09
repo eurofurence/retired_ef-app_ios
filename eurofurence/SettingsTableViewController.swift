@@ -1,36 +1,19 @@
 //
-//  InfoViewController.swift
+//  SettingsTableViewController.swift
 //  eurofurence
 //
-//  Created by Vincent BONMARCHAND on 04/03/2016.
+//  Created by Vincent BONMARCHAND on 09/08/2016.
 //  Copyright © 2016 eurofurence. All rights reserved.
 //
 
 import UIKit
 
-class InfoViewController: UIViewController {
-    @IBOutlet weak var InfoTitleLabel: UILabel!
-    @IBOutlet weak var InfoDescTextView: UITextView!
-    var info = Info();
-    
+class SettingsTableViewController: UITableViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-    
-    override func willMoveToParentViewController(parent: UIViewController?) {
-        super.willMoveToParentViewController(parent)
-        if parent == nil {
-            self.tabBarController?.tabBar.hidden = false
-        }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        self.tabBarController?.tabBar.hidden = true
-        self.InfoTitleLabel.text = self.info.Title;
-        self.InfoDescTextView.text = self.info.Text;
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,4 +32,9 @@ class InfoViewController: UIViewController {
     }
     */
 
+    @IBAction func openMenu(sender: AnyObject) {
+        if let _ = self.slideMenuController() {
+            self.slideMenuController()?.openLeft()
+        }
+    }
 }

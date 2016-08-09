@@ -24,7 +24,16 @@ class EventViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+
+    override func willMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        if parent == nil {
+            self.tabBarController?.tabBar.hidden = false
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
+        self.tabBarController?.tabBar.hidden = true
         let formatedStartTime = (event.StartTime).characters.split{$0 == ":"}.map(String.init)
         let formatedDuration = (event.Duration).characters.split{$0 == ":"}.map(String.init)
         let separators = NSCharacterSet(charactersInString: "–")

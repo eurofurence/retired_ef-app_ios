@@ -31,6 +31,11 @@
 		BF37FFB11D1441BD00F25791 /* Dealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF37FFB01D1441BD00F25791 /* Dealer.swift */; };
 		BF37FFB41D144A4800F25791 /* DealerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF37FFB31D144A4800F25791 /* DealerTableViewController.swift */; };
 		BF3FB3E31C65162D006E2EBB /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FB3E21C65162D006E2EBB /* EventViewController.swift */; };
+		BF5729691D59C7D7005A09B6 /* SlideMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF5729681D59C7D7005A09B6 /* SlideMenu.storyboard */; };
+		BF57296C1D59C8D5005A09B6 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF57296B1D59C8D5005A09B6 /* LeftViewController.swift */; };
+		BF57296E1D59CF06005A09B6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF57296D1D59CF06005A09B6 /* AboutViewController.swift */; };
+		BF5729701D59CF13005A09B6 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF57296F1D59CF13005A09B6 /* SettingsTableViewController.swift */; };
+		BF5729721D59D25A005A09B6 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5729711D59D25A005A09B6 /* BaseTableViewCell.swift */; };
 		BF61C0891C70CFB8005F5C5B /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */; };
 		BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */; };
 		BF61C08E1C70EA56005F5C5B /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */; };
@@ -52,6 +57,7 @@
 		BFACDCF81CEB08E700977690 /* InfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFACDCF71CEB08E700977690 /* InfoTableViewController.swift */; };
 		BFB1C1DD1D533AEA003306BF /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB1C1DC1D533AEA003306BF /* Map.swift */; };
 		BFB1C1DF1D535EAB003306BF /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB1C1DE1D535EAB003306BF /* ImageManager.swift */; };
+		BFC3A42E1D58DB8700C58A18 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC3A42D1D58DB8700C58A18 /* Default-568h@2x.png */; };
 		BFCD6C071C90465E009D5C58 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFCD6C061C90465E009D5C58 /* Tutorial.storyboard */; };
 		BFCD6C091C904786009D5C58 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C081C904786009D5C58 /* TutorialPageViewController.swift */; };
 		BFCD6C0B1C907577009D5C58 /* MapTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C0A1C907577009D5C58 /* MapTutorialViewController.swift */; };
@@ -114,6 +120,11 @@
 		BF37FFB01D1441BD00F25791 /* Dealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dealer.swift; sourceTree = "<group>"; };
 		BF37FFB31D144A4800F25791 /* DealerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealerTableViewController.swift; sourceTree = "<group>"; };
 		BF3FB3E21C65162D006E2EBB /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
+		BF5729681D59C7D7005A09B6 /* SlideMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SlideMenu.storyboard; sourceTree = "<group>"; };
+		BF57296B1D59C8D5005A09B6 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
+		BF57296D1D59CF06005A09B6 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		BF57296F1D59CF13005A09B6 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		BF5729711D59D25A005A09B6 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
@@ -135,6 +146,7 @@
 		BFACDCF71CEB08E700977690 /* InfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewController.swift; sourceTree = "<group>"; };
 		BFB1C1DC1D533AEA003306BF /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		BFB1C1DE1D535EAB003306BF /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		BFC3A42D1D58DB8700C58A18 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BFCD6C061C90465E009D5C58 /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
 		BFCD6C081C904786009D5C58 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		BFCD6C0A1C907577009D5C58 /* MapTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTutorialViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +215,7 @@
 		BF00E0511C4FEDE600F998AA = {
 			isa = PBXGroup;
 			children = (
+				BFC3A42D1D58DB8700C58A18 /* Default-568h@2x.png */,
 				BF00E05C1C4FEDE600F998AA /* eurofurence */,
 				BF00E0711C4FEDE700F998AA /* eurofurenceTests */,
 				BF00E07C1C4FEDE700F998AA /* eurofurenceUITests */,
@@ -289,6 +302,7 @@
 				BF6C4AA61C64C2AC002D250E /* cells */,
 				BF00E0611C4FEDE700F998AA /* Main.storyboard */,
 				BFCD6C061C90465E009D5C58 /* Tutorial.storyboard */,
+				BF5729681D59C7D7005A09B6 /* SlideMenu.storyboard */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -296,6 +310,7 @@
 		BF3CCA9F1C64BB2A0025A14E /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				BF57296A1D59C8BC005A09B6 /* SlideMenu */,
 				BF37FFB21D144A3200F25791 /* Dealer */,
 				BFCD6C121C909019009D5C58 /* Info */,
 				BFCD6C111C908FFB009D5C58 /* Tutorial */,
@@ -323,6 +338,16 @@
 			name = helpers;
 			sourceTree = "<group>";
 		};
+		BF57296A1D59C8BC005A09B6 /* SlideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				BF57296B1D59C8D5005A09B6 /* LeftViewController.swift */,
+				BF57296D1D59CF06005A09B6 /* AboutViewController.swift */,
+				BF57296F1D59CF13005A09B6 /* SettingsTableViewController.swift */,
+			);
+			name = SlideMenu;
+			sourceTree = "<group>";
+		};
 		BF6C4AA61C64C2AC002D250E /* cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +358,7 @@
 				BFCD6C131C909067009D5C58 /* EventCollectionViewCell.swift */,
 				BF79B08B1D18115D00932B9C /* DealersTableViewCell.swift */,
 				BF230AD21D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift */,
+				BF5729711D59D25A005A09B6 /* BaseTableViewCell.swift */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -400,6 +426,7 @@
 				BF7EAE1B1C74A91500A3F7D2 /* ShellScript */,
 				5E618AB929A55897FA5706E2 /* [CP] Embed Pods Frameworks */,
 				B835C410307703CA640082B9 /* [CP] Copy Pods Resources */,
+				8F60A246C7689B20480A547F /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -501,8 +528,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF00E0681C4FEDE700F998AA /* LaunchScreen.storyboard in Resources */,
+				BF5729691D59C7D7005A09B6 /* SlideMenu.storyboard in Resources */,
 				BF00E0651C4FEDE700F998AA /* Assets.xcassets in Resources */,
 				BFCD6C071C90465E009D5C58 /* Tutorial.storyboard in Resources */,
+				BFC3A42E1D58DB8700C58A18 /* Default-568h@2x.png in Resources */,
 				BF00E0631C4FEDE700F998AA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -582,6 +611,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8F60A246C7689B20480A547F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9B06EC1A96C15ED9941B3965 /* [CP] Check Pods Manifest.lock */ = {
@@ -700,8 +744,10 @@
 				BF2B01831C7E19BA00499E4B /* NewsTableViewController.swift in Sources */,
 				BF1530921C73C0AA0085DF4C /* InfoCollectionViewController.swift in Sources */,
 				BF6C4AA81C64C314002D250E /* EventTableViewCell.swift in Sources */,
+				BF5729701D59CF13005A09B6 /* SettingsTableViewController.swift in Sources */,
 				BF67807C1C811E0100E8630F /* Endpoint.swift in Sources */,
 				BF006C4D1CD3B299006F5871 /* InfosTutorialViewController.swift in Sources */,
+				BF57296E1D59CF06005A09B6 /* AboutViewController.swift in Sources */,
 				BF00E0601C4FEDE600F998AA /* ViewController.swift in Sources */,
 				9A458BC11D56A29100CA9C49 /* MapEntry.swift in Sources */,
 				BFACDCF81CEB08E700977690 /* InfoTableViewController.swift in Sources */,
@@ -710,7 +756,9 @@
 				BFCD6C0D1C908FD1009D5C58 /* EventCollectionViewController.swift in Sources */,
 				BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */,
 				BF2B01871C7E252B00499E4B /* NewsHeaderTableViewCell.swift in Sources */,
+				BF57296C1D59C8D5005A09B6 /* LeftViewController.swift in Sources */,
 				BF6C4AAA1C64E11E002D250E /* EventTableViewController.swift in Sources */,
+				BF5729721D59D25A005A09B6 /* BaseTableViewCell.swift in Sources */,
 				BFA6F0DD1D1D5D81007369F4 /* DealerViewController.swift in Sources */,
 				BF230AD31D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift in Sources */,
 				9A458BBF1D562E4B00CA9C49 /* CountryAlpha3Converter.swift in Sources */,

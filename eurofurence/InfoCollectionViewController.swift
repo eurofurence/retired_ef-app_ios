@@ -23,6 +23,10 @@ var sectionMenu = InfoGroup.getAll();
         collectionView!.registerClass(InfoCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         // Do any additional setup after loading the view.
     }
+    
+    func canRotate()->Bool {
+        return true
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -51,9 +55,8 @@ var sectionMenu = InfoGroup.getAll();
         // #warning Incomplete implementation, return the number of items
         return  (sectionMenu?.count)!
     }
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
-    {
-        return CGSize(width: collectionView.frame.size.width, height: 100)
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width - 16, height: 60)
     }
 
     func createCollectionCellCustom() -> UIView{

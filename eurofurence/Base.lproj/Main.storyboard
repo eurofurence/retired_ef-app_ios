@@ -1247,26 +1247,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.13725490196078433" green="0.14117647058823529" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="5" id="vzm-G8-2ck">
-                            <size key="itemSize" width="100" height="100"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="moe-yl-Oxk">
+                            <size key="itemSize" width="553" height="60"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="iuS-Jd-ROG" customClass="InfoCollectionViewCell" customModule="Eurofurence">
-                                <rect key="frame" x="23.5" y="64" width="553" height="100"/>
+                                <rect key="frame" x="8" y="64" width="584" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="553" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="584" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eventBackground" translatesAutoresizingMaskIntoConstraints="NO" id="CUM-YK-MaI">
-                                            <rect key="frame" x="12" y="8" width="533" height="84"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eventBackground" translatesAutoresizingMaskIntoConstraints="NO" id="CUM-YK-MaI">
+                                            <rect key="frame" x="8" y="8" width="568" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="VPb-NX-zfe"/>
+                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cell" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rti-Tg-jar">
-                                            <rect key="frame" x="34" y="38" width="29" height="24"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rti-Tg-jar">
+                                            <rect key="frame" x="34" y="18" width="516" height="25.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25.5" id="Z5L-3f-Hl9"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1274,25 +1280,17 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.0" green="0.38431372549999998" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Rti-Tg-jar" secondAttribute="bottom" constant="30" id="6Em-ab-2Iu"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="CUM-YK-MaI" secondAttribute="bottom" id="LyW-3M-UAH"/>
-                                    <constraint firstItem="CUM-YK-MaI" firstAttribute="top" secondItem="iuS-Jd-ROG" secondAttribute="topMargin" id="NBv-NH-vAb"/>
-                                    <constraint firstItem="Rti-Tg-jar" firstAttribute="top" secondItem="iuS-Jd-ROG" secondAttribute="topMargin" constant="30" id="NZs-yW-w5c"/>
-                                    <constraint firstItem="Rti-Tg-jar" firstAttribute="top" secondItem="iuS-Jd-ROG" secondAttribute="topMargin" id="P8A-Yf-hcw"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Rti-Tg-jar" secondAttribute="bottom" id="QMC-dO-NQZ"/>
-                                    <constraint firstItem="Rti-Tg-jar" firstAttribute="leading" secondItem="iuS-Jd-ROG" secondAttribute="leadingMargin" constant="26" id="eIt-e1-ttx"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="CUM-YK-MaI" secondAttribute="trailing" id="lU9-2I-KU4"/>
-                                    <constraint firstItem="CUM-YK-MaI" firstAttribute="leading" secondItem="iuS-Jd-ROG" secondAttribute="leadingMargin" constant="4" id="oWb-re-Eyb"/>
-                                    <constraint firstAttribute="topMargin" secondItem="CUM-YK-MaI" secondAttribute="top" id="uTO-9x-eSj"/>
+                                    <constraint firstItem="CUM-YK-MaI" firstAttribute="trailing" secondItem="iuS-Jd-ROG" secondAttribute="trailingMargin" id="7GU-Mr-yOy"/>
+                                    <constraint firstItem="CUM-YK-MaI" firstAttribute="leading" secondItem="iuS-Jd-ROG" secondAttribute="leadingMargin" id="Mf6-X8-Rjg"/>
+                                    <constraint firstItem="CUM-YK-MaI" firstAttribute="centerY" secondItem="iuS-Jd-ROG" secondAttribute="centerY" id="S6R-bN-hY3"/>
+                                    <constraint firstItem="Rti-Tg-jar" firstAttribute="leading" secondItem="iuS-Jd-ROG" secondAttribute="leadingMargin" constant="26" id="Wed-hz-U4L"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Rti-Tg-jar" secondAttribute="trailing" constant="26" id="iBG-1S-Gta"/>
+                                    <constraint firstItem="Rti-Tg-jar" firstAttribute="centerY" secondItem="iuS-Jd-ROG" secondAttribute="centerY" id="ljB-6C-d1S"/>
+                                    <constraint firstItem="CUM-YK-MaI" firstAttribute="centerX" secondItem="iuS-Jd-ROG" secondAttribute="centerX" id="nVT-s5-X26"/>
                                 </constraints>
-                                <size key="customSize" width="553" height="100"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="P8A-Yf-hcw"/>
-                                        <exclude reference="QMC-dO-NQZ"/>
-                                    </mask>
-                                </variation>
+                                <size key="customSize" width="584" height="60"/>
                                 <connections>
                                     <outlet property="cellTitle" destination="Rti-Tg-jar" id="Mvp-Av-aVB"/>
                                     <segue destination="glr-b0-rOQ" kind="show" identifier="infoCatToListSegue" id="6rY-YH-QK1"/>
@@ -1304,7 +1302,7 @@
                             <outlet property="delegate" destination="D34-Wf-mE7" id="G4r-7D-geI"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="General informations" id="eSu-I7-tEa"/>
+                    <navigationItem key="navigationItem" title="General Informations" id="eSu-I7-tEa"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wFr-TN-14F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

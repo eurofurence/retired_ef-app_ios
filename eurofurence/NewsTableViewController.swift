@@ -33,8 +33,10 @@ class NewsTableViewController: UITableViewController {
     }
     
     func notificationRefresh(notification: NSNotification){
-        self.updateAnnouncements();
-        self.tableView.reloadData()
+        dispatch_async(dispatch_get_main_queue()) {
+            self.updateAnnouncements()
+            self.tableView.reloadData()
+        }
     }
     
     func updateAnnouncements() {

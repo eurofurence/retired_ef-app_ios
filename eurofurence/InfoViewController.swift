@@ -13,28 +13,17 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     var info = Info()
-    var markdown: Markdown!
     
     static let htmlStyle = "<style>"
-        + "p, ul, li { font: -apple-system-body; color: #FFF; }"
+        + "html, p, ul, li { font: -apple-system-body; color: #FFF; }"
         + "h1 { font: -apple-system-headline; color: #FFF; }"
         + "h2 { font: -apple-system-subheadline; color: #FFF; }"
         + "h3 { font: -apple-system-body; color: #FFF; }"
         + "h4 { font: -apple-system-body; color: #FFF; }"
         + "</style>"
-    static let stripDoubleSlashRegex = try! NSRegularExpression(pattern: "\\\\", options: [])
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var markdownOptions = MarkdownOptions()
-        markdownOptions.autoHyperlink = true
-        markdownOptions.autoNewlines = true
-        markdownOptions.emptyElementSuffix = ">"
-        markdownOptions.encodeProblemUrlCharacters = true
-        markdownOptions.linkEmails = true
-        markdownOptions.strictBoldItalic = true
-        markdown = Markdown(options: markdownOptions)
         // Do any additional setup after loading the view.
     }
     
@@ -53,8 +42,7 @@ class InfoViewController: UIViewController {
         titleLabel.text = info.Title
         
         do {
-            let infoText = InfoViewController.stripDoubleSlashRegex.stringByReplacingMatchesInString(info.Text, options: [], range: NSRange(location: 0, length: info.Text.characters.count), withTemplate: "\n")
-            let htmlText = InfoViewController.htmlStyle + markdown.transform(infoText)
+            let htmlText = WikiText.transformToHtml(info.Text, style: InfoViewController.htmlStyle)
             textView.attributedText = try NSAttributedString(
                 data: htmlText.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!,
                 options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],

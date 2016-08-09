@@ -12,6 +12,7 @@
 		9A35AEEC1D58FC1800ECFD0F /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A35AEEB1D58FC1800ECFD0F /* Markdown.swift */; };
 		9A458BBF1D562E4B00CA9C49 /* CountryAlpha3Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */; };
 		9A458BC11D56A29100CA9C49 /* MapEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A458BC01D56A29100CA9C49 /* MapEntry.swift */; };
+		9A6101921D59BD5800A7B3CF /* WikiText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6101911D59BD5800A7B3CF /* WikiText.swift */; };
 		9A8AEA511D526755004A17E3 /* RoutingAppChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */; };
 		BF006C4D1CD3B299006F5871 /* InfosTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF006C4C1CD3B299006F5871 /* InfosTutorialViewController.swift */; };
 		BF00E05E1C4FEDE600F998AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E05D1C4FEDE600F998AA /* AppDelegate.swift */; };
@@ -89,6 +90,7 @@
 		9A35AEEB1D58FC1800ECFD0F /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
 		9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryAlpha3Converter.swift; sourceTree = "<group>"; };
 		9A458BC01D56A29100CA9C49 /* MapEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapEntry.swift; sourceTree = "<group>"; };
+		9A6101911D59BD5800A7B3CF /* WikiText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiText.swift; sourceTree = "<group>"; };
 		9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingAppChooser.swift; sourceTree = "<group>"; };
 		AC2E61ED963D8B69D0386AE9 /* Pods-eurofurenceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurenceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurenceUITests/Pods-eurofurenceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF006C4C1CD3B299006F5871 /* InfosTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfosTutorialViewController.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */,
 				9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */,
 				9A35AEEB1D58FC1800ECFD0F /* Markdown.swift */,
+				9A6101911D59BD5800A7B3CF /* WikiText.swift */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -708,6 +711,7 @@
 				BF00E0601C4FEDE600F998AA /* ViewController.swift in Sources */,
 				9A458BC11D56A29100CA9C49 /* MapEntry.swift in Sources */,
 				BFACDCF81CEB08E700977690 /* InfoTableViewController.swift in Sources */,
+				9A6101921D59BD5800A7B3CF /* WikiText.swift in Sources */,
 				BF37FFB11D1441BD00F25791 /* Dealer.swift in Sources */,
 				BF994C721C777F7C00371862 /* InfoGroup.swift in Sources */,
 				BFCD6C0D1C908FD1009D5C58 /* EventCollectionViewController.swift in Sources */,

@@ -30,21 +30,23 @@ class ImageManager {
                 newImageIds?.append(entityId!)
             }
             
-            self.toCacheCount += 1
-            if LoadingOverlay.sharedInstance.isPresented() {
-                LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
+            if(!isCached(entityId!)) {
+                self.toCacheCount += 1
+                if LoadingOverlay.sharedInstance.isPresented() {
+                    LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
+                }
+                dispatch_group_enter(self.dispatchGroup)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.cacheImage(entityId!) {
+                        (image: UIImage?) in
+                        self.doneCachingCount += 1
+                        if LoadingOverlay.sharedInstance.isPresented() {
+                            LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
+                        }
+                    };
+                }
+                dispatch_group_leave(self.dispatchGroup)
             }
-            dispatch_group_enter(self.dispatchGroup)
-            dispatch_async(dispatch_get_main_queue()) {
-                self.cacheImage(entityId!) {
-                    (image: UIImage?) in
-                    self.doneCachingCount += 1
-                    if LoadingOverlay.sharedInstance.isPresented() {
-                        LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
-                    }
-                };
-            }
-            dispatch_group_leave(self.dispatchGroup)
         }
     }
     
@@ -84,15 +86,17 @@ class ImageManager {
     
     /// Caches all images for given `imageIds` or for all currently stored Map
     /// and Dealer entities if no IDs are given (full caching run).
-    func cacheAllImages(imageIds: [String]? = nil) {
+    func cacheAllImages(imageIds: [String]? = nil, completion: ((Void) -> Void)? = nil) {
         if isCaching {
             print("Caching already in progress!")
             return
         }
         isCaching = true
         
-        LoadingOverlay.sharedInstance.changeMessage("Caching images");
-        LoadingOverlay.sharedInstance.showOverlay();
+        print("Caching images...")
+        if LoadingOverlay.sharedInstance.isPresented() {
+            LoadingOverlay.sharedInstance.changeMessage("Caching images")
+        }
         if imageIds == nil {
             newImageIds = []
             cacheDealersImages()
@@ -105,7 +109,8 @@ class ImageManager {
         dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), {
             // will only be executed if full caching run was performed
             self.pruneCache()
-            LoadingOverlay.sharedInstance.hideOverlay()
+            print("Finished caching images.")
+            (completion != nil) ? completion!() : ()
             self.toCacheCount = 0
             self.doneCachingCount = 0
             self.isCaching = false
@@ -179,7 +184,7 @@ class ImageManager {
         let receipt = self.downloader.downloadImage(URLRequest: URLRequest) { response in
             if let image = response.result.value, let imageData = UIImageJPEGRepresentation(image,  1.0) {
                 let imagePath = self.getPathForId(imageId)
-                // self.deleteFromCache(imagePath)
+                //print("Downloaded image", imageId)
                 if imageData.writeToFile(imagePath, atomically: false) {
                     self.addSkipBackupAttributeToItemAtURL(imagePath);
                     completion(image: image)
@@ -193,7 +198,7 @@ class ImageManager {
         
         // in case of a downloader cache hit, completion must be called manually
         if receipt == nil {
-            completion(image: retrieveFromCache(imageId))
+            //print("Image already in downloader cache", imageId)
         }
     }
     

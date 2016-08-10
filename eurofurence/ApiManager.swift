@@ -124,8 +124,9 @@ class ApiManager {
                                     completion!(isDataUpdated: true)
                                 }
                                 self.isUpdating = false
-                                LoadingOverlay.sharedInstance.hideOverlay()
-                                ImageManager.sharedInstance.cacheAllImages()
+                                ImageManager.sharedInstance.cacheAllImages(completion: {
+                                    LoadingOverlay.sharedInstance.hideOverlay()
+                                })
                             }
                         }) {
                             self.requestedObjects -= 1
@@ -146,9 +147,12 @@ class ApiManager {
                     completion!(isDataUpdated: false)
                 }
                 self.isUpdating = false
-                LoadingOverlay.sharedInstance.hideOverlay()
                 if forceUpdate {
-                    ImageManager.sharedInstance.cacheAllImages()
+                    ImageManager.sharedInstance.cacheAllImages(completion: {
+                        LoadingOverlay.sharedInstance.hideOverlay()
+                    })
+                } else {
+                    LoadingOverlay.sharedInstance.hideOverlay()
                 }
             }
         })

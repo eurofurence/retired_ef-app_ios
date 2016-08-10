@@ -35,9 +35,7 @@ public class LoadingOverlay {
         dispatch_async(dispatch_get_main_queue()) {
             if !self.presented {
                 self.presented = true
-                UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(self.alert, animated: true, completion: {
-                    self.presented = false
-                })
+                UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(self.alert, animated: true, completion: nil)
                 self.activityIndicator.startAnimating()
             }
         }

@@ -9,6 +9,21 @@
 import Foundation
 import RealmSwift
 
+class InfoImageId: Object {
+    dynamic var Id = ""
+    let owners = LinkingObjects(fromType: Info.self, property: "ImageIdsAlternative")
+}
+
+class InfoUrl: Object {
+    dynamic var Target = ""
+    dynamic var Text = ""
+    let owners = LinkingObjects(fromType: Info.self, property: "Urls")
+    
+    override static func primaryKey() -> String? {
+        return "Target"
+    }
+}
+
 class Info: Object {
     dynamic var Id = ""
     dynamic var LastChangeDateTimeUtc = ""
@@ -17,6 +32,8 @@ class Info: Object {
     dynamic var Text = ""
     dynamic var InfoGroupId = ""
     dynamic var Position = ""
+    let ImageIdsAlternative = List<InfoImageId>()
+    let Urls = List<InfoUrl>()
     
     override static func primaryKey() -> String? {
         return "Id"
@@ -58,4 +75,6 @@ class Info: Object {
         }
         return nil
     }
+    
+    
 }

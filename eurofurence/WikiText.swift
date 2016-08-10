@@ -11,7 +11,7 @@
 import Foundation
 
 class WikiText {
-    private static let _regexPreceedFirstListItemWithLineBreaks = try! NSRegularExpression(pattern: "(\\n)(?<!  \\* )([^\\n]+)(\\n)((  \\* [^\\n]+\\n)+(?!  \\* ))", options: [])
+    private static let _regexPreceedFirstListItemWithLineBreaks = try! NSRegularExpression(pattern: "(?<=\\n)(?<!  \\* )([^\\n]+)(\\n)((  \\* [^\\n]+\\n)+(?!  \\* ))", options: [])
     private static let _regexSucceedLastListItemWithLineBreaks = try! NSRegularExpression(pattern: "(\\n  \\*[^\\n]+\\n)(?!  \\* )", options: [])
     private static let _regexParseListItems = try! NSRegularExpression(pattern: "\n  \\* ([^\\n]*)", options: [])
     private static let _regexBoldItems = try! NSRegularExpression(pattern: "\\*\\*([^\\*]*)\\*\\*", options: [])

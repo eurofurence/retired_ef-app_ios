@@ -55,23 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
-    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
-        if let rootViewController = self.topViewControllerWithRootViewController(window?.rootViewController) {
-            if (rootViewController.respondsToSelector(Selector("canRotate"))) {
-                // Unlock landscape view orientations for this view controller
-                return .AllButUpsideDown;
-            }
-        }
-        
-        if UIDevice.currentDevice().orientation != .Portrait {
-            UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation")
-        }
-        
-        // Only allow portrait (standard behaviour)
-        return .Portrait;
-    }
-    
     private func topViewControllerWithRootViewController(rootViewController: UIViewController!) -> UIViewController? {
         if (rootViewController == nil) { return nil }
         if (rootViewController.isKindOfClass(UITabBarController)) {

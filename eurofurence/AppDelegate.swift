@@ -51,20 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         }
-        createSliderMenu();
+        ConfigManager.sharedInstance.createSliderMenu(self.window);
         return true
     }
     
-    func createSliderMenu() {
-        let menuStoryboard = UIStoryboard(name: "SlideMenu", bundle: nil);
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil);
-        let mainViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
-        let leftViewController = menuStoryboard.instantiateViewControllerWithIdentifier("LeftView") as! LeftViewController
-        
-        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController)
-        self.window?.rootViewController = slideMenuController
-        self.window?.makeKeyAndVisible()
-    }
     
     func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
         if let rootViewController = self.topViewControllerWithRootViewController(window?.rootViewController) {

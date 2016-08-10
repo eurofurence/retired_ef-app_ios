@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import AlamofireImage
+import SlideMenuControllerSwift
 
 class ConfigManager {
     let apiBaseUrl = "https://app.eurofurence.org/api/"
@@ -24,11 +25,13 @@ class ConfigManager {
     let dealer = "Dealer"
     let map = "Map"
     let mapEntry = "MapEntry"
+    let slideMenuController = SlideMenuController()
     let config = Realm.Configuration(
         // Set the new schema version. This must be greater than the previously used
         // version (if you've never set a schema version before, the version is 0).
         schemaVersion: 17,
         deleteRealmIfMigrationNeeded: true,
+        fileURL: NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0].stringByAppendingPathComponent("cache.realm")),
         // Set the block which will be called automatically when opening a Realm with
         // a schema version lower than the one set above
         migrationBlock: { migration, oldSchemaVersion in
@@ -46,6 +49,17 @@ class ConfigManager {
     })
     
     static let sharedInstance = ConfigManager()
+    
+    func createSliderMenu(window: UIWindow?) {
+        let menuStoryboard = UIStoryboard(name: "SlideMenu", bundle: nil);
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil);
+        let mainViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
+        let leftViewController = menuStoryboard.instantiateViewControllerWithIdentifier("LeftView") as! LeftViewController
+        
+        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController);
+        window?.rootViewController = slideMenuController;
+        window?.makeKeyAndVisible();
+    }
     
     func diskImageDownloader(diskSpaceMB: Int = 150) -> ImageDownloader {
         let diskCapacity = diskSpaceMB * 1024 * 1024

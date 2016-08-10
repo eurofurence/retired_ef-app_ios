@@ -29,7 +29,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="PQ9-Bp-JBu">
-                        <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="P0W-5j-fyL">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="P0W-5j-fyL">
                             <connections>
                                 <action selector="openMenu:" destination="CLQ-Tf-dKn" id="ijl-As-Tre"/>
                             </connections>
@@ -55,7 +55,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="0ex-1o-9Ty">
-                        <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="s6l-Tj-br8">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="s6l-Tj-br8">
                             <connections>
                                 <action selector="openMenu:" destination="W5w-lu-l8a" id="rr1-UY-cWB"/>
                             </connections>
@@ -139,7 +139,4 @@
             <point key="canvasLocation" x="286" y="-1029"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Burger Menu" width="25" height="25"/>
-    </resources>
 </document>

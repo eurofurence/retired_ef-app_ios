@@ -30,6 +30,7 @@
 		BF2B01851C7E1BE500499E4B /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01841C7E1BE500499E4B /* NewsTableViewCell.swift */; };
 		BF2B01871C7E252B00499E4B /* NewsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01861C7E252B00499E4B /* NewsHeaderTableViewCell.swift */; };
 		BF2B01891C7E2C8800499E4B /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2B01881C7E2C8800499E4B /* NewsViewController.swift */; };
+		BF2FC2EE1D5A0E4A00975ABD /* RateMyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2FC2ED1D5A0E4A00975ABD /* RateMyApp.swift */; };
 		BF37FFB11D1441BD00F25791 /* Dealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF37FFB01D1441BD00F25791 /* Dealer.swift */; };
 		BF37FFB41D144A4800F25791 /* DealerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF37FFB31D144A4800F25791 /* DealerTableViewController.swift */; };
 		BF3FB3E31C65162D006E2EBB /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FB3E21C65162D006E2EBB /* EventViewController.swift */; };
@@ -121,6 +122,7 @@
 		BF2B01841C7E1BE500499E4B /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		BF2B01861C7E252B00499E4B /* NewsHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		BF2B01881C7E2C8800499E4B /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		BF2FC2ED1D5A0E4A00975ABD /* RateMyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateMyApp.swift; sourceTree = "<group>"; };
 		BF37FFB01D1441BD00F25791 /* Dealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dealer.swift; sourceTree = "<group>"; };
 		BF37FFB31D144A4800F25791 /* DealerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealerTableViewController.swift; sourceTree = "<group>"; };
 		BF3FB3E21C65162D006E2EBB /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */,
 				9A35AEEB1D58FC1800ECFD0F /* Markdown.swift */,
 				9A6101911D59BD5800A7B3CF /* WikiText.swift */,
+				BF2FC2ED1D5A0E4A00975ABD /* RateMyApp.swift */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -746,6 +749,7 @@
 				BF994C761C778A2200371862 /* Loader.swift in Sources */,
 				BF8CC9CD1CD2405800011D09 /* Announcement.swift in Sources */,
 				BFCD6C141C909067009D5C58 /* EventCollectionViewCell.swift in Sources */,
+				BF2FC2EE1D5A0E4A00975ABD /* RateMyApp.swift in Sources */,
 				BF2B01851C7E1BE500499E4B /* NewsTableViewCell.swift in Sources */,
 				BF2B01831C7E19BA00499E4B /* NewsTableViewController.swift in Sources */,
 				BF1530921C73C0AA0085DF4C /* InfoCollectionViewController.swift in Sources */,

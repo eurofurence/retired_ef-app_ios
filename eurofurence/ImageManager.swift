@@ -147,6 +147,25 @@ class ImageManager {
         }
     }
     
+    //Avoid file to be saved by iCloud
+    func addSkipBackupAttributeToItemAtURL(filePath:String) -> Bool
+    {
+        let URL:NSURL = NSURL.fileURLWithPath(filePath)
+        
+        assert(NSFileManager.defaultManager().fileExistsAtPath(filePath), "File \(filePath) does not exist")
+        
+        var success: Bool
+        do {
+            try URL.setResourceValue(true, forKey:NSURLIsExcludedFromBackupKey)
+            success = true
+        } catch let error as NSError {
+            success = false
+            print("Error excluding \(URL.lastPathComponent) from backup \(error)");
+        }
+        
+        return success
+    }
+    
     /// Attempts to retrieve and cache an image with given `imageID`, calling
     /// `completion` with the result of this operation once done.
     func cacheImage(imageId : String, completion: (image: UIImage?) -> Void) {
@@ -162,7 +181,7 @@ class ImageManager {
                 let imagePath = self.getPathForId(imageId)
                 // self.deleteFromCache(imagePath)
                 if imageData.writeToFile(imagePath, atomically: false) {
-                    print("Downloaded image", imageId)
+                    self.addSkipBackupAttributeToItemAtURL(imagePath);
                     completion(image: image)
                     return
                 } else {

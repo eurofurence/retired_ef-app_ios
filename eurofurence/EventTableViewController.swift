@@ -25,6 +25,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        rateApp();
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.searchBar.delegate = self
@@ -35,6 +36,12 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         self.searchController.searchBar.scopeButtonTitles = ["Day", "Room", "Track"]
         self.refreshControl?.addTarget(self, action: #selector(EventTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl?.backgroundColor = UIColor.clearColor()
+    }
+    
+    func rateApp() {
+        let rate = RateMyApp.sharedInstance
+        rate.appID = "1112547322"
+        rate.trackAppUsage()
     }
     
     // Pull to refresh function

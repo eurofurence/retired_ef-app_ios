@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Fabric.with([Crashlytics.self])
 
+
         UINavigationBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
@@ -50,20 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         }
-        createSliderMenu();
+        ConfigManager.sharedInstance.createSliderMenu(self.window);
         return true
     }
     
-    func createSliderMenu() {
-        let menuStoryboard = UIStoryboard(name: "SlideMenu", bundle: nil);
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil);
-        let mainViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
-        let leftViewController = menuStoryboard.instantiateViewControllerWithIdentifier("LeftView") as! LeftViewController
-        
-        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController)
-        self.window?.rootViewController = slideMenuController
-        self.window?.makeKeyAndVisible()
-    }
     
     func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
         if let rootViewController = self.topViewControllerWithRootViewController(window?.rootViewController) {

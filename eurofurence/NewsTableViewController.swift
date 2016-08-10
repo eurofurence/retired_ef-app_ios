@@ -76,13 +76,6 @@ class NewsTableViewController: UITableViewController {
         
     }
     
-    func createCellCustom() -> UIView{
-        let whiteRoundedCornerView = UIView(frame: CGRectMake(5,10,self.view.bounds.width-10,200))
-        whiteRoundedCornerView.backgroundColor = UIColor(red: 22/255.0, green: 49/255.0, blue: 68/255.0, alpha: 1.0)
-        whiteRoundedCornerView.layer.masksToBounds = false
-        return whiteRoundedCornerView
-    }
-    
     func instanciateCell(index :NSIndexPath, tableView: UITableView) -> UITableViewCell{
         if (index.row == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("NewsHeaderTableViewCell", forIndexPath: index) as! NewsHeaderTableViewCell
@@ -94,12 +87,6 @@ class NewsTableViewController: UITableViewController {
         }
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("NewsTableViewCell", forIndexPath: index) as! NewsTableViewCell
-            cell.tintColor = UIColor.whiteColor()
-            cell.backgroundColor = UIColor.blackColor();
-            cell.contentView.backgroundColor=UIColor.blackColor()
-            let whiteRoundedCornerView = createCellCustom()
-            cell.contentView.addSubview(whiteRoundedCornerView)
-            cell.contentView.sendSubviewToBack(whiteRoundedCornerView)
             cell.titleLabel.text = self.filteredAnnouncements[index.row - 1].Title;
             cell.descLabel.text = self.filteredAnnouncements[index.row - 1].Content;
             return cell as UITableViewCell;

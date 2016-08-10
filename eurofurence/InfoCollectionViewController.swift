@@ -124,7 +124,7 @@ var sectionMenu = InfoGroup.getAll();
             if let destinationVC = segue.destinationViewController as? InfoTableViewController{
                 let cell = sender as! InfoCollectionViewCell
                 let index = self.collectionView?.indexPathForCell(cell)
-                destinationVC.infoGroup = sectionMenu![index!.row]
+               // destinationVC.infoGroup = sectionMenu![index!.row]
             }
         }
     }

@@ -398,22 +398,22 @@
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="News title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U8Q-sl-IgG">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="News title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U8Q-sl-IgG">
                                             <rect key="frame" x="18" y="8" width="94.5" height="25.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="U8Q-sl-IgG" secondAttribute="height" multiplier="89:24" id="ejs-cv-ePK"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Short description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ge-4J-3Jm">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Short description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ge-4J-3Jm">
                                             <rect key="frame" x="18" y="49.5" width="541" height="19.5"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BUJ-NA-7cG">
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BUJ-NA-7cG">
                                             <rect key="frame" x="18" y="40.5" width="531" height="1"/>
                                             <color key="backgroundColor" red="0.45098039215686275" green="0.027450980392156862" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
@@ -497,7 +497,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="yq7-Sj-Hmf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1256,89 +1256,14 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="D34-Wf-mE7" kind="relationship" relationship="rootViewController" id="8PD-ov-XeN"/>
+                        <segue destination="glr-b0-rOQ" kind="relationship" relationship="rootViewController" id="oj5-pX-5Sf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1XK-Dl-FHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="647" y="-4668"/>
         </scene>
-        <!--Infos-->
-        <scene sceneID="ZAd-7D-3N6">
-            <objects>
-                <collectionViewController title="Infos" id="D34-Wf-mE7" customClass="InfoCollectionViewController" customModule="Eurofurence" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" dataMode="prototypes" id="f9e-wv-bMK">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.13725490196078433" green="0.14117647058823529" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="moe-yl-Oxk">
-                            <size key="itemSize" width="553" height="60"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="iuS-Jd-ROG" customClass="InfoCollectionViewCell" customModule="Eurofurence">
-                                <rect key="frame" x="8" y="64" width="584" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="584" height="60"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eventBackground" translatesAutoresizingMaskIntoConstraints="NO" id="CUM-YK-MaI">
-                                            <rect key="frame" x="8" y="8" width="568" height="44"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="44" id="VPb-NX-zfe"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rti-Tg-jar">
-                                            <rect key="frame" x="34" y="18" width="516" height="25.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="25.5" id="Z5L-3f-Hl9"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" red="0.0" green="0.38431372549999998" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="CUM-YK-MaI" firstAttribute="trailing" secondItem="iuS-Jd-ROG" secondAttribute="trailingMargin" id="7GU-Mr-yOy"/>
-                                    <constraint firstItem="CUM-YK-MaI" firstAttribute="leading" secondItem="iuS-Jd-ROG" secondAttribute="leadingMargin" id="Mf6-X8-Rjg"/>
-                                    <constraint firstItem="CUM-YK-MaI" firstAttribute="centerY" secondItem="iuS-Jd-ROG" secondAttribute="centerY" id="S6R-bN-hY3"/>
-                                    <constraint firstItem="Rti-Tg-jar" firstAttribute="leading" secondItem="iuS-Jd-ROG" secondAttribute="leadingMargin" constant="26" id="Wed-hz-U4L"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Rti-Tg-jar" secondAttribute="trailing" constant="26" id="iBG-1S-Gta"/>
-                                    <constraint firstItem="Rti-Tg-jar" firstAttribute="centerY" secondItem="iuS-Jd-ROG" secondAttribute="centerY" id="ljB-6C-d1S"/>
-                                    <constraint firstItem="CUM-YK-MaI" firstAttribute="centerX" secondItem="iuS-Jd-ROG" secondAttribute="centerX" id="nVT-s5-X26"/>
-                                </constraints>
-                                <size key="customSize" width="584" height="60"/>
-                                <connections>
-                                    <outlet property="cellTitle" destination="Rti-Tg-jar" id="Mvp-Av-aVB"/>
-                                    <segue destination="glr-b0-rOQ" kind="show" identifier="infoCatToListSegue" id="6rY-YH-QK1"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="D34-Wf-mE7" id="Y4U-1Z-8Cw"/>
-                            <outlet property="delegate" destination="D34-Wf-mE7" id="G4r-7D-geI"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" title="General informations" id="eSu-I7-tEa">
-                        <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="6G0-WA-Or3">
-                            <connections>
-                                <action selector="openMenu:" destination="D34-Wf-mE7" id="6mb-LL-H8t"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wFr-TN-14F" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1662" y="-4668"/>
-        </scene>
-        <!--Info Table View Controller-->
+        <!--General informations-->
         <scene sceneID="v0k-X7-h86">
             <objects>
                 <tableViewController id="glr-b0-rOQ" customClass="InfoTableViewController" customModule="Eurofurence" customModuleProvider="target" sceneMemberID="viewController">
@@ -1375,10 +1300,11 @@
                             <outlet property="delegate" destination="glr-b0-rOQ" id="gR8-ly-7mZ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="General informations" id="Xba-8H-gAR"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6JV-FJ-aAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2720" y="-4660"/>
+            <point key="canvasLocation" x="1678" y="-4668"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="bnW-6L-WP5">
@@ -1417,7 +1343,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="6yy-0u-I0q"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1447,7 +1373,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jlC-nH-Bxw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3793" y="-4668"/>
+            <point key="canvasLocation" x="2728" y="-4676"/>
         </scene>
         <!--Map-->
         <scene sceneID="pH4-vn-yCl">

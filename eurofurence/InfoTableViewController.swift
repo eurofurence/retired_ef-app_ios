@@ -120,7 +120,7 @@ class InfoTableViewController: UITableViewController {
     func sectionHeaderTapped(recognizer: UITapGestureRecognizer) {
         print("Tapping working")
         print(recognizer.view?.tag)
-        
+        /**
         var indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection:(recognizer.view?.tag as Int!)!)
         if (indexPath.row == 0) {
             
@@ -133,7 +133,7 @@ class InfoTableViewController: UITableViewController {
             var sectionToReload = NSIndexSet(indexesInRange: range)
             self.tableView .reloadSections(sectionToReload, withRowAnimation:UITableViewRowAnimation.Fade)
         }
-        
+        **/
     }
     
     /*

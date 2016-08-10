@@ -38,7 +38,7 @@
 		BF57296C1D59C8D5005A09B6 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF57296B1D59C8D5005A09B6 /* LeftViewController.swift */; };
 		BF57296E1D59CF06005A09B6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF57296D1D59CF06005A09B6 /* AboutViewController.swift */; };
 		BF5729701D59CF13005A09B6 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF57296F1D59CF13005A09B6 /* SettingsTableViewController.swift */; };
-		BF5729721D59D25A005A09B6 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5729711D59D25A005A09B6 /* BaseTableViewCell.swift */; };
+		BF5729721D59D25A005A09B6 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5729711D59D25A005A09B6 /* MenuTableViewCell.swift */; };
 		BF61C0891C70CFB8005F5C5B /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */; };
 		BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */; };
 		BF61C08E1C70EA56005F5C5B /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */; };
@@ -130,7 +130,7 @@
 		BF57296B1D59C8D5005A09B6 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		BF57296D1D59CF06005A09B6 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		BF57296F1D59CF13005A09B6 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		BF5729711D59D25A005A09B6 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		BF5729711D59D25A005A09B6 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
@@ -367,7 +367,7 @@
 				BFCD6C131C909067009D5C58 /* EventCollectionViewCell.swift */,
 				BF79B08B1D18115D00932B9C /* DealersTableViewCell.swift */,
 				BF230AD21D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift */,
-				BF5729711D59D25A005A09B6 /* BaseTableViewCell.swift */,
+				BF5729711D59D25A005A09B6 /* MenuTableViewCell.swift */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -769,7 +769,7 @@
 				BF2B01871C7E252B00499E4B /* NewsHeaderTableViewCell.swift in Sources */,
 				BF57296C1D59C8D5005A09B6 /* LeftViewController.swift in Sources */,
 				BF6C4AAA1C64E11E002D250E /* EventTableViewController.swift in Sources */,
-				BF5729721D59D25A005A09B6 /* BaseTableViewCell.swift in Sources */,
+				BF5729721D59D25A005A09B6 /* MenuTableViewCell.swift in Sources */,
 				BFA6F0DD1D1D5D81007369F4 /* DealerViewController.swift in Sources */,
 				BF230AD31D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift in Sources */,
 				9A458BBF1D562E4B00CA9C49 /* CountryAlpha3Converter.swift in Sources */,

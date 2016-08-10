@@ -21,8 +21,8 @@ class WikiText {
         if !wikiText.isEmpty {
             // Normalize line breaks
             let htmlText = NSMutableString(string: "<html>\n" + style + wikiText + "\n</html>")
-            htmlText.replaceOccurrencesOfString("\\\\", withString: "<br>\n", options: [], range: NSRange(location: 0, length: htmlText.length))
-            htmlText.replaceOccurrencesOfString("\n\n", withString: "<br>\n", options: [], range: NSRange(location: 0, length: htmlText.length))
+            htmlText.replaceOccurrencesOfString("\n\n", withString: "<br>\n<br>\n", options: [], range: NSRange(location: 0, length: htmlText.length))
+            htmlText.replaceOccurrencesOfString("\\\\", withString: "<br>", options: [], range: NSRange(location: 0, length: htmlText.length))
             
             //print("before <ul>:\n", htmlText, "\n\n")
             WikiText._regexPreceedFirstListItemWithLineBreaks.replaceMatchesInString(htmlText, options: [], range: NSRange(location: 0, length: htmlText.length), withTemplate: "$1<br>\n<ul>$2$3")

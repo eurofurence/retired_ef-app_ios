@@ -32,6 +32,10 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         self.searchController.searchBar.tintColor = UIColor.whiteColor();
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+        self.tableView.rowHeight = UITableViewAutomaticDimension;
+        self.tableView.estimatedRowHeight = 120.0;
+        self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
+        self.tableView.estimatedRowHeight = 120.0;
         self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         self.searchController.searchBar.scopeButtonTitles = ["Day", "Room", "Track"]
         self.refreshControl?.addTarget(self, action: #selector(EventTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
@@ -181,25 +185,18 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
             }
             
         }
-        let frame = CGRectMake(5,10,self.view.bounds.width-10,118);
-        //cell.contentView.backgroundColor=UIColor(red: 2/255.0, green: 189/255.0, blue: 189/255.0, alpha: 1.0)
-        let whiteRoundedCornerView = createCellCustom(frame)
-        let whiteBorder = addBorderUtility(x: 0, y: frame.height - 1.0, width: frame.width, height: 1.0, color: UIColor(red: 86/255.0, green: 87/255.0, blue: 89/255.0, alpha: 1.0))
-        cell.backgroundColor = UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
-        cell.layer.addSublayer(whiteBorder)
-        cell.contentView.addSubview(whiteRoundedCornerView)
-        cell.contentView.sendSubviewToBack(whiteRoundedCornerView)
         let formatedStartTime = (event.StartTime).characters.split{$0 == ":"}.map(String.init)
         let formatedDuration = (event.Duration).characters.split{$0 == ":"}.map(String.init)
         let separators = NSCharacterSet(charactersInString: "–")
         let formatedTitle = (event.Title).componentsSeparatedByCharactersInSet(separators)
-        let day = EventConferenceDay.getById(event.ConferenceDayId)
-        let room = EventConferenceRoom.getById(event.ConferenceRoomId)
         cell.eventNameLabel.text = formatedTitle[0]
-        cell.eventDateLabel.text = " " + formatedStartTime[0] + "h" + formatedStartTime[1]
-        cell.eventDurationLabel.text = " "  + formatedDuration[0] + " hour(s) " + formatedDuration[1] + " min"
-        cell.eventRoomLabel.text = " " + room!.Name
-        cell.eventDayLabel.text = " | " + day!.Name
+        cell.eventDateLabel.text = "Starting at " + formatedStartTime[0] + ":" + formatedStartTime[1]
+        if let room = EventConferenceRoom.getById(event.ConferenceRoomId) {
+            cell.eventRoomLabel.text = "in room " + room.Name
+        } else {
+            cell.eventRoomLabel.text = "n/a"
+        }
+        cell.eventDurationLabel.text = "for " + formatedDuration[0] + " hour(s) " + formatedDuration[1] + " minute(s)"
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         cell.tintColor = UIColor.whiteColor()
         

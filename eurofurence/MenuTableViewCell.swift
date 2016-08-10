@@ -8,7 +8,11 @@
 
 import UIKit
 
-public class BaseTableViewCell : UITableViewCell {
+public class MenuTableViewCell : UITableViewCell {
+    @IBOutlet weak var textIconImage: UIImageView!
+    @IBOutlet weak var menuTextLabel: UILabel!
+    
+    var menuIcon = [String : UIImage]();
     class var identifier: String { return String.className(self) }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -25,6 +29,8 @@ public class BaseTableViewCell : UITableViewCell {
     }
     
     public func setup() {
+        self.menuIcon.updateValue(UIImage(named: "Settings")!, forKey: "Settings");
+        self.menuIcon.updateValue(UIImage(named: "AboutUs")!, forKey: "About");
     }
     
     public class func height() -> CGFloat {
@@ -32,15 +38,15 @@ public class BaseTableViewCell : UITableViewCell {
     }
     
     public func setData(data: Any?) {
-        self.backgroundColor = UIColor.blueColor();
-        if #available(iOS 9.0, *) {
-            self.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-        } else {
-            // Fallback on earlier versions
-        }
-        self.textLabel?.textColor = UIColor.whiteColor();
+        self.backgroundColor = UIColor.whiteColor();
         if let menuText = data as? String {
-            self.textLabel?.text = menuText
+            if let image = menuIcon[menuText] {
+                self.textIconImage?.image = image;
+                self.menuTextLabel?.text = menuText;
+            }
+            else {
+                self.menuTextLabel?.text = menuText
+            }
         }
     }
     

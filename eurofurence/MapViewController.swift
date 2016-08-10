@@ -32,7 +32,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         let maps = Map.getAll()
         for map in maps! {
             if map.isValidAtDateTimeUtc(NSDate.init()) && map.ImageId != nil && map.Description != nil {
-                print(map.Description, "(", map.Id, ") is currently valid, added!")
+                //print(map.Description, "(", map.Id, ") is currently valid, added!")
                 let mapView = UIImageView(image: MapViewController.imagePlaceholder)
                 ImageManager.sharedInstance.retrieveFromCache(map.ImageId!, imagePlaceholder: MapViewController.imagePlaceholder, completion: {
                     image in
@@ -51,7 +51,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
                     firstMapAdded = true
                 }
             } else {
-                print(map.Description, "(", map.Id, ") is currently not valid, skipping...")
+                //print(map.Description, "(", map.Id, ") is currently not valid, skipping...")
             }
         }
         
@@ -157,7 +157,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
             y: imageSize.height * zoomFactor / 2 - mapContainerView.bounds.height / 2,
             width: mapContainerView.bounds.width,
             height: mapContainerView.bounds.height)
-        print(scrollRect)
+        //print(scrollRect)
         mapContainerView.scrollRectToVisible(scrollRect, animated: false)
     }
 

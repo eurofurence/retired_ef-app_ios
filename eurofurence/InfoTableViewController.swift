@@ -120,20 +120,20 @@ class InfoTableViewController: UITableViewController {
     func sectionHeaderTapped(recognizer: UITapGestureRecognizer) {
         print("Tapping working")
         print(recognizer.view?.tag)
-        
-        var indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection:(recognizer.view?.tag as Int!)!)
-        if (indexPath.row == 0) {
-            
-            //var collapsed = arrayForBool.objectAtIndex(indexPath.section).boolValue
-            //collapsed       = !collapsed;
-            
-            //arrayForBool.replaceObjectAtIndex(indexPath.section, withObject: collapsed)
-            //reload specific section animated
-            var range = NSMakeRange(indexPath.section, 1)
-            var sectionToReload = NSIndexSet(indexesInRange: range)
-            self.tableView .reloadSections(sectionToReload, withRowAnimation:UITableViewRowAnimation.Fade)
-        }
-        
+        /**
+         var indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection:(recognizer.view?.tag as Int!)!)
+         if (indexPath.row == 0) {
+         
+         //var collapsed = arrayForBool.objectAtIndex(indexPath.section).boolValue
+         //collapsed       = !collapsed;
+         
+         //arrayForBool.replaceObjectAtIndex(indexPath.section, withObject: collapsed)
+         //reload specific section animated
+         var range = NSMakeRange(indexPath.section, 1)
+         var sectionToReload = NSIndexSet(indexesInRange: range)
+         self.tableView .reloadSections(sectionToReload, withRowAnimation:UITableViewRowAnimation.Fade)
+         }
+         **/
     }
     
     /*
@@ -192,6 +192,11 @@ class InfoTableViewController: UITableViewController {
                     destinationVC.info = infos[indexPath.row];
                 }
             }
+        }
+    }
+    @IBAction func openMenu(sender: AnyObject) {
+        if let _ = self.slideMenuController() {
+            self.slideMenuController()?.openLeft()
         }
     }
     

@@ -25,6 +25,7 @@ class ConfigManager {
     let dealer = "Dealer"
     let map = "Map"
     let mapEntry = "MapEntry"
+    var appVersion = ""
     let slideMenuController = SlideMenuController()
     let config = Realm.Configuration(
         // Set the new schema version. This must be greater than the previously used
@@ -49,6 +50,12 @@ class ConfigManager {
     })
     
     static let sharedInstance = ConfigManager()
+    
+    init() {
+        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+            self.appVersion = version
+        }
+    }
     
     func createSliderMenu(window: UIWindow?) {
         let menuStoryboard = UIStoryboard(name: "SlideMenu", bundle: nil);

@@ -1300,7 +1300,13 @@
                             <outlet property="delegate" destination="glr-b0-rOQ" id="gR8-ly-7mZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="General informations" id="Xba-8H-gAR"/>
+                    <navigationItem key="navigationItem" title="General informations" id="Xba-8H-gAR">
+                        <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="T57-Mk-EwG">
+                            <connections>
+                                <action selector="openMenu:" destination="glr-b0-rOQ" id="aTV-vl-xkV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6JV-FJ-aAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1373,7 +1379,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jlC-nH-Bxw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2728" y="-4676"/>
+            <point key="canvasLocation" x="2726" y="-4694"/>
         </scene>
         <!--Map-->
         <scene sceneID="pH4-vn-yCl">

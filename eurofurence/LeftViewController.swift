@@ -20,6 +20,7 @@ protocol LeftMenuProtocol : class {
 
 class LeftViewController : UIViewController, LeftMenuProtocol {
     
+    @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     var menus = ["Settings", "About"]
@@ -43,7 +44,13 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         
         let aboutViewController = storyboard.instantiateViewControllerWithIdentifier("AboutView") as! AboutViewController
         self.aboutViewController = UINavigationController(rootViewController: aboutViewController)
-        self.tableView.registerCellClass(BaseTableViewCell.self)
+        self.tableView.registerCellClass(MenuTableViewCell.self)
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.versionLabel.text = ConfigManager.sharedInstance.appVersion;
+        super.viewDidAppear(animated)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -70,7 +77,7 @@ extension LeftViewController : UITableViewDelegate {
         if let menu = LeftMenu(rawValue: indexPath.item) {
             switch menu {
             case .Settings, .About:
-                return BaseTableViewCell.height()
+                return MenuTableViewCell.height()
             }
         }
         return 0
@@ -88,7 +95,7 @@ extension LeftViewController : UITableViewDataSource {
         if let menu = LeftMenu(rawValue: indexPath.item) {
             switch menu {
         case .Settings, .About:
-                let cell = BaseTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: BaseTableViewCell.identifier)
+        let cell = tableView.dequeueReusableCellWithIdentifier("MenuCell", forIndexPath: indexPath) as! MenuTableViewCell
                 cell.setData(menus[indexPath.row])
                 return cell
             }

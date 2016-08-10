@@ -19,11 +19,7 @@ class MapTutorialViewController: UIViewController {
     }
     
     func showApp() {
-        let rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
-        rootVC.view.frame = UIScreen.mainScreen().bounds
-        UIView.transitionWithView(UIApplication.sharedApplication().delegate!.window!!, duration: 0.5, options: .TransitionCrossDissolve, animations: {
-            UIApplication.sharedApplication().delegate!.window!!.rootViewController = rootVC
-            }, completion: nil)
+        ConfigManager.sharedInstance.createSliderMenu(UIApplication.sharedApplication().delegate!.window!);
     }
     
     override func viewDidLoad() {

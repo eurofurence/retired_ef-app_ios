@@ -50,8 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         else {
             UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
+            ConfigManager.sharedInstance.createSliderMenu(self.window);
         }
-        ConfigManager.sharedInstance.createSliderMenu(self.window);
         return true
     }
     

@@ -30,7 +30,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="PQ9-Bp-JBu">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="P0W-5j-fyL">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="P0W-5j-fyL">
                             <connections>
                                 <action selector="openMenu:" destination="CLQ-Tf-dKn" id="ijl-As-Tre"/>
                             </connections>
@@ -46,17 +46,38 @@
         <scene sceneID="h9K-TN-MNY">
             <objects>
                 <viewController storyboardIdentifier="AboutView" id="W5w-lu-l8a" customClass="AboutViewController" customModule="Eurofurence" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ETh-jQ-caO"/>
-                        <viewControllerLayoutGuide type="bottom" id="zhl-Vz-3TB"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="srZ-KX-3Gn">
+                    <textView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="yhr-W0-ggI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <string key="text">
+•	Android 
+	◦	Pazuzu 
+	◦	Requinard 
+
+•	iOS 
+	◦	Omega Wolfblood 
+	◦	Fenrikur
+
+•	Windows
+	◦	Luchs
+
+•	General
+	◦	Programm Management: 
+		Zefiro, Luchs
+	◦	Assets design : 
+		Murrpy
+		
+•	Special thanks to 
+	◦	Akulatraxas 
+	◦	Mark Treefox 
+	◦	StreifiGreif </string>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                     <navigationItem key="navigationItem" title="About" id="0ex-1o-9Ty">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="s6l-Tj-br8">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="s6l-Tj-br8">
                             <connections>
                                 <action selector="openMenu:" destination="W5w-lu-l8a" id="rr1-UY-cWB"/>
                             </connections>

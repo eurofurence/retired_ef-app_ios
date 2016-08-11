@@ -764,7 +764,7 @@
             </objects>
             <point key="canvasLocation" x="3793" y="-3704"/>
         </scene>
-        <!--Map-->
+        <!--Maps-->
         <scene sceneID="yQs-fu-HTt">
             <objects>
                 <viewController id="7qp-Gf-BX9" customClass="MapViewController" customModule="Eurofurence" sceneMemberID="viewController">
@@ -803,7 +803,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Map" id="PQi-Sz-LWX">
+                    <navigationItem key="navigationItem" title="Maps" id="PQi-Sz-LWX">
                         <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="Fac-Rl-ohY">
                             <connections>
                                 <action selector="openMenu:" destination="7qp-Gf-BX9" id="F4T-56-uAV"/>
@@ -1075,7 +1075,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Super event title !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="x5B-f3-hVU">
-                                <rect key="frame" x="20" y="171.5" width="374" height="32.5"/>
+                                <rect key="frame" x="20" y="172" width="374" height="32.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1083,13 +1083,13 @@
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zo-88-aSb">
-                                <rect key="frame" x="20" y="207.5" width="374" height="17"/>
+                                <rect key="frame" x="20" y="208" width="374" height="17"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O6K-JR-ljF">
-                                <rect key="frame" x="20" y="232.5" width="374" height="454.5"/>
+                                <rect key="frame" x="20" y="233" width="374" height="453.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btJ-bW-910">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="126"/>
@@ -1100,7 +1100,7 @@
                                                     <constraint firstAttribute="width" secondItem="uAI-HC-1sl" secondAttribute="height" multiplier="1:1" id="Ozd-kn-nBS"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Pan-gk-040">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pan-gk-040">
                                                 <rect key="frame" x="41" y="50" width="325" height="25"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1124,7 +1124,7 @@
                                                     <constraint firstAttribute="width" secondItem="rec-yw-l7j" secondAttribute="height" multiplier="1:1" id="6lP-5e-sne"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="g4z-Qf-bGI">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4z-Qf-bGI">
                                                 <rect key="frame" x="40" y="87" width="326" height="25"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1178,7 +1178,7 @@
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" red="0.20392156859999999" green="0.28627450980000002" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctS-Ee-lip">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" scrollEnabled="NO" indicatorStyle="white" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ctS-Ee-lip">
                                         <rect key="frame" x="8" y="176" width="358" height="268"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1244,11 +1244,11 @@
             </objects>
             <point key="canvasLocation" x="2782" y="-3716"/>
         </scene>
-        <!--Infos-->
+        <!--Info-->
         <scene sceneID="78B-LI-h3a">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NtC-f2-fnQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Infos" image="Info" id="Ial-UE-gFz"/>
+                    <tabBarItem key="tabBarItem" title="Info" image="Info" id="Ial-UE-gFz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dXi-qr-kai">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1263,7 +1263,7 @@
             </objects>
             <point key="canvasLocation" x="647" y="-4668"/>
         </scene>
-        <!--General informations-->
+        <!--General Information-->
         <scene sceneID="v0k-X7-h86">
             <objects>
                 <tableViewController id="glr-b0-rOQ" customClass="InfoTableViewController" customModule="Eurofurence" customModuleProvider="target" sceneMemberID="viewController">
@@ -1282,7 +1282,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mLJ-Po-Mxu">
                                             <rect key="frame" x="15" y="0.0" width="550" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1300,7 +1300,7 @@
                             <outlet property="delegate" destination="glr-b0-rOQ" id="gR8-ly-7mZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="General informations" id="Xba-8H-gAR">
+                    <navigationItem key="navigationItem" title="General Information" id="Xba-8H-gAR">
                         <barButtonItem key="leftBarButtonItem" image="Burger Menu" id="T57-Mk-EwG">
                             <connections>
                                 <action selector="openMenu:" destination="glr-b0-rOQ" id="aTV-vl-xkV"/>
@@ -1381,11 +1381,11 @@
             </objects>
             <point key="canvasLocation" x="2726" y="-4694"/>
         </scene>
-        <!--Map-->
+        <!--Maps-->
         <scene sceneID="pH4-vn-yCl">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="scG-Tu-b4g" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" image="Map" id="NKC-Fb-cj9"/>
+                    <tabBarItem key="tabBarItem" title="Maps" image="Map" id="NKC-Fb-cj9"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y4Z-KE-Ggo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

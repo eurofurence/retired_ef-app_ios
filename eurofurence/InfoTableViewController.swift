@@ -109,6 +109,7 @@ class InfoTableViewController: UITableViewController {
         let headerString = UILabel(frame: CGRect(x: 10, y: 10, width: tableView.frame.size.width-10, height: 30)) as UILabel
         headerString.text = self.sortedKeys[section]
         headerString.textColor = UIColor.whiteColor()
+        headerString.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         headerView .addSubview(headerString)
         
         let headerTapped = UITapGestureRecognizer (target: self, action:#selector(InfoTableViewController.sectionHeaderTapped(_:)))

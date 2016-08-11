@@ -46,6 +46,7 @@ public class LoadingOverlay {
             if self.presented {
                 self.activityIndicator.stopAnimating()
                 UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(false, completion: nil)
+                self.presented = false
             }
         }
     }

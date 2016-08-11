@@ -60,6 +60,16 @@ class ImageManager {
         }
     }
     
+    private func cacheEventEntryImages() {
+        if let eventEntries = EventEntry.getAll() {
+            for eventEntry in eventEntries {
+                if let imageId = eventEntry.ImageId {
+                    dispatchEntity(imageId)
+                }
+            }
+        }
+    }
+    
     /// Get all dealers in the Realm Database to cache all images with cacheImage
     private func cacheDealersImages() {
         let dealersOptional = Dealer.getAll();
@@ -118,6 +128,7 @@ class ImageManager {
         if imageIds == nil {
             newImageIds = []
             cacheInfoImages()
+            cacheEventEntryImages()
             cacheDealersImages()
             cacheMapImages()
         } else {

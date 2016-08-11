@@ -18,11 +18,15 @@ class EventViewController: UIViewController {
     @IBOutlet weak var eventDurationLabel: UILabel!
     @IBOutlet weak var eventHostLabel: UILabel!
     @IBOutlet weak var eventDescTextView: UITextView!
+    @IBOutlet weak var eventImageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var eventImageView: UIImageView!
+    var eventImageDefaultHeight = CGFloat(0.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         eventDescTextView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        eventImageDefaultHeight = eventImageHeightConstraint.constant
     }
     
 
@@ -37,8 +41,6 @@ class EventViewController: UIViewController {
         self.tabBarController?.tabBar.hidden = true
         let formatedStartTime = (event.StartTime).characters.split{$0 == ":"}.map(String.init)
         let formatedDuration = (event.Duration).characters.split{$0 == ":"}.map(String.init)
-        let separators = NSCharacterSet(charactersInString: "–")
-        let formatedTitle = (event.Title).componentsSeparatedByCharactersInSet(separators)
         let day = EventConferenceDay.getById(event.ConferenceDayId)
         let room = EventConferenceRoom.getById(event.ConferenceRoomId)
         self.eventLocationLabel.text = room?.Name
@@ -46,16 +48,23 @@ class EventViewController: UIViewController {
         self.eventDurationLabel.text = ""  + formatedDuration[0] + " hour(s) " + formatedDuration[1] + " min"
         self.title = day!.Name
         self.eventHostLabel.text = event.PanelHosts
-        self.eventTitleLabel.text = formatedTitle[0]
-        if (formatedTitle.count > 1) {
-            self.eventSubTitleLabel.text = formatedTitle[1]
-        }
-        else {
-             self.eventSubTitleLabel.text = ""
-        }
+        self.eventTitleLabel.text = event.Title
+        self.eventSubTitleLabel.text = event.SubTitle
         self.eventDescTextView.text = event.Description
         self.eventDescTextView.scrollsToTop = true
         self.eventDescTextView.scrollRangeToVisible(NSMakeRange(0, 1))
+        
+        if let imageId = event.ImageId {
+            eventImageView.image = ImageManager.sharedInstance.retrieveFromCache(imageId)
+        } else {
+            eventImageView.image = nil
+        }
+        if eventImageView.image != nil {
+            eventImageHeightConstraint.constant = eventImageDefaultHeight
+            eventImageView.sizeToFit()
+        } else {
+            eventImageHeightConstraint.constant = CGFloat(0.0)
+        }
     }
     
     @IBAction func exportAsEvent(sender: AnyObject) {

@@ -14,8 +14,10 @@ class EventEntry: Object {
     dynamic var LastChangeDateTimeUtc = ""
     dynamic var IsDeleted = ""
     dynamic var SourceEventId = ""
+    dynamic var ImageId:String? = nil
     dynamic var Slug = ""
     dynamic var Title = ""
+    dynamic var SubTitle = ""
     dynamic var ConferenceTrackId = ""
     dynamic var ConferenceDayId = ""
     dynamic var ConferenceRoomId = ""
@@ -25,6 +27,7 @@ class EventEntry: Object {
     dynamic var EndTime = ""
     dynamic var Duration = ""
     dynamic var PanelHosts = ""
+    dynamic var IsDeviatingFromConBook = ""
     let favorited = RealmOptional<Bool>()
     
     override static func primaryKey() -> String? {

@@ -24,6 +24,7 @@ class DealerViewController: UIViewController {
     @IBOutlet weak var artPreviewCaption: UILabel!
     @IBOutlet weak var aboutArt: UILabel!
     @IBOutlet weak var dealersDenMapImage: UIImageView!
+    var singleTap: UITapGestureRecognizer!
     
     func canRotate()->Bool {
         return true
@@ -32,6 +33,11 @@ class DealerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        // add jump to map on single tap on map segment
+        singleTap = UITapGestureRecognizer(target: self, action: #selector(DealerViewController.showOnMap(_:)))
+        dealersDenMapImage!.addGestureRecognizer(singleTap!)
+        dealersDenMapImage!.userInteractionEnabled = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -153,6 +159,12 @@ class DealerViewController: UIViewController {
         }
     }
     
+    func showOnMap(tapGesture: UITapGestureRecognizer) {
+        if let mapEntry = MapEntry.getByTargetId(dealer.Id) {
+            self.performSegueWithIdentifier("DealerDetailViewToMapSegue", sender: mapEntry)
+        }
+    }
+    
     /*
      // MARK: - Navigation
      
@@ -162,5 +174,13 @@ class DealerViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "DealerDetailViewToMapSegue" {
+            if let destinationVC = segue.destinationViewController as? MapViewController, let mapEntry = sender as? MapEntry {
+                destinationVC.currentMapEntry = mapEntry
+            }
+        }
+    }
     
 }

@@ -215,6 +215,7 @@
                         <outlet property="attendeeNickname" destination="qHQ-OV-O0E" id="LMx-iJ-mUe"/>
                         <outlet property="dealersDenMapImage" destination="Mxk-6q-DQR" id="A8P-Rg-N46"/>
                         <outlet property="displayName" destination="lDk-Ck-TAi" id="hnG-Zf-gZk"/>
+                        <segue destination="7qp-Gf-BX9" kind="show" identifier="DealerDetailViewToMapSegue" id="ZpL-XF-CgK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YRN-wH-gJT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -795,7 +796,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <segmentedControl opaque="NO" tag="2" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dID-qv-DXc" userLabel="MapSwitch">
-                                <rect key="frame" x="249.5" y="449" width="101" height="29"/>
+                                <rect key="frame" x="249" y="449" width="101" height="29"/>
                                 <segments>
                                     <segment title="Default"/>
                                     <segment title="Area"/>
@@ -833,7 +834,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ha8-mi-NqH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1695" y="-1497"/>
+            <point key="canvasLocation" x="1702" y="-1473"/>
         </scene>
         <!--Title-->
         <scene sceneID="dU8-w1-Uaw">
@@ -1525,6 +1526,7 @@
         <image name="eventBackground" width="800" height="162"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="1uP-gn-3kN"/>
         <segue reference="ycx-tm-4B6"/>
     </inferredMetricsTieBreakers>
 </document>

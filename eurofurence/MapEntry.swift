@@ -72,4 +72,18 @@ class MapEntry: Object {
         }
         return nil
     }
+    
+    func getAbsoluteLocationForImage(image: UIImage)->CGPoint? {
+        if let relativeX = Double.init(RelativeX), let relativeY = Double.init(RelativeY) {
+            return CGPoint(x: CGFloat(relativeX/100) * image.size.width, y: CGFloat(relativeY/100) * image.size.height)
+        }
+        return nil
+    }
+    
+    func getAbsoluteTapRadiusForImage(image: UIImage)->CGFloat? {
+        if let relativeTapRadius = Double.init(RelativeTapRadius) {
+            return CGFloat(relativeTapRadius) * image.size.height
+        }
+        return nil
+    }
 }

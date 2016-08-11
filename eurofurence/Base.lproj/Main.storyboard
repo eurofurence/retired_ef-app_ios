@@ -100,18 +100,18 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="elb-bv-yFh">
                                                 <rect key="frame" x="0.0" y="495.5" width="398" height="385"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ef" translatesAutoresizingMaskIntoConstraints="NO" id="86v-jq-7qI">
-                                                        <rect key="frame" x="32" y="8" width="334" height="334"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="86v-jq-7qI" secondAttribute="height" multiplier="1:1" id="3pO-JE-q10"/>
-                                                        </constraints>
-                                                    </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A wide range of jewellery made with gems and semi-precious stones made by Faolan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7D-Xh-R2Z">
                                                         <rect key="frame" x="32" y="350" width="334" height="26.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ef" translatesAutoresizingMaskIntoConstraints="NO" id="86v-jq-7qI">
+                                                        <rect key="frame" x="32" y="8" width="334" height="334"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="86v-jq-7qI" secondAttribute="height" multiplier="1:1" id="3pO-JE-q10"/>
+                                                        </constraints>
+                                                    </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -828,6 +828,7 @@
                     <connections>
                         <outlet property="mapContainerView" destination="UPi-G5-x8h" id="A4a-c2-bKl"/>
                         <outlet property="mapSwitchControl" destination="dID-qv-DXc" id="Djz-7f-oZf"/>
+                        <segue destination="vW3-to-hGL" kind="show" identifier="MapToDealerDetailViewSegue" id="ycx-tm-4B6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ha8-mi-NqH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1523,4 +1524,7 @@
         <image name="ef-bg-news" width="540" height="181"/>
         <image name="eventBackground" width="800" height="162"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ycx-tm-4B6"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -20,7 +20,9 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var mapContainerView: UIScrollView!
     @IBOutlet weak var mapSwitchControl: UISegmentedControl!
     var mapViews: [UIImageView] = []
+    var mapEntries: [[MapEntry]] = []
     var doubleTap: UITapGestureRecognizer!
+    var singleTap: UITapGestureRecognizer!
     var currentMap: Int = 0
     
 
@@ -38,8 +40,11 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         // add zoom on double tap
         doubleTap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.zoom(_:)))
         doubleTap!.numberOfTapsRequired = 2
-        doubleTap!.numberOfTouchesRequired = 1
         mapContainerView!.addGestureRecognizer(doubleTap!)
+        
+        // add map entry on single tap
+        singleTap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.checkMapEntries(_:)))
+        mapContainerView!.addGestureRecognizer(singleTap!)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.notificationRefresh(_:)), name:"reloadData", object: nil)
     }
@@ -51,6 +56,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     func initialiseMap() {
         currentMap = 0
         mapViews = []
+        mapEntries = []
         var firstMapAdded = false
         let maps = Map.getAll()
         for map in maps! {
@@ -66,6 +72,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
                 mapView.layer.cornerRadius = 11.0
                 mapView.clipsToBounds = false
                 mapView.backgroundColor = UIColor.whiteColor()
+                
                 mapViews.append(mapView)
                 if firstMapAdded {
                     mapSwitchControl.insertSegmentWithTitle(map.Description, atIndex: mapSwitchControl.numberOfSegments - 1, animated: false)
@@ -73,6 +80,14 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
                     mapSwitchControl.setTitle(map.Description, forSegmentAtIndex: 0)
                     firstMapAdded = true
                 }
+                
+                var cMapEntries: [MapEntry] = []
+                if let realmMapEntries = MapEntry.getByMapId(map.Id) {
+                    for mapEntry in realmMapEntries {
+                        cMapEntries.append(mapEntry)
+                    }
+                }
+                mapEntries.append(cMapEntries)
             } else {
                 //print(map.Description, "(", map.Id, ") is currently not valid, skipping...")
             }
@@ -128,6 +143,44 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
             segmentedControl.selectedSegmentIndex = currentMap
         } else {
             switchToMap(segmentedControl.selectedSegmentIndex)
+        }
+    }
+    
+    func checkMapEntries(tapGesture: UITapGestureRecognizer) {
+        if let mapImageView = mapContainerView.subviews.first as? UIImageView, let mapImage = mapImageView.image where currentMap < mapEntries.count && !mapEntries[currentMap].isEmpty {
+            
+            let tapLocation = tapGesture.locationInView(mapImageView)
+            print("tap at", tapLocation)
+            var nearestMapEntry: MapEntry? = nil
+            var nearestMapEntryDistanceSquared = CGFloat(-1.0)
+            for mapEntry in mapEntries[currentMap] {
+                if let relativeX = Double.init(mapEntry.RelativeX), let relativeY = Double.init(mapEntry.RelativeY), let relativeTapRadius = Double.init(mapEntry.RelativeTapRadius) {
+                    
+                    let mapEntryLocation = CGPoint(x: CGFloat(relativeX/100) * mapImage.size.width, y: CGFloat(relativeY/100) * mapImage.size.height)
+                    let deltaX = abs(tapLocation.x - mapEntryLocation.x)
+                    let deltaY = abs(tapLocation.y - mapEntryLocation.y)
+                    let distanceSquared = deltaX * deltaX + deltaY * deltaY
+                    
+                    let tapRadius = CGFloat(relativeTapRadius) * mapImage.size.height
+                    if distanceSquared <= tapRadius * tapRadius && (nearestMapEntry == nil || distanceSquared < nearestMapEntryDistanceSquared) {
+                        
+                        nearestMapEntryDistanceSquared = distanceSquared
+                        nearestMapEntry = mapEntry
+                    }
+                }
+            }
+            
+            if let nearestMapEntry = nearestMapEntry {
+                switch nearestMapEntry.MarkerType {
+                case "Dealer":
+                    if let dealer = Dealer.getById(nearestMapEntry.TargetId) {
+                        self.performSegueWithIdentifier("MapToDealerDetailViewSegue", sender: dealer)
+                    }
+                    break
+                default:
+                    print("Unsupported MarkerType", nearestMapEntry.MarkerType)
+                }
+            }
         }
     }
     
@@ -188,7 +241,17 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+     */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "MapToDealerDetailViewSegue" {
+            if let destinationVC = segue.destinationViewController as? DealerViewController, let dealer = sender as? Dealer {
+                destinationVC.dealer = dealer
+            }
+        }
+    }
+    
+    
     @IBAction func openMenu(sender: AnyObject) {
         if let _ = self.slideMenuController() {
             self.slideMenuController()?.openLeft()

@@ -198,6 +198,10 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         }
         cell.eventDurationLabel.text = "for " + formatedDuration[0] + " hour(s) " + formatedDuration[1] + " minute(s)"
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        //if event.IsDeviatingFromConBook != "0" {
+        //    cell.eventDateLabel.textColor = UIColor.orangeColor()
+        //    cell.eventDateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        //}
         cell.tintColor = UIColor.whiteColor()
         
         return cell

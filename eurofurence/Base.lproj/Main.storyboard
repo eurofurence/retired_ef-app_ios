@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gjr-9L-0Tf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gjr-9L-0Tf">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -210,7 +210,6 @@
                         <outlet property="aboutArtist" destination="T1F-Hp-C7x" id="NfH-eX-QZ9"/>
                         <outlet property="artPreviewCaption" destination="Y7D-Xh-R2Z" id="X1z-AB-HAA"/>
                         <outlet property="artPreviewImage" destination="86v-jq-7qI" id="5Lv-WZ-xf9"/>
-                        <outlet property="artPreviewView" destination="elb-bv-yFh" id="55Z-iZ-fya"/>
                         <outlet property="artistImage" destination="MTt-MM-Sht" id="7kQ-ze-plz"/>
                         <outlet property="artistShortDescription" destination="fMg-Yj-gMo" id="jec-qq-HvM"/>
                         <outlet property="attendeeNickname" destination="qHQ-OV-O0E" id="LMx-iJ-mUe"/>

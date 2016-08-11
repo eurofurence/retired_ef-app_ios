@@ -88,6 +88,8 @@ class InfoViewController: UIViewController {
         for subview in linkView.subviews {
             subview.removeFromSuperview()
         }
+        linkViewLastButton = nil
+        linkViewLastBottomConstraint = nil
         buttonUrls = [:]
         
         linkView.translatesAutoresizingMaskIntoConstraints = false

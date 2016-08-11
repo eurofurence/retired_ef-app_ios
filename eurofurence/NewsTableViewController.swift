@@ -26,6 +26,7 @@ class NewsTableViewController: UITableViewController {
     func refresh(sender:AnyObject) {
         ApiManager.sharedInstance.updateAllEntities(false, completion: {(isDataUpdated: Bool) in
             if isDataUpdated {
+                self.updateAnnouncements();
                 self.tableView.reloadData()
             }
             self.refreshControl?.endRefreshing()

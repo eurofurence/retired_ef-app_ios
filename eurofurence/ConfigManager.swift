@@ -25,6 +25,7 @@ class ConfigManager {
     let dealer = "Dealer"
     let map = "Map"
     let mapEntry = "MapEntry"
+    let entityBadgeTabBar = ["Announcement" : 0, "Info" : 1, "Dealer" : 2, "Map" : 3]
     var appVersion = ""
     let slideMenuController = SlideMenuController()
     let config = Realm.Configuration(

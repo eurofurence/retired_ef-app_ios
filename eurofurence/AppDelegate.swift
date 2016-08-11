@@ -20,10 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
+        
         Fabric.with([Crashlytics.self])
-
-
+        
+        
         UINavigationBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = UIColor(red: 0/255.0, green: 137/255.0, blue: 122/255.0, alpha: 1.0)
         
         //UITabBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
-        
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0;
         /*
          let notification = UILocalNotification()
          notification.alertBody = "Eurofurence app is running !"
@@ -87,7 +87,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-
+    /**
+     func updateTabBarBages(entityName: String) {
+     print("updatingBadge");
+     if let badgeNumber = ConfigManager.sharedInstance.entityBadgeTabBar[entityName] {
+     let tabItem = self.mainTabBarController!.tabBar.items![badgeNumber];
+     if let badgeCurrentValue = tabItem.badgeValue {
+     var badgeCurrentValueAsNumber = Int(badgeCurrentValue);
+     badgeCurrentValueAsNumber = badgeCurrentValueAsNumber! + 1;
+     tabItem.badgeValue = String(badgeCurrentValueAsNumber);
+     }
+     }
+     }
+     **/
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

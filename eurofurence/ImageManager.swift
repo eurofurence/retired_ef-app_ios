@@ -204,17 +204,12 @@ class ImageManager {
             if let image = response.result.value, let imageData = UIImageJPEGRepresentation(image,  1.0) {
                 let imagePath = self.getPathForId(imageId)
                 //print("Downloaded image", imageId)
-                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-                dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     if imageData.writeToFile(imagePath, atomically: false) {
                         self.addSkipBackupAttributeToItemAtURL(imagePath);
+                        completion(image: image);
                         return
                     } else {
                         print("Error with imageData on image caching manager")
-                    }
-                    dispatch_async(dispatch_get_main_queue()) {
-                        completion(image: image)
-                    }
                 }
             }
             completion(image: nil)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gjr-9L-0Tf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gjr-9L-0Tf">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -436,7 +436,7 @@
                                         <constraint firstItem="BUJ-NA-7cG" firstAttribute="top" secondItem="U8Q-sl-IgG" secondAttribute="bottom" constant="8" id="pRQ-lX-rcK"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.19215686269999999" green="0.1960784314" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.14509803921568626" green="0.14901960784313725" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="descLabel" destination="1Ge-4J-3Jm" id="dAX-X9-WwR"/>
                                     <outlet property="titleLabel" destination="U8Q-sl-IgG" id="7Cz-zr-fFQ"/>
@@ -1004,7 +1004,7 @@
                                         <constraint firstItem="8Mx-sE-NPi" firstAttribute="top" secondItem="bhW-1y-5D2" secondAttribute="bottom" constant="8" id="v8l-b4-Plx"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.18195827566798389" green="0.18629305614489139" blue="0.194145927574359" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.13725490200000001" green="0.14117647059999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="eventDateLabel" destination="xm0-0N-qxO" id="M2R-c1-0cu"/>
                                     <outlet property="eventDurationLabel" destination="xx7-FV-Dmw" id="rJt-4E-oGc"/>

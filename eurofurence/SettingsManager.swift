@@ -15,25 +15,19 @@ class SettingsManager {
     static let sharedInstance = SettingsManager()
     
     init() {
-        if !ApiManager.sharedInstance.isDatabaseDownloaded() {
-            downloadOnStart = true;
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let userDownload = defaults.objectForKey(SettingsManager.USER_DOWNLOAD_DB_SETTING)  {
+            downloadOnStart = userDownload as! Bool;
         }
         else {
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if (defaults.objectForKey(SettingsManager.USER_DOWNLOAD_DB_SETTING) != nil) {
-                downloadOnStart = false;
-            }
-            else {
-                downloadOnStart = true;
-            }
+            downloadOnStart = true;
         }
     }
     
     func setUserDownloadOnStart() {
         self.downloadOnStart = true;
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.removeObjectForKey(SettingsManager.USER_DOWNLOAD_DB_SETTING)
-        defaults.synchronize()
+        defaults.setObject(true, forKey: SettingsManager.USER_DOWNLOAD_DB_SETTING)
     }
     
     func setNotUserDownloadOnStart() {
@@ -45,7 +39,12 @@ class SettingsManager {
     /// Checks whether the user want to download or not the db on start
     func userNotDownloadOnStart()->Bool {
         let defaults = NSUserDefaults.standardUserDefaults()
-        return defaults.objectForKey(SettingsManager.USER_DOWNLOAD_DB_SETTING) != nil
+        if let userDownload = defaults.objectForKey(SettingsManager.USER_DOWNLOAD_DB_SETTING) {
+            return userDownload as! Bool;
+        }
+        else {
+            return false;
+        }
     }
     
     func clearAllCache() {

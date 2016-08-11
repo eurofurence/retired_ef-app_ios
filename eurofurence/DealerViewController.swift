@@ -16,7 +16,8 @@ class DealerViewController: UIViewController {
     
     var dealer = Dealer();
     @IBOutlet weak var artistImage: UIImageView!
-    @IBOutlet weak var artistName: UILabel!
+    @IBOutlet weak var displayName: UILabel!
+    @IBOutlet weak var attendeeNickname: UILabel!
     @IBOutlet weak var artistShortDescription: UILabel!
     @IBOutlet weak var aboutArtist: UILabel!
     @IBOutlet weak var artPreviewImage: UIImageView!
@@ -56,12 +57,18 @@ class DealerViewController: UIViewController {
             self.artistImage.image = UIImage(named: "defaultAvatar")!;
         }
         
-        self.artistName.text = self.dealer.AttendeeNickname;
+        if let dealerDisplayName = self.dealer.DisplayName where !dealerDisplayName.isEmpty {
+            self.displayName.text = self.dealer.DisplayName
+            self.attendeeNickname.text = self.dealer.AttendeeNickname
+        } else {
+            self.displayName.text = self.dealer.AttendeeNickname
+            self.attendeeNickname.text = nil
+        }
         
         let shortDescription = self.dealer.ShortDescription!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
         let finalStringShortDescription = shortDescription.joinWithSeparator("\n");
         if (finalStringShortDescription == "") {
-            self.artistShortDescription.text = "N/A"
+            self.artistShortDescription.text = nil
         }
         else {
             self.artistShortDescription.text = finalStringShortDescription;
@@ -71,7 +78,7 @@ class DealerViewController: UIViewController {
         let aboutArtist = self.dealer.AboutTheArtistText!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
         let finalStringAboutArtist = aboutArtist.joinWithSeparator("\n");
         if (finalStringAboutArtist == "") {
-            self.aboutArtist.text = "N/A"
+            self.aboutArtist.text = "The artist did not to give us any details."
         }
         else {
             self.aboutArtist.text = finalStringAboutArtist;
@@ -88,7 +95,7 @@ class DealerViewController: UIViewController {
         let artPreviewCaption = self.dealer.ArtPreviewCaption!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
         let finalStringArtPreviewCaption = artPreviewCaption.joinWithSeparator("\n");
         if (finalStringArtPreviewCaption == "") {
-            self.artPreviewCaption.text = "N/A"
+            self.artPreviewCaption.text = ""
         }
         else {
             self.artPreviewCaption.text = finalStringArtPreviewCaption;
@@ -98,7 +105,7 @@ class DealerViewController: UIViewController {
         let AboutArt = self.dealer.AboutTheArtText!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
         let finalStringAboutArt = AboutArt.joinWithSeparator("\n");
         if (finalStringAboutArt == "") {
-            self.aboutArt.text = "N/A"
+            self.aboutArt.text = "The artist did not to give us any details about the art."
         }
         else {
             self.aboutArt.text = finalStringAboutArt;

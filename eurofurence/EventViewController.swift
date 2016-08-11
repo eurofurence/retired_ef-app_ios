@@ -22,6 +22,7 @@ class EventViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        eventDescTextView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
     }
     
 
@@ -54,8 +55,7 @@ class EventViewController: UIViewController {
         }
         self.eventDescTextView.text = event.Description
         self.eventDescTextView.scrollsToTop = true
-        self.eventDescTextView.scrollRangeToVisible(NSMakeRange(0, 0))
-        self.eventDescTextView.textColor = UIColor.whiteColor()
+        self.eventDescTextView.scrollRangeToVisible(NSMakeRange(0, 1))
     }
     
     @IBAction func exportAsEvent(sender: AnyObject) {

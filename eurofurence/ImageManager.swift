@@ -50,6 +50,16 @@ class ImageManager {
         }
     }
     
+    private func cacheInfoImages() {
+        if let infos = Info.getAll() {
+            for info in infos {
+                for imageId in info.ImageIdsAlternative {
+                    dispatchEntity(imageId.Id)
+                }
+            }
+        }
+    }
+    
     /// Get all dealers in the Realm Database to cache all images with cacheImage
     private func cacheDealersImages() {
         let dealersOptional = Dealer.getAll();
@@ -107,6 +117,7 @@ class ImageManager {
         }
         if imageIds == nil {
             newImageIds = []
+            cacheInfoImages()
             cacheDealersImages()
             cacheMapImages()
         } else {

@@ -192,7 +192,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         cell.eventNameLabel.text = formatedTitle[0]
         cell.eventDateLabel.text = "Starting at " + formatedStartTime[0] + ":" + formatedStartTime[1]
         if let room = EventConferenceRoom.getById(event.ConferenceRoomId) {
-            cell.eventRoomLabel.text = "in room " + room.Name
+            cell.eventRoomLabel.text = "in " + room.Name
         } else {
             cell.eventRoomLabel.text = "n/a"
         }

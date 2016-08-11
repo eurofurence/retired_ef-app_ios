@@ -43,9 +43,9 @@ class ImageManager {
                         if LoadingOverlay.sharedInstance.isPresented() {
                             LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
                         }
+                        dispatch_group_leave(self.dispatchGroup)
                     };
                 }
-                dispatch_group_leave(self.dispatchGroup)
             }
         }
     }

@@ -12,6 +12,7 @@ pod 'AlamofireImage', '~> 2.0'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'Eureka', '~> 1.7'
 end
 
 target 'eurofurenceTests' do

@@ -55,18 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    private func topViewControllerWithRootViewController(rootViewController: UIViewController!) -> UIViewController? {
-        if (rootViewController == nil) { return nil }
-        if (rootViewController.isKindOfClass(UITabBarController)) {
-            return topViewControllerWithRootViewController((rootViewController as! UITabBarController).selectedViewController)
-        } else if (rootViewController.isKindOfClass(UINavigationController)) {
-            return topViewControllerWithRootViewController((rootViewController as! UINavigationController).visibleViewController)
-        } else if (rootViewController.presentedViewController != nil) {
-            return topViewControllerWithRootViewController(rootViewController.presentedViewController)
-        }
-        return rootViewController
-    }
-    
     func showTutorial() {
         let rootVC = UIStoryboard(name: "Tutorial", bundle: nil).instantiateViewControllerWithIdentifier("TutorialPage") as! TutorialPageViewController
         rootVC.view.frame = UIScreen.mainScreen().bounds

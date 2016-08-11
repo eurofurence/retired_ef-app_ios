@@ -34,7 +34,7 @@ class SettingsTableViewController: FormViewController {
             <<< ButtonRow(){
                 $0.title = "Clear cache"
                 }.onCellSelection { row in
-                    print("Pushed")
+                    SettingsManager.sharedInstance.clearAllCache()
         }
         // Do any additional setup after loading the view.
     }

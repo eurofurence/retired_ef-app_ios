@@ -84,6 +84,14 @@ class ImageManager {
         }
     }
     
+    /// Clear all images in cache
+    func clearCache(completion: (result: Bool) -> Void) {
+        for imageId in getCachedImageIds() {
+            deleteFromCache(getPathForId(imageId))
+        }
+        completion(result : true);
+    }
+    
     /// Caches all images for given `imageIds` or for all currently stored Map
     /// and Dealer entities if no IDs are given (full caching run).
     func cacheAllImages(imageIds: [String]? = nil, completion: ((Void) -> Void)? = nil) {
@@ -185,12 +193,17 @@ class ImageManager {
             if let image = response.result.value, let imageData = UIImageJPEGRepresentation(image,  1.0) {
                 let imagePath = self.getPathForId(imageId)
                 //print("Downloaded image", imageId)
-                if imageData.writeToFile(imagePath, atomically: false) {
-                    self.addSkipBackupAttributeToItemAtURL(imagePath);
-                    completion(image: image)
-                    return
-                } else {
-                    print("Error with imageData on image caching manager")
+                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                    if imageData.writeToFile(imagePath, atomically: false) {
+                        self.addSkipBackupAttributeToItemAtURL(imagePath);
+                        return
+                    } else {
+                        print("Error with imageData on image caching manager")
+                    }
+                    dispatch_async(dispatch_get_main_queue()) {
+                        completion(image: image)
+                    }
                 }
             }
             completion(image: nil)

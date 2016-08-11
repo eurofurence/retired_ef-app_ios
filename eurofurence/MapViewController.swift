@@ -22,12 +22,35 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     var mapViews: [UIImageView] = []
     var doubleTap: UITapGestureRecognizer!
     var currentMap: Int = 0
-    let defaultImageView = UIImageView(image: imagePlaceholder)
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initialiseMap()
+        
+        // setup map container
+        mapContainerView.delegate = self
+        mapContainerView.backgroundColor = UIColor(red: 236/255.0, green: 240/255.0, blue: 241/255.0, alpha: 1.0)
+        mapContainerView.minimumZoomScale = 1.0
+        mapContainerView.maximumZoomScale = 5.0
+        
+        // add zoom on double tap
+        doubleTap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.zoom(_:)))
+        doubleTap!.numberOfTapsRequired = 2
+        doubleTap!.numberOfTouchesRequired = 1
+        mapContainerView!.addGestureRecognizer(doubleTap!)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.notificationRefresh(_:)), name:"reloadData", object: nil)
+    }
+    
+    func canRotate()->Bool {
+        return true
+    }
+    
+    func initialiseMap() {
+        currentMap = 0
+        mapViews = []
         var firstMapAdded = false
         let maps = Map.getAll()
         for map in maps! {
@@ -58,22 +81,12 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         if(!firstMapAdded) {
             mapSwitchControl.removeSegmentAtIndex(0, animated: false)
         }
-        
-        // setup map container
-        mapContainerView.delegate = self
-        mapContainerView.backgroundColor = UIColor(red: 236/255.0, green: 240/255.0, blue: 241/255.0, alpha: 1.0)
-        mapContainerView.minimumZoomScale = 1.0
-        mapContainerView.maximumZoomScale = 5.0
-        
-        // add zoom on double tap
-        doubleTap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.zoom(_:)))
-        doubleTap!.numberOfTapsRequired = 2
-        doubleTap!.numberOfTouchesRequired = 1
-        mapContainerView!.addGestureRecognizer(doubleTap!)
     }
     
-    func canRotate()->Bool {
-        return true
+    func notificationRefresh(notification: NSNotification){
+        dispatch_async(dispatch_get_main_queue()) {
+            self.initialiseMap()
+        }
     }
     
     override func viewDidLayoutSubviews() {

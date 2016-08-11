@@ -23,10 +23,10 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="1187"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AoI-8K-uoH" userLabel="Container View">
-                                        <rect key="frame" x="8" y="0.0" width="398" height="1145.5"/>
+                                        <rect key="frame" x="8" y="0.0" width="398" height="1167"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaC-vI-SFG">
-                                                <rect key="frame" x="0.0" y="0.0" width="398" height="363"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="398" height="384.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="MTt-MM-Sht">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="256"/>
@@ -35,16 +35,24 @@
                                                             <constraint firstAttribute="height" constant="256" id="WFu-al-MmP"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDk-Ck-TAi">
-                                                        <rect key="frame" x="0.0" y="264" width="398" height="34.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDk-Ck-TAi">
+                                                        <rect key="frame" x="0.0" y="264" width="398" height="35"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                         <color key="textColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="shadowColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="shadowOffset" width="2" height="2"/>
                                                     </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attendee Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHQ-OV-O0E">
+                                                        <rect key="frame" x="16" y="303" width="366" height="17"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <color key="textColor" red="0.0078431372550000003" green="0.74117647060000003" blue="0.6588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="shadowColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                    </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A wide range of jewellery made with gems and semi-precious stones made by Faolan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMg-Yj-gMo">
-                                                        <rect key="frame" x="32" y="306" width="334" height="40.5"/>
+                                                        <rect key="frame" x="32" y="328" width="334" height="40.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <color key="textColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -52,40 +60,45 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailingMargin" secondItem="qHQ-OV-O0E" secondAttribute="trailing" constant="8" id="2gd-I7-NHO"/>
+                                                    <constraint firstItem="fMg-Yj-gMo" firstAttribute="leading" secondItem="qaC-vI-SFG" secondAttribute="leading" constant="32" id="Cdp-kZ-DNv"/>
                                                     <constraint firstItem="MTt-MM-Sht" firstAttribute="top" secondItem="qaC-vI-SFG" secondAttribute="top" id="D1M-d2-dN7"/>
                                                     <constraint firstAttribute="trailing" secondItem="lDk-Ck-TAi" secondAttribute="trailing" id="Euc-6x-mdt"/>
                                                     <constraint firstItem="lDk-Ck-TAi" firstAttribute="leading" secondItem="qaC-vI-SFG" secondAttribute="leading" id="PHq-d1-3Yl"/>
+                                                    <constraint firstItem="qHQ-OV-O0E" firstAttribute="top" secondItem="lDk-Ck-TAi" secondAttribute="bottom" constant="4" id="PK1-AR-SrH"/>
                                                     <constraint firstItem="MTt-MM-Sht" firstAttribute="leading" secondItem="qaC-vI-SFG" secondAttribute="leading" id="VJa-hD-9EM"/>
                                                     <constraint firstItem="MTt-MM-Sht" firstAttribute="centerX" secondItem="qaC-vI-SFG" secondAttribute="centerX" id="VbT-NH-mRp"/>
-                                                    <constraint firstItem="fMg-Yj-gMo" firstAttribute="top" secondItem="lDk-Ck-TAi" secondAttribute="bottom" constant="8" id="akC-DF-RlB"/>
+                                                    <constraint firstAttribute="trailing" secondItem="fMg-Yj-gMo" secondAttribute="trailing" constant="32" id="Zbi-b7-Edg"/>
+                                                    <constraint firstItem="qHQ-OV-O0E" firstAttribute="leading" secondItem="qaC-vI-SFG" secondAttribute="leadingMargin" constant="8" id="akR-I1-bPr"/>
                                                     <constraint firstItem="lDk-Ck-TAi" firstAttribute="centerX" secondItem="qaC-vI-SFG" secondAttribute="centerX" id="dLV-K7-LfT"/>
                                                     <constraint firstItem="fMg-Yj-gMo" firstAttribute="leading" secondItem="qaC-vI-SFG" secondAttribute="leading" constant="32" id="n2m-oZ-Njf"/>
                                                     <constraint firstAttribute="trailing" secondItem="fMg-Yj-gMo" secondAttribute="trailing" constant="32" id="nX5-gD-lMG"/>
                                                     <constraint firstAttribute="bottom" secondItem="fMg-Yj-gMo" secondAttribute="bottom" constant="16" id="obi-Iq-GmG"/>
                                                     <constraint firstItem="lDk-Ck-TAi" firstAttribute="top" secondItem="MTt-MM-Sht" secondAttribute="bottom" constant="8" id="pNH-KR-gHd"/>
                                                     <constraint firstAttribute="trailing" secondItem="MTt-MM-Sht" secondAttribute="trailing" id="wUz-KY-TLz"/>
+                                                    <constraint firstItem="fMg-Yj-gMo" firstAttribute="top" secondItem="qHQ-OV-O0E" secondAttribute="bottom" constant="8" id="ze6-tu-nE1"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About the artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIu-kl-hBA">
-                                                <rect key="frame" x="8" y="371" width="382" height="25.5"/>
+                                                <rect key="frame" x="8" y="392.5" width="382" height="25.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A twenty-four-year-old black " lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1F-Hp-C7x">
-                                                <rect key="frame" x="8" y="404" width="382" height="20"/>
+                                                <rect key="frame" x="8" y="425.5" width="382" height="20"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About the art" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgO-gq-Npb">
-                                                <rect key="frame" x="8" y="440" width="382" height="25.5"/>
+                                                <rect key="frame" x="8" y="461.5" width="382" height="25.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="elb-bv-yFh">
-                                                <rect key="frame" x="0.0" y="474" width="398" height="385"/>
+                                                <rect key="frame" x="0.0" y="495.5" width="398" height="385"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ef" translatesAutoresizingMaskIntoConstraints="NO" id="86v-jq-7qI">
                                                         <rect key="frame" x="32" y="8" width="334" height="334"/>
@@ -114,19 +127,19 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A wide range of jewellery made with gems and semi-precious stones made by Faolan." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JfM-Xq-vKA">
-                                                <rect key="frame" x="8" y="867" width="382" height="40.5"/>
+                                                <rect key="frame" x="8" y="888.5" width="382" height="40.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dealer's Den" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uro-zy-vZ8">
-                                                <rect key="frame" x="8" y="923" width="382" height="26"/>
+                                                <rect key="frame" x="8" y="944.5" width="382" height="26"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ef" translatesAutoresizingMaskIntoConstraints="NO" id="Mxk-6q-DQR">
-                                                <rect key="frame" x="8" y="957" width="382" height="180"/>
+                                                <rect key="frame" x="8" y="978.5" width="382" height="180"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Mxk-6q-DQR" secondAttribute="height" multiplier="191:90" id="hlD-nA-hql"/>
                                                 </constraints>
@@ -197,10 +210,12 @@
                         <outlet property="aboutArtist" destination="T1F-Hp-C7x" id="NfH-eX-QZ9"/>
                         <outlet property="artPreviewCaption" destination="Y7D-Xh-R2Z" id="X1z-AB-HAA"/>
                         <outlet property="artPreviewImage" destination="86v-jq-7qI" id="5Lv-WZ-xf9"/>
+                        <outlet property="artPreviewView" destination="elb-bv-yFh" id="55Z-iZ-fya"/>
                         <outlet property="artistImage" destination="MTt-MM-Sht" id="7kQ-ze-plz"/>
-                        <outlet property="artistName" destination="lDk-Ck-TAi" id="WLR-0Y-nNz"/>
                         <outlet property="artistShortDescription" destination="fMg-Yj-gMo" id="jec-qq-HvM"/>
+                        <outlet property="attendeeNickname" destination="qHQ-OV-O0E" id="LMx-iJ-mUe"/>
                         <outlet property="dealersDenMapImage" destination="Mxk-6q-DQR" id="A8P-Rg-N46"/>
+                        <outlet property="displayName" destination="lDk-Ck-TAi" id="hnG-Zf-gZk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YRN-wH-gJT" userLabel="First Responder" sceneMemberID="firstResponder"/>

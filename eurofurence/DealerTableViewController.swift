@@ -63,7 +63,15 @@ class DealerTableViewController: UITableViewController {
     func orderDealersAlphabeticaly() {
         if let unwrapedDealers = self.dealers {
             for dealer in unwrapedDealers {
-                if let dealerName = dealer.AttendeeNickname {
+                var dealerName: String?
+                
+                if let displayName = dealer.DisplayName where !displayName.isEmpty {
+                    dealerName = displayName
+                } else if let attendeeNickname = dealer.AttendeeNickname where !attendeeNickname.isEmpty {
+                    dealerName = attendeeNickname
+                }
+                
+                if let dealerName = dealerName {
                     let upperDealerName = dealerName.firstCharacterUpperCase();
                     let firstLetter = String(upperDealerName[upperDealerName.startIndex]);
                     if var dealersWithLetter = dealersWithSection[firstLetter]{
@@ -93,10 +101,16 @@ class DealerTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DealersTableViewCell", forIndexPath: indexPath) as! DealersTableViewCell
         let dealer = self.dealersWithSection[sortedKeys[indexPath.section]]![indexPath.row]
-        cell.displayNameDealerLabel!.text = dealer.AttendeeNickname;
-        if let subname = dealer.DisplayName {
-            cell.subnameDealerLabel!.text = subname;
+        
+        
+        if let dealerDisplayName = dealer.DisplayName where !dealerDisplayName.isEmpty {
+            cell.displayNameDealerLabel!.text = dealer.DisplayName
+            cell.subnameDealerLabel!.text = dealer.AttendeeNickname
+        } else {
+            cell.displayNameDealerLabel!.text = dealer.AttendeeNickname
+            cell.subnameDealerLabel!.text = nil
         }
+        
         cell.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         cell.shortDescriptionDealerLabel!.text = dealer.ShortDescription;
         if let artistThumbnailImageId =   dealer.ArtistThumbnailImageId {

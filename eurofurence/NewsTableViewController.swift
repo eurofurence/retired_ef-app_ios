@@ -81,7 +81,9 @@ class NewsTableViewController: UITableViewController {
         if (index.row == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("NewsHeaderTableViewCell", forIndexPath: index) as! NewsHeaderTableViewCell
             if (self.filteredAnnouncements.count == 0) {
-               cell.newsHeaderLabel.text = "No announcement available";   
+                cell.newsHeaderLabel.text = "No announcement available";
+            } else {
+                cell.newsHeaderLabel.text = "Latest News";
             }
             return cell as UITableViewCell;
             

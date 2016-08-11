@@ -4,6 +4,7 @@ PODS:
     - Alamofire (~> 3.3)
   - Crashlytics (3.7.2):
     - Fabric (~> 1.6.3)
+  - Eureka (1.7.0)
   - Fabric (1.6.7)
   - ReachabilitySwift (2.3.3)
   - Realm (1.0.2):
@@ -18,6 +19,7 @@ DEPENDENCIES:
   - Alamofire (~> 3.0)
   - AlamofireImage (~> 2.0)
   - Crashlytics
+  - Eureka (~> 1.7)
   - Fabric
   - ReachabilitySwift (from `https://github.com/ashleymills/Reachability.swift`)
   - RealmSwift
@@ -42,6 +44,7 @@ SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
   Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
+  Eureka: 2020d9faeef7b7e9adeb9e3d8af779e5931c1897
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   ReachabilitySwift: e0f6b6f280effb47731acfaaa2d5ffe223703793
   Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
@@ -49,6 +52,6 @@ SPEC CHECKSUMS:
   SlideMenuControllerSwift: e257221100c39d49edccaaeb0238b55a0c67953a
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 8adf38512c0ebcc0687931aabce49f70a86e27fd
+PODFILE CHECKSUM: 55388c3fb65d9025e695f45f9eca4d1958a85aae
 
 COCOAPODS: 1.0.1

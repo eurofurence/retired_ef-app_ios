@@ -68,6 +68,7 @@
 		BFCD6C141C909067009D5C58 /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C131C909067009D5C58 /* EventCollectionViewCell.swift */; };
 		BFCD6C161C9096FC009D5C58 /* EventFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C151C9096FC009D5C58 /* EventFilterTableViewController.swift */; };
 		BFD220671C72832D00C98A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD220661C72832D00C98A1E /* MapViewController.swift */; };
+		BFD6D1981D5C822A00CBDC71 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD6D1971D5C822A00CBDC71 /* SettingsManager.swift */; };
 		BFEC72AD1C8A04C800A0E6BB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC72AC1C8A04C800A0E6BB /* InfoViewController.swift */; };
 		C28F827231C3EB057A34314E /* Pods_eurofurence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CFC2DB2FA5D99A392D63C42 /* Pods_eurofurence.framework */; };
 /* End PBXBuildFile section */
@@ -160,6 +161,7 @@
 		BFCD6C131C909067009D5C58 /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCollectionViewCell.swift; sourceTree = "<group>"; };
 		BFCD6C151C9096FC009D5C58 /* EventFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventFilterTableViewController.swift; sourceTree = "<group>"; };
 		BFD220661C72832D00C98A1E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		BFD6D1971D5C822A00CBDC71 /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		BFEC72AC1C8A04C800A0E6BB /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		C26227DB194EE55A488E8350 /* Pods-eurofurenceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurenceUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurenceUITests/Pods-eurofurenceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CC7C24A9EBE5008467B65152 /* Pods-eurofurenceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurenceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurenceTests/Pods-eurofurenceTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				9A35AEEB1D58FC1800ECFD0F /* Markdown.swift */,
 				9A6101911D59BD5800A7B3CF /* WikiText.swift */,
 				BF2FC2ED1D5A0E4A00975ABD /* RateMyApp.swift */,
+				BFD6D1971D5C822A00CBDC71 /* SettingsManager.swift */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 				BF61C0901C70EBBE005F5C5B /* EventEntry.swift in Sources */,
 				BFB1C1DD1D533AEA003306BF /* Map.swift in Sources */,
 				BF994C6E1C777F6A00371862 /* EventConferenceDay.swift in Sources */,
+				BFD6D1981D5C822A00CBDC71 /* SettingsManager.swift in Sources */,
 				BF61C0921C70F3A3005F5C5B /* ObjectManager.swift in Sources */,
 				BF79B08C1D18115D00932B9C /* DealersTableViewCell.swift in Sources */,
 				BF994C761C778A2200371862 /* Loader.swift in Sources */,

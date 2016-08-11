@@ -7,12 +7,35 @@
 //
 
 import UIKit
+import Eureka
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        form +++ Section("Network")
+            <<< SwitchRow("SwitchRow") { row in      // initializer
+                row.title = "Automaticaly update on start"
+                row.value = SettingsManager.sharedInstance.downloadOnStart;
+                }.onChange { row in
+                    row.updateCell()
+                    (row.value ?? false) ? SettingsManager.sharedInstance.setUserDownloadOnStart() : SettingsManager.sharedInstance.setNotUserDownloadOnStart()
+                }.cellSetup { cell, row in
+                    
+                }.cellUpdate { cell, row in
 
+            }
+            <<< ButtonRow(){
+                $0.title = "Download database"
+                }.onCellSelection { row in
+                   ApiManager.sharedInstance.updateAllEntities(true);
+            }
+            +++ Section("Data Storage")
+            <<< ButtonRow(){
+                $0.title = "Clear cache"
+                }.onCellSelection { row in
+                    print("Pushed")
+        }
         // Do any additional setup after loading the view.
     }
 

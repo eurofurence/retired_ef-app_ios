@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class SettingsManager {
     var downloadOnStart : Bool;
@@ -45,5 +46,16 @@ class SettingsManager {
     func userNotDownloadOnStart()->Bool {
         let defaults = NSUserDefaults.standardUserDefaults()
         return defaults.objectForKey(SettingsManager.USER_DOWNLOAD_DB_SETTING) != nil
+    }
+    
+    func clearAllCache() {
+        let realm = try! Realm()
+        try! realm.write {
+            realm.deleteAll()
+        }
+        ImageManager.sharedInstance.clearCache(){
+            (result: Bool) in
+            print("Cache cleared");
+        };
     }
 }

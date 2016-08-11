@@ -94,6 +94,14 @@ class ImageManager {
         }
     }
     
+    /// Clear all images in cache
+    func clearCache(completion: (result: Bool) -> Void) {
+        for imageId in getCachedImageIds() {
+            deleteFromCache(getPathForId(imageId))
+        }
+        completion(result : true);
+    }
+    
     /// Caches all images for given `imageIds` or for all currently stored Map
     /// and Dealer entities if no IDs are given (full caching run).
     func cacheAllImages(imageIds: [String]? = nil, completion: ((Void) -> Void)? = nil) {

@@ -54,7 +54,10 @@ class ConfigManager {
     
     init() {
         if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
-            self.appVersion = version
+            if let build = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as? String {
+                           self.appVersion = version + " (" + build + ") ";
+            }
+
         }
     }
     

@@ -19,6 +19,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var mapContainerView: UIScrollView!
     @IBOutlet weak var mapSwitchControl: UISegmentedControl!
+    var burgerMenuItem: UIBarButtonItem!
     var mapIdToIndex: [String:Int] = [:]
     var mapViews: [UIImageView] = []
     var mapEntries: [[MapEntry]] = []
@@ -48,6 +49,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.notificationRefresh(_:)), name:"reloadData", object: nil)
         mapSwitchControl.removeSegmentAtIndex(0, animated: false)
+        burgerMenuItem = navigationItem.leftBarButtonItem
     }
     
     func canRotate()->Bool {
@@ -61,6 +63,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         
         if let currentMapEntry = currentMapEntry, let mapIndex = mapIdToIndex[currentMapEntry.MapId] {
             switchToMap(mapIndex, zoom: false)
+            navigationItem.leftBarButtonItems = []
         } else {
             if currentMap >= 0 && currentMap < mapViews.count {
                 switchToMap(currentMap, zoom: false)
@@ -183,6 +186,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         } else {
             switchToMap(segmentedControl.selectedSegmentIndex)
             currentMapEntry = nil
+            navigationItem.leftBarButtonItems = [burgerMenuItem]
         }
     }
     

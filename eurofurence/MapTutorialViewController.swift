@@ -24,12 +24,10 @@ class MapTutorialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.quitTutorialButtonDesign.layer.cornerRadius = 5.0;
-               self.quitTutorialButtonDesign.layer.borderColor = UIColor.whiteColor().CGColor
-                       self.quitTutorialButtonDesign.layer.borderWidth = 0.5
-        self.quitTutorialButtonDesign.backgroundColor = UIColor(red: 0/255.0, green: 136/255.0, blue: 121/255.0, alpha: 1.0)
-
-                self.quitTutorialButtonDesign.tintColor = UIColor.whiteColor()
+        self.quitTutorialButtonDesign.layer.borderColor = UIColor.whiteColor().CGColor
+        self.quitTutorialButtonDesign.layer.borderWidth = 1.5
+        
+        self.quitTutorialButtonDesign.tintColor = UIColor.whiteColor()
         // Do any additional setup after loading the view.
     }
 

@@ -17,6 +17,10 @@ class TutorialPageViewController: UIPageViewController {
         ]
     }()
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
     private func newTutorialViewController(name: String) -> UIViewController {
         return UIStoryboard(name: "Tutorial", bundle: nil) .
             instantiateViewControllerWithIdentifier("\(name)TutorialViewController")

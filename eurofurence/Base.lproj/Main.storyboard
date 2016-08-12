@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="1187"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AoI-8K-uoH" userLabel="Container View">
-                                        <rect key="frame" x="8" y="0.0" width="398" height="1167"/>
+                                        <rect key="frame" x="8" y="0.0" width="398" height="922"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaC-vI-SFG">
                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="384.5"/>
@@ -98,18 +98,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="elb-bv-yFh">
-                                                <rect key="frame" x="0.0" y="495.5" width="398" height="385"/>
+                                                <rect key="frame" x="0.0" y="495" width="398" height="140"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A wide range of jewellery made with gems and semi-precious stones made by Faolan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7D-Xh-R2Z">
-                                                        <rect key="frame" x="32" y="350" width="334" height="26.5"/>
+                                                        <rect key="frame" x="32" y="105" width="334" height="26.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ef" translatesAutoresizingMaskIntoConstraints="NO" id="86v-jq-7qI">
-                                                        <rect key="frame" x="32" y="8" width="334" height="334"/>
+                                                        <rect key="frame" x="32" y="8" width="334" height="89"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" secondItem="86v-jq-7qI" secondAttribute="height" multiplier="1:1" id="3pO-JE-q10"/>
+                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="350" id="Yab-3a-k2N"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
@@ -127,19 +127,19 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A wide range of jewellery made with gems and semi-precious stones made by Faolan." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JfM-Xq-vKA">
-                                                <rect key="frame" x="8" y="888.5" width="382" height="40.5"/>
+                                                <rect key="frame" x="8" y="643.5" width="382" height="40.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dealer's Den" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uro-zy-vZ8">
-                                                <rect key="frame" x="8" y="944.5" width="382" height="26"/>
+                                                <rect key="frame" x="8" y="699.5" width="382" height="26"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ef" translatesAutoresizingMaskIntoConstraints="NO" id="Mxk-6q-DQR">
-                                                <rect key="frame" x="8" y="978.5" width="382" height="180"/>
+                                                <rect key="frame" x="8" y="733.5" width="382" height="180"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Mxk-6q-DQR" secondAttribute="height" multiplier="191:90" id="hlD-nA-hql"/>
                                                 </constraints>
@@ -207,12 +207,16 @@
                     <size key="freeformSize" width="414" height="1300"/>
                     <connections>
                         <outlet property="aboutArt" destination="JfM-Xq-vKA" id="m4n-vl-aES"/>
+                        <outlet property="aboutArtLabel" destination="mgO-gq-Npb" id="fla-ti-4wm"/>
+                        <outlet property="aboutArtLabelTopConstraint" destination="74N-QI-xVl" id="lhX-7I-nPe"/>
                         <outlet property="aboutArtist" destination="T1F-Hp-C7x" id="NfH-eX-QZ9"/>
                         <outlet property="artPreviewCaption" destination="Y7D-Xh-R2Z" id="X1z-AB-HAA"/>
                         <outlet property="artPreviewImage" destination="86v-jq-7qI" id="5Lv-WZ-xf9"/>
+                        <outlet property="artPreviewImageView" destination="elb-bv-yFh" id="KyB-Id-gZb"/>
                         <outlet property="artistImage" destination="MTt-MM-Sht" id="7kQ-ze-plz"/>
                         <outlet property="artistShortDescription" destination="fMg-Yj-gMo" id="jec-qq-HvM"/>
                         <outlet property="attendeeNickname" destination="qHQ-OV-O0E" id="LMx-iJ-mUe"/>
+                        <outlet property="dealersDenLabelTopConstraint" destination="9Ir-IV-8WN" id="481-34-cha"/>
                         <outlet property="dealersDenMapImage" destination="Mxk-6q-DQR" id="A8P-Rg-N46"/>
                         <outlet property="displayName" destination="lDk-Ck-TAi" id="hnG-Zf-gZk"/>
                         <segue destination="7qp-Gf-BX9" kind="show" identifier="DealerDetailViewToMapSegue" id="ZpL-XF-CgK"/>
@@ -788,15 +792,15 @@
                         <viewControllerLayoutGuide type="bottom" id="obc-LS-xAB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="aFv-9D-bDX">
-                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                        <rect key="frame" x="0.0" y="64" width="414" height="1187"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view opaque="NO" tag="1" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="UPi-G5-x8h" userLabel="MapContainer" customClass="UIScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="1187"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <segmentedControl opaque="NO" tag="2" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dID-qv-DXc" userLabel="MapSwitch">
-                                <rect key="frame" x="249" y="449" width="101" height="29"/>
+                                <rect key="frame" x="156" y="1149" width="101" height="29"/>
                                 <segments>
                                     <segment title="Default"/>
                                     <segment title="Area"/>
@@ -1526,7 +1530,7 @@
         <image name="eventBackground" width="800" height="162"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1uP-gn-3kN"/>
-        <segue reference="ycx-tm-4B6"/>
+        <segue reference="JLI-w3-u9Q"/>
+        <segue reference="ZpL-XF-CgK"/>
     </inferredMetricsTieBreakers>
 </document>

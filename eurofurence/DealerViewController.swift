@@ -20,9 +20,13 @@ class DealerViewController: UIViewController {
     @IBOutlet weak var attendeeNickname: UILabel!
     @IBOutlet weak var artistShortDescription: UILabel!
     @IBOutlet weak var aboutArtist: UILabel!
+    @IBOutlet weak var artPreviewImageView: UIView!
     @IBOutlet weak var artPreviewImage: UIImageView!
     @IBOutlet weak var artPreviewCaption: UILabel!
+    @IBOutlet weak var aboutArtLabel: UILabel!
     @IBOutlet weak var aboutArt: UILabel!
+    @IBOutlet weak var aboutArtLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dealersDenLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var dealersDenMapImage: UIImageView!
     var singleTap: UITapGestureRecognizer!
     
@@ -84,39 +88,52 @@ class DealerViewController: UIViewController {
         let aboutArtist = self.dealer.AboutTheArtistText!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
         let finalStringAboutArtist = aboutArtist.joinWithSeparator("\n");
         if (finalStringAboutArtist == "") {
-            self.aboutArtist.text = "The artist did not to give us any details."
+            self.aboutArtist.text = "The artist did not provide any information about themselves to be shown here."
         }
         else {
             self.aboutArtist.text = finalStringAboutArtist;
         }
         self.aboutArtist.sizeToFit();
         
-        if let artPreviewImageId =   self.dealer.ArtPreviewImageId {
-            self.artPreviewImage.image = ImageManager.sharedInstance.retrieveFromCache(artPreviewImageId, imagePlaceholder: UIImage(named: "ef"))
+        if let artPreviewImageId = self.dealer.ArtPreviewImageId, let artPreviewImage = ImageManager.sharedInstance.retrieveFromCache(artPreviewImageId) {
+            self.artPreviewImage.image = artPreviewImage
+            self.artPreviewImage.sizeToFit()
+            
+            let artPreviewCaption = self.dealer.ArtPreviewCaption!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
+            let finalStringArtPreviewCaption = artPreviewCaption.joinWithSeparator("\n");
+            if (finalStringArtPreviewCaption == "") {
+                self.artPreviewCaption.text = ""
+            }
+            else {
+                self.artPreviewCaption.text = finalStringArtPreviewCaption;
+            }
+            self.artPreviewCaption.sizeToFit();
+        } else {
+            // if no image has been provided, hide the image section along with the caption
+            artPreviewImage.image = nil
+            for subview in artPreviewImageView.subviews {
+                subview.removeFromSuperview()
+            }
+            let heightConstraint = NSLayoutConstraint(item: artPreviewImageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 0)
+            artPreviewImageView.addConstraint(heightConstraint)
         }
-        else {
-            self.artPreviewImage.image = UIImage(named: "ef")!;
-        }
-        
-        let artPreviewCaption = self.dealer.ArtPreviewCaption!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
-        let finalStringArtPreviewCaption = artPreviewCaption.joinWithSeparator("\n");
-        if (finalStringArtPreviewCaption == "") {
-            self.artPreviewCaption.text = ""
-        }
-        else {
-            self.artPreviewCaption.text = finalStringArtPreviewCaption;
-        }
-        self.artPreviewCaption.sizeToFit();
         
         let AboutArt = self.dealer.AboutTheArtText!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
         let finalStringAboutArt = AboutArt.joinWithSeparator("\n");
         if (finalStringAboutArt == "") {
-            self.aboutArt.text = "The artist did not to give us any details about the art."
+            self.aboutArt.text = nil
+            
+            // if neither text nor image have been provided, hide the entire about art section
+            if artPreviewImage.image == nil {
+                aboutArtLabel.text = nil
+                aboutArtLabelTopConstraint.constant = 0
+                dealersDenLabelTopConstraint.constant = 0
+            }
         }
         else {
             self.aboutArt.text = finalStringAboutArt;
+            self.aboutArt.sizeToFit();
         }
-        self.aboutArt.sizeToFit();
         
         if let mapEntry = MapEntry.getByTargetId(self.dealer.Id), let map = Map.getById(mapEntry.MapId), let mapImage = ImageManager.sharedInstance.retrieveFromCache(map.ImageId!), let relativeX = Double.init(mapEntry.RelativeX), let relativeY = Double.init(mapEntry.RelativeY), let relativeTapRadius = Double(mapEntry.RelativeTapRadius) {
             

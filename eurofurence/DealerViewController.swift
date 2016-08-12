@@ -135,20 +135,15 @@ class DealerViewController: UIViewController {
             self.aboutArt.sizeToFit();
         }
         
-        if let mapEntry = MapEntry.getByTargetId(self.dealer.Id), let map = Map.getById(mapEntry.MapId), let mapImage = ImageManager.sharedInstance.retrieveFromCache(map.ImageId!), let relativeX = Double.init(mapEntry.RelativeX), let relativeY = Double.init(mapEntry.RelativeY), let relativeTapRadius = Double(mapEntry.RelativeTapRadius) {
+        if let mapEntry = MapEntry.getByTargetId(self.dealer.Id), let map = Map.getById(mapEntry.MapId), let mapImage = ImageManager.sharedInstance.retrieveFromCache(map.ImageId!), let mapEntryLocation = mapEntry.getAbsoluteLocationForImage(mapImage), let tapRadius = mapEntry.getAbsoluteTapRadiusForImage(mapImage) {
             
             let ratio = self.dealersDenMapImage.bounds.width / self.dealersDenMapImage.bounds.height
             
-            let radius = CGFloat(relativeTapRadius) * mapImage.size.height
-            let segmentHeight = radius * DealerViewController.MAP_SEGMENT_ZOOM
+            let segmentHeight = tapRadius * DealerViewController.MAP_SEGMENT_ZOOM
             let segmentWidth = segmentHeight * ratio
             
-            
-            let absoluteX = CGFloat(relativeX/100) * mapImage.size.width
-            let absoluteY = CGFloat(relativeY/100) * mapImage.size.height
-            
-            let offsetX = min(max(0.0, absoluteX - segmentWidth / 2.0), mapImage.size.width - segmentWidth)
-            let offsetY = min(max(0.0, absoluteY - segmentHeight / 2.0), mapImage.size.height - segmentHeight)
+            let offsetX = min(max(0.0, mapEntryLocation.x - segmentWidth / 2.0), mapImage.size.width - segmentWidth)
+            let offsetY = min(max(0.0, mapEntryLocation.y - segmentHeight / 2.0), mapImage.size.height - segmentHeight)
             
             if let croppedMap = CGImageCreateWithImageInRect(mapImage.CGImage, CGRect(x: offsetX, y: offsetY, width: segmentWidth, height: segmentHeight)) {
             
@@ -165,7 +160,7 @@ class DealerViewController: UIViewController {
                 CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
                 CGContextSetLineWidth(context, 2.0)
                 
-                let highlightRect = CGRect(x: absoluteX - offsetX - radius, y: absoluteY - offsetY - radius, width: radius * 2, height: radius * 2)
+                let highlightRect = CGRect(x: mapEntryLocation.x - offsetX - tapRadius, y: mapEntryLocation.y - offsetY - tapRadius, width: tapRadius * 2, height: tapRadius * 2)
                 CGContextStrokeEllipseInRect(context, highlightRect)
                 
                 // Drawing complete, retrieve the finished image and cleanup
@@ -196,6 +191,7 @@ class DealerViewController: UIViewController {
         if segue.identifier == "DealerDetailViewToMapSegue" {
             if let destinationVC = segue.destinationViewController as? MapViewController, let mapEntry = sender as? MapEntry {
                 destinationVC.currentMapEntry = mapEntry
+                self.tabBarController?.tabBar.hidden = false
             }
         }
     }

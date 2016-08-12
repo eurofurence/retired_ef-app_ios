@@ -59,23 +59,19 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         
         initialiseMap()
         
-        if let currentMapEntry = currentMapEntry, let mapIndex = mapIdToIndex[currentMapEntry.MapId], let mapImage = mapViews[mapIndex].image, let mapEntryLocation = currentMapEntry.getAbsoluteLocationForImage(mapImage), let tapRadius = currentMapEntry.getAbsoluteTapRadiusForImage(mapImage) {
-            switchToMap(mapIndex)
-            let scaledTapRadius = tapRadius * 5.0
-            adjustZoomToFit(CGRect(
-                x: mapEntryLocation.x - scaledTapRadius,
-                y: mapEntryLocation.y - scaledTapRadius,
-                width: scaledTapRadius * 2,
-                height: scaledTapRadius * 2
-            ))
-            self.currentMapEntry = nil
+        if let currentMapEntry = currentMapEntry, let mapIndex = mapIdToIndex[currentMapEntry.MapId] {
+            switchToMap(mapIndex, zoom: false)
         } else {
             if currentMap >= 0 && currentMap < mapViews.count {
-                switchToMap(currentMap)
+                switchToMap(currentMap, zoom: false)
             }
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         
-        self.tabBarController?.tabBar.hidden = false
+        currentMapEntry = nil
     }
     
     func initialiseMap() {
@@ -128,20 +124,48 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        if let currentMapEntry = currentMapEntry, let mapIndex = mapIdToIndex[currentMapEntry.MapId], let mapImage = mapViews[mapIndex].image, let mapEntryLocation = currentMapEntry.getAbsoluteLocationForImage(mapImage), let tapRadius = currentMapEntry.getAbsoluteTapRadiusForImage(mapImage) {
+            
+            var height: CGFloat!
+            var width: CGFloat!
+            if mapContainerView.frame.height > mapContainerView.frame.width {
+                let ratio = mapContainerView.frame.width / mapContainerView.frame.height
+                height = tapRadius * 10.0
+                width = height * ratio
+            } else {
+                let ratio = mapContainerView.frame.height / mapContainerView.frame.width
+                width = tapRadius * 10.0
+                height = width * ratio
+            }
+            let offsetX = min(max(0.0, mapEntryLocation.x - width / 2.0), mapImage.size.width - width)
+            let offsetY = min(max(0.0, mapEntryLocation.y - height / 2.0), mapImage.size.height - height)
+            let targetRect = CGRect(
+                x: offsetX,
+                y: offsetY,
+                width: width,
+                height: height
+            )
+            adjustZoomToFit(targetRect, animated: true)
+        } else {
+            adjustZoomToFit()
+        }
     }
     
     /// Switches the currently displayed map to `mapID`. Will do reload map if
     /// given map is already being displayed
     /// - parameters:
     ///   - mapId: id of map to be displayed (see class constants for details)
-    func switchToMap(mapId : Int) {
+    func switchToMap(mapId : Int, zoom: Bool = true) {
         mapContainerView.subviews.forEach({ $0.removeFromSuperview() })
         
         if mapId < mapViews.count {
             let mapView = mapViews[mapId]
             mapContainerView.contentSize = mapView.bounds.size
             mapContainerView.addSubview(mapView)
-            adjustZoomToFit()
+            if zoom {
+                adjustZoomToFit()
+            }
             mapSwitchControl.selectedSegmentIndex = mapId
             currentMap = mapId
         } else if mapViews.count > 0 {
@@ -158,6 +182,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
             segmentedControl.selectedSegmentIndex = currentMap
         } else {
             switchToMap(segmentedControl.selectedSegmentIndex)
+            currentMapEntry = nil
         }
     }
     
@@ -209,55 +234,51 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func adjustZoomToFit(rect: CGRect? = nil) {
-        let imageView = mapContainerView.subviews.first as! UIImageView
-        let imageSize = imageView.image!.size
+    func computeZoomFactor(target: CGRect, container: CGRect)->CGFloat {
+        let deltaWidth = abs(target.width - container.width)
+        let deltaHeight = abs(target.height - container.height)
         
-        var targetRect: CGRect!
-        if rect == nil {
-            targetRect = CGRect(
-                x: 0,
-                y: 0,
-                width: imageSize.width,
-                height: imageSize.height
-            )
-        } else {
-            targetRect = rect!
-        }
-        
-        let deltaWidth = abs(targetRect.width - mapContainerView.bounds.width)
-        let deltaHeight = abs(targetRect.height - mapContainerView.bounds.height)
-        
-        var zoomFactor: CGFloat!
         // Determine whether height or width are more dominant and zoom to fit the less dominant factor
-        if deltaWidth / mapContainerView.bounds.width < deltaHeight / mapContainerView.bounds.height {
+        if deltaWidth / container.width < deltaHeight / container.height {
             // scale for width
-            zoomFactor = mapContainerView.bounds.width/targetRect.width
+            return container.width/target.width
         } else {
             //scale for height
-            zoomFactor = mapContainerView.bounds.height/targetRect.height
+            return container.height/target.height
         }
+    }
+    
+    func adjustZoomToFit(rect: CGRect? = nil, animated: Bool = false) {
         
-        zoomFactor = CGFloat(min(1.0, zoomFactor))
+        var targetRect: CGRect!
+        var zoomFactor: CGFloat!
+        
+        let imageView = mapContainerView.subviews.first as! UIImageView
+        let imageSize = imageView.image!.size
+        let imageRect = CGRect(origin: CGPointZero,size: imageSize)
+        zoomFactor = CGFloat(min(1.0, computeZoomFactor(imageRect, container: mapContainerView.bounds)))
+        mapContainerView.minimumZoomScale = zoomFactor * MapViewController.MIN_ZOOM_SCALE_FACTOR
         
         if rect == nil {
-            mapContainerView.minimumZoomScale = zoomFactor * MapViewController.MIN_ZOOM_SCALE_FACTOR
             mapContainerView.maximumZoomScale = zoomFactor * MapViewController.MAX_ZOOM_SCALE_FACTOR
-            mapContainerView!.setZoomScale(zoomFactor, animated: false)
-            targetRect.offsetInPlace(
-                dx: imageSize.width * zoomFactor / 2 - mapContainerView.bounds.width / 2,
-                dy: imageSize.height * zoomFactor / 2 - mapContainerView.bounds.height / 2
+            targetRect = CGRect(
+                x: imageSize.width * zoomFactor / 2 - mapContainerView.bounds.width / 2,
+                y: imageSize.height * zoomFactor / 2 - mapContainerView.bounds.height / 2,
+                width: mapContainerView.bounds.width,
+                height: mapContainerView.bounds.height
             )
         } else {
-            mapContainerView!.setZoomScale(zoomFactor, animated: true)
+            zoomFactor = computeZoomFactor(rect!, container: mapContainerView.bounds)
+            targetRect = CGRect(
+                x: rect!.minX * zoomFactor,
+                y: rect!.minY * zoomFactor,
+                width: mapContainerView.bounds.width,
+                height: mapContainerView.bounds.height
+            )
         }
+        mapContainerView!.setZoomScale(zoomFactor, animated: animated)
         
-        let scrollRect = CGRect(
-            x: targetRect.minX,
-            y: targetRect.minY,
-            width: mapContainerView.bounds.width,
-            height: mapContainerView.bounds.height)
-        mapContainerView.scrollRectToVisible(scrollRect, animated: rect != nil)
+        mapContainerView.scrollRectToVisible(targetRect, animated: animated)
     }
 
     override func didReceiveMemoryWarning() {

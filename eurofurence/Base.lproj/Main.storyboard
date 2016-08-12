@@ -792,15 +792,15 @@
                         <viewControllerLayoutGuide type="bottom" id="obc-LS-xAB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="aFv-9D-bDX">
-                        <rect key="frame" x="0.0" y="64" width="414" height="1187"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view opaque="NO" tag="1" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="UPi-G5-x8h" userLabel="MapContainer" customClass="UIScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="1187"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <segmentedControl opaque="NO" tag="2" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dID-qv-DXc" userLabel="MapSwitch">
-                                <rect key="frame" x="156" y="1149" width="101" height="29"/>
+                                <rect key="frame" x="249" y="449" width="101" height="29"/>
                                 <segments>
                                     <segment title="Default"/>
                                     <segment title="Area"/>
@@ -1531,6 +1531,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JLI-w3-u9Q"/>
-        <segue reference="ZpL-XF-CgK"/>
+        <segue reference="1uP-gn-3kN"/>
     </inferredMetricsTieBreakers>
 </document>

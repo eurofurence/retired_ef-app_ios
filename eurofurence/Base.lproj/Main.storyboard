@@ -821,15 +821,15 @@
                         <viewControllerLayoutGuide type="bottom" id="obc-LS-xAB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="aFv-9D-bDX">
-                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                        <rect key="frame" x="0.0" y="64" width="414" height="787"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view opaque="NO" tag="1" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="UPi-G5-x8h" userLabel="MapContainer" customClass="UIScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="787"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <segmentedControl opaque="NO" tag="2" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dID-qv-DXc" userLabel="MapSwitch">
-                                <rect key="frame" x="249" y="449" width="101" height="29"/>
+                                <rect key="frame" x="156" y="749" width="101" height="29"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <segments>
                                     <segment title="Default"/>
@@ -1145,6 +1145,7 @@
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pan-gk-040">
                                                 <rect key="frame" x="41" y="50" width="325" height="25"/>
+                                                <color key="tintColor" red="0.0078431372550000003" green="0.74117647060000003" blue="0.6588235294" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1215,21 +1216,21 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNr-On-dBu">
-                                        <rect key="frame" x="8" y="304" width="358" height="26.5"/>
+                                        <rect key="frame" x="8" y="342" width="358" height="26.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" red="0.20392156859999999" green="0.28627450980000002" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" scrollEnabled="NO" indicatorStyle="white" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ctS-Ee-lip">
-                                        <rect key="frame" x="8" y="338.5" width="358" height="268"/>
+                                        <rect key="frame" x="8" y="376.5" width="358" height="268"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eventBackground" translatesAutoresizingMaskIntoConstraints="NO" id="77H-ok-zpw">
-                                        <rect key="frame" x="8" y="134" width="358" height="162"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ef" translatesAutoresizingMaskIntoConstraints="NO" id="77H-ok-zpw">
+                                        <rect key="frame" x="8" y="134" width="358" height="200"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="400" id="UYv-uV-FNR"/>
                                         </constraints>
@@ -1289,10 +1290,12 @@
                         <outlet property="eventHostLabel" destination="g4z-Qf-bGI" id="zLV-hn-KZj"/>
                         <outlet property="eventImageHeightConstraint" destination="UYv-uV-FNR" id="vEE-Pi-bFG"/>
                         <outlet property="eventImageView" destination="77H-ok-zpw" id="PX2-FY-Gcr"/>
+                        <outlet property="eventLocationIconImageView" destination="Eov-P2-5hp" id="VuZ-8a-3fW"/>
                         <outlet property="eventLocationLabel" destination="Pan-gk-040" id="gA3-C3-AOF"/>
                         <outlet property="eventStartTimeLabel" destination="1cm-PG-Xja" id="9MT-O5-r7O"/>
                         <outlet property="eventSubTitleLabel" destination="1zo-88-aSb" id="ymQ-if-FWm"/>
                         <outlet property="eventTitleLabel" destination="x5B-f3-hVU" id="Pc7-xF-K2b"/>
+                        <segue destination="7qp-Gf-BX9" kind="show" identifier="EventDetailViewToMapSegue" id="KTE-6a-a6w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mqv-lQ-KJg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1560,7 +1563,7 @@
         <image name="eventBackground" width="800" height="162"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1uP-gn-3kN"/>
+        <segue reference="KTE-6a-a6w"/>
         <segue reference="ycx-tm-4B6"/>
     </inferredMetricsTieBreakers>
 </document>

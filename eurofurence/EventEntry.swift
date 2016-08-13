@@ -84,6 +84,18 @@ class EventEntry: Object {
         return nil
     }
     
+    static func getDayByEventId(primaryKey:String) -> EventConferenceDay?{
+        do {
+            Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
+            let realm = try Realm()
+            let eventConferenceDay = realm.objectForPrimaryKey(EventConferenceDay.self, key: primaryKey)
+            return eventConferenceDay
+        } catch let error as NSError {
+            print(error)
+        }
+        return nil
+    }
+    
     static func getByRoomId(primaryKey:String) -> Results<EventEntry>?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;

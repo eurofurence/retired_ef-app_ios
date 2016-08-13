@@ -18,7 +18,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     var eventByDays = [Results<EventEntry>]()
     var eventByRooms = [Results<EventEntry>]()
     var eventByTracks = [Results<EventEntry>]()
-    var filteredEvent = Results<EventEntry>?()
+    var filteredEvent = [EventEntry]()
     var eventByType = ""
     var eventTypeKey = ""
     var lastUpdate = NSDate()
@@ -26,6 +26,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     override func viewDidLoad() {
         super.viewDidLoad()
         rateApp();
+        self.searchController.searchBar.showsScopeBar = true;
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.searchBar.delegate = self
@@ -134,7 +135,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.active && searchController.searchBar.text != "" {
-            return self.filteredEvent!.count
+            return self.filteredEvent.count
         }
         var eventsInSection = Results<EventEntry>?();
         switch self.searchController.searchBar.selectedScopeButtonIndex {
@@ -171,8 +172,9 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! EventTableViewCell
         let event: EventEntry
         if searchController.active && searchController.searchBar.text != "" {
-            event = self.filteredEvent![indexPath.row]
+            event = self.filteredEvent[indexPath.row]
         } else {
+            cell.eventDayLabel.hidden = true;
             switch self.searchController.searchBar.selectedScopeButtonIndex {
             case 0:
                 event = self.eventByDays[indexPath.section][indexPath.row]
@@ -184,6 +186,12 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
                 event = self.eventByDays[indexPath.section][indexPath.row]
             }
             
+        }
+        if searchController.active && searchController.searchBar.text != "" {
+            if let eventDay = EventEntry.getDayByEventId(event.ConferenceDayId) {
+                cell.eventDayLabel.hidden = false;
+                cell.eventDayLabel.text = eventDay.Name;
+            }
         }
         let formatedStartTime = (event.StartTime).characters.split{$0 == ":"}.map(String.init)
         let formatedDuration = (event.Duration).characters.split{$0 == ":"}.map(String.init)
@@ -213,8 +221,14 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     }
     
     
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
-        filteredEvent = EventEntry.getByTitle(searchText);
+    func filterContentForSearchText(searchText: String, scope: String = "Day") {
+        filteredEvent = [];
+        for events in  self.eventByDays {
+            let eventsAsArray = Array(events)
+            let searchPredicate = NSPredicate(format: "Title contains[c] %@", searchText)
+            let results = (eventsAsArray as NSArray).filteredArrayUsingPredicate(searchPredicate);
+            self.filteredEvent.appendContentsOf(results as! [EventEntry])
+        }
         tableView.reloadData()
     }
     
@@ -225,6 +239,10 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var sectionName = "";
         let  headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell") as! EventHeaderCellTableViewCell
+        if searchController.active && searchController.searchBar.text != "" {
+            headerCell.headerCellLabel.text = "Results for : " + searchController.searchBar.text!;
+            return headerCell;
+        }
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "yyyy-MM-dd";
         if let eventDate = dateFormatter.dateFromString(self.eventsDays![section].Date) {
@@ -266,6 +284,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         self.tableView.reloadData()
     }
+
     
     
     /*
@@ -311,7 +330,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
             if let destinationVC = segue.destinationViewController as? EventViewController{
                 let indexPath = self.tableView.indexPathForSelectedRow!
                 if searchController.active && searchController.searchBar.text != "" {
-                    destinationVC.event = self.filteredEvent![indexPath.row]
+                    destinationVC.event = self.filteredEvent[indexPath.row]
                 } else {
                     switch self.searchController.searchBar.selectedScopeButtonIndex {
                     case 0:

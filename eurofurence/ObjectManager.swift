@@ -48,6 +48,11 @@ class ObjectFromString {
                 let object = classObject.init()
                 return object
             }
+        case ConfigManager.sharedInstance.image:
+            if let classObject = NSClassFromString("Eurofurence." + className) as? Image.Type {
+                let object = classObject.init()
+                return object
+            }
         case ConfigManager.sharedInstance.announcement:
             if let classObject = NSClassFromString("Eurofurence." + className) as? Announcement.Type {
                 let object = classObject.init()

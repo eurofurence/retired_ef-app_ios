@@ -830,6 +830,7 @@
                             </view>
                             <segmentedControl opaque="NO" tag="2" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dID-qv-DXc" userLabel="MapSwitch">
                                 <rect key="frame" x="249" y="449" width="101" height="29"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <segments>
                                     <segment title="Default"/>
                                     <segment title="Area"/>
@@ -1559,7 +1560,7 @@
         <image name="eventBackground" width="800" height="162"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JLI-w3-u9Q"/>
         <segue reference="1uP-gn-3kN"/>
+        <segue reference="ycx-tm-4B6"/>
     </inferredMetricsTieBreakers>
 </document>

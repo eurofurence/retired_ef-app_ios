@@ -118,17 +118,17 @@ class ApiManager {
                                 print("Error during update of ", entityName, ":",result)
                             }
                             if (self.requestedObjects == 0) {
-                                //Find a way to show loader on cacheAllImages (Slow perf on this)
-                                NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: nil)
-                                let defaults = NSUserDefaults.standardUserDefaults()
-                                defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
-                                defaults.setObject(NSDate(), forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
-                                if completion != nil {
-                                    completion!(isDataUpdated: true)
-                                }
                                 self.isUpdating = false
                                 ImageManager.sharedInstance.cacheAllImages(completion: {
                                     LoadingOverlay.sharedInstance.hideOverlay()
+                                    
+                                    NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: nil)
+                                    let defaults = NSUserDefaults.standardUserDefaults()
+                                    defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+                                    defaults.setObject(NSDate(), forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
+                                    if completion != nil {
+                                        completion!(isDataUpdated: true)
+                                    }
                                 })
                             }
                         }) {

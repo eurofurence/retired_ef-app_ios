@@ -23,20 +23,23 @@ class ImageManager {
     var toCacheCount = 0
     var doneCachingCount = 0
     
-    private func dispatchEntity(entityId: String?) {
+    private func dispatchEntity(entityId: String?, hasChanged: Bool = false) {
         if (entityId != nil) {
             // add imageId to new list if performing full chaching run
             if newImageIds != nil {
                 newImageIds?.append(entityId!)
             }
             
-            if(!isCached(entityId!)) {
+            if(!isCached(entityId!) || hasChanged) {
                 self.toCacheCount += 1
                 if LoadingOverlay.sharedInstance.isPresented() {
                     LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
                 }
                 dispatch_group_enter(self.dispatchGroup)
                 dispatch_async(dispatch_get_main_queue()) {
+                    if self.isCached(entityId!) && hasChanged {
+                        self.deleteFromCache(self.getPathForId(entityId!))
+                    }
                     self.cacheImage(entityId!) {
                         (image: UIImage?) in
                         self.doneCachingCount += 1
@@ -46,46 +49,6 @@ class ImageManager {
                         dispatch_group_leave(self.dispatchGroup)
                     };
                 }
-            }
-        }
-    }
-    
-    private func cacheInfoImages() {
-        if let infos = Info.getAll() {
-            for info in infos {
-                for imageId in info.ImageIdsAlternative {
-                    dispatchEntity(imageId.Id)
-                }
-            }
-        }
-    }
-    
-    private func cacheEventEntryImages() {
-        if let eventEntries = EventEntry.getAll() {
-            for eventEntry in eventEntries {
-                if let imageId = eventEntry.ImageId {
-                    dispatchEntity(imageId)
-                }
-            }
-        }
-    }
-    
-    /// Get all dealers in the Realm Database to cache all images with cacheImage
-    private func cacheDealersImages() {
-        let dealersOptional = Dealer.getAll();
-        if let dealers = dealersOptional {
-            for dealer in dealers {
-                dispatchEntity(dealer.ArtistThumbnailImageId);
-                dispatchEntity(dealer.ArtistImageId);
-                dispatchEntity(dealer.ArtPreviewImageId);
-            }
-        }
-    }
-    
-    private func cacheMapImages() {
-        if let maps = Map.getAll() {
-            for map in maps {
-                dispatchEntity(map.ImageId)
             }
         }
     }
@@ -127,10 +90,22 @@ class ImageManager {
         }
         if imageIds == nil {
             newImageIds = []
-            cacheInfoImages()
-            cacheEventEntryImages()
-            cacheDealersImages()
-            cacheMapImages()
+            
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let lastDatabaseUpdate = defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+            
+            if let images = Image.getAll() {
+                for image in images {
+                    var hasChanged = true
+                    
+                    if let imageUpdate = NSDate.dateFromISOString(image.LastChangeDateTimeUtc) where lastDatabaseUpdate == nil || imageUpdate.compare(lastDatabaseUpdate as! NSDate) == NSComparisonResult.OrderedAscending {
+                        
+                        hasChanged = false
+                    }
+                    
+                    dispatchEntity(image.Id, hasChanged: hasChanged)
+                }
+            }
         } else {
             for imageId in imageIds! {
                 dispatchEntity(imageId)
@@ -210,25 +185,30 @@ class ImageManager {
             return
         }
         
-        let URLRequest = NSURLRequest(URL: NSURL(string: self.baseImage + imageId)!)
-        let receipt = self.downloader.downloadImage(URLRequest: URLRequest) { response in
-            if let image = response.result.value, let imageData = UIImageJPEGRepresentation(image,  1.0) {
-                let imagePath = self.getPathForId(imageId)
-                //print("Downloaded image", imageId)
-                if imageData.writeToFile(imagePath, atomically: false) {
-                    self.addSkipBackupAttributeToItemAtURL(imagePath);
-                    completion(image: image)
-                    return
-                } else {
-                    print("Error with imageData on image caching manager")
+        if let image = Image.getById(imageId), let imageUrl = NSURL(string: image.Url.stringByReplacingOccurrencesOfString("{Endpoint}", withString: ConfigManager.sharedInstance.apiBaseUrl)) {
+            
+            let URLRequest = NSURLRequest(URL: imageUrl)
+            let receipt = self.downloader.downloadImage(URLRequest: URLRequest) { response in
+                if let image = response.result.value, let imageData = UIImageJPEGRepresentation(image,  1.0) {
+                    let imagePath = self.getPathForId(imageId)
+                    //print("Downloaded image", imageId)
+                    if imageData.writeToFile(imagePath, atomically: false) {
+                        self.addSkipBackupAttributeToItemAtURL(imagePath);
+                        completion(image: image)
+                        return
+                    } else {
+                        print("Error with imageData on image caching manager")
+                    }
                 }
+                completion(image: nil)
             }
+            
+            // in case of a downloader cache hit, completion must be called manually
+            if receipt == nil {
+                //print("Image already in downloader cache", imageId)
+            }
+        } else {
             completion(image: nil)
-        }
-        
-        // in case of a downloader cache hit, completion must be called manually
-        if receipt == nil {
-            //print("Image already in downloader cache", imageId)
         }
     }
     

@@ -16,25 +16,21 @@ class SettingsTableViewController: FormViewController {
         form +++ Section("Network")
             <<< SwitchRow("SwitchRow") { row in      // initializer
                 row.title = "Automaticaly update on start"
-                row.value = SettingsManager.sharedInstance.downloadOnStart;
+                row.value = UserSettings<Bool>.UpdateOnStart.currentValue()
                 }.onChange { row in
                     row.updateCell()
-                    (row.value ?? false) ? SettingsManager.sharedInstance.setUserDownloadOnStart() : SettingsManager.sharedInstance.setNotUserDownloadOnStart()
-                }.cellSetup { cell, row in
-                    
-                }.cellUpdate { cell, row in
-
-            }
+                    UserSettings<Bool>.UpdateOnStart.setValue(row.value!)
+                }
+            +++ Section("Data Storage")
             <<< ButtonRow(){
                 $0.title = "Download database"
                 }.onCellSelection { row in
-                   ApiManager.sharedInstance.updateAllEntities(true);
+                    ApiManager.sharedInstance.updateAllEntities(true, completion: nil);
             }
-            +++ Section("Data Storage")
             <<< ButtonRow(){
-                $0.title = "Clear cache"
+                $0.title = "Clear database & cache"
                 }.onCellSelection { row in
-                    SettingsManager.sharedInstance.clearAllCache()
+                    ApiManager.sharedInstance.clearCache()
         }
         // Do any additional setup after loading the view.
     }

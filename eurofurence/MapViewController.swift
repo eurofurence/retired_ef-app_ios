@@ -27,6 +27,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     var singleTap: UITapGestureRecognizer!
     var currentMap: Int = 0
     var currentMapEntry: MapEntry? = nil
+    var currentMapEntryRadiusMultiplier = CGFloat(1.0)
     
 
     override func viewDidLoad() {
@@ -134,11 +135,11 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
             var width: CGFloat!
             if mapContainerView.frame.height > mapContainerView.frame.width {
                 let ratio = mapContainerView.frame.width / mapContainerView.frame.height
-                height = tapRadius * 10.0
+                height = tapRadius * currentMapEntryRadiusMultiplier
                 width = height * ratio
             } else {
                 let ratio = mapContainerView.frame.height / mapContainerView.frame.width
-                width = tapRadius * 10.0
+                width = tapRadius * currentMapEntryRadiusMultiplier
                 height = width * ratio
             }
             let offsetX = min(max(0.0, mapEntryLocation.x - width / 2.0), mapImage.size.width - width)
@@ -186,6 +187,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         } else {
             switchToMap(segmentedControl.selectedSegmentIndex)
             currentMapEntry = nil
+            currentMapEntryRadiusMultiplier = 1.0
             navigationItem.leftBarButtonItems = [burgerMenuItem]
         }
     }
@@ -219,6 +221,17 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
                         self.performSegueWithIdentifier("MapToDealerDetailViewSegue", sender: dealer)
                     }
                     break
+                case "EventConferenceRoom":
+                    if let mapEntry = MapEntry.getByTargetId(nearestMapEntry.Id) {
+                        currentMapEntry = mapEntry
+                        viewDidLayoutSubviews()
+                    }
+                    break
+                case "MapEntry":
+                    if let mapEntry = MapEntry.getById(nearestMapEntry.TargetId) {
+                        currentMapEntry = mapEntry
+                        viewDidLayoutSubviews()
+                    }
                 default:
                     print("Unsupported MarkerType", nearestMapEntry.MarkerType)
                 }

@@ -13,6 +13,7 @@ import SwiftyJSON
 
 class ApiManager {
     static let LAST_DATABASE_UPDATE_DEFAULT = "lastDatabaseUpdate"
+    static let LAST_DATABASE_UPDATE_LOCAL_DEFAULT = "lastDatabaseUpdateLocal"
     var progressView: UIProgressView?
     var progressLabel: UILabel?
     static let sharedInstance = ApiManager()
@@ -60,6 +61,7 @@ class ApiManager {
             print("Realm verification failed! Full update from backend required!")
             let defaults = NSUserDefaults.standardUserDefaults()
             defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+            defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
             //TODO: Clear image cache
         }
     }
@@ -120,6 +122,7 @@ class ApiManager {
                                 NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: nil)
                                 let defaults = NSUserDefaults.standardUserDefaults()
                                 defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+                                defaults.setObject(NSDate(), forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
                                 if completion != nil {
                                     completion!(isDataUpdated: true)
                                 }
@@ -143,6 +146,7 @@ class ApiManager {
                     let defaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
                 }
+                defaults.setObject(NSDate(), forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
                 if completion != nil {
                     completion!(isDataUpdated: false)
                 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -27,36 +28,179 @@
         <scene sceneID="h9K-TN-MNY">
             <objects>
                 <viewController storyboardIdentifier="AboutView" id="W5w-lu-l8a" customClass="AboutViewController" customModule="Eurofurence" sceneMemberID="viewController">
-                    <textView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="yhr-W0-ggI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dct-NS-DkA"/>
+                        <viewControllerLayoutGuide type="bottom" id="yCe-Wt-XfB"/>
+                    </layoutGuides>
+                    <view key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="LPV-ZE-PJF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <string key="text">
-•	Android 
-	◦	Pazuzu 
-	◦	Requinard 
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="hT7-G4-tde">
+                                <rect key="frame" x="8" y="0.0" width="359" height="618"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS App Developers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dV3-lA-S3J">
+                                        <rect key="frame" x="16" y="16" width="327" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ava_fenrikur" translatesAutoresizingMaskIntoConstraints="NO" id="CXL-fk-oGP">
+                                        <rect key="frame" x="219" y="53" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="120" id="2RG-ey-Csh"/>
+                                            <constraint firstAttribute="width" secondItem="CXL-fk-oGP" secondAttribute="height" multiplier="1:1" id="qm2-10-LHy"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ava_omegawolf" translatesAutoresizingMaskIntoConstraints="NO" id="FB2-Iu-hZ8">
+                                        <rect key="frame" x="19" y="53" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="FB2-Iu-hZ8" secondAttribute="height" multiplier="1:1" id="6PN-DN-0MP"/>
+                                            <constraint firstAttribute="height" constant="120" id="dDy-GV-6Rm"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OmegaWolf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrA-gJ-3ac">
+                                        <rect key="frame" x="34.5" y="181" width="89" height="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fenrikur" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPn-xc-qkl">
+                                        <rect key="frame" x="248.5" y="181" width="62" height="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B85-mh-2EU">
+                                        <rect key="frame" x="16" y="233" width="327" height="342.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Android App Developers">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                                    <font key="NSOriginalFont" size="17" name="HelveticaNeue-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+Pazuzu
+Requinard
 
-•	iOS 
-	◦	Omega Wolfblood 
-	◦	Fenrikur
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="Windows Phone">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content=" ">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="Developer">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                                    <font key="NSOriginalFont" size="17" name="HelveticaNeue-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+Luchs
 
-•	Windows
-	◦	Luchs
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="Program Management">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                                    <font key="NSOriginalFont" size="17" name="HelveticaNeue-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+Luchs
+Zefiro
 
-•	General
-	◦	Programm Management: 
-		Zefiro, Luchs
-	◦	Assets design : 
-		Murrpy
-		
-•	Special thanks to 
-	◦	Akulatraxas 
-	◦	Mark Treefox 
-	◦	StreifiGreif </string>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="Special Thanks">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                                    <font key="NSOriginalFont" size="17" name="HelveticaNeue-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+Akulatraxas
+Mark Treefox
+Murrpy
+StreifiGreif</string>
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="B85-mh-2EU" firstAttribute="leading" secondItem="hT7-G4-tde" secondAttribute="leadingMargin" constant="8" id="1CL-AY-oVV"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="B85-mh-2EU" secondAttribute="bottom" constant="8" id="1MI-K5-3Qm"/>
+                                    <constraint firstItem="dV3-lA-S3J" firstAttribute="leading" secondItem="hT7-G4-tde" secondAttribute="leading" constant="16" id="3Rg-dZ-JeO"/>
+                                    <constraint firstItem="B85-mh-2EU" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" id="FUD-tM-wde"/>
+                                    <constraint firstItem="CXL-fk-oGP" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" constant="100" id="I2o-Yf-sxh"/>
+                                    <constraint firstItem="dV3-lA-S3J" firstAttribute="top" secondItem="hT7-G4-tde" secondAttribute="top" constant="16" id="JOO-gR-1b0"/>
+                                    <constraint firstItem="KPn-xc-qkl" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" constant="100" id="Mr2-AU-OlD"/>
+                                    <constraint firstItem="dV3-lA-S3J" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" id="d2f-Jg-0E1"/>
+                                    <constraint firstItem="CXL-fk-oGP" firstAttribute="top" secondItem="dV3-lA-S3J" secondAttribute="bottom" constant="16" id="eQy-vr-wGp"/>
+                                    <constraint firstItem="FB2-Iu-hZ8" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" constant="-100" id="fLx-Tb-4Kk"/>
+                                    <constraint firstItem="B85-mh-2EU" firstAttribute="top" secondItem="KPn-xc-qkl" secondAttribute="bottom" constant="32" id="j5u-Ns-k3V"/>
+                                    <constraint firstAttribute="trailing" secondItem="dV3-lA-S3J" secondAttribute="trailing" constant="16" id="p4u-TF-6ft"/>
+                                    <constraint firstItem="KPn-xc-qkl" firstAttribute="top" secondItem="CXL-fk-oGP" secondAttribute="bottom" constant="8" id="prP-ID-gBJ"/>
+                                    <constraint firstItem="IrA-gJ-3ac" firstAttribute="top" secondItem="FB2-Iu-hZ8" secondAttribute="bottom" constant="8" id="sDL-gv-ws6"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="B85-mh-2EU" secondAttribute="trailing" constant="8" id="y52-l4-z5d"/>
+                                    <constraint firstItem="IrA-gJ-3ac" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" constant="-100" id="yLh-U7-V90"/>
+                                    <constraint firstItem="FB2-Iu-hZ8" firstAttribute="top" secondItem="dV3-lA-S3J" secondAttribute="bottom" constant="16" id="zf8-Uh-wqB"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hT7-G4-tde" firstAttribute="centerX" secondItem="LPV-ZE-PJF" secondAttribute="centerX" id="6dM-vl-cGk"/>
+                            <constraint firstAttribute="trailing" secondItem="hT7-G4-tde" secondAttribute="trailing" constant="8" id="7Ha-Qe-EjJ"/>
+                            <constraint firstItem="hT7-G4-tde" firstAttribute="top" secondItem="LPV-ZE-PJF" secondAttribute="top" id="Ved-VI-sVK"/>
+                            <constraint firstItem="yCe-Wt-XfB" firstAttribute="top" secondItem="hT7-G4-tde" secondAttribute="bottom" id="d4u-wd-GV7"/>
+                            <constraint firstItem="hT7-G4-tde" firstAttribute="leading" secondItem="LPV-ZE-PJF" secondAttribute="leading" constant="8" id="z1W-nQ-W4z"/>
+                        </constraints>
+                    </view>
                     <navigationItem key="navigationItem" title="About" id="0ex-1o-9Ty">
                         <barButtonItem key="leftBarButtonItem" title="Close" id="s6l-Tj-br8">
                             <connections>
@@ -64,10 +208,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7wz-8a-e4W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1106" y="-345"/>
+            <point key="canvasLocation" x="1105.5" y="-345.5"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="aMz-NL-fFu">
@@ -119,12 +264,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="750" image="ef" translatesAutoresizingMaskIntoConstraints="NO" id="tTI-ef-Nr0">
-                                <rect key="frame" x="0.0" y="0.0" width="580" height="89"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="749" image="ef" translatesAutoresizingMaskIntoConstraints="NO" id="tTI-ef-Nr0">
+                                <rect key="frame" x="133.5" y="0.0" width="333" height="128.5"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version : " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9tZ-FW-u1V">
-                                <rect key="frame" x="20" y="89" width="560" height="57"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                <rect key="frame" x="20" y="128.5" width="560" height="13.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -135,17 +280,20 @@
                             <constraint firstItem="tTI-ef-Nr0" firstAttribute="top" secondItem="dpg-0N-NWW" secondAttribute="top" id="2iM-bT-Alf"/>
                             <constraint firstItem="9tZ-FW-u1V" firstAttribute="top" secondItem="tTI-ef-Nr0" secondAttribute="bottom" id="7SY-fr-QNJ"/>
                             <constraint firstItem="tTI-ef-Nr0" firstAttribute="leading" secondItem="dpg-0N-NWW" secondAttribute="leading" id="7uo-IY-0r2"/>
-                            <constraint firstItem="Q8Y-O2-dU0" firstAttribute="top" secondItem="9tZ-FW-u1V" secondAttribute="bottom" id="BF3-8u-hgN"/>
+                            <constraint firstItem="Q8Y-O2-dU0" firstAttribute="top" secondItem="9tZ-FW-u1V" secondAttribute="bottom" constant="4" id="BF3-8u-hgN"/>
                             <constraint firstItem="Q8Y-O2-dU0" firstAttribute="leading" secondItem="dpg-0N-NWW" secondAttribute="leading" id="Fs7-tb-L3U"/>
                             <constraint firstItem="JZY-J6-T9F" firstAttribute="top" secondItem="Q8Y-O2-dU0" secondAttribute="bottom" id="IYe-Es-RKL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tTI-ef-Nr0" secondAttribute="trailing" id="Mvx-vq-Cyj"/>
                             <constraint firstItem="Q8Y-O2-dU0" firstAttribute="top" secondItem="rdi-GO-cNZ" secondAttribute="bottom" constant="126" id="UhF-H2-au6"/>
                             <constraint firstItem="9tZ-FW-u1V" firstAttribute="leading" secondItem="dpg-0N-NWW" secondAttribute="leadingMargin" id="Wvm-2O-onB"/>
+                            <constraint firstItem="tTI-ef-Nr0" firstAttribute="centerX" secondItem="dpg-0N-NWW" secondAttribute="centerX" id="Ztu-fO-PK4"/>
                             <constraint firstAttribute="trailing" secondItem="Q8Y-O2-dU0" secondAttribute="trailing" id="xdr-ZQ-7N4"/>
                             <constraint firstItem="Q8Y-O2-dU0" firstAttribute="top" secondItem="9tZ-FW-u1V" secondAttribute="bottom" id="yQO-h5-Zzn"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="7uo-IY-0r2"/>
+                                <exclude reference="Mvx-vq-Cyj"/>
                                 <exclude reference="yQO-h5-Zzn"/>
                             </mask>
                         </variation>
@@ -201,6 +349,8 @@
     </scenes>
     <resources>
         <image name="Settings" width="25" height="25"/>
-        <image name="ef" width="176" height="89"/>
+        <image name="ava_fenrikur" width="180" height="180"/>
+        <image name="ava_omegawolf" width="180" height="180"/>
+        <image name="ef" width="333" height="200"/>
     </resources>
 </document>

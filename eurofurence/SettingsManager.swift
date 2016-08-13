@@ -52,6 +52,9 @@ class SettingsManager {
         try! realm.write {
             realm.deleteAll()
         }
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+        defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
         ImageManager.sharedInstance.clearCache(){
             (result: Bool) in
             print("Cache cleared");

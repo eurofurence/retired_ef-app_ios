@@ -49,7 +49,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.versionLabel.text = ConfigManager.sharedInstance.appVersion;
+        self.versionLabel.text = "Version: " + ConfigManager.sharedInstance.appVersion;
         super.viewDidAppear(animated)
     }
     

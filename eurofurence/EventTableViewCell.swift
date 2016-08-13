@@ -16,6 +16,7 @@ class EventTableViewCell: UITableViewCell {
     @IBOutlet weak var eventDateLabel: UILabel!
     @IBOutlet weak var eventRoomLabel: UILabel!
     @IBOutlet weak var eventDayLabel: UILabel!
+    var eventDayLabelHeightConstraint: NSLayoutConstraint? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()

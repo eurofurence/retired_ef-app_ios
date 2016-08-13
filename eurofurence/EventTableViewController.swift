@@ -26,7 +26,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     override func viewDidLoad() {
         super.viewDidLoad()
         rateApp();
-        self.searchController.searchBar.showsScopeBar = true;
+        self.searchController.searchBar.showsScopeBar = false;
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.searchBar.delegate = self
@@ -175,6 +175,14 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
             event = self.filteredEvent[indexPath.row]
         } else {
             cell.eventDayLabel.hidden = true;
+            
+            if cell.eventDayLabelHeightConstraint != nil {
+                cell.eventDayLabelHeightConstraint!.active = true
+            } else {
+                cell.eventDayLabelHeightConstraint = NSLayoutConstraint(item: cell.eventDayLabel, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 0)
+                cell.addConstraint(cell.eventDayLabelHeightConstraint!)
+            }
+            
             switch self.searchController.searchBar.selectedScopeButtonIndex {
             case 0:
                 event = self.eventByDays[indexPath.section][indexPath.row]
@@ -190,7 +198,11 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         if searchController.active && searchController.searchBar.text != "" {
             if let eventDay = EventEntry.getDayByEventId(event.ConferenceDayId) {
                 cell.eventDayLabel.hidden = false;
-                cell.eventDayLabel.text = eventDay.Name;
+                cell.eventDayLabel.text = eventDay.Name + "–" + dayOfWeekStringFromDateString(eventDay.Date);
+                
+                if cell.eventDayLabelHeightConstraint != nil {
+                    cell.eventDayLabelHeightConstraint!.active = false
+                }
             }
         }
         let formatedStartTime = (event.StartTime).characters.split{$0 == ":"}.map(String.init)
@@ -211,6 +223,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         //    cell.eventDateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         //}
         cell.tintColor = UIColor.whiteColor()
+        cell.layoutSubviews()
         
         return cell
     }
@@ -243,14 +256,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
             headerCell.headerCellLabel.text = "Results for : " + searchController.searchBar.text!;
             return headerCell;
         }
-        let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "yyyy-MM-dd";
-        if let eventDate = dateFormatter.dateFromString(self.eventsDays![section].Date) {
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "EEEE dd MMMM"
-            let dayOfWeekString = dateFormatter.stringFromDate(eventDate)
-            sectionName = eventsDays![section].Name + "\n" + dayOfWeekString;
-        }
+        sectionName = eventsDays![section].Name + "\n" + dayOfWeekStringFromDateString(self.eventsDays![section].Date);
         switch self.searchController.searchBar.selectedScopeButtonIndex {
             
         case 0:
@@ -285,6 +291,16 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         self.tableView.reloadData()
     }
 
+    func dayOfWeekStringFromDateString(dateString: String)->String {
+        let dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "yyyy-MM-dd";
+        if let eventDate = dateFormatter.dateFromString(dateString) {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "EEEE dd MMMM"
+            return dateFormatter.stringFromDate(eventDate)
+        }
+        return dateString
+    }
     
     
     /*

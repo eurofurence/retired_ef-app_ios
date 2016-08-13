@@ -30,14 +30,14 @@ class NetworkManager {
         self.reachability!.whenReachable = { reachability in
             dispatch_async(dispatch_get_main_queue()) {
                 if reachability.isReachableViaWiFi() {
-                    if (!ApiManager.sharedInstance.isDatabaseDownloaded() && SettingsManager.sharedInstance.downloadOnStart) {
+                    if (!ApiManager.sharedInstance.isDatabaseDownloaded() && UserSettings<Bool>.UpdateOnStart.currentValue()) {
                         ApiManager.sharedInstance.updateAllEntities(true);
                     }
-                    else if (SettingsManager.sharedInstance.downloadOnStart){
+                    else if (UserSettings<Bool>.UpdateOnStart.currentValue()){
                         ApiManager.sharedInstance.updateAllEntities()
                     }
                 } else {
-                    if (SettingsManager.sharedInstance.downloadOnStart) {
+                    if (UserSettings<Bool>.UpdateOnStart.currentValue()) {
                         let alert = UIAlertController(title: "Download database", message: "It seems that you are connected over cellular data, would you like to download/update the content data, it will allow you to use the app offline?", preferredStyle: UIAlertControllerStyle.Alert)
                         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
                         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: ApiManager.sharedInstance.getAllFromAlert))

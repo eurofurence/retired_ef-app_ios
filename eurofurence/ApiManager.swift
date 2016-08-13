@@ -54,6 +54,24 @@ class ApiManager {
         }
     }
     
+    func clearCache() {
+        dispatch_async(dispatch_get_main_queue()) {
+            autoreleasepool {
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.deleteAll()
+                }
+                let defaults = NSUserDefaults.standardUserDefaults()
+                defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+                defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
+                ImageManager.sharedInstance.clearCache(){
+                    (result: Bool) in
+                    print("Cache cleared")
+                }
+            }
+        }
+    }
+    
     /// Checks whether Realm is still valid, otherwise causes a next refresh to
     /// reload all data from the backend
     private func verifyRealm() {

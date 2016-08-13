@@ -236,16 +236,19 @@
                                     <constraint firstAttribute="height" constant="1" id="ei6-Bm-cS0"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Feeling lost? Take a look at the map! Quick and easy." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Adx-YI-doa">
-                                <rect key="frame" x="70" y="397" width="460" height="37"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Feeling lost? Take a look at the map! Quick and easy." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Adx-YI-doa">
+                                <rect key="frame" x="70" y="397" width="460" height="135"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIy-Su-Y3e">
-                                <rect key="frame" x="229" y="466" width="141" height="28"/>
+                                <rect key="frame" x="205" y="540" width="189" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="L7f-hR-r1h"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
+                                <inset key="contentEdgeInsets" minX="32" minY="16" maxX="32" maxY="16"/>
                                 <size key="titleShadowOffset" width="2" height="2"/>
                                 <state key="normal" title="Let's get started">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -260,10 +263,9 @@
                         <constraints>
                             <constraint firstItem="DFH-eW-KEs" firstAttribute="top" secondItem="1WV-Qg-gWm" secondAttribute="bottom" constant="85" id="4sx-uC-tOa"/>
                             <constraint firstItem="1WV-Qg-gWm" firstAttribute="leading" secondItem="BHG-44-Jts" secondAttribute="leadingMargin" constant="20" id="60E-9p-Phh"/>
-                            <constraint firstItem="wIy-Su-Y3e" firstAttribute="top" secondItem="Adx-YI-doa" secondAttribute="bottom" constant="32" id="8oA-8r-m52"/>
+                            <constraint firstItem="wIy-Su-Y3e" firstAttribute="top" secondItem="Adx-YI-doa" secondAttribute="bottom" constant="8" id="8oA-8r-m52"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Adx-YI-doa" secondAttribute="trailing" constant="50" id="91a-Wm-omA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DFH-eW-KEs" secondAttribute="trailing" constant="50" id="9Tr-UJ-Y74"/>
-                            <constraint firstItem="dja-va-Hgd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wIy-Su-Y3e" secondAttribute="bottom" constant="16" id="DPd-br-xCJ"/>
                             <constraint firstItem="1WV-Qg-gWm" firstAttribute="top" secondItem="BHG-44-Jts" secondAttribute="topMargin" constant="105" id="SX7-B0-uZR"/>
                             <constraint firstItem="T19-iu-43i" firstAttribute="leading" secondItem="BHG-44-Jts" secondAttribute="leadingMargin" constant="45" id="TeL-P6-Q5N"/>
                             <constraint firstItem="DFH-eW-KEs" firstAttribute="leading" secondItem="BHG-44-Jts" secondAttribute="leadingMargin" constant="50" id="ZcB-Kz-xNw"/>
@@ -271,6 +273,7 @@
                             <constraint firstItem="Adx-YI-doa" firstAttribute="top" secondItem="T19-iu-43i" secondAttribute="bottom" constant="16" id="k0k-43-1Pw"/>
                             <constraint firstItem="T19-iu-43i" firstAttribute="top" secondItem="DFH-eW-KEs" secondAttribute="bottom" constant="16" id="mar-E4-NnL"/>
                             <constraint firstItem="wIy-Su-Y3e" firstAttribute="centerX" secondItem="BHG-44-Jts" secondAttribute="centerX" id="mj0-Np-7nw"/>
+                            <constraint firstItem="dja-va-Hgd" firstAttribute="top" secondItem="wIy-Su-Y3e" secondAttribute="bottom" constant="8" id="moi-vc-e5v"/>
                             <constraint firstItem="Adx-YI-doa" firstAttribute="leading" secondItem="BHG-44-Jts" secondAttribute="leadingMargin" constant="50" id="r2t-Gq-1du"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1WV-Qg-gWm" secondAttribute="trailing" constant="20" id="xyk-4o-LAm"/>
                         </constraints>

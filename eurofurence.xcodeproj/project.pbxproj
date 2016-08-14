@@ -13,6 +13,7 @@
 		9A6101921D59BD5800A7B3CF /* WikiText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6101911D59BD5800A7B3CF /* WikiText.swift */; };
 		9A8AEA511D526755004A17E3 /* RoutingAppChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */; };
 		9ACB157B1D5F8A5D00C45B9E /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB157A1D5F8A5D00C45B9E /* UserSettings.swift */; };
+		9ACB157D1D6071C600C45B9E /* AutomaticRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB157C1D6071C600C45B9E /* AutomaticRefresh.swift */; };
 		9ACC2B921D5F6356002D9B32 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC2B911D5F6356002D9B32 /* Image.swift */; };
 		A8B0E9A3A659ADDB8AB56F6D /* Pods_eurofurenceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9A0C1DE5F356BB3DE89DB4 /* Pods_eurofurenceTests.framework */; };
 		BBA8E887167441CF3500F2A1 /* Pods_eurofurenceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9955C470F64F09FBBA9E208 /* Pods_eurofurenceUITests.framework */; };
@@ -41,7 +42,6 @@
 		BF57296E1D59CF06005A09B6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF57296D1D59CF06005A09B6 /* AboutViewController.swift */; };
 		BF5729701D59CF13005A09B6 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF57296F1D59CF13005A09B6 /* SettingsTableViewController.swift */; };
 		BF5729721D59D25A005A09B6 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5729711D59D25A005A09B6 /* MenuTableViewCell.swift */; };
-		BF61C0891C70CFB8005F5C5B /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */; };
 		BF61C08C1C70E0D2005F5C5B /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */; };
 		BF61C08E1C70EA56005F5C5B /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */; };
 		BF61C0901C70EBBE005F5C5B /* EventEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61C08F1C70EBBE005F5C5B /* EventEntry.swift */; };
@@ -101,6 +101,7 @@
 		9A6101911D59BD5800A7B3CF /* WikiText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiText.swift; sourceTree = "<group>"; };
 		9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingAppChooser.swift; sourceTree = "<group>"; };
 		9ACB157A1D5F8A5D00C45B9E /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		9ACB157C1D6071C600C45B9E /* AutomaticRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticRefresh.swift; sourceTree = "<group>"; };
 		9ACC2B911D5F6356002D9B32 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		9DFD711C9ED321B53A5926DC /* Pods-eurofurence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.debug.xcconfig"; sourceTree = "<group>"; };
 		A9955C470F64F09FBBA9E208 /* Pods_eurofurenceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eurofurenceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,7 +136,6 @@
 		BF57296D1D59CF06005A09B6 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		BF57296F1D59CF13005A09B6 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		BF5729711D59D25A005A09B6 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
-		BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		BF61C08F1C70EBBE005F5C5B /* EventEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEntry.swift; sourceTree = "<group>"; };
@@ -337,7 +337,6 @@
 			children = (
 				BFA2F06E1D588F5000918FF8 /* EventManager.swift */,
 				BF61C08B1C70E0D2005F5C5B /* ApiManager.swift */,
-				BF61C0881C70CFB8005F5C5B /* NetworkHelper.swift */,
 				BF61C08D1C70EA56005F5C5B /* ConfigManager.swift */,
 				BF61C0911C70F3A3005F5C5B /* ObjectManager.swift */,
 				BF994C751C778A2200371862 /* Loader.swift */,
@@ -349,6 +348,7 @@
 				9A6101911D59BD5800A7B3CF /* WikiText.swift */,
 				BF2FC2ED1D5A0E4A00975ABD /* RateMyApp.swift */,
 				9ACB157A1D5F8A5D00C45B9E /* UserSettings.swift */,
+				9ACB157C1D6071C600C45B9E /* AutomaticRefresh.swift */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -772,7 +772,7 @@
 				9A458BBF1D562E4B00CA9C49 /* CountryAlpha3Converter.swift in Sources */,
 				BF230AD51D4F9E0B00F7E472 /* SharedFunctions.swift in Sources */,
 				BF994C701C777F7400371862 /* EventConferenceRoom.swift in Sources */,
-				BF61C0891C70CFB8005F5C5B /* NetworkHelper.swift in Sources */,
+				9ACB157D1D6071C600C45B9E /* AutomaticRefresh.swift in Sources */,
 				9A35AEEC1D58FC1800ECFD0F /* Markdown.swift in Sources */,
 				BF00E05E1C4FEDE600F998AA /* AppDelegate.swift in Sources */,
 				BF61C08E1C70EA56005F5C5B /* ConfigManager.swift in Sources */,

@@ -44,7 +44,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          UIApplication.sharedApplication().scheduleLocalNotification(notification)
          */
         
-        NetworkManager.sharedInstance?.startNetworkManager();
+        // Enable background refresh based on user settings
+        if UserSettings<Int>.RefreshTimer.currentValue() > 0 && UserSettings<Bool>.RefreshInBackground.currentValue() {
+            UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+        } else {
+            UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalNever)
+        }
+        
+        
+        updateOnStart()
         if (!self.isTutorialAlreadyShown()) {
             self.showTutorial()
         }
@@ -53,6 +61,73 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ConfigManager.sharedInstance.createSliderMenu(self.window);
         }
         return true
+    }
+    
+    func updateOnStart() {
+        dispatch_async(dispatch_get_main_queue()) {
+                if let reachability = ApiManager.sharedInstance.reachability where reachability.isReachableViaWiFi() || UserSettings<Bool>.AutomaticRefreshOnMobile.currentValue() {
+                    if (!ApiManager.sharedInstance.isDatabaseDownloaded() && UserSettings<Bool>.UpdateOnStart.currentValue()) {
+                        ApiManager.sharedInstance.updateAllEntities(true);
+                    }
+                    else if (UserSettings<Bool>.UpdateOnStart.currentValue()){
+                        ApiManager.sharedInstance.updateAllEntities()
+                    }
+                } else {
+                    if (UserSettings<Bool>.UpdateOnStart.currentValue() && (!UserSettings<Bool>.AutomaticRefreshOnMobile.currentValue() && !UserSettings<Bool>.AutomaticRefreshOnMobileAsked.currentValue())) {
+                        UserSettings<Bool>.AutomaticRefreshOnMobileAsked.setValue(true)
+                        let alert = UIAlertController(title: "Download database", message: "It seems that you are connected over cellular data, would you still like to allow updates/downloads via mobile network? It will allow you to use the app offline and can be changed in settings.", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+                        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { action in
+                            UserSettings<Bool>.AutomaticRefreshOnMobile.setValue(true)
+                            ApiManager.sharedInstance.getAllFromAlert(action)
+                        }))
+                        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                    }
+                }
+        }
+    }
+    
+    // Support for background fetch
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        
+        // If we're not reachable via WiFi and the user has forbidden us to use mobile in background, do nothing.
+        if let reachability = ApiManager.sharedInstance.reachability where !(reachability.isReachableViaWiFi() ?? false) && !(UserSettings<Bool>.RefreshInBackgroundOnMobile.currentValue()) {
+            completionHandler(.Failed)
+            return
+        }
+        
+        if let viewControllers = self.window?.rootViewController?.childViewControllers  {
+            var tabBarController: UITabBarController? = nil
+            for viewController in viewControllers {
+                if let tabBar = viewController as? UITabBarController {
+                    tabBarController = tabBar
+                    break
+                }
+            }
+            
+            if let viewControllers = tabBarController?.childViewControllers {
+                for viewController in viewControllers {
+                    if let navigationController = viewController as? UINavigationController, let newsTableViewController = navigationController.childViewControllers[0] as? NewsTableViewController {
+                        newsTableViewController.fetchAnnouncements({ isSuccessful in
+                            if !isSuccessful {
+                                completionHandler(.Failed)
+                                return
+                            } else {
+                                let newAnnouncementIds = newsTableViewController.updateAnnouncements()
+                                if newAnnouncementIds.count > 0 {
+                                    completionHandler(.NewData)
+                                    return
+                                } else {
+                                    completionHandler(.NoData)
+                                    return
+                                }
+                            }
+                        })
+                    }
+                }
+            }
+        }
+        completionHandler(.Failed)
     }
     
     func showTutorial() {
@@ -90,6 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      **/
     
     func applicationWillResignActive(application: UIApplication) {
+        AutomaticRefresh.sharedInstance.clearTimer()
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
@@ -104,6 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
+        AutomaticRefresh.sharedInstance.updateTimer()
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         //ApiManager.sharedInstance.updateAllEntities()
         //GetDiff, ReloadTable

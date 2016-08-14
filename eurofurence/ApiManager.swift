@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import RealmSwift
+import ReachabilitySwift
 import SwiftyJSON
 
 class ApiManager {
@@ -16,6 +17,7 @@ class ApiManager {
     static let LAST_DATABASE_UPDATE_LOCAL_DEFAULT = "lastDatabaseUpdateLocal"
     var progressView: UIProgressView?
     var progressLabel: UILabel?
+    var reachability: Reachability?
     static let sharedInstance = ApiManager()
     let entities = [
         ConfigManager.sharedInstance.eventEntry,
@@ -31,6 +33,15 @@ class ApiManager {
     private var requestedObjects = 0
     private var isUpdating = false
     
+    init() {
+        do {
+            self.reachability = try Reachability.reachabilityForInternetConnection()
+        }
+        catch {
+            print("Unable to initialise Reachability")
+        }
+    }
+
     func deleteEntityData(entityInstance:Object, _ prune:Bool = true) {
         if entityInstance.respondsToSelector("setIsDeleted:") || !prune {
             let entityType = entityInstance.dynamicType
@@ -89,8 +100,16 @@ class ApiManager {
     }
     
     func updateAllEntities(forceUpdate: Bool = false, completion: ((isDataUpdated: Bool) -> Void)? = nil) {
+        // Check reachability before updating
+        if !(reachability?.isReachable() ?? false) {
+            notifyUnreachable()
+            completion != nil ? completion!(isDataUpdated: false) : ()
+            return
+        }
+        
         // Check whether we're already running an update
         if isUpdating {
+            completion != nil ? completion!(isDataUpdated: false) : ()
             return
         }
         isUpdating = true
@@ -201,7 +220,7 @@ class ApiManager {
                 parameters["since"] = NSDate.ISOStringFromDate(since!)
             }
             
-            print("Requesting data for", entityName, "since", since)
+            //print("Requesting data for", entityName, "since", since)
             let request = Alamofire.request(.GET, url, encoding: .JSON)
             request.response(
                 queue: queue,
@@ -292,6 +311,14 @@ class ApiManager {
             return entityDeltaStart.compare(lastDatabaseUpdate) == NSComparisonResult.OrderedAscending
         }
         return false
+    }
+    
+    func notifyUnreachable() {
+        dispatch_async(dispatch_get_main_queue()) {
+            let alert = UIAlertController(title: "Download database", message: "Unable to download database. You are currently not connected to WiFi or cellular network. You can disable automatic updates via settings.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     //TODO implement post

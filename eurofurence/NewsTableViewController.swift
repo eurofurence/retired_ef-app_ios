@@ -25,6 +25,14 @@ class NewsTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: #selector(NewsTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // Reset the application badge because all announcements can be assumed seen
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
+    }
+    
     // Pull to refresh function
     func refresh(sender:AnyObject) {
         ApiManager.sharedInstance.updateAllEntities(false, completion: {(isDataUpdated: Bool) in
@@ -43,18 +51,106 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
-    func updateAnnouncements() {
+    func updateAnnouncements()->[String] {
         self.annoucements = Announcement.getAll()
+        let oldAnnouncements = self.filteredAnnouncements
+        var newAnnouncementIds: [String] = []
         self.filteredAnnouncements = []
+        
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
+        formatter.timeZone = NSTimeZone(abbreviation: "UTC")
+        
         for announcement in annoucements! {
-            let fromDate = NSDate.dateFromISOString(announcement.ValidFromDateTimeUtc);
-            let untilDate = NSDate.dateFromISOString(announcement.ValidUntilDateTimeUtc);
+            
             let currentDate = NSDate();
-            if ((fromDate <= currentDate) && (untilDate >= currentDate)) {
+            let utcTimeZoneStr = formatter.stringFromDate(currentDate)
+            
+            // Check whether we are currently within the announcements validity time frame
+            if let currentDateUtc = NSDate.dateFromISOString(utcTimeZoneStr),
+                let fromDate = NSDate.dateFromISOString(announcement.ValidFromDateTimeUtc),
+                let untilDate = NSDate.dateFromISOString(announcement.ValidUntilDateTimeUtc)
+                where (fromDate.compare(currentDateUtc) != NSComparisonResult.OrderedDescending && untilDate.compare(currentDateUtc) != NSComparisonResult.OrderedAscending) {
+                
                 self.filteredAnnouncements.append(announcement)
+                
+                // Check if we have new announcements
+                if oldAnnouncements.filter({ oldAnnouncement in
+                    if let oldAnnouncementDate = NSDate.dateFromISOString(oldAnnouncement.LastChangeDateTimeUtc),
+                        let newAnnouncementDate = NSDate.dateFromISOString(announcement.LastChangeDateTimeUtc) {
+                        return oldAnnouncement.Id == announcement.Id && oldAnnouncementDate.compare(newAnnouncementDate) != NSComparisonResult.OrderedAscending
+                    } else {
+                        return oldAnnouncement.Id == announcement.Id
+                    }
+                }).count == 0 {
+                    newAnnouncementIds.append(announcement.Id)
+                }
             }
         }
         
+        /* DEBUG::START */
+        let testAnnouncement = Announcement()
+        testAnnouncement.Id = "3b1a85ed-eee0-4da8-88e3-9a1778d1a31b"
+        testAnnouncement.ValidFromDateTimeUtc = formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(-60*60)))
+        testAnnouncement.ValidUntilDateTimeUtc = formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(60*60)))
+        testAnnouncement.LastChangeDateTimeUtc = formatter.stringFromDate(NSDate())
+        testAnnouncement.Author = "Mr. Foo"
+        testAnnouncement.Area = "Bar"
+        testAnnouncement.Title = "This is a test announcement! " + String(rand())
+        testAnnouncement.Content = "Really, it's just a test..."
+        do {
+            let realm = try Realm(configuration: ConfigManager.sharedInstance.config)
+            try! realm.write {
+                realm.create(testAnnouncement.dynamicType, value: testAnnouncement, update: true)
+            }
+            newAnnouncementIds.append(testAnnouncement.Id)
+        } catch {
+            print("Failed to add test announcement. D=")
+        }
+        /* DEBUG::END */
+        
+        notifyAnnouncements(newAnnouncementIds)
+        return newAnnouncementIds
+    }
+    
+    func notifyAnnouncements(announcementIds: [String]) {
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        if UserSettings<Bool>.NotifyOnAnnouncement.currentValue() {
+            for announcementId in announcementIds {
+                if let announcement = Announcement.getById(announcementId) {
+                    let notification = UILocalNotification()
+                    notification.alertBody = announcement.Title
+                    notification.timeZone = NSTimeZone(abbreviation: "UTC")
+                    if let announcementDate = NSDate.dateFromISOString(announcement.ValidFromDateTimeUtc) {
+                        notification.fireDate = announcementDate
+                    }
+                    notification.soundName = UILocalNotificationDefaultSoundName
+                    notification.userInfo = ["Announcement.Id": announcement.Id ]
+                    notification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
+                    
+                    UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+                }
+            }
+        } else {
+            UIApplication.sharedApplication().applicationIconBadgeNumber = announcementIds.count
+        }
+        
+        
+        if let tabBarItem = self.navigationController?.tabBarItem {
+            if let badgeCount = tabBarItem.badgeValue, let badgeCountValue = Int(badgeCount) {
+                tabBarItem.badgeValue = String(badgeCountValue + 1)
+            } else {
+                tabBarItem.badgeValue = "1"
+            }
+        }
+    }
+    
+    func fetchAnnouncements(completion: (isSuccessful: Bool)->Void) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let lastDatabaseUpdate = defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? NSDate
+        ApiManager.sharedInstance.updateEntity("Announcement", since: lastDatabaseUpdate, completion: { result, isSuccessful in
+            completion(isSuccessful: isSuccessful)
+        })
     }
 
     
@@ -82,6 +178,9 @@ class NewsTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         self.updateAnnouncements();
         self.tableView.reloadData();
+        if let tabBarItem = self.navigationController?.tabBarItem {
+            tabBarItem.badgeValue = nil
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -89,6 +188,9 @@ class NewsTableViewController: UITableViewController {
         if refreshLabelTimer != nil {
             refreshLabelTimer?.invalidate()
             refreshLabelTimer = nil
+        }
+        if let tabBarItem = self.navigationController?.tabBarItem {
+            tabBarItem.badgeValue = nil
         }
     }
     

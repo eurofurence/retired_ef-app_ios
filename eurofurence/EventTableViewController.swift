@@ -198,7 +198,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         if searchController.active && searchController.searchBar.text != "" {
             if let eventDay = EventEntry.getDayByEventId(event.ConferenceDayId) {
                 cell.eventDayLabel.hidden = false;
-                cell.eventDayLabel.text = eventDay.Name + "–" + dayOfWeekStringFromDateString(eventDay.Date);
+                cell.eventDayLabel.text = eventDay.Name + " – " + dayOfWeekStringFromDateString(eventDay.Date);
                 
                 if cell.eventDayLabelHeightConstraint != nil {
                     cell.eventDayLabelHeightConstraint!.active = false

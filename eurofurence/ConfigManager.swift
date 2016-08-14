@@ -27,6 +27,7 @@ class ConfigManager {
     let mapEntry = "MapEntry"
     let entityBadgeTabBar = ["Announcement" : 0, "Info" : 1, "Dealer" : 2, "Map" : 3]
     var appVersion = ""
+    var appPackage = ""
     let slideMenuController = SlideMenuController()
     let config = Realm.Configuration(
         // Set the new schema version. This must be greater than the previously used
@@ -54,10 +55,16 @@ class ConfigManager {
     
     init() {
         if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+            self.appVersion = version
             if let build = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as? String {
-                           self.appVersion = version + " (" + build + ") ";
+                           self.appVersion += " (" + build + ") ";
             }
-
+        }//CFBundlePackageType
+        if let packageType = NSBundle.mainBundle().infoDictionary?["CFBundlePackageType"] as? String {
+            self.appPackage = packageType
+            if let signature = NSBundle.mainBundle().infoDictionary!["CFBundleSignature"] as? String {
+                self.appPackage += "-" + signature;
+            }
         }
     }
     

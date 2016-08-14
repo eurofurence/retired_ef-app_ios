@@ -88,27 +88,6 @@ class NewsTableViewController: UITableViewController {
             }
         }
         
-        /* DEBUG::START */
-        let testAnnouncement = Announcement()
-        testAnnouncement.Id = "3b1a85ed-eee0-4da8-88e3-9a1778d1a31b"
-        testAnnouncement.ValidFromDateTimeUtc = formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(-60*60)))
-        testAnnouncement.ValidUntilDateTimeUtc = formatter.stringFromDate(NSDate(timeIntervalSinceNow: NSTimeInterval(60*60)))
-        testAnnouncement.LastChangeDateTimeUtc = formatter.stringFromDate(NSDate())
-        testAnnouncement.Author = "Mr. Foo"
-        testAnnouncement.Area = "Bar"
-        testAnnouncement.Title = "This is a test announcement! " + String(rand())
-        testAnnouncement.Content = "Really, it's just a test..."
-        do {
-            let realm = try Realm(configuration: ConfigManager.sharedInstance.config)
-            try! realm.write {
-                realm.create(testAnnouncement.dynamicType, value: testAnnouncement, update: true)
-            }
-            newAnnouncementIds.append(testAnnouncement.Id)
-        } catch {
-            print("Failed to add test announcement. D=")
-        }
-        /* DEBUG::END */
-        
         notifyAnnouncements(newAnnouncementIds)
         return newAnnouncementIds
     }
@@ -131,12 +110,12 @@ class NewsTableViewController: UITableViewController {
                     UIApplication.sharedApplication().presentLocalNotificationNow(notification)
                 }
             }
-        } else {
+        } else if announcementIds.count > 0 {
             UIApplication.sharedApplication().applicationIconBadgeNumber = announcementIds.count
         }
         
         
-        if let tabBarItem = self.navigationController?.tabBarItem {
+        if let tabBarItem = self.navigationController?.tabBarItem where announcementIds.count > 0 {
             tabBarItem.badgeValue = String(announcementIds.count)
         }
     }

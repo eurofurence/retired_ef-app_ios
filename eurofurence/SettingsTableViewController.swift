@@ -51,7 +51,7 @@ class SettingsTableViewController: FormViewController {
                     }
                 }
                 
-                row.options = [-1, /*DEBUG::START*/20/**DEBUG::END**/, 300, 600, 900, 1800, 3600]
+                row.options = [-1, 300, 600, 900, 1800, 3600]
                 
                 row.value = UserSettings<Int>.RefreshTimer.currentValue()
                 }.onChange { row in

@@ -52,10 +52,10 @@ class RoutingAppChooser {
             if !isAppAvailable(routingApp) {
                 routingApps.removeValueForKey(routingApp)
                 pruneCount += 1
-                print("Pruned", routingApp)
+                //print("Pruned", routingApp)
             }
         }
-        print("Pruned", pruneCount, "unavailable routing apps")
+        //print("Pruned", pruneCount, "unavailable routing apps")
     }
     
     private func addAppActions() {
@@ -64,7 +64,7 @@ class RoutingAppChooser {
                 if self.currentURLs[routingApp] != nil {
                     UIApplication.sharedApplication().openURL(self.currentURLs[routingApp]!)
                 } else {
-                    print("Currently no URL for", routingApp, "available!")
+                    //print("Currently no URL for", routingApp, "available!")
                 }
             }
             selectionAlert.addAction(action);

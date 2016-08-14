@@ -77,7 +77,7 @@ class ApiManager {
                 defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
                 ImageManager.sharedInstance.clearCache(){
                     (result: Bool) in
-                    print("Cache cleared")
+                    //print("Cache cleared")
                 }
             }
         }
@@ -87,7 +87,7 @@ class ApiManager {
     /// reload all data from the backend
     private func verifyRealm() {
         if Endpoint.get() == nil {
-            print("Realm verification failed! Full update from backend required!")
+            //print("Realm verification failed! Full update from backend required!")
             let defaults = NSUserDefaults.standardUserDefaults()
             defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
             defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
@@ -130,16 +130,16 @@ class ApiManager {
                 
                 if endpointCurrentDateTimeUtc == nil {
                     endpointCurrentDateTimeUtc = NSDate()
-                    print("Failed to get endpoint time, falling back to device time (", endpointCurrentDateTimeUtc,")!")
+                    //print("Failed to get endpoint time, falling back to device time (", endpointCurrentDateTimeUtc,")!")
                 } else {
-                    print("Endpoint time is", endpointCurrentDateTimeUtc!)
+                    //print("Endpoint time is", endpointCurrentDateTimeUtc!)
                 }
                 
                 for entity in endpoint!.Entities {
                     if entity.Name != ConfigManager.sharedInstance.endpoint && (forceUpdate || lastDatabaseUpdate == nil || !self.isEntityUpToDate(entity.Name)) {
                         
                         let entityName = entity.Name
-                        print("Updating entity", entityName, "from", entity.LastChangeDateTimeUtc)
+                        //print("Updating entity", entityName, "from", entity.LastChangeDateTimeUtc)
                         self.requestedObjects += 1
                         
                         if !self.updateEntity(entityName, since: lastDatabaseUpdate, completion: {
@@ -150,7 +150,7 @@ class ApiManager {
                                 if let entityInstance = ObjectFromString.sharedInstance.instanciate(entityName) as? Object {
                                     self.deleteEntityData(entityInstance)
                                 }
-                                print("Entity", entityName, "updated successfully")
+                                //print("Entity", entityName, "updated successfully")
                             } else {
                                 print("Error during update of ", entityName, ":",result)
                             }
@@ -178,7 +178,7 @@ class ApiManager {
             
             // Seems nothing was updated, so we need to clean up on our own
             if self.isUpdating && self.requestedObjects == 0 {
-                print("Nothing to update")
+                //print("Nothing to update")
                 if endpointCurrentDateTimeUtc != nil {
                     let defaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)

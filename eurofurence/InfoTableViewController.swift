@@ -119,8 +119,8 @@ class InfoTableViewController: UITableViewController {
     }
     
     func sectionHeaderTapped(recognizer: UITapGestureRecognizer) {
-        print("Tapping working")
-        print(recognizer.view?.tag)
+        //print("Tapping working")
+        //print(recognizer.view?.tag)
         /**
          var indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection:(recognizer.view?.tag as Int!)!)
          if (indexPath.row == 0) {

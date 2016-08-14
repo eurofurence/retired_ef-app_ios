@@ -59,7 +59,7 @@ class ImageManager {
         if newImageIds != nil {
             for imageId in getCachedImageIds() {
                 if newImageIds?.indexOf(imageId) == nil {
-                    print("pruning image", imageId)
+                    //print("pruning image", imageId)
                     deleteFromCache(getPathForId(imageId))
                 }
             }
@@ -79,12 +79,12 @@ class ImageManager {
     /// and Dealer entities if no IDs are given (full caching run).
     func cacheAllImages(imageIds: [String]? = nil, completion: ((Void) -> Void)? = nil) {
         if isCaching {
-            print("Caching already in progress!")
+            //print("Caching already in progress!")
             return
         }
         isCaching = true
         
-        print("Caching images...")
+        //print("Caching images...")
         if LoadingOverlay.sharedInstance.isPresented() {
             LoadingOverlay.sharedInstance.changeMessage("Caching images")
         }
@@ -114,7 +114,7 @@ class ImageManager {
         dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), {
             // will only be executed if full caching run was performed
             self.pruneCache()
-            print("Finished caching images.")
+            //print("Finished caching images.")
             (completion != nil) ? completion!() : ()
             self.toCacheCount = 0
             self.doneCachingCount = 0

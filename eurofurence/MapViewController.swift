@@ -175,7 +175,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         } else if mapViews.count > 0 {
             switchToMap(0)
         } else {
-            print("No maps available!")
+            //print("No maps available!")
         }
         
     }

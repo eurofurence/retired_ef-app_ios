@@ -61,10 +61,10 @@ class DealerViewController: UIViewController {
         let newlineChars = NSCharacterSet.newlineCharacterSet()
         
         if let  artistImageId = self.dealer.ArtistImageId {
-            self.artistImage.image = ImageManager.sharedInstance.retrieveFromCache(artistImageId, imagePlaceholder: UIImage(named: "defaultAvatar"))
+            self.artistImage.image = ImageManager.sharedInstance.retrieveFromCache(artistImageId, imagePlaceholder: UIImage(named: "defaultAvatarBig"))
         }
         else {
-            self.artistImage.image = UIImage(named: "defaultAvatar")!;
+            self.artistImage.image = UIImage(named: "defaultAvatarBig")!;
         }
         
         if let dealerDisplayName = self.dealer.DisplayName where !dealerDisplayName.isEmpty {

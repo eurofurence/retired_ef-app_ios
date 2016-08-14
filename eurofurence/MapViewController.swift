@@ -224,12 +224,14 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
                 case "EventConferenceRoom":
                     if let mapEntry = MapEntry.getByTargetId(nearestMapEntry.Id) {
                         currentMapEntry = mapEntry
+                        currentMapEntryRadiusMultiplier = 30.0
                         viewDidLayoutSubviews()
                     }
                     break
                 case "MapEntry":
                     if let mapEntry = MapEntry.getById(nearestMapEntry.TargetId) {
                         currentMapEntry = mapEntry
+                        currentMapEntryRadiusMultiplier = 30.0
                         viewDidLayoutSubviews()
                     }
                 default:

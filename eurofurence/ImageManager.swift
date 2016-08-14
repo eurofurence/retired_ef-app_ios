@@ -98,7 +98,7 @@ class ImageManager {
                 for image in images {
                     var hasChanged = true
                     
-                    if let imageUpdate = NSDate.dateFromISOString(image.LastChangeDateTimeUtc) where lastDatabaseUpdate == nil || imageUpdate.compare(lastDatabaseUpdate as! NSDate) == NSComparisonResult.OrderedAscending {
+                    if let imageUpdate = NSDate.dateFromISOString(image.LastChangeDateTimeUtc), let lastDatabaseUpdate = lastDatabaseUpdate as? NSDate where imageUpdate.compare(lastDatabaseUpdate) == NSComparisonResult.OrderedAscending {
                         
                         hasChanged = false
                     }

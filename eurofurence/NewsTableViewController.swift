@@ -137,11 +137,7 @@ class NewsTableViewController: UITableViewController {
         
         
         if let tabBarItem = self.navigationController?.tabBarItem {
-            if let badgeCount = tabBarItem.badgeValue, let badgeCountValue = Int(badgeCount) {
-                tabBarItem.badgeValue = String(badgeCountValue + 1)
-            } else {
-                tabBarItem.badgeValue = "1"
-            }
+            tabBarItem.badgeValue = String(announcementIds.count)
         }
     }
     

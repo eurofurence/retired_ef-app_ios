@@ -36,7 +36,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 120.0;
         self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
-        self.tableView.estimatedRowHeight = 120.0;
+        self.tableView.estimatedSectionHeaderHeight = 100.0;
         self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         self.searchController.searchBar.scopeButtonTitles = ["Day", "Room", "Track"]
         self.refreshControl?.addTarget(self, action: #selector(EventTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
@@ -90,8 +90,8 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         default:
             break
         }
-        self.tableView.reloadData()
         
+        tableView.reloadData()
     }
     
     /*
@@ -207,9 +207,21 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         }
         let formatedStartTime = (event.StartTime).characters.split{$0 == ":"}.map(String.init)
         let formatedDuration = (event.Duration).characters.split{$0 == ":"}.map(String.init)
-        let separators = NSCharacterSet(charactersInString: "–")
-        let formatedTitle = (event.Title).componentsSeparatedByCharactersInSet(separators)
-        cell.eventNameLabel.text = formatedTitle[0]
+        cell.eventNameLabel.text = event.Title
+        
+        if event.SubTitle.isEmpty {
+            if cell.eventSubNameLabelHeightConstraint != nil {
+                cell.eventSubNameLabelHeightConstraint!.active = true
+            } else {
+                cell.eventSubNameLabelHeightConstraint = NSLayoutConstraint(item: cell.eventSubNameLabel, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 0)
+                cell.addConstraint(cell.eventSubNameLabelHeightConstraint!)
+            }
+        } else {
+            if cell.eventSubNameLabelHeightConstraint != nil {
+                cell.eventSubNameLabelHeightConstraint!.active = false
+            }
+            cell.eventSubNameLabel.text = event.SubTitle
+        }
         cell.eventDateLabel.text = "Starting at " + formatedStartTime[0] + ":" + formatedStartTime[1]
         if let room = EventConferenceRoom.getById(event.ConferenceRoomId) {
             cell.eventRoomLabel.text = "in " + room.Name
@@ -223,7 +235,6 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         //    cell.eventDateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         //}
         cell.tintColor = UIColor.whiteColor()
-        cell.layoutSubviews()
         
         return cell
     }

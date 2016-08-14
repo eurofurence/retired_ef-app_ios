@@ -33,11 +33,11 @@
                         <viewControllerLayoutGuide type="bottom" id="yCe-Wt-XfB"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="LPV-ZE-PJF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="950"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="hT7-G4-tde">
-                                <rect key="frame" x="8" y="0.0" width="359" height="618"/>
+                                <rect key="frame" x="8" y="0.0" width="359" height="901"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS App Developers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dV3-lA-S3J">
                                         <rect key="frame" x="16" y="16" width="327" height="20.5"/>
@@ -60,13 +60,13 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OmegaWolf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrA-gJ-3ac">
-                                        <rect key="frame" x="34.5" y="181" width="89" height="20"/>
+                                        <rect key="frame" x="35" y="181" width="89" height="20"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fenrikur" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPn-xc-qkl">
-                                        <rect key="frame" x="248.5" y="181" width="62" height="20"/>
+                                        <rect key="frame" x="248" y="181" width="62" height="20"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -170,21 +170,239 @@ StreifiGreif</string>
                                         </attributedString>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IJC-Rp-S8S">
+                                        <rect key="frame" x="16" y="668" width="327" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="mDh-e4-dR0"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment>
+                                                <string key="content">- Alamofire 
+- AlamofireImage</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+The MIT License (MIT)
+Copyright (c) Alamofire Software Foundation
+
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="- Crashlytics">
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica-Bold"/>
+                                                    <font key="NSOriginalFont" size="12" name="Helvetica-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+Copyright (c) Crashlytics
+
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="- Eureka">
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica-Bold"/>
+                                                    <font key="NSOriginalFont" size="12" name="Helvetica-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+The MIT License (MIT)
+Copyright (c) XMARTLABS
+
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="- Fabric">
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica-Bold"/>
+                                                    <font key="NSOriginalFont" size="12" name="Helvetica-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+Copyright (c) Twitter
+
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="- ReachabilitySwift">
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica-Bold"/>
+                                                    <font key="NSOriginalFont" size="12" name="Helvetica-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+The MIT License (MIT)
+Copyright (c) Ashley Mills
+
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">- Realm
+- RealmSwift</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica-Bold"/>
+                                                    <font key="NSOriginalFont" size="12" name="Helvetica-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+Realm Swift is published under the Apache 2.0 license.
+The underlying core is available under the Realm Core Binary License.
+
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="- SlideMenuControllerSwift">
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica-Bold"/>
+                                                    <font key="NSOriginalFont" size="12" name="Helvetica-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+The MIT License (MIT)
+Copyright (c) Yuji Hato
+
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="- SwiftyJSON">
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica-Bold"/>
+                                                    <font key="NSOriginalFont" size="12" name="Helvetica-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+The MIT License (MIT)
+Copyright (c) Ruoyu Fu
+
+
+
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="The MIT License (MIT)">
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica-Bold"/>
+                                                    <font key="NSOriginalFont" size="12" name="Helvetica-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    <integer key="NSUnderline" value="1"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment>
+                                                <string key="content">
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Libraries &amp; Licenses" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSO-0a-1mg">
+                                        <rect key="frame" x="16" y="639" width="327" height="21"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="bottomMargin" secondItem="IJC-Rp-S8S" secondAttribute="bottom" constant="8" id="0KV-24-0Sp"/>
                                     <constraint firstItem="B85-mh-2EU" firstAttribute="leading" secondItem="hT7-G4-tde" secondAttribute="leadingMargin" constant="8" id="1CL-AY-oVV"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="B85-mh-2EU" secondAttribute="bottom" constant="8" id="1MI-K5-3Qm"/>
                                     <constraint firstItem="dV3-lA-S3J" firstAttribute="leading" secondItem="hT7-G4-tde" secondAttribute="leading" constant="16" id="3Rg-dZ-JeO"/>
+                                    <constraint firstItem="IJC-Rp-S8S" firstAttribute="top" secondItem="WSO-0a-1mg" secondAttribute="bottom" constant="8" id="4w8-Ng-hxi"/>
+                                    <constraint firstItem="WSO-0a-1mg" firstAttribute="top" secondItem="B85-mh-2EU" secondAttribute="bottom" constant="64" id="7ge-8Y-LFn"/>
+                                    <constraint firstItem="WSO-0a-1mg" firstAttribute="leading" secondItem="hT7-G4-tde" secondAttribute="leadingMargin" constant="8" id="9aJ-oX-YAo"/>
                                     <constraint firstItem="B85-mh-2EU" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" id="FUD-tM-wde"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="IJC-Rp-S8S" secondAttribute="trailing" constant="8" id="GqG-4C-mag"/>
                                     <constraint firstItem="CXL-fk-oGP" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" constant="100" id="I2o-Yf-sxh"/>
                                     <constraint firstItem="dV3-lA-S3J" firstAttribute="top" secondItem="hT7-G4-tde" secondAttribute="top" constant="16" id="JOO-gR-1b0"/>
                                     <constraint firstItem="KPn-xc-qkl" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" constant="100" id="Mr2-AU-OlD"/>
+                                    <constraint firstItem="IJC-Rp-S8S" firstAttribute="leading" secondItem="hT7-G4-tde" secondAttribute="leadingMargin" constant="8" id="OOM-wM-wAo"/>
                                     <constraint firstItem="dV3-lA-S3J" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" id="d2f-Jg-0E1"/>
                                     <constraint firstItem="CXL-fk-oGP" firstAttribute="top" secondItem="dV3-lA-S3J" secondAttribute="bottom" constant="16" id="eQy-vr-wGp"/>
                                     <constraint firstItem="FB2-Iu-hZ8" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" constant="-100" id="fLx-Tb-4Kk"/>
                                     <constraint firstItem="B85-mh-2EU" firstAttribute="top" secondItem="KPn-xc-qkl" secondAttribute="bottom" constant="32" id="j5u-Ns-k3V"/>
                                     <constraint firstAttribute="trailing" secondItem="dV3-lA-S3J" secondAttribute="trailing" constant="16" id="p4u-TF-6ft"/>
                                     <constraint firstItem="KPn-xc-qkl" firstAttribute="top" secondItem="CXL-fk-oGP" secondAttribute="bottom" constant="8" id="prP-ID-gBJ"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="WSO-0a-1mg" secondAttribute="trailing" constant="8" id="qQk-Zb-2LL"/>
                                     <constraint firstItem="IrA-gJ-3ac" firstAttribute="top" secondItem="FB2-Iu-hZ8" secondAttribute="bottom" constant="8" id="sDL-gv-ws6"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="B85-mh-2EU" secondAttribute="trailing" constant="8" id="y52-l4-z5d"/>
                                     <constraint firstItem="IrA-gJ-3ac" firstAttribute="centerX" secondItem="hT7-G4-tde" secondAttribute="centerX" constant="-100" id="yLh-U7-V90"/>
@@ -208,11 +426,12 @@ StreifiGreif</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="950"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7wz-8a-e4W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1105.5" y="-345.5"/>
+            <point key="canvasLocation" x="1105.5" y="-346"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="aMz-NL-fFu">
@@ -349,8 +568,8 @@ StreifiGreif</string>
     </scenes>
     <resources>
         <image name="Settings" width="25" height="25"/>
-        <image name="ava_fenrikur" width="180" height="180"/>
-        <image name="ava_omegawolf" width="180" height="180"/>
+        <image name="ava_fenrikur" width="60" height="60"/>
+        <image name="ava_omegawolf" width="60" height="60"/>
         <image name="ef" width="333" height="200"/>
     </resources>
 </document>

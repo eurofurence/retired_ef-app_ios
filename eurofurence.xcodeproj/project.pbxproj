@@ -15,16 +15,12 @@
 		9ACB157B1D5F8A5D00C45B9E /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB157A1D5F8A5D00C45B9E /* UserSettings.swift */; };
 		9ACB157D1D6071C600C45B9E /* AutomaticRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB157C1D6071C600C45B9E /* AutomaticRefresh.swift */; };
 		9ACC2B921D5F6356002D9B32 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC2B911D5F6356002D9B32 /* Image.swift */; };
-		A8B0E9A3A659ADDB8AB56F6D /* Pods_eurofurenceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9A0C1DE5F356BB3DE89DB4 /* Pods_eurofurenceTests.framework */; };
-		BBA8E887167441CF3500F2A1 /* Pods_eurofurenceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9955C470F64F09FBBA9E208 /* Pods_eurofurenceUITests.framework */; };
 		BF006C4D1CD3B299006F5871 /* InfosTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF006C4C1CD3B299006F5871 /* InfosTutorialViewController.swift */; };
 		BF00E05E1C4FEDE600F998AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E05D1C4FEDE600F998AA /* AppDelegate.swift */; };
 		BF00E0601C4FEDE600F998AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E05F1C4FEDE600F998AA /* ViewController.swift */; };
 		BF00E0631C4FEDE700F998AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF00E0611C4FEDE700F998AA /* Main.storyboard */; };
 		BF00E0651C4FEDE700F998AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF00E0641C4FEDE700F998AA /* Assets.xcassets */; };
 		BF00E0681C4FEDE700F998AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF00E0661C4FEDE700F998AA /* LaunchScreen.storyboard */; };
-		BF00E0731C4FEDE700F998AA /* eurofurenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E0721C4FEDE700F998AA /* eurofurenceTests.swift */; };
-		BF00E07E1C4FEDE700F998AA /* eurofurenceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E07D1C4FEDE700F998AA /* eurofurenceUITests.swift */; };
 		BF1530921C73C0AA0085DF4C /* InfoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1530911C73C0AA0085DF4C /* InfoCollectionViewController.swift */; };
 		BF1530941C73C0D40085DF4C /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1530931C73C0D40085DF4C /* InfoCollectionViewCell.swift */; };
 		BF230AD31D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF230AD21D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift */; };
@@ -74,23 +70,6 @@
 		C28F827231C3EB057A34314E /* Pods_eurofurence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CFC2DB2FA5D99A392D63C42 /* Pods_eurofurence.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		BF00E06F1C4FEDE700F998AA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BF00E0521C4FEDE600F998AA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BF00E0591C4FEDE600F998AA;
-			remoteInfo = eurofurence;
-		};
-		BF00E07A1C4FEDE700F998AA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BF00E0521C4FEDE600F998AA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BF00E0591C4FEDE600F998AA;
-			remoteInfo = eurofurence;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		1206B4773260CCB513B34987 /* Pods-eurofurenceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurenceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurenceTests/Pods-eurofurenceTests.release.xcconfig"; sourceTree = "<group>"; };
 		6013F5D4DF31249BF5695C45 /* Pods-eurofurence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.release.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.release.xcconfig"; sourceTree = "<group>"; };
@@ -113,10 +92,8 @@
 		BF00E0641C4FEDE700F998AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF00E0671C4FEDE700F998AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF00E0691C4FEDE700F998AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF00E06E1C4FEDE700F998AA /* eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF00E0721C4FEDE700F998AA /* eurofurenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eurofurenceTests.swift; sourceTree = "<group>"; };
 		BF00E0741C4FEDE700F998AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF00E0791C4FEDE700F998AA /* eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF00E07D1C4FEDE700F998AA /* eurofurenceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eurofurenceUITests.swift; sourceTree = "<group>"; };
 		BF00E07F1C4FEDE700F998AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF1530911C73C0AA0085DF4C /* InfoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewController.swift; sourceTree = "<group>"; };
@@ -180,22 +157,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BF00E06B1C4FEDE700F998AA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A8B0E9A3A659ADDB8AB56F6D /* Pods_eurofurenceTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BF00E0761C4FEDE700F998AA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BBA8E887167441CF3500F2A1 /* Pods_eurofurenceUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -239,8 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				BF00E05A1C4FEDE600F998AA /* Eurofurence.app */,
-				BF00E06E1C4FEDE700F998AA /* eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename.xctest */,
-				BF00E0791C4FEDE700F998AA /* eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -451,47 +410,6 @@
 			productReference = BF00E05A1C4FEDE600F998AA /* Eurofurence.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BF00E06D1C4FEDE700F998AA /* eurofurenceTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BF00E0851C4FEDE700F998AA /* Build configuration list for PBXNativeTarget "eurofurenceTests" */;
-			buildPhases = (
-				DBB9402C676582A52DB2FAAA /* [CP] Check Pods Manifest.lock */,
-				BF00E06A1C4FEDE700F998AA /* Sources */,
-				BF00E06B1C4FEDE700F998AA /* Frameworks */,
-				BF00E06C1C4FEDE700F998AA /* Resources */,
-				F8812E9014C87C34D752FEB4 /* [CP] Embed Pods Frameworks */,
-				0FFBD4FC228717CB46EF42D8 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				BF00E0701C4FEDE700F998AA /* PBXTargetDependency */,
-			);
-			name = eurofurenceTests;
-			productName = eurofurenceTests;
-			productReference = BF00E06E1C4FEDE700F998AA /* eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		BF00E0781C4FEDE700F998AA /* eurofurenceUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BF00E0881C4FEDE700F998AA /* Build configuration list for PBXNativeTarget "eurofurenceUITests" */;
-			buildPhases = (
-				9B06EC1A96C15ED9941B3965 /* [CP] Check Pods Manifest.lock */,
-				BF00E0751C4FEDE700F998AA /* Sources */,
-				BF00E0761C4FEDE700F998AA /* Frameworks */,
-				BF00E0771C4FEDE700F998AA /* Resources */,
-				2813B613DA8C3434B7BC060B /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				BF00E07B1C4FEDE700F998AA /* PBXTargetDependency */,
-			);
-			name = eurofurenceUITests;
-			productName = eurofurenceUITests;
-			productReference = BF00E0791C4FEDE700F998AA /* eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -511,14 +429,6 @@
 							};
 						};
 					};
-					BF00E06D1C4FEDE700F998AA = {
-						CreatedOnToolsVersion = 7.2;
-						TestTargetID = BF00E0591C4FEDE600F998AA;
-					};
-					BF00E0781C4FEDE700F998AA = {
-						CreatedOnToolsVersion = 7.2;
-						TestTargetID = BF00E0591C4FEDE600F998AA;
-					};
 				};
 			};
 			buildConfigurationList = BF00E0551C4FEDE600F998AA /* Build configuration list for PBXProject "eurofurence" */;
@@ -535,8 +445,6 @@
 			projectRoot = "";
 			targets = (
 				BF00E0591C4FEDE600F998AA /* eurofurence */,
-				BF00E06D1C4FEDE700F998AA /* eurofurenceTests */,
-				BF00E0781C4FEDE700F998AA /* eurofurenceUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -555,53 +463,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BF00E06C1C4FEDE700F998AA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BF00E0771C4FEDE700F998AA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0FFBD4FC228717CB46EF42D8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurenceTests/Pods-eurofurenceTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2813B613DA8C3434B7BC060B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurenceUITests/Pods-eurofurenceUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5E618AB929A55897FA5706E2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -618,21 +482,6 @@
 			showEnvVarsInLog = 0;
 		};
 		6D507ABE44896470EADB3461 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		9B06EC1A96C15ED9941B3965 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -687,36 +536,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# xcode-build-bump.sh\n# @desc Auto-increment the build number every time the project is run.\n# @usage\n# 1. Select: your Target in Xcode\n# 2. Select: Build Phases Tab\n# 3. Select: Add Build Phase -> Add Run Script\n# 4. Paste code below in to new \"Run Script\" section\n# 5. Drag the \"Run Script\" below \"Link Binaries With Libraries\"\n# 6. Insure that your starting build number is set to a whole integer and not a float (e.g. 1, not 1.0)\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
-		};
-		DBB9402C676582A52DB2FAAA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		F8812E9014C87C34D752FEB4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurenceTests/Pods-eurofurenceTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -782,36 +601,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BF00E06A1C4FEDE700F998AA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BF00E0731C4FEDE700F998AA /* eurofurenceTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BF00E0751C4FEDE700F998AA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BF00E07E1C4FEDE700F998AA /* eurofurenceUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		BF00E0701C4FEDE700F998AA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BF00E0591C4FEDE600F998AA /* eurofurence */;
-			targetProxy = BF00E06F1C4FEDE700F998AA /* PBXContainerItemProxy */;
-		};
-		BF00E07B1C4FEDE700F998AA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BF00E0591C4FEDE600F998AA /* eurofurence */;
-			targetProxy = BF00E07A1C4FEDE700F998AA /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BF00E0611C4FEDE700F998AA /* Main.storyboard */ = {
@@ -947,58 +737,6 @@
 			};
 			name = Release;
 		};
-		BF00E0861C4FEDE700F998AA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC7C24A9EBE5008467B65152 /* Pods-eurofurenceTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = eurofurenceTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = EF.eurofurenceTests;
-				PRODUCT_NAME = eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename.app/eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename";
-			};
-			name = Debug;
-		};
-		BF00E0871C4FEDE700F998AA /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1206B4773260CCB513B34987 /* Pods-eurofurenceTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = eurofurenceTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = EF.eurofurenceTests;
-				PRODUCT_NAME = eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename.app/eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename";
-			};
-			name = Release;
-		};
-		BF00E0891C4FEDE700F998AA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C26227DB194EE55A488E8350 /* Pods-eurofurenceUITests.debug.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = eurofurenceUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = EF.eurofurenceUITests;
-				PRODUCT_NAME = eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename;
-				TEST_TARGET_NAME = eurofurence;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		BF00E08A1C4FEDE700F998AA /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E79D31F1737C950367959110 /* Pods-eurofurenceUITests.release.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = eurofurenceUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = EF.eurofurenceUITests;
-				PRODUCT_NAME = eurofurence.temp_caseinsensitive_rename.temp_caseinsensitive_rename;
-				TEST_TARGET_NAME = eurofurence;
-				USES_XCTRUNNER = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1016,24 +754,6 @@
 			buildConfigurations = (
 				BF00E0831C4FEDE700F998AA /* Debug */,
 				BF00E0841C4FEDE700F998AA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BF00E0851C4FEDE700F998AA /* Build configuration list for PBXNativeTarget "eurofurenceTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BF00E0861C4FEDE700F998AA /* Debug */,
-				BF00E0871C4FEDE700F998AA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BF00E0881C4FEDE700F998AA /* Build configuration list for PBXNativeTarget "eurofurenceUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BF00E0891C4FEDE700F998AA /* Debug */,
-				BF00E08A1C4FEDE700F998AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

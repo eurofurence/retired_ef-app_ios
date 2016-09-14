@@ -15,11 +15,3 @@ pod 'Crashlytics'
 pod 'Eureka', '~> 1.7'
 end
 
-target 'eurofurenceTests' do
-
-end
-
-target 'eurofurenceUITests' do
-
-end
-

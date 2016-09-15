@@ -36,7 +36,7 @@ class Image: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> Image?{
+    static func getById(_ primaryKey:String) -> Image?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()

@@ -33,7 +33,7 @@ class EventConferenceDay: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> EventConferenceDay?{
+    static func getById(_ primaryKey:String) -> EventConferenceDay?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()

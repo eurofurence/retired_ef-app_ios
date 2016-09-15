@@ -42,10 +42,10 @@ class ApiManager {
         }
     }
 
-    func deleteEntityData(entityInstance:Object, _ prune:Bool = true) {
+    func deleteEntityData(_ entityInstance:Object, _ prune:Bool = true) {
         if entityInstance.respondsToSelector("setIsDeleted:") || !prune {
-            let entityType = entityInstance.dynamicType
-            dispatch_async(dispatch_get_main_queue()) {
+            let entityType = type(of: entityInstance)
+            DispatchQueue.main.async {
                 autoreleasepool {
                     do {
                         let realm = try Realm(configuration: ConfigManager.sharedInstance.config)
@@ -66,15 +66,15 @@ class ApiManager {
     }
     
     func clearCache() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             autoreleasepool {
                 let realm = try! Realm()
                 try! realm.write {
                     realm.deleteAll()
                 }
-                let defaults = NSUserDefaults.standardUserDefaults()
-                defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
-                defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
+                let defaults = UserDefaults.standard
+                defaults.removeObject(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+                defaults.removeObject(forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
                 ImageManager.sharedInstance.clearCache(){
                     (result: Bool) in
                     //print("Cache cleared")
@@ -88,28 +88,28 @@ class ApiManager {
     private func verifyRealm() {
         if Endpoint.get() == nil {
             //print("Realm verification failed! Full update from backend required!")
-            let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
-            defaults.removeObjectForKey(ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
+            let defaults = UserDefaults.standard
+            defaults.removeObject(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+            defaults.removeObject(forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
             //TODO: Clear image cache
         }
     }
     
-    func getAllFromAlert(alert: UIAlertAction) -> Void {
+    func getAllFromAlert(_ alert: UIAlertAction) -> Void {
         updateAllEntities()
     }
     
-    func updateAllEntities(forceUpdate: Bool = false, completion: ((isDataUpdated: Bool) -> Void)? = nil) {
+    func updateAllEntities(_ forceUpdate: Bool = false, completion: ((_ isDataUpdated: Bool) -> Void)? = nil) {
         // Check reachability before updating
-        if !(reachability?.isReachable() ?? false) {
+        if !(reachability?.isReachable ?? false) {
             notifyUnreachable()
-            completion != nil ? completion!(isDataUpdated: false) : ()
+            completion != nil ? completion!(false) : ()
             return
         }
         
         // Check whether we're already running an update
         if isUpdating {
-            completion != nil ? completion!(isDataUpdated: false) : ()
+            completion != nil ? completion!(false) : ()
             return
         }
         isUpdating = true
@@ -118,18 +118,18 @@ class ApiManager {
         verifyRealm()
         
         updateEntity(ConfigManager.sharedInstance.endpoint, completion: { (result:String, isSuccessful:Bool) in
-            let defaults = NSUserDefaults.standardUserDefaults()
-            let lastDatabaseUpdate = defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? NSDate
+            let defaults = UserDefaults.standard
+            let lastDatabaseUpdate = defaults.object(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? Date
             let endpoint = Endpoint.get()
-            var endpointCurrentDateTimeUtc: NSDate?
+            var endpointCurrentDateTimeUtc: Date?
             
             // We need Endpoint to be available to start with our update
             if endpoint != nil {
                 
-                endpointCurrentDateTimeUtc = endpoint!.getCurrentDateTimeUtc()
+                endpointCurrentDateTimeUtc = endpoint!.getCurrentDateTimeUtc() as Date?
                 
                 if endpointCurrentDateTimeUtc == nil {
-                    endpointCurrentDateTimeUtc = NSDate()
+                    endpointCurrentDateTimeUtc = Date()
                     //print("Failed to get endpoint time, falling back to device time (", endpointCurrentDateTimeUtc,")!")
                 } else {
                     //print("Endpoint time is", endpointCurrentDateTimeUtc!)
@@ -180,12 +180,12 @@ class ApiManager {
             if self.isUpdating && self.requestedObjects == 0 {
                 //print("Nothing to update")
                 if endpointCurrentDateTimeUtc != nil {
-                    let defaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+                    let defaults = UserDefaults.standard
+                    defaults.set(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
                 }
-                defaults.setObject(NSDate(), forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
+                defaults.set(Date(), forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
                 if completion != nil {
-                    completion!(isDataUpdated: false)
+                    completion!(false)
                 }
                 self.isUpdating = false
                 if forceUpdate {
@@ -209,15 +209,15 @@ class ApiManager {
     ///         detailed information on result as parameter
     /// - returns: `true` if update was successfully triggered (this does not
     ///     neccessarily mean that the update also completed successfully!)
-    func updateEntity(entityName: String, since: NSDate? = nil, completion: ((result: String, isSuccessful: Bool) -> Void)? = nil)->Bool {
-        let queue = dispatch_queue_create("com.cnoon.manager-response-queue", DISPATCH_QUEUE_CONCURRENT)
+    func updateEntity(_ entityName: String, since: Date? = nil, completion: ((_ result: String, _ isSuccessful: Bool) -> Void)? = nil)->Bool {
+        let queue = DispatchQueue(label: "com.cnoon.manager-response-queue", attributes: DispatchQueue.Attributes.concurrent)
         let url = ConfigManager.sharedInstance.apiBaseUrl + entityName
         
         if let entityInstance = ObjectFromString.sharedInstance.instanciate(entityName) as? Object {
             
             var parameters: [String:AnyObject] = [:]
             if since != nil {
-                parameters["since"] = NSDate.ISOStringFromDate(since!)
+                parameters["since"] = Date.ISOStringFromDate(since!)
             }
             
             //print("Requesting data for", entityName, "since", since)
@@ -234,7 +234,7 @@ class ApiManager {
                             self.deleteEntityData(entityInstance, false)
                         }
                         
-                        let entityType = entityInstance.dynamicType
+                        let entityType = type(of: entityInstance)
                         isSuccessful = true
                         dispatch_async(dispatch_get_main_queue()) {
                             autoreleasepool {
@@ -278,25 +278,25 @@ class ApiManager {
         
     }
     
-    func getLastUpdate()->NSDate? {
+    func getLastUpdate()->Date? {
         verifyRealm()
-        let defaults = NSUserDefaults.standardUserDefaults()
-        return defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? NSDate
+        let defaults = UserDefaults.standard
+        return defaults.object(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? Date
     }
     
     /// Checks whether the database has been downloaded at least once
     func isDatabaseDownloaded()->Bool {
         verifyRealm()
-        let defaults = NSUserDefaults.standardUserDefaults()
-        return defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT) != nil
+        let defaults = UserDefaults.standard
+        return defaults.object(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT) != nil
     }
     
     /// Checks whether data for given entity should be updated
-    func isEntityUpToDate(entityName: String)->Bool {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let lastDatabaseUpdate = defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? NSDate, let endpoint = Endpoint.get(), let entity = endpoint.getEntityByName(entityName), let entityLastChanged = NSDate.dateFromISOString(entity.LastChangeDateTimeUtc) {
+    func isEntityUpToDate(_ entityName: String)->Bool {
+        let defaults = UserDefaults.standard
+        if let lastDatabaseUpdate = defaults.object(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? Date, let endpoint = Endpoint.get(), let entity = endpoint.getEntityByName(entityName), let entityLastChanged = Date.dateFromISOString(entity.LastChangeDateTimeUtc) {
             
-            return entityLastChanged.compare(lastDatabaseUpdate) == NSComparisonResult.OrderedAscending
+            return entityLastChanged.compare(lastDatabaseUpdate) == ComparisonResult.orderedAscending
         }
         return false
     }
@@ -304,20 +304,20 @@ class ApiManager {
     
     /// Checks whether the current delta is sufficient for updating (`true`) or
     /// all data for the entity should be flushed for a full refresh (`false`).
-    func isEntityDeltaSufficient(entityName: String)->Bool {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let lastDatabaseUpdate = defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? NSDate, let endpoint = Endpoint.get(), let entity = endpoint.getEntityByName(entityName), let entityDeltaStart = NSDate.dateFromISOString(entity.DeltaStartDateTimeUtc) {
+    func isEntityDeltaSufficient(_ entityName: String)->Bool {
+        let defaults = UserDefaults.standard
+        if let lastDatabaseUpdate = defaults.object(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? Date, let endpoint = Endpoint.get(), let entity = endpoint.getEntityByName(entityName), let entityDeltaStart = Date.dateFromISOString(entity.DeltaStartDateTimeUtc) {
             
-            return entityDeltaStart.compare(lastDatabaseUpdate) == NSComparisonResult.OrderedAscending
+            return entityDeltaStart.compare(lastDatabaseUpdate) == ComparisonResult.orderedAscending
         }
         return false
     }
     
     func notifyUnreachable() {
-        dispatch_async(dispatch_get_main_queue()) {
-            let alert = UIAlertController(title: "Download database", message: "Unable to download database. You are currently not connected to WiFi or cellular network. You can disable automatic updates via settings.", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Download database", message: "Unable to download database. You are currently not connected to WiFi or cellular network. You can disable automatic updates via settings.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
     

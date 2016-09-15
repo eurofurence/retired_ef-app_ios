@@ -37,7 +37,7 @@ class MapEntry: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> MapEntry?{
+    static func getById(_ primaryKey:String) -> MapEntry?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
@@ -49,7 +49,7 @@ class MapEntry: Object {
         return nil
     }
     
-    static func getByMapId(mapId:String) -> Results<MapEntry>? {
+    static func getByMapId(_ mapId:String) -> Results<MapEntry>? {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
@@ -61,7 +61,7 @@ class MapEntry: Object {
         return nil
     }
     
-    static func getByTargetId(targetId:String) -> MapEntry? {
+    static func getByTargetId(_ targetId:String) -> MapEntry? {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
@@ -73,14 +73,14 @@ class MapEntry: Object {
         return nil
     }
     
-    func getAbsoluteLocationForImage(image: UIImage)->CGPoint? {
+    func getAbsoluteLocationForImage(_ image: UIImage)->CGPoint? {
         if let relativeX = Double.init(RelativeX), let relativeY = Double.init(RelativeY) {
             return CGPoint(x: CGFloat(relativeX/100) * image.size.width, y: CGFloat(relativeY/100) * image.size.height)
         }
         return nil
     }
     
-    func getAbsoluteTapRadiusForImage(image: UIImage)->CGFloat? {
+    func getAbsoluteTapRadiusForImage(_ image: UIImage)->CGFloat? {
         if let relativeTapRadius = Double.init(RelativeTapRadius) {
             return CGFloat(relativeTapRadius) * image.size.height
         }

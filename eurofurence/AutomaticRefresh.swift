@@ -9,7 +9,7 @@
 import Foundation
 
 class AutomaticRefresh {
-    var refreshTimer: NSTimer? = nil
+    var refreshTimer: Timer? = nil
     
     static let sharedInstance = AutomaticRefresh()
     
@@ -25,14 +25,14 @@ class AutomaticRefresh {
         
         let refreshTime = UserSettings<Int>.RefreshTimer.currentValue()
         if refreshTime > 0 {
-            refreshTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(refreshTime), target: self, selector: #selector(AutomaticRefresh.refreshData), userInfo: nil, repeats: true)
+            refreshTimer = Timer.scheduledTimer(timeInterval: TimeInterval(refreshTime), target: self, selector: #selector(AutomaticRefresh.refreshData), userInfo: nil, repeats: true)
         }
     }
     
     @objc func refreshData() {
-        if (ApiManager.sharedInstance.reachability?.isReachableViaWiFi() ?? false) || UserSettings<Bool>.AutomaticRefreshOnMobile.currentValue() {
+        if (ApiManager.sharedInstance.reachability?.isReachableViaWiFi ?? false) || UserSettings<Bool>.AutomaticRefreshOnMobile.currentValue() {
             ApiManager.sharedInstance.updateAllEntities(false, completion: { isDataUpdated in
-                NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadData"), object: nil)
             })
         }
     }

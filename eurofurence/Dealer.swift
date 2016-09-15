@@ -43,7 +43,7 @@ class Dealer: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> Dealer?{
+    static func getById(_ primaryKey:String) -> Dealer?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()

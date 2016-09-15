@@ -11,10 +11,10 @@ import UIKit
 class MapTutorialViewController: UIViewController {
 
     @IBOutlet weak var quitTutorialButtonDesign: UIButton!
-    @IBAction func quitTutorialButton(sender: AnyObject) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setBool(true, forKey: "appRunningForTheFirstTime")
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
+    @IBAction func quitTutorialButton(_ sender: AnyObject) {
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: "appRunningForTheFirstTime")
+        UIApplication.shared.setStatusBarHidden(false, with: .none)
         showApp()
     }
     
@@ -24,10 +24,10 @@ class MapTutorialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.quitTutorialButtonDesign.layer.borderColor = UIColor.whiteColor().CGColor
+        self.quitTutorialButtonDesign.layer.borderColor = UIColor.white.cgColor
         self.quitTutorialButtonDesign.layer.borderWidth = 1.5
         
-        self.quitTutorialButtonDesign.tintColor = UIColor.whiteColor()
+        self.quitTutorialButtonDesign.tintColor = UIColor.white
         // Do any additional setup after loading the view.
     }
 

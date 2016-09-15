@@ -21,7 +21,7 @@ class SettingsTableViewController: FormViewController {
                     UserSettings<Bool>.UpdateOnStart.setValue(row.value!)
                     row.updateCell()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.body)
             }
             <<< SwitchRow("SwitchRow") { row in      // initializer
                 row.title = "Auto-update on mobile"
@@ -30,7 +30,7 @@ class SettingsTableViewController: FormViewController {
                     UserSettings<Bool>.AutomaticRefreshOnMobile.setValue(row.value!)
                     row.updateCell()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.body)
             }
             <<< PushRow<Int>("pushRowRefreshTimer") { row in      // initializer
                 row.title = "Refresh interval"
@@ -73,7 +73,7 @@ class SettingsTableViewController: FormViewController {
                     AutomaticRefresh.sharedInstance.updateTimer()
                     row.updateCell()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.body)
             }
 
             <<< SwitchRow("switchRowNotifyOnAnnouncement") { row in      // initializer
@@ -91,7 +91,7 @@ class SettingsTableViewController: FormViewController {
                     }
                     row.updateCell()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.body)
             }
             +++ Section("Data Storage")
             <<< ButtonRow(){
@@ -99,7 +99,7 @@ class SettingsTableViewController: FormViewController {
                 }.onCellSelection { row in
                     ApiManager.sharedInstance.updateAllEntities(true, completion: nil);
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.body)
             }
             <<< ButtonRow(){
                 $0.title = "Clear database & cache"
@@ -113,7 +113,7 @@ class SettingsTableViewController: FormViewController {
             <<< LabelRow() { row in
                 row.title = "Version: " + ConfigManager.sharedInstance.appVersion
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.subheadline)
             }
             +++ Section(header:"Experimental features", footer: "Allowing the app to try refreshing in background will only consume a small amount of data. This allows us to keep you updated on the latest announcements regarding delays and other important events at the con. Please not that background refreshing may not always work and can be unreliable!")
             <<< SwitchRow("switchRowRefreshInBackground") { row in      // initializer
@@ -168,12 +168,12 @@ class SettingsTableViewController: FormViewController {
      }
      */
     
-    @IBAction func openMenu(sender: AnyObject) {
+    @IBAction func openMenu(_ sender: AnyObject) {
         showApp();
     }
     
     func showApp() {
-        let rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
+        let rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
         self.slideMenuController()?.changeMainViewController(rootVC, close: true)
     }
 }

@@ -35,7 +35,7 @@ class Map: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> Map?{
+    static func getById(_ primaryKey:String) -> Map?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
@@ -53,8 +53,8 @@ class Map: Object {
     /// - returns: true if `dateTimeUtc` is between `ValidFromDateTimeUtc` inclusive
     ///     and `ValidUntilDateTimeUtc` inclusive. If either boundary is invalid,
     ///     it will be ignored.
-    func isValidAtDateTimeUtcString(dateTimeUtcString: String)->Bool {
-        let dateTimeUtc = NSDate.dateFromISOString(dateTimeUtcString)
+    func isValidAtDateTimeUtcString(_ dateTimeUtcString: String)->Bool {
+        let dateTimeUtc = Date.dateFromISOString(dateTimeUtcString)
         
         return dateTimeUtc != nil && isValidAtDateTimeUtc(dateTimeUtc!)
     }
@@ -64,14 +64,14 @@ class Map: Object {
     /// - returns: true if `dateTimeUtc` is between `ValidFromDateTimeUtc` inclusive
     ///     and `ValidUntilDateTimeUtc` inclusive. If either boundary is invalid,
     ///     it will be ignored.
-    func isValidAtDateTimeUtc(dateTimeUtc: NSDate)->Bool {
-        let fromDate = NSDate.dateFromISOString(ValidFromDateTimeUtc)
-        let untilDate = NSDate.dateFromISOString(ValidUntilDateTimeUtc)
+    func isValidAtDateTimeUtc(_ dateTimeUtc: Date)->Bool {
+        let fromDate = Date.dateFromISOString(ValidFromDateTimeUtc)
+        let untilDate = Date.dateFromISOString(ValidUntilDateTimeUtc)
         
-        return (fromDate == nil || dateTimeUtc.compare(fromDate!) == NSComparisonResult.OrderedDescending ||
-            dateTimeUtc.compare(fromDate!) == NSComparisonResult.OrderedSame) &&
-            (untilDate == nil || dateTimeUtc.compare(untilDate!) == NSComparisonResult.OrderedAscending ||
-                dateTimeUtc.compare(untilDate!) == NSComparisonResult.OrderedSame)
+        return (fromDate == nil || dateTimeUtc.compare(fromDate!) == ComparisonResult.orderedDescending ||
+            dateTimeUtc.compare(fromDate!) == ComparisonResult.orderedSame) &&
+            (untilDate == nil || dateTimeUtc.compare(untilDate!) == ComparisonResult.orderedAscending ||
+                dateTimeUtc.compare(untilDate!) == ComparisonResult.orderedSame)
     }
     
 }

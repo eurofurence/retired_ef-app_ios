@@ -36,7 +36,7 @@ class Announcement: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> Announcement?{
+    static func getById(_ primaryKey:String) -> Announcement?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()

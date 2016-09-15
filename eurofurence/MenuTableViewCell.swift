@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class MenuTableViewCell : UITableViewCell {
+open class MenuTableViewCell : UITableViewCell {
     @IBOutlet weak var textIconImage: UIImageView!
     @IBOutlet weak var menuTextLabel: UILabel!
     
@@ -25,20 +25,20 @@ public class MenuTableViewCell : UITableViewCell {
         setup()
     }
     
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
     }
     
-    public func setup() {
+    open func setup() {
         self.menuIcon.updateValue(UIImage(named: "Settings")!, forKey: "Settings");
         self.menuIcon.updateValue(UIImage(named: "AboutUs")!, forKey: "About");
     }
     
-    public class func height() -> CGFloat {
+    open class func height() -> CGFloat {
         return 48
     }
     
-    public func setData(data: Any?) {
-        self.backgroundColor = UIColor.whiteColor();
+    open func setData(_ data: Any?) {
+        self.backgroundColor = UIColor.white;
         if let menuText = data as? String {
             if let image = menuIcon[menuText] {
                 self.textIconImage?.image = image;
@@ -50,7 +50,7 @@ public class MenuTableViewCell : UITableViewCell {
         }
     }
     
-    override public func setHighlighted(highlighted: Bool, animated: Bool) {
+    override open func setHighlighted(_ highlighted: Bool, animated: Bool) {
         if highlighted {
             self.alpha = 0.4
         } else {
@@ -59,7 +59,7 @@ public class MenuTableViewCell : UITableViewCell {
     }
     
     // ignore the default handling
-    override public func setSelected(selected: Bool, animated: Bool) {
+    override open func setSelected(_ selected: Bool, animated: Bool) {
     }
     
 }

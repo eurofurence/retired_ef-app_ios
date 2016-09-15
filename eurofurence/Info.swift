@@ -51,7 +51,7 @@ class Info: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> Info?{
+    static func getById(_ primaryKey:String) -> Info?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
@@ -63,7 +63,7 @@ class Info: Object {
         return nil
     }
     
-    static func getByGroupId(primaryKey:String) -> Results<Info>?{
+    static func getByGroupId(_ primaryKey:String) -> Results<Info>?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()

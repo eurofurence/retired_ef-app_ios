@@ -37,18 +37,18 @@ enum UserSettings<T>: String {
     }
     
     func currentValue()->T {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let value = defaults.objectForKey(self.rawValue) {
+        let defaults = UserDefaults.standard
+        if let value = defaults.object(forKey: self.rawValue) {
             return value as! T
         } else {
             return self.defaultValue()
         }
     }
     
-    func setValue(value: AnyObject)->T {
-        let defaults = NSUserDefaults.standardUserDefaults()
+    func setValue(_ value: AnyObject)->T {
+        let defaults = UserDefaults.standard
         let oldValue = self.currentValue()
-        defaults.setObject(value, forKey: self.rawValue)
+        defaults.set(value, forKey: self.rawValue)
         return oldValue
     }
 }

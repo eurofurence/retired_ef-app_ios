@@ -46,7 +46,7 @@ class EventEntry: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> EventEntry?{
+    static func getById(_ primaryKey:String) -> EventEntry?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
@@ -58,7 +58,7 @@ class EventEntry: Object {
         return nil
     }
     
-    static func getByTitle(title:String) -> Results<EventEntry>?{
+    static func getByTitle(_ title:String) -> Results<EventEntry>?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
@@ -71,7 +71,7 @@ class EventEntry: Object {
         return nil
     }
     
-    static func getByDayId(primaryKey:String) -> Results<EventEntry>?{
+    static func getByDayId(_ primaryKey:String) -> Results<EventEntry>?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
@@ -84,7 +84,7 @@ class EventEntry: Object {
         return nil
     }
     
-    static func getDayByEventId(primaryKey:String) -> EventConferenceDay?{
+    static func getDayByEventId(_ primaryKey:String) -> EventConferenceDay?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
@@ -96,7 +96,7 @@ class EventEntry: Object {
         return nil
     }
     
-    static func getByRoomId(primaryKey:String) -> Results<EventEntry>?{
+    static func getByRoomId(_ primaryKey:String) -> Results<EventEntry>?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
@@ -109,7 +109,7 @@ class EventEntry: Object {
         return nil
     }
     
-    static func getByTrackId(primaryKey:String) -> Results<EventEntry>?{
+    static func getByTrackId(_ primaryKey:String) -> Results<EventEntry>?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()

@@ -31,7 +31,7 @@ class EventConferenceRoom: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> EventConferenceRoom?{
+    static func getById(_ primaryKey:String) -> EventConferenceRoom?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()

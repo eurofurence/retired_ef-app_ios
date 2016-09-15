@@ -11,7 +11,7 @@ import Foundation
 class ObjectFromString {
     static let sharedInstance = ObjectFromString()
     
-    func instanciate(className:String) -> AnyObject?{
+    func instanciate(_ className:String) -> AnyObject?{
         switch className {
         case ConfigManager.sharedInstance.endpoint:
             if let classObject = NSClassFromString("Eurofurence." + className) as? Endpoint.Type {

@@ -55,19 +55,19 @@ class Endpoint: Object {
         return nil
     }
     
-    func getEntityByName(name: String)->Entity? {
+    func getEntityByName(_ name: String)->Entity? {
         return Entities.filter(NSPredicate(format: "Name = %@", name)).first
     }
     
-    func getEntityById(id: String)->Entity? {
+    func getEntityById(_ id: String)->Entity? {
         return Entities.filter(NSPredicate(format: "Id = %@", id)).first
     }
     
-    func getConfigurationsById(id: String)->ConfigurationValue? {
+    func getConfigurationsById(_ id: String)->ConfigurationValue? {
         return Configuration.filter(NSPredicate(format: "Id = %@", id)).first
     }
     
-    func getCurrentDateTimeUtc()->NSDate? {
-        return NSDate.dateFromISOString(CurrentDateTimeUtc)
+    func getCurrentDateTimeUtc()->Date? {
+        return Date.dateFromISOString(CurrentDateTimeUtc)
     }
 }

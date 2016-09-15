@@ -32,7 +32,7 @@ class InfoGroup: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> InfoGroup?{
+    static func getById(_ primaryKey:String) -> InfoGroup?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()

@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-public class LoadingOverlay {
+open class LoadingOverlay {
     
-    let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .Alert)
+    let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
     var activityIndicator : UIActivityIndicatorView!
     private var presented = false
     
@@ -19,39 +19,39 @@ public class LoadingOverlay {
     
     init() {
         activityIndicator = UIActivityIndicatorView()
-        alert.view.tintColor = UIColor.blackColor()
-        activityIndicator = UIActivityIndicatorView(frame: CGRectMake(10, 5, 50, 50)) as UIActivityIndicatorView
+        alert.view.tintColor = UIColor.black
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         
         alert.view.addSubview(self.activityIndicator)
     }
     
-    public func isPresented()->Bool {
+    open func isPresented()->Bool {
         return presented
     }
     
-    public func showOverlay() {
-        dispatch_async(dispatch_get_main_queue()) {
+    open func showOverlay() {
+        DispatchQueue.main.async {
             if !self.presented {
                 self.presented = true
-                UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(self.alert, animated: true, completion: nil)
+                UIApplication.shared.keyWindow?.rootViewController?.present(self.alert, animated: true, completion: nil)
                 self.activityIndicator.startAnimating()
             }
         }
     }
     
-    public func hideOverlay() {
-        dispatch_async(dispatch_get_main_queue()) {
+    open func hideOverlay() {
+        DispatchQueue.main.async {
             if self.presented {
                 self.activityIndicator.stopAnimating()
-                UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(false, completion: nil)
+                UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
                 self.presented = false
             }
         }
     }
     
-    public func changeMessage(message: String) {
+    open func changeMessage(_ message: String) {
         alert.message = message;
     }
 }

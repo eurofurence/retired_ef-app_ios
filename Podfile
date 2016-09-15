@@ -1,17 +1,17 @@
 # Uncomment this line to define a global platform for your project
- platform :ios, '8.0'
+ platform :ios, '9.0'
 # Uncomment this line if you're using Swift
 use_frameworks!
 
 target 'eurofurence' do
-pod 'SlideMenuControllerSwift'
+pod 'SlideMenuControllerSwift', '~> 3.0'
 pod 'ReachabilitySwift', :git => 'https://github.com/ashleymills/Reachability.swift'
-pod 'RealmSwift'
-pod 'Alamofire', '~> 3.0'
-pod 'AlamofireImage', '~> 2.0'
-pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+pod 'RealmSwift', :git => 'https://github.com/realm/realm-cocoa.git', :commit => '216333cf82e1afcba5e6c4547e6fb983165d510f', submodules: true
+pod 'Alamofire', '~> 4.0'
+pod 'AlamofireImage', '~> 3.0'
+pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git', :branch => 'swift3'
 pod 'Fabric'
 pod 'Crashlytics'
-pod 'Eureka', '~> 1.7'
+pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'Swift3', :commit => 'c6230f61f2c718ecdfd270ca163f4766fa47bbe9'
 end
 

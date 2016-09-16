@@ -45,7 +45,7 @@ enum UserSettings<T>: String {
         }
     }
     
-    func setValue(_ value: AnyObject)->T {
+    func setValue(_ value: T)->T {
         let defaults = UserDefaults.standard
         let oldValue = self.currentValue()
         defaults.set(value, forKey: self.rawValue)

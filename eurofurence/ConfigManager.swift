@@ -30,8 +30,8 @@ class ConfigManager {
     var appPackage = ""
     let slideMenuController = SlideMenuController()
     let config = Realm.Configuration(
-        fileURL: URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0].stringByAppendingPathComponent("cache.realm")),
-        readOnly: false
+        fileURL: URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent("cache.realm")),
+        readOnly: false,
         // Set the new schema version. This must be greater than the previously used
         // version (if you've never set a schema version before, the version is 0).
         schemaVersion: 20,

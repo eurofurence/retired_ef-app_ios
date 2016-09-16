@@ -15,6 +15,7 @@
 		9ACB157B1D5F8A5D00C45B9E /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB157A1D5F8A5D00C45B9E /* UserSettings.swift */; };
 		9ACB157D1D6071C600C45B9E /* AutomaticRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB157C1D6071C600C45B9E /* AutomaticRefresh.swift */; };
 		9ACC2B921D5F6356002D9B32 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC2B911D5F6356002D9B32 /* Image.swift */; };
+		B9DE77ABD45FBE2D8868A793 /* Pods_eurofurence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C0BA8030F9B993CA4B4475 /* Pods_eurofurence.framework */; };
 		BF006C4D1CD3B299006F5871 /* InfosTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF006C4C1CD3B299006F5871 /* InfosTutorialViewController.swift */; };
 		BF00E05E1C4FEDE600F998AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E05D1C4FEDE600F998AA /* AppDelegate.swift */; };
 		BF00E0601C4FEDE600F998AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF00E05F1C4FEDE600F998AA /* ViewController.swift */; };
@@ -67,13 +68,10 @@
 		BFCD6C161C9096FC009D5C58 /* EventFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD6C151C9096FC009D5C58 /* EventFilterTableViewController.swift */; };
 		BFD220671C72832D00C98A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD220661C72832D00C98A1E /* MapViewController.swift */; };
 		BFEC72AD1C8A04C800A0E6BB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC72AC1C8A04C800A0E6BB /* InfoViewController.swift */; };
-		C28F827231C3EB057A34314E /* Pods_eurofurence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CFC2DB2FA5D99A392D63C42 /* Pods_eurofurence.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1206B4773260CCB513B34987 /* Pods-eurofurenceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurenceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurenceTests/Pods-eurofurenceTests.release.xcconfig"; sourceTree = "<group>"; };
-		6013F5D4DF31249BF5695C45 /* Pods-eurofurence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.release.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.release.xcconfig"; sourceTree = "<group>"; };
-		6CFC2DB2FA5D99A392D63C42 /* Pods_eurofurence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eurofurence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		24992258A8A074888D8044CE /* Pods-eurofurence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.debug.xcconfig"; sourceTree = "<group>"; };
 		9A35AEEB1D58FC1800ECFD0F /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
 		9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryAlpha3Converter.swift; sourceTree = "<group>"; };
 		9A458BC01D56A29100CA9C49 /* MapEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapEntry.swift; sourceTree = "<group>"; };
@@ -82,8 +80,6 @@
 		9ACB157A1D5F8A5D00C45B9E /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		9ACB157C1D6071C600C45B9E /* AutomaticRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticRefresh.swift; sourceTree = "<group>"; };
 		9ACC2B911D5F6356002D9B32 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		9DFD711C9ED321B53A5926DC /* Pods-eurofurence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.debug.xcconfig"; sourceTree = "<group>"; };
-		A9955C470F64F09FBBA9E208 /* Pods_eurofurenceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eurofurenceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF006C4C1CD3B299006F5871 /* InfosTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfosTutorialViewController.swift; sourceTree = "<group>"; };
 		BF00E05A1C4FEDE600F998AA /* Eurofurence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eurofurence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF00E05D1C4FEDE600F998AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -142,10 +138,8 @@
 		BFCD6C151C9096FC009D5C58 /* EventFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventFilterTableViewController.swift; sourceTree = "<group>"; };
 		BFD220661C72832D00C98A1E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		BFEC72AC1C8A04C800A0E6BB /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		C26227DB194EE55A488E8350 /* Pods-eurofurenceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurenceUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurenceUITests/Pods-eurofurenceUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		CC7C24A9EBE5008467B65152 /* Pods-eurofurenceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurenceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurenceTests/Pods-eurofurenceTests.debug.xcconfig"; sourceTree = "<group>"; };
-		DF9A0C1DE5F356BB3DE89DB4 /* Pods_eurofurenceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eurofurenceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E79D31F1737C950367959110 /* Pods-eurofurenceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurenceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurenceUITests/Pods-eurofurenceUITests.release.xcconfig"; sourceTree = "<group>"; };
+		CDBF13FCC0B29B5C044F499B /* Pods-eurofurence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.release.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.release.xcconfig"; sourceTree = "<group>"; };
+		D4C0BA8030F9B993CA4B4475 /* Pods_eurofurence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eurofurence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,32 +147,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C28F827231C3EB057A34314E /* Pods_eurofurence.framework in Frameworks */,
+				B9DE77ABD45FBE2D8868A793 /* Pods_eurofurence.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		264EAF7FD4E9B804552A5A2D /* Pods */ = {
+		22237D9300FFC4996F13A5D2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9DFD711C9ED321B53A5926DC /* Pods-eurofurence.debug.xcconfig */,
-				6013F5D4DF31249BF5695C45 /* Pods-eurofurence.release.xcconfig */,
-				CC7C24A9EBE5008467B65152 /* Pods-eurofurenceTests.debug.xcconfig */,
-				1206B4773260CCB513B34987 /* Pods-eurofurenceTests.release.xcconfig */,
-				C26227DB194EE55A488E8350 /* Pods-eurofurenceUITests.debug.xcconfig */,
-				E79D31F1737C950367959110 /* Pods-eurofurenceUITests.release.xcconfig */,
+				24992258A8A074888D8044CE /* Pods-eurofurence.debug.xcconfig */,
+				CDBF13FCC0B29B5C044F499B /* Pods-eurofurence.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		BAAD11A89992ED29BB446650 /* Frameworks */ = {
+		8A1A80FBD7B597046F1D899E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6CFC2DB2FA5D99A392D63C42 /* Pods_eurofurence.framework */,
-				DF9A0C1DE5F356BB3DE89DB4 /* Pods_eurofurenceTests.framework */,
-				A9955C470F64F09FBBA9E208 /* Pods_eurofurenceUITests.framework */,
+				D4C0BA8030F9B993CA4B4475 /* Pods_eurofurence.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -191,8 +179,8 @@
 				BF00E0711C4FEDE700F998AA /* eurofurenceTests */,
 				BF00E07C1C4FEDE700F998AA /* eurofurenceUITests */,
 				BF00E05B1C4FEDE600F998AA /* Products */,
-				264EAF7FD4E9B804552A5A2D /* Pods */,
-				BAAD11A89992ED29BB446650 /* Frameworks */,
+				22237D9300FFC4996F13A5D2 /* Pods */,
+				8A1A80FBD7B597046F1D899E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -392,14 +380,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF00E0821C4FEDE700F998AA /* Build configuration list for PBXNativeTarget "eurofurence" */;
 			buildPhases = (
-				6D507ABE44896470EADB3461 /* [CP] Check Pods Manifest.lock */,
+				3C1AEAF652F437B3CC568809 /* [CP] Check Pods Manifest.lock */,
 				BF00E0561C4FEDE600F998AA /* Sources */,
 				BF00E0571C4FEDE600F998AA /* Frameworks */,
 				BFB2FB201D0ABD7800A5CF44 /* ShellScript */,
 				BF00E0581C4FEDE600F998AA /* Resources */,
 				BF7EAE1B1C74A91500A3F7D2 /* ShellScript */,
-				5E618AB929A55897FA5706E2 /* [CP] Embed Pods Frameworks */,
-				B835C410307703CA640082B9 /* [CP] Copy Pods Resources */,
+				5866858CF9905657245A7DAF /* [CP] Embed Pods Frameworks */,
+				5B51189C568E89689346A9E4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -467,7 +455,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5E618AB929A55897FA5706E2 /* [CP] Embed Pods Frameworks */ = {
+		3C1AEAF652F437B3CC568809 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5866858CF9905657245A7DAF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -482,22 +485,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6D507ABE44896470EADB3461 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B835C410307703CA640082B9 /* [CP] Copy Pods Resources */ = {
+		5B51189C568E89689346A9E4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -665,6 +653,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -702,6 +691,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -709,7 +699,7 @@
 		};
 		BF00E0831C4FEDE700F998AA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DFD711C9ED321B53A5926DC /* Pods-eurofurence.debug.xcconfig */;
+			baseConfigurationReference = 24992258A8A074888D8044CE /* Pods-eurofurence.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -726,7 +716,7 @@
 		};
 		BF00E0841C4FEDE700F998AA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6013F5D4DF31249BF5695C45 /* Pods-eurofurence.release.xcconfig */;
+			baseConfigurationReference = CDBF13FCC0B29B5C044F499B /* Pods-eurofurence.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

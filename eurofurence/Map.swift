@@ -27,7 +27,7 @@ class Map: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let maps = realm.objects(Map).sorted("Id")
+            let maps = realm.objects(Map.self).sorted(byProperty: "Id")
             return maps
         } catch let error as NSError {
             print(error)
@@ -39,7 +39,7 @@ class Map: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let map = realm.objectForPrimaryKey(Map.self, key: primaryKey)
+            let map = realm.object(ofType: Map.self, forPrimaryKey: primaryKey)
             return map
         } catch let error as NSError {
             print(error)

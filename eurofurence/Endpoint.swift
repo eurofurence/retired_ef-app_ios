@@ -47,7 +47,7 @@ class Endpoint: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let endpoint = realm.objects(Endpoint)
+            let endpoint = realm.objects(Endpoint.self)
             return endpoint.first
         } catch let error as NSError {
             print(error)

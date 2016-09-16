@@ -38,7 +38,7 @@ class EventEntry: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let eventEntry = realm.objects(EventEntry)
+            let eventEntry = realm.objects(EventEntry.self)
             return eventEntry
         } catch let error as NSError {
             print(error)
@@ -50,7 +50,7 @@ class EventEntry: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let eventEntry = realm.objectForPrimaryKey(EventEntry.self, key: primaryKey)
+            let eventEntry = realm.object(ofType: EventEntry.self, forPrimaryKey: primaryKey)
             return eventEntry
         } catch let error as NSError {
             print(error)
@@ -63,7 +63,7 @@ class EventEntry: Object {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let predicate = NSPredicate(format: "Title CONTAINS[c] %@", title)
-            let eventEntry = realm.objects(EventEntry).filter(predicate)
+            let eventEntry = realm.objects(EventEntry.self).filter(predicate)
             return eventEntry
         } catch let error as NSError {
             print(error)
@@ -76,7 +76,7 @@ class EventEntry: Object {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let predicate = NSPredicate(format: "ConferenceDayId = %@", primaryKey)
-            let eventEntry = realm.objects(EventEntry).filter(predicate).sorted("StartTime")
+            let eventEntry = realm.objects(EventEntry.self).filter(predicate).sorted(byProperty: "StartTime")
             return eventEntry
         } catch let error as NSError {
             print(error)
@@ -88,7 +88,7 @@ class EventEntry: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let eventConferenceDay = realm.objectForPrimaryKey(EventConferenceDay.self, key: primaryKey)
+            let eventConferenceDay = realm.object(ofType: EventConferenceDay.self, forPrimaryKey: primaryKey)
             return eventConferenceDay
         } catch let error as NSError {
             print(error)
@@ -101,7 +101,7 @@ class EventEntry: Object {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let predicate = NSPredicate(format: "ConferenceRoomId = %@", primaryKey)
-            let eventEntry = realm.objects(EventEntry).filter(predicate)
+            let eventEntry = realm.objects(EventEntry.self).filter(predicate)
             return eventEntry
         } catch let error as NSError {
             print(error)
@@ -114,7 +114,7 @@ class EventEntry: Object {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let predicate = NSPredicate(format: "ConferenceTrackId = %@", primaryKey)
-            let eventEntry = realm.objects(EventEntry).filter(predicate)
+            let eventEntry = realm.objects(EventEntry.self).filter(predicate)
             return eventEntry
         } catch let error as NSError {
             print(error)

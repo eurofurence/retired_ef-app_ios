@@ -23,7 +23,7 @@ class EventConferenceTrack: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let eventConferenceTrack = realm.objects(EventConferenceTrack).sorted("Name")
+            let eventConferenceTrack = realm.objects(EventConferenceTrack.self).sorted(byProperty: "Name")
             return eventConferenceTrack
         } catch let error as NSError {
             print(error)
@@ -35,7 +35,7 @@ class EventConferenceTrack: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let eventConferenceTrack = realm.objectForPrimaryKey(EventConferenceTrack.self, key: primaryKey)
+            let eventConferenceTrack = realm.object(ofType: EventConferenceTrack.self, forPrimaryKey: primaryKey)
             return eventConferenceTrack
         } catch let error as NSError {
             print(error)

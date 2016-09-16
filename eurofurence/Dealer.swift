@@ -35,7 +35,7 @@ class Dealer: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let dealer = realm.objects(Dealer).sorted("AttendeeNickname")
+            let dealer = realm.objects(Dealer.self).sorted(byProperty: "AttendeeNickname")
             return dealer
         } catch let error as NSError {
             print(error)
@@ -47,7 +47,7 @@ class Dealer: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let dealer = realm.objectForPrimaryKey(Dealer.self, key: primaryKey)
+            let dealer = realm.object(ofType: Dealer.self, forPrimaryKey: primaryKey)
             return dealer
         } catch let error as NSError {
             print(error)

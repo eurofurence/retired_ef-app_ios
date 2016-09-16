@@ -28,7 +28,7 @@ class Image: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let image = realm.objects(Image)
+            let image = realm.objects(Image.self)
             return image
         } catch let error as NSError {
             print(error)
@@ -40,7 +40,7 @@ class Image: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let image = realm.objectForPrimaryKey(Image.self, key: primaryKey)
+            let image = realm.object(ofType: Image.self, forPrimaryKey: primaryKey)
             return image
         } catch let error as NSError {
             print(error)

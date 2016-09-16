@@ -24,7 +24,7 @@ class InfoGroup: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let infoGroup = realm.objects(InfoGroup).sorted("Position")
+            let infoGroup = realm.objects(InfoGroup.self).sorted(byProperty: "Position")
             return infoGroup
         } catch let error as NSError {
             print(error)
@@ -36,7 +36,7 @@ class InfoGroup: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let infoGroup = realm.objectForPrimaryKey(InfoGroup.self, key: primaryKey)
+            let infoGroup = realm.object(ofType: InfoGroup.self, forPrimaryKey: primaryKey)
             return infoGroup
         } catch let error as NSError {
             print(error)

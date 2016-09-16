@@ -88,10 +88,6 @@
 		BF00E0641C4FEDE700F998AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF00E0671C4FEDE700F998AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF00E0691C4FEDE700F998AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF00E0721C4FEDE700F998AA /* eurofurenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eurofurenceTests.swift; sourceTree = "<group>"; };
-		BF00E0741C4FEDE700F998AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF00E07D1C4FEDE700F998AA /* eurofurenceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eurofurenceUITests.swift; sourceTree = "<group>"; };
-		BF00E07F1C4FEDE700F998AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF1530911C73C0AA0085DF4C /* InfoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewController.swift; sourceTree = "<group>"; };
 		BF1530931C73C0D40085DF4C /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF230AD21D4F6EBD00F7E472 /* EventHeaderCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHeaderCellTableViewCell.swift; sourceTree = "<group>"; };
@@ -176,8 +172,6 @@
 			children = (
 				BFC3A42D1D58DB8700C58A18 /* Default-568h@2x.png */,
 				BF00E05C1C4FEDE600F998AA /* eurofurence */,
-				BF00E0711C4FEDE700F998AA /* eurofurenceTests */,
-				BF00E07C1C4FEDE700F998AA /* eurofurenceUITests */,
 				BF00E05B1C4FEDE600F998AA /* Products */,
 				22237D9300FFC4996F13A5D2 /* Pods */,
 				8A1A80FBD7B597046F1D899E /* Frameworks */,
@@ -205,24 +199,6 @@
 				BF00E0691C4FEDE700F998AA /* Info.plist */,
 			);
 			path = eurofurence;
-			sourceTree = "<group>";
-		};
-		BF00E0711C4FEDE700F998AA /* eurofurenceTests */ = {
-			isa = PBXGroup;
-			children = (
-				BF00E0721C4FEDE700F998AA /* eurofurenceTests.swift */,
-				BF00E0741C4FEDE700F998AA /* Info.plist */,
-			);
-			path = eurofurenceTests;
-			sourceTree = "<group>";
-		};
-		BF00E07C1C4FEDE700F998AA /* eurofurenceUITests */ = {
-			isa = PBXGroup;
-			children = (
-				BF00E07D1C4FEDE700F998AA /* eurofurenceUITests.swift */,
-				BF00E07F1C4FEDE700F998AA /* Info.plist */,
-			);
-			path = eurofurenceUITests;
 			sourceTree = "<group>";
 		};
 		BF37FFB21D144A3200F25791 /* Dealer */ = {
@@ -705,7 +681,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				INFOPLIST_FILE = eurofurence/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.eurofurence;
 				PRODUCT_NAME = Eurofurence;
@@ -721,7 +697,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = eurofurence/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.eurofurence;
 				PRODUCT_NAME = Eurofurence;

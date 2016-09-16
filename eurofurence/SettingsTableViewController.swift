@@ -21,7 +21,7 @@ class SettingsTableViewController: FormViewController {
                     UserSettings<Bool>.UpdateOnStart.setValue(row.value!)
                     row.updateCell()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.body)
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             }
             <<< SwitchRow("SwitchRow") { row in      // initializer
                 row.title = "Auto-update on mobile"
@@ -30,7 +30,7 @@ class SettingsTableViewController: FormViewController {
                     UserSettings<Bool>.AutomaticRefreshOnMobile.setValue(row.value!)
                     row.updateCell()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.body)
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             }
             <<< PushRow<Int>("pushRowRefreshTimer") { row in      // initializer
                 row.title = "Refresh interval"
@@ -38,11 +38,11 @@ class SettingsTableViewController: FormViewController {
                 row.displayValueFor = { value in
                     var minutes = -1
                     
-                    if let _ = value {
-                     minutes = Int(value!/60)
-                    }
-                    if value <= 0 {
-                        return "Never"
+                    if let value = value {
+                        minutes = Int(value/60)
+                        if value <= 0 {
+                            return "Never"
+                        }
                     }
                     if minutes == 1 {
                         return "every 1 minute"
@@ -66,21 +66,22 @@ class SettingsTableViewController: FormViewController {
                     }
                     UserSettings<Int>.RefreshTimer.setValue(refreshSeconds)
                     if refreshSeconds > 0 && UserSettings<Bool>.RefreshInBackground.currentValue() {
-                        UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+                        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
                     } else {
-                        UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalNever)
+                        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalNever)
                     }
                     AutomaticRefresh.sharedInstance.updateTimer()
                     row.updateCell()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.body)
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             }
 
             <<< SwitchRow("switchRowNotifyOnAnnouncement") { row in      // initializer
                 row.title = "Notify on new announcements"
                 row.value = UserSettings<Bool>.NotifyOnAnnouncement.currentValue()
-                row.hidden = Condition.Function(["pushRowRefreshTimer"], { form in
-                    return ((form.rowByTag("pushRowRefreshTimer") as? PushRow<Int>)?.value <= 0)
+                row.hidden = Condition.function(["pushRowRefreshTimer"], { form in
+                    let value = (form.rowByTag("pushRowRefreshTimer") as? PushRow<Int>)?.value
+                    return (value != nil) && value! <= 0
                 })
                 }.onChange { row in
                     if let value = row.value {
@@ -91,7 +92,7 @@ class SettingsTableViewController: FormViewController {
                     }
                     row.updateCell()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.body)
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             }
             +++ Section("Data Storage")
             <<< ButtonRow(){
@@ -99,21 +100,21 @@ class SettingsTableViewController: FormViewController {
                 }.onCellSelection { row in
                     ApiManager.sharedInstance.updateAllEntities(true, completion: nil);
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.body)
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             }
             <<< ButtonRow(){
                 $0.title = "Clear database & cache"
                 }.onCellSelection { row in
                     ApiManager.sharedInstance.clearCache()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-                    cell.textLabel?.textColor = UIColor.redColor()
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+                    cell.textLabel?.textColor = UIColor.red
             }
             +++ Section("Other")
             <<< LabelRow() { row in
                 row.title = "Version: " + ConfigManager.sharedInstance.appVersion
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyle.subheadline)
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
             }
             +++ Section(header:"Experimental features", footer: "Allowing the app to try refreshing in background will only consume a small amount of data. This allows us to keep you updated on the latest announcements regarding delays and other important events at the con. Please not that background refreshing may not always work and can be unreliable!")
             <<< SwitchRow("switchRowRefreshInBackground") { row in      // initializer
@@ -123,9 +124,9 @@ class SettingsTableViewController: FormViewController {
                     if let value = row.value {
                         UserSettings<Bool>.RefreshInBackground.setValue(row.value!)
                         if row.value! {
-                            UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+                            UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
                         } else {
-                            UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalNever)
+                            UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalNever)
                         }
                         if value {
                             (self.form.rowByTag("switchRowNotifyOnAnnouncement") as? SwitchRow)?.value = true
@@ -133,21 +134,21 @@ class SettingsTableViewController: FormViewController {
                     }
                     row.updateCell()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-                    cell.backgroundColor = UIColor.lightTextColor()
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
+                    cell.backgroundColor = UIColor.lightText
             }
             <<< SwitchRow("switchRowRefreshInBackgroundOnMobile") { row in      // initializer
                 row.title = "Background refresh on mobile"
                 row.value = UserSettings<Bool>.RefreshInBackgroundOnMobile.currentValue()
-                row.hidden = Condition.Function(["pushRowRefreshTimer", "switchRowRefreshInBackground"], { form in
+                row.hidden = Condition.function(["pushRowRefreshTimer", "switchRowRefreshInBackground"], { form in
                     return !((form.rowByTag("switchRowNotifyOnAnnouncement") as? SwitchRow)?.value ?? true) || !((form.rowByTag("switchRowRefreshInBackground") as? SwitchRow)?.value ?? true)
                 })
                 }.onChange { row in
                     UserSettings<Bool>.RefreshInBackgroundOnMobile.setValue(row.value!)
                     row.updateCell()
                 }.cellUpdate { cell, row in
-                    cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-                    cell.backgroundColor = UIColor.lightTextColor()
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
+                    cell.backgroundColor = UIColor.lightText
         }
         // Do any additional setup after loading the view.
     }

@@ -46,7 +46,7 @@ class ImageManager {
                         if LoadingOverlay.sharedInstance.isPresented() {
                             LoadingOverlay.sharedInstance.changeMessage("Caching images\n(\(self.doneCachingCount)/\(self.toCacheCount))")
                         }
-                        dispatch_group_leave(self.dispatchGroup)
+                        self.dispatchGroup.leave()
                     };
                 }
             }
@@ -98,7 +98,7 @@ class ImageManager {
                 for image in images {
                     var hasChanged = true
                     
-                    if let imageUpdate = NSDate.dateFromISOString(image.LastChangeDateTimeUtc), let lastDatabaseUpdate = lastDatabaseUpdate as? NSDate , imageUpdate.compare(lastDatabaseUpdate) == NSComparisonResult.OrderedAscending {
+                    if let imageUpdate = Date.dateFromISOString(image.LastChangeDateTimeUtc), let lastDatabaseUpdate = lastDatabaseUpdate as? Date , imageUpdate.compare(lastDatabaseUpdate) == ComparisonResult.orderedAscending {
                         
                         hasChanged = false
                     }
@@ -158,11 +158,9 @@ class ImageManager {
     }
     
     //Avoid file to be saved by iCloud
-    func addSkipBackupAttributeToItemAtURL(_ filePath:String) -> Bool
-    {
-        let url:Foundation.URL = URL(fileURLWithPath: filePath)
+    func addSkipBackupAttributeToItemAtURL(_ url:URL) -> Bool {
         
-        assert(FileManager.default.fileExists(atPath: filePath), "File \(filePath) does not exist")
+        assert(FileManager.default.fileExists(atPath: url.absoluteString), "File \(url) does not exist")
         
         var success: Bool
         do {
@@ -178,7 +176,7 @@ class ImageManager {
     
     /// Attempts to retrieve and cache an image with given `imageID`, calling
     /// `completion` with the result of this operation once done.
-    func cacheImage(_ imageId : String, completion: (_ image: UIImage?) -> Void) {
+    func cacheImage(_ imageId : String, completion: @escaping (_ image: UIImage?) -> Void) {
         // in case of a cache hit, completion must be called manually
         if isCached(imageId) {
             retrieveFromCache(imageId, completion: completion)
@@ -187,28 +185,29 @@ class ImageManager {
         
         if let image = Image.getById(imageId), let imageUrl = URL(string: image.Url.replacingOccurrences(of: "{Endpoint}", with: ConfigManager.sharedInstance.apiBaseUrl)) {
             
-            let URLRequest = Foundation.URLRequest(url: imageUrl)
-            let receipt = self.downloader.downloadImage(URLRequest: URLRequest) { response in
+            let urlRequest = Foundation.URLRequest(url: imageUrl)
+            let receipt = self.downloader.download(urlRequest, completion: { response in
                 if let image = response.result.value, let imageData = UIImageJPEGRepresentation(image,  1.0) {
-                    let imagePath = self.getPathForId(imageId)
+                    let imagePath = Foundation.URL(fileURLWithPath: self.getPathForId(imageId))
                     //print("Downloaded image", imageId)
-                    if imageData.writeToFile(imagePath, atomically: false) {
+                    do {
+                        try imageData.write(to: imagePath)
                         self.addSkipBackupAttributeToItemAtURL(imagePath);
-                        completion(image: image)
+                        completion(image)
                         return
-                    } else {
+                    } catch {
                         print("Error with imageData on image caching manager")
                     }
                 }
-                completion(image: nil)
-            }
+                completion(nil)
+            })
             
             // in case of a downloader cache hit, completion must be called manually
             if receipt == nil {
                 //print("Image already in downloader cache", imageId)
             }
         } else {
-            completion(image: nil)
+            completion(nil)
         }
     }
     
@@ -218,7 +217,7 @@ class ImageManager {
     func retrieveFromCache(_ imageId: String, imagePlaceholder: UIImage? = nil, completion: ((_ image: UIImage?) -> Void)? = nil) -> UIImage? {
         if isCached(imageId) {
             if let image = UIImage(contentsOfFile: getPathForId(imageId)) {
-                completion != nil ? completion!(image: image) : ()
+                completion != nil ? completion!(image) : ()
                 return image;
             }
         }
@@ -229,7 +228,7 @@ class ImageManager {
                 cacheImage(imageId, completion: completion!)
             }
         }
-        completion != nil ? completion!(image: imagePlaceholder) : ()
+        completion != nil ? completion!(imagePlaceholder) : ()
         return imagePlaceholder
     }
     

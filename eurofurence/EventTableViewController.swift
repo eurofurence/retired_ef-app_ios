@@ -11,7 +11,7 @@ import RealmSwift
 
 class EventTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate  {
     let searchController = UISearchController(searchResultsController: nil)
-    var events = Results<EventEntry>?()
+    var events : Results<EventEntry>?
     var eventsDays = EventConferenceDay.getAll();
     var eventsRooms = EventConferenceRoom.getAll();
     var eventsTracks = EventConferenceTrack.getAll();
@@ -137,7 +137,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         if searchController.isActive && searchController.searchBar.text != "" {
             return self.filteredEvent.count
         }
-        var eventsInSection = Results<EventEntry>?();
+        var eventsInSection = Results<EventEntry>?(nilLiteral: ());
         switch self.searchController.searchBar.selectedScopeButtonIndex {
         case 0:
             eventsInSection =  EventEntry.getByDayId(eventsDays![section].Id)
@@ -250,8 +250,8 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         for events in  self.eventByDays {
             let eventsAsArray = Array(events)
             let searchPredicate = NSPredicate(format: "Title contains[c] %@", searchText)
-            let results = (eventsAsArray as NSArray).filteredArrayUsingPredicate(searchPredicate);
-            self.filteredEvent.appendContentsOf(results as! [EventEntry])
+            let results = (eventsAsArray as NSArray).filtered(using: searchPredicate);
+            self.filteredEvent.append(contentsOf: results as! [EventEntry])
         }
         tableView.reloadData()
     }

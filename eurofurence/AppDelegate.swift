@@ -91,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         // If we're not reachable via WiFi and the user has forbidden us to use mobile in background, do nothing.
-        if let reachability = ApiManager.sharedInstance.reachability , !(reachability.isReachableViaWiFi ?? false) && !(UserSettings<Bool>.RefreshInBackgroundOnMobile.currentValue()) {
+        if let reachability = ApiManager.sharedInstance.reachability , !reachability.isReachableViaWiFi && !(UserSettings<Bool>.RefreshInBackgroundOnMobile.currentValue()) {
             completionHandler(.failed)
             return
         }

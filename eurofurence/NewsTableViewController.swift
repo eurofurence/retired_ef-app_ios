@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class NewsTableViewController: UITableViewController {
-    var annoucements = Results<Announcement>?()
+    var annoucements : Results<Announcement>?
     var filteredAnnouncements : [Announcement] = []
     var refreshLabelTimer: Timer? = nil
     
@@ -64,21 +64,21 @@ class NewsTableViewController: UITableViewController {
         for announcement in annoucements! {
             
             let currentDate = NSDate();
-            let utcTimeZoneStr = formatter.stringFromDate(currentDate)
+            let utcTimeZoneStr = formatter.string(from: currentDate as Date)
             
             // Check whether we are currently within the announcements validity time frame
-            if let currentDateUtc = NSDate.dateFromISOString(utcTimeZoneStr),
-                let fromDate = NSDate.dateFromISOString(announcement.ValidFromDateTimeUtc),
-                let untilDate = NSDate.dateFromISOString(announcement.ValidUntilDateTimeUtc)
-                , (fromDate.compare(currentDateUtc) != NSComparisonResult.OrderedDescending && untilDate.compare(currentDateUtc) != NSComparisonResult.OrderedAscending) {
+            if let currentDateUtc = Date.dateFromISOString(utcTimeZoneStr),
+                let fromDate = Date.dateFromISOString(announcement.ValidFromDateTimeUtc),
+                let untilDate = Date.dateFromISOString(announcement.ValidUntilDateTimeUtc)
+                , (fromDate.compare(currentDateUtc) != ComparisonResult.orderedDescending && untilDate.compare(currentDateUtc) != ComparisonResult.orderedAscending) {
                 
                 self.filteredAnnouncements.append(announcement)
                 
                 // Check if we have new announcements
                 if oldAnnouncements.filter({ oldAnnouncement in
-                    if let oldAnnouncementDate = NSDate.dateFromISOString(oldAnnouncement.LastChangeDateTimeUtc),
-                        let newAnnouncementDate = NSDate.dateFromISOString(announcement.LastChangeDateTimeUtc) {
-                        return oldAnnouncement.Id == announcement.Id && oldAnnouncementDate.compare(newAnnouncementDate) != NSComparisonResult.OrderedAscending
+                    if let oldAnnouncementDate = Date.dateFromISOString(oldAnnouncement.LastChangeDateTimeUtc),
+                        let newAnnouncementDate = Date.dateFromISOString(announcement.LastChangeDateTimeUtc) {
+                        return oldAnnouncement.Id == announcement.Id && oldAnnouncementDate.compare(newAnnouncementDate) != ComparisonResult.orderedAscending
                     } else {
                         return oldAnnouncement.Id == announcement.Id
                     }
@@ -124,7 +124,7 @@ class NewsTableViewController: UITableViewController {
         let defaults = UserDefaults.standard
         let lastDatabaseUpdate = defaults.object(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? Date
         ApiManager.sharedInstance.updateEntity("Announcement", since: lastDatabaseUpdate, completion: { result, isSuccessful in
-            completion(isSuccessful: isSuccessful)
+            completion(isSuccessful)
         })
     }
 

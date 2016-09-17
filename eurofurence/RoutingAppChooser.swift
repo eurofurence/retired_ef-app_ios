@@ -84,7 +84,7 @@ class RoutingAppChooser {
         if text == nil || text!.isEmpty {
             return ""
         } else {
-            return text!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed())!
+            return text!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         }
     }
     

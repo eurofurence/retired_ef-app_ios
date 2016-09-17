@@ -34,16 +34,11 @@ class ApiManager {
     private var isUpdating = false
     
     init() {
-        do {
-            self.reachability = try Reachability.reachabilityForInternetConnection()
-        }
-        catch {
-            print("Unable to initialise Reachability")
-        }
+        self.reachability = Reachability()
     }
 
     func deleteEntityData(_ entityInstance:Object, _ prune:Bool = true) {
-        if entityInstance.respondsToSelector("setIsDeleted:") || !prune {
+        if entityInstance.responds(to: "setIsDeleted:") || !prune {
             let entityType = type(of: entityInstance)
             DispatchQueue.main.async {
                 autoreleasepool {
@@ -159,12 +154,12 @@ class ApiManager {
                                 ImageManager.sharedInstance.cacheAllImages(completion: {
                                     LoadingOverlay.sharedInstance.hideOverlay()
                                     
-                                    NSNotificationCenter.defaultCenter().postNotificationName("reloadData", object: nil)
-                                    let defaults = NSUserDefaults.standardUserDefaults()
-                                    defaults.setObject(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
-                                    defaults.setObject(NSDate(), forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+                                    let defaults = UserDefaults.standard
+                                    defaults.set(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
+                                    defaults.set(NSDate(), forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
                                     if completion != nil {
-                                        completion!(isDataUpdated: true)
+                                        completion!(true)
                                     }
                                 })
                             }
@@ -215,20 +210,21 @@ class ApiManager {
         
         if let entityInstance = ObjectFromString.sharedInstance.instanciate(entityName) as? Object {
             
-            var parameters: [String:AnyObject] = [:]
+            var parameters: Parameters = Parameters.init()
             if since != nil {
-                parameters["since"] = Date.ISOStringFromDate(since!)
+                parameters["since"] = Date.ISOStringFromDate(since!) as AnyObject?
             }
             
             //print("Requesting data for", entityName, "since", since)
-            let request = Alamofire.request(.GET, url, encoding: .JSON)
-            request.response(
+            let request = Alamofire.request(url, method: HTTPMethod.get, parameters: parameters, encoding: JSONEncoding.default)
+            
+            request.responseJSON(
                 queue: queue,
-                responseSerializer: Request.JSONResponseSerializer(options: .AllowFragments),
+                options: JSONSerialization.ReadingOptions.allowFragments,
                 completionHandler: { response in
                     var isSuccessful = false
                     switch (response.result) {
-                    case .Success:
+                    case .success:
                         // delete entity data from cache if it is too outdated for an update
                         if !self.isEntityDeltaSufficient(entityName) {
                             self.deleteEntityData(entityInstance, false)
@@ -236,7 +232,7 @@ class ApiManager {
                         
                         let entityType = type(of: entityInstance)
                         isSuccessful = true
-                        dispatch_async(dispatch_get_main_queue()) {
+                        DispatchQueue.main.async {
                             autoreleasepool {
                                 do {
                                     let realm = try Realm(configuration: ConfigManager.sharedInstance.config)
@@ -254,19 +250,19 @@ class ApiManager {
                                         }
                                     }
                                     if completion != nil {
-                                        completion!(result: response.result.debugDescription, isSuccessful: isSuccessful)
+                                        completion!(response.result.debugDescription, isSuccessful)
                                     }
                                 } catch let error as NSError {
                                     print(error)
-                                    completion!(result: response.result.debugDescription, isSuccessful: false)
+                                    completion!(response.result.debugDescription, false)
                                 }
                             }
                         }
                         break
-                    case .Failure:
+                    case .failure:
                         print("Request for", entityName, "failed!");
                         if completion != nil {
-                            completion!(result: response.result.debugDescription, isSuccessful: isSuccessful)
+                            completion!(response.result.debugDescription, isSuccessful)
                         }
                     }
                 }

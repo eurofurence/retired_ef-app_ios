@@ -23,7 +23,7 @@ class EventConferenceRoom: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let eventConferenceRoom = realm.objects(EventConferenceRoom).sorted("Name")
+            let eventConferenceRoom = realm.objects(EventConferenceRoom.self).sorted(byProperty: "Name")
             return eventConferenceRoom
         } catch let error as NSError {
             print(error)
@@ -35,7 +35,7 @@ class EventConferenceRoom: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let eventConferenceRoom = realm.objectForPrimaryKey(EventConferenceRoom.self, key: primaryKey)
+            let eventConferenceRoom = realm.object(ofType: EventConferenceRoom.self, forPrimaryKey: primaryKey as AnyObject)
             return eventConferenceRoom
         } catch let error as NSError {
             print(error)

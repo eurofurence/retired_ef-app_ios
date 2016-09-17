@@ -19,7 +19,7 @@ class MapTutorialViewController: UIViewController {
     }
     
     func showApp() {
-        ConfigManager.sharedInstance.createSliderMenu(UIApplication.sharedApplication().delegate!.window!);
+        ConfigManager.sharedInstance.createSliderMenu(UIApplication.shared.delegate!.window!);
     }
     
     override func viewDidLoad() {

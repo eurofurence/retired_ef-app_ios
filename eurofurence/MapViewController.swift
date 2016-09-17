@@ -89,7 +89,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         
         let maps = Map.getAll()
         for map in maps! {
-            if map.isValidAtDateTimeUtc(NSDate.init()) && map.ImageId != nil && map.Description != nil {
+            if map.isValidAtDateTimeUtc(NSDate.init() as Date) && map.ImageId != nil && map.Description != nil {
                 //print(map.Description, "(", map.Id, ") is currently valid, added!")
                 let mapView = UIImageView(image: MapViewController.imagePlaceholder)
                 ImageManager.sharedInstance.retrieveFromCache(map.ImageId!, imagePlaceholder: MapViewController.imagePlaceholder, completion: {
@@ -97,15 +97,15 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
                     mapView.image = image
                     mapView.sizeToFit()
                 })
-                mapView.contentMode = UIViewContentMode.ScaleAspectFit
+                mapView.contentMode = UIViewContentMode.scaleAspectFit
                 mapView.layer.cornerRadius = 11.0
                 mapView.clipsToBounds = false
-                mapView.backgroundColor = UIColor.whiteColor()
+                mapView.backgroundColor = UIColor.white
                 
                 mapViews.append(mapView)
                 mapIdToIndex[map.Id] = mapViews.count - 1
                 
-                mapSwitchControl.insertSegmentWithTitle(map.Description, atIndex: mapSwitchControl.numberOfSegments - 1, animated: false)
+                mapSwitchControl.insertSegment(withTitle: map.Description, at: mapSwitchControl.numberOfSegments - 1, animated: false)
                 
                 var cMapEntries: [MapEntry] = []
                 if let realmMapEntries = MapEntry.getByMapId(map.Id) {

@@ -10,15 +10,9 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-public func ==(lhs: Date, rhs: Date) -> Bool {
-    return lhs === rhs || lhs.compare(rhs) == .orderedSame
-}
-
 public func <(lhs: Date, rhs: Date) -> Bool {
     return lhs.compare(rhs) == .orderedAscending
 }
-
-extension Date: Comparable { }
 
 public extension Date {
     public static func ISOStringFromDate(_ date: Date) -> String {
@@ -61,7 +55,7 @@ public extension String {
     func firstCharacterUpperCase() -> String {
         let lowercaseString = self.lowercased()
         
-        return lowercaseString.replacingCharacters(in: lowercaseString.startIndex...lowercaseString.startIndex, with: String(lowercaseString[lowercaseString.startIndex]).uppercased())
+        return lowercaseString.replacingCharacters(in: lowercaseString.startIndex..<lowercaseString.index(after: lowercaseString.startIndex), with: String(lowercaseString[lowercaseString.startIndex]).uppercased())
     }
     
     static func className(_ aClass: AnyClass) -> String {

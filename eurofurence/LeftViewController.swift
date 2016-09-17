@@ -50,7 +50,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         self.versionLabel.text = "Version: " + ConfigManager.sharedInstance.appVersion;
-        super.viewDidAppear(animated)
+        super.viewWillAppear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,6 +82,12 @@ extension LeftViewController : UITableViewDelegate {
         }
         return 0
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let menu = LeftMenu(rawValue: (indexPath as NSIndexPath).item) {
+            self.changeViewController(menu)
+        }
+    }
 }
 
 extension LeftViewController : UITableViewDataSource {
@@ -102,16 +108,9 @@ extension LeftViewController : UITableViewDataSource {
         }
         return UITableViewCell()
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let menu = LeftMenu(rawValue: (indexPath as NSIndexPath).item) {
-            self.changeViewController(menu)
-        }
-    }
 }
 
 extension LeftViewController: UIScrollViewDelegate {
-    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.tableView == scrollView {

@@ -145,7 +145,7 @@ class DealerViewController: UIViewController {
             let offsetX = min(max(0.0, mapEntryLocation.x - segmentWidth / 2.0), mapImage.size.width - segmentWidth)
             let offsetY = min(max(0.0, mapEntryLocation.y - segmentHeight / 2.0), mapImage.size.height - segmentHeight)
             
-            if let croppedMap = (mapImage.CGImage).cropping(to: CGRect(x: offsetX, y: offsetY, width: segmentWidth, height: segmentHeight)) {
+            if let croppedMap = (mapImage.cgImage)?.cropping(to: CGRect(x: offsetX, y: offsetY, width: segmentWidth, height: segmentHeight)) {
             
                 // Initialise the context
                 let size = CGSize(width: segmentWidth, height: segmentHeight)
@@ -155,13 +155,13 @@ class DealerViewController: UIViewController {
                 let context = UIGraphicsGetCurrentContext()
                 
                 // Draw the map segment
-                UIImage(CGImage: croppedMap).drawInRect(CGRect(origin: CGPoint.zero, size: size))
+                UIImage(cgImage: croppedMap).draw(in: CGRect(origin: CGPoint.zero, size: size))
                 
                 context?.setStrokeColor(UIColor.red.cgColor)
                 context?.setLineWidth(2.0)
                 
                 let highlightRect = CGRect(x: mapEntryLocation.x - offsetX - tapRadius, y: mapEntryLocation.y - offsetY - tapRadius, width: tapRadius * 2, height: tapRadius * 2)
-                context.strokeEllipse(in: highlightRect)
+                context?.strokeEllipse(in: highlightRect)
                 
                 // Drawing complete, retrieve the finished image and cleanup
                 self.dealersDenMapImage.image = UIGraphicsGetImageFromCurrentImageContext()

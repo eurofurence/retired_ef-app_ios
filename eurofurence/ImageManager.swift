@@ -114,7 +114,7 @@ class ImageManager {
         self.dispatchGroup.notify(queue: DispatchQueue.main, execute: {
             // will only be executed if full caching run was performed
             self.pruneCache()
-            //print("Finished caching images.")
+            print("Finished caching images.")
             (completion != nil) ? completion!() : ()
             self.toCacheCount = 0
             self.doneCachingCount = 0
@@ -153,14 +153,14 @@ class ImageManager {
         do {
             try FileManager.default.removeItem(atPath: imagePath)
         } catch {
-            //print("Failed to delete image at", imagePath)
+            print("Failed to delete image at", imagePath)
         }
     }
     
     //Avoid file to be saved by iCloud
     func addSkipBackupAttributeToItemAtURL(_ url:URL) -> Bool {
         
-        assert(FileManager.default.fileExists(atPath: url.absoluteString), "File \(url) does not exist")
+        assert(FileManager.default.fileExists(atPath: url.path), "File \(url) does not exist")
         
         var success: Bool
         do {

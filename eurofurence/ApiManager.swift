@@ -72,7 +72,7 @@ class ApiManager {
                 defaults.removeObject(forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
                 ImageManager.sharedInstance.clearCache(){
                     (result: Bool) in
-                    //print("Cache cleared")
+                    print("Cache cleared")
                 }
             }
         }
@@ -82,7 +82,7 @@ class ApiManager {
     /// reload all data from the backend
     private func verifyRealm() {
         if Endpoint.get() == nil {
-            //print("Realm verification failed! Full update from backend required!")
+            print("Realm verification failed! Full update from backend required!")
             let defaults = UserDefaults.standard
             defaults.removeObject(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
             defaults.removeObject(forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
@@ -112,7 +112,7 @@ class ApiManager {
         LoadingOverlay.sharedInstance.showOverlay()
         verifyRealm()
         
-        updateEntity(ConfigManager.sharedInstance.endpoint, completion: { (result:String, isSuccessful:Bool) in
+        let updateInitiated = updateEntity(ConfigManager.sharedInstance.endpoint, completion: { (result:String, isSuccessful:Bool) in
             let defaults = UserDefaults.standard
             let lastDatabaseUpdate = defaults.object(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? Date
             let endpoint = Endpoint.get()
@@ -125,16 +125,16 @@ class ApiManager {
                 
                 if endpointCurrentDateTimeUtc == nil {
                     endpointCurrentDateTimeUtc = Date()
-                    //print("Failed to get endpoint time, falling back to device time (", endpointCurrentDateTimeUtc,")!")
+                    print("Failed to get endpoint time, falling back to device time (", endpointCurrentDateTimeUtc,")!")
                 } else {
-                    //print("Endpoint time is", endpointCurrentDateTimeUtc!)
+                    print("Endpoint time is", endpointCurrentDateTimeUtc!)
                 }
                 
                 for entity in endpoint!.Entities {
                     if entity.Name != ConfigManager.sharedInstance.endpoint && (forceUpdate || lastDatabaseUpdate == nil || !self.isEntityUpToDate(entity.Name)) {
                         
                         let entityName = entity.Name
-                        //print("Updating entity", entityName, "from", entity.LastChangeDateTimeUtc)
+                        print("Updating entity", entityName, "from", entity.LastChangeDateTimeUtc)
                         self.requestedObjects += 1
                         
                         if !self.updateEntity(entityName, since: lastDatabaseUpdate, completion: {
@@ -145,7 +145,7 @@ class ApiManager {
                                 if let entityInstance = ObjectFromString.sharedInstance.instanciate(entityName) as? Object {
                                     self.deleteEntityData(entityInstance)
                                 }
-                                //print("Entity", entityName, "updated successfully")
+                                print("Entity", entityName, "updated successfully")
                             } else {
                                 print("Error during update of ", entityName, ":",result)
                             }
@@ -173,7 +173,7 @@ class ApiManager {
             
             // Seems nothing was updated, so we need to clean up on our own
             if self.isUpdating && self.requestedObjects == 0 {
-                //print("Nothing to update")
+                print("Nothing to update")
                 if endpointCurrentDateTimeUtc != nil {
                     let defaults = UserDefaults.standard
                     defaults.set(endpointCurrentDateTimeUtc, forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
@@ -192,6 +192,7 @@ class ApiManager {
                 }
             }
         })
+        print("Update initiated successfully: ", updateInitiated)
     }
     
     /// Fetches current data from API endpoint `entityName` into Realm, calling
@@ -210,12 +211,15 @@ class ApiManager {
         
         if let entityInstance = ObjectFromString.sharedInstance.instanciate(entityName) as? Object {
             
-            var parameters: Parameters = Parameters.init()
+            var parameters: Parameters?
             if since != nil {
-                parameters["since"] = Date.ISOStringFromDate(since!) as AnyObject?
+                parameters = Parameters.init()
+                parameters?["since"] = Date.ISOStringFromDate(since!) as AnyObject?
+                print("Requesting data for", entityName, "since", since)
+            } else {
+                print("Requesting data for", entityName)
             }
             
-            //print("Requesting data for", entityName, "since", since)
             let request = Alamofire.request(url, method: HTTPMethod.get, parameters: parameters, encoding: JSONEncoding.default)
             
             request.responseJSON(

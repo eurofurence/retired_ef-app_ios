@@ -678,7 +678,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24992258A8A074888D8044CE /* Pods-eurofurence.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -696,7 +695,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CDBF13FCC0B29B5C044F499B /* Pods-eurofurence.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = eurofurence/Info.plist;

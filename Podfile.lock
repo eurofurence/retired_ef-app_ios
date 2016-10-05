@@ -1,17 +1,17 @@
 PODS:
-  - Alamofire (4.0.0)
-  - AlamofireImage (3.0.0):
+  - Alamofire (4.0.1)
+  - AlamofireImage (3.1.0):
     - Alamofire (~> 4.0)
-  - Crashlytics (3.8.1):
+  - Crashlytics (3.8.2):
     - Fabric (~> 1.6.3)
-  - Eureka (1.7.0)
-  - Fabric (1.6.8)
+  - Eureka (2.0.0-beta.1)
+  - Fabric (1.6.9)
   - ReachabilitySwift (3)
-  - Realm (1.0.2):
-    - Realm/Headers (= 1.0.2)
-  - Realm/Headers (1.0.2)
-  - RealmSwift (1.0.2):
-    - Realm (= 1.0.2)
+  - Realm (2.0.1):
+    - Realm/Headers (= 2.0.1)
+  - Realm/Headers (2.0.1)
+  - RealmSwift (2.0.1):
+    - Realm (= 2.0.1)
   - SlideMenuControllerSwift (3.0.0)
   - SwiftyJSON (2.3.2)
 
@@ -19,7 +19,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.0)
   - AlamofireImage (~> 3.0)
   - Crashlytics
-  - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `Swift3`)
+  - Eureka (from `https://github.com/xmartlabs/Eureka.git`)
   - Fabric
   - ReachabilitySwift (from `https://github.com/ashleymills/Reachability.swift`)
   - Realm (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
@@ -29,7 +29,6 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   Eureka:
-    :branch: Swift3
     :git: https://github.com/xmartlabs/Eureka.git
   ReachabilitySwift:
     :git: https://github.com/ashleymills/Reachability.swift
@@ -46,17 +45,17 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Eureka:
-    :commit: 2c06e130d99204ceff807c28bbb9ba96bc5b6a25
+    :commit: 07846d3ce2ac9adcfb1ad61920add96dc549b410
     :git: https://github.com/xmartlabs/Eureka.git
   ReachabilitySwift:
-    :commit: ccef76874372bbc887d32c6ff034bab9b15b2bdf
+    :commit: 47f058b5187f7ac221e86846e793ff993c0c4270
     :git: https://github.com/ashleymills/Reachability.swift
   Realm:
-    :commit: 41db543ae102fef9eef133cd4d5bb095eedec697
+    :commit: 8c5a1ff92e7de708a47253d717847882daad6f6f
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
   RealmSwift:
-    :commit: 41db543ae102fef9eef133cd4d5bb095eedec697
+    :commit: 8c5a1ff92e7de708a47253d717847882daad6f6f
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
   SwiftyJSON:
@@ -64,17 +63,17 @@ CHECKOUT OPTIONS:
     :git: https://github.com/IBM-Swift/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
-  AlamofireImage: 6594aa1139a67dcd36cde6da79ea4e5b318e60fb
-  Crashlytics: 4391d8df0b125345e9f209c5db6e7f40a6a8435d
-  Eureka: 2020d9faeef7b7e9adeb9e3d8af779e5931c1897
-  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
+  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
+  Eureka: d014adf16406745e1a78d5790ea37ed130a0a8e5
+  Fabric: bc5bec42cef4bcf1ee3ce0e218fc518e4b44dfbb
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
-  Realm: 2948cfa3a05b7acc446abc4c124d443df646c8de
-  RealmSwift: 4816c8608630a9a00bba6d726bb30b4bab6dd6bf
+  Realm: d1f6c7bc91e7e7668786ca894a10c42690365adc
+  RealmSwift: 64e00af79bdcd7d2a7a23fdc1cb3faf22b80ae4c
   SlideMenuControllerSwift: 9c0a84f9a3fba51681debd7be77617094562ebcc
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 17f0c04a6ed149f8eb1a7fe28e28c4a1624dd476
+PODFILE CHECKSUM: cf6737a4cdbb4345718df19dcd4454d0ebc1087b
 
 COCOAPODS: 1.1.0.rc.2

@@ -14,6 +14,6 @@ pod 'AlamofireImage', '~> 3.0'
 pod 'SwiftyJSON', :git => 'https://github.com/IBM-Swift/SwiftyJSON.git'
 pod 'Fabric'
 pod 'Crashlytics'
-pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'Swift3'
+pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git'
 end
 

@@ -80,14 +80,14 @@ class SettingsTableViewController: FormViewController {
                 row.title = "Notify on new announcements"
                 row.value = UserSettings<Bool>.NotifyOnAnnouncement.currentValue()
                 row.hidden = Condition.function(["pushRowRefreshTimer"], { form in
-                    let value = (form.rowByTag("pushRowRefreshTimer") as? PushRow<Int>)?.value
+                    let value = (form.rowBy(tag: "pushRowRefreshTimer") as? PushRow<Int>)?.value
                     return (value != nil) && value! <= 0
                 })
                 }.onChange { row in
                     if let value = row.value {
                         UserSettings<Bool>.NotifyOnAnnouncement.setValue(value)
                         if !value {
-                            (self.form.rowByTag("switchRowRefreshInBackground") as? SwitchRow)?.value = false
+                            (self.form.rowBy(tag: "switchRowRefreshInBackground") as? SwitchRow)?.value = false
                         }
                     }
                     row.updateCell()
@@ -129,7 +129,7 @@ class SettingsTableViewController: FormViewController {
                             UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalNever)
                         }
                         if value {
-                            (self.form.rowByTag("switchRowNotifyOnAnnouncement") as? SwitchRow)?.value = true
+                            (self.form.rowBy(tag: "switchRowNotifyOnAnnouncement") as? SwitchRow)?.value = true
                         }
                     }
                     row.updateCell()
@@ -141,7 +141,7 @@ class SettingsTableViewController: FormViewController {
                 row.title = "Background refresh on mobile"
                 row.value = UserSettings<Bool>.RefreshInBackgroundOnMobile.currentValue()
                 row.hidden = Condition.function(["pushRowRefreshTimer", "switchRowRefreshInBackground"], { form in
-                    return !((form.rowByTag("switchRowNotifyOnAnnouncement") as? SwitchRow)?.value ?? true) || !((form.rowByTag("switchRowRefreshInBackground") as? SwitchRow)?.value ?? true)
+                    return !((form.rowBy(tag: "switchRowNotifyOnAnnouncement") as? SwitchRow)?.value ?? true) || !((form.rowBy(tag: "switchRowRefreshInBackground") as? SwitchRow)?.value ?? true)
                 })
                 }.onChange { row in
                     UserSettings<Bool>.RefreshInBackgroundOnMobile.setValue(row.value!)

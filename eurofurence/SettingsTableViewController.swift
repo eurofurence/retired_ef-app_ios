@@ -116,7 +116,7 @@ class SettingsTableViewController: FormViewController {
                 }.cellUpdate { cell, row in
                     cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
             }
-            +++ Section(header:"Experimental features", footer: "Allowing the app to try refreshing in background will only consume a small amount of data. This allows us to keep you updated on the latest announcements regarding delays and other important events at the con. Please not that background refreshing may not always work and can be unreliable!")
+            +++ Section(header:"Experimental features", footer: "Allowing the app to try refreshing in background will only consume a small amount of data. This allows us to keep you updated on the latest announcements regarding delays and other important events at the con. Please note that background refreshing may not always work and can be unreliable!")
             <<< SwitchRow("switchRowRefreshInBackground") { row in      // initializer
                 row.title = "Refresh in background"
                 row.value = UserSettings<Bool>.RefreshInBackground.currentValue()

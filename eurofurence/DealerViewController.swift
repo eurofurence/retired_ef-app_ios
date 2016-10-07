@@ -110,7 +110,9 @@ class DealerViewController: UIViewController {
             self.artPreviewCaption.sizeToFit();
         } else {
             // if no image has been provided, hide the image section along with the caption
-            artPreviewImage.image = nil
+            if(self.artPreviewImage != nil) {
+                artPreviewImage.image = nil
+            }
             for subview in artPreviewImageView.subviews {
                 subview.removeFromSuperview()
             }
@@ -124,7 +126,7 @@ class DealerViewController: UIViewController {
             self.aboutArt.text = nil
             
             // if neither text nor image have been provided, hide the entire about art section
-            if artPreviewImage.image == nil {
+            if artPreviewImage == nil || artPreviewImage.image == nil {
                 aboutArtLabel.text = nil
                 aboutArtLabelTopConstraint.constant = 0
                 dealersDenLabelTopConstraint.constant = 0

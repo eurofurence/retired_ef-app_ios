@@ -28,7 +28,7 @@ class Announcement: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let announcement = realm.objects(Announcement)
+            let announcement = realm.objects(Announcement.self)
             return announcement
         } catch let error as NSError {
             print(error)
@@ -36,11 +36,11 @@ class Announcement: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> Announcement?{
+    static func getById(_ primaryKey:String) -> Announcement?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let announcement = realm.objectForPrimaryKey(Announcement.self, key: primaryKey)
+            let announcement = realm.object(ofType: Announcement.self, forPrimaryKey: primaryKey)
             return announcement
         } catch let error as NSError {
             print(error)

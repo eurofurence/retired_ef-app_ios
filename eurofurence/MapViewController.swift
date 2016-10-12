@@ -48,8 +48,8 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         singleTap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.checkMapEntries(_:)))
         mapContainerView!.addGestureRecognizer(singleTap!)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.notificationRefresh(_:)), name:"reloadData", object: nil)
-        mapSwitchControl.removeSegmentAtIndex(0, animated: false)
+        NotificationCenter.default.addObserver(self, selector: #selector(MapViewController.notificationRefresh(_:)), name:NSNotification.Name(rawValue: "reloadData"), object: nil)
+        mapSwitchControl.removeSegment(at: 0, animated: false)
         burgerMenuItem = navigationItem.leftBarButtonItem
     }
     
@@ -57,7 +57,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         return true
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         initialiseMap()
@@ -72,7 +72,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         currentMapEntry = nil
@@ -85,11 +85,11 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         mapEntries = []
         
         mapSwitchControl.removeAllSegments()
-        mapSwitchControl.insertSegmentWithTitle("Area", atIndex: 0, animated: false)
+        mapSwitchControl.insertSegment(withTitle: "Area", at: 0, animated: false)
         
         let maps = Map.getAll()
         for map in maps! {
-            if map.isValidAtDateTimeUtc(NSDate.init()) && map.ImageId != nil && map.Description != nil {
+            if map.isValidAtDateTimeUtc(NSDate.init() as Date) && map.ImageId != nil && map.Description != nil {
                 //print(map.Description, "(", map.Id, ") is currently valid, added!")
                 let mapView = UIImageView(image: MapViewController.imagePlaceholder)
                 ImageManager.sharedInstance.retrieveFromCache(map.ImageId!, imagePlaceholder: MapViewController.imagePlaceholder, completion: {
@@ -97,15 +97,15 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
                     mapView.image = image
                     mapView.sizeToFit()
                 })
-                mapView.contentMode = UIViewContentMode.ScaleAspectFit
+                mapView.contentMode = UIViewContentMode.scaleAspectFit
                 mapView.layer.cornerRadius = 11.0
                 mapView.clipsToBounds = false
-                mapView.backgroundColor = UIColor.whiteColor()
+                mapView.backgroundColor = UIColor.white
                 
                 mapViews.append(mapView)
                 mapIdToIndex[map.Id] = mapViews.count - 1
                 
-                mapSwitchControl.insertSegmentWithTitle(map.Description, atIndex: mapSwitchControl.numberOfSegments - 1, animated: false)
+                mapSwitchControl.insertSegment(withTitle: map.Description, at: mapSwitchControl.numberOfSegments - 1, animated: false)
                 
                 var cMapEntries: [MapEntry] = []
                 if let realmMapEntries = MapEntry.getByMapId(map.Id) {
@@ -120,8 +120,8 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func notificationRefresh(notification: NSNotification){
-        dispatch_async(dispatch_get_main_queue()) {
+    func notificationRefresh(_ notification: Notification){
+        DispatchQueue.main.async {
             self.initialiseMap()
         }
     }
@@ -160,7 +160,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     /// given map is already being displayed
     /// - parameters:
     ///   - mapId: id of map to be displayed (see class constants for details)
-    func switchToMap(mapId : Int, zoom: Bool = true) {
+    func switchToMap(_ mapId : Int, zoom: Bool = true) {
         mapContainerView.subviews.forEach({ $0.removeFromSuperview() })
         
         if mapId < mapViews.count {
@@ -180,9 +180,9 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    @IBAction func mapSwitchChanged(segmentedControl: UISegmentedControl) {
+    @IBAction func mapSwitchChanged(_ segmentedControl: UISegmentedControl) {
         if segmentedControl.selectedSegmentIndex == mapViews.count {
-            presentViewController(RoutingAppChooser.sharedInstance.getAlertForAddress("Estrel Hotel Berlin", house: "225", street: "Sonnenallee", zip: "12057", city: "Berlin", country: "Germany", lat: 52.473336, lon: 13.458729), animated: true, completion:nil)
+            present(RoutingAppChooser.sharedInstance.getAlertForAddress("Estrel Hotel Berlin", house: "225", street: "Sonnenallee", zip: "12057", city: "Berlin", country: "Germany", lat: 52.473336, lon: 13.458729), animated: true, completion:nil)
             segmentedControl.selectedSegmentIndex = currentMap
         } else {
             switchToMap(segmentedControl.selectedSegmentIndex)
@@ -192,10 +192,10 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func checkMapEntries(tapGesture: UITapGestureRecognizer) {
-        if let mapImageView = mapContainerView.subviews.first as? UIImageView, let mapImage = mapImageView.image where currentMap < mapEntries.count && !mapEntries[currentMap].isEmpty {
+    func checkMapEntries(_ tapGesture: UITapGestureRecognizer) {
+        if let mapImageView = mapContainerView.subviews.first as? UIImageView, let mapImage = mapImageView.image , currentMap < mapEntries.count && !mapEntries[currentMap].isEmpty {
             
-            let tapLocation = tapGesture.locationInView(mapImageView)
+            let tapLocation = tapGesture.location(in: mapImageView)
             var nearestMapEntry: MapEntry? = nil
             var nearestMapEntryDistanceSquared = CGFloat(-1.0)
             for mapEntry in mapEntries[currentMap] {
@@ -218,7 +218,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
                 switch nearestMapEntry.MarkerType {
                 case "Dealer":
                     if let dealer = Dealer.getById(nearestMapEntry.TargetId) {
-                        self.performSegueWithIdentifier("MapToDealerDetailViewSegue", sender: dealer)
+                        self.performSegue(withIdentifier: "MapToDealerDetailViewSegue", sender: dealer)
                     }
                     break
                 case "EventConferenceRoom":
@@ -241,11 +241,11 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.mapContainerView.subviews.first
     }
     
-    func zoom(tapGesture: UITapGestureRecognizer) {
+    func zoom(_ tapGesture: UITapGestureRecognizer) {
         if (mapContainerView.zoomScale < mapContainerView.maximumZoomScale) {
             mapContainerView.setZoomScale(mapContainerView.zoomScale + mapContainerView.maximumZoomScale /  CGFloat(MapViewController.ZOOM_STEPS), animated: true)
         } else {
@@ -253,7 +253,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func computeZoomFactor(target: CGRect, container: CGRect)->CGFloat {
+    func computeZoomFactor(_ target: CGRect, container: CGRect)->CGFloat {
         let deltaWidth = abs(target.width - container.width)
         let deltaHeight = abs(target.height - container.height)
         
@@ -267,14 +267,14 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func adjustZoomToFit(rect: CGRect? = nil, animated: Bool = false) {
+    func adjustZoomToFit(_ rect: CGRect? = nil, animated: Bool = false) {
         
         var targetRect: CGRect!
         var zoomFactor: CGFloat!
         
         let imageView = mapContainerView.subviews.first as! UIImageView
         let imageSize = imageView.image!.size
-        let imageRect = CGRect(origin: CGPointZero,size: imageSize)
+        let imageRect = CGRect(origin: CGPoint.zero,size: imageSize)
         zoomFactor = CGFloat(min(1.0, computeZoomFactor(imageRect, container: mapContainerView.bounds)))
         mapContainerView.minimumZoomScale = zoomFactor * MapViewController.MIN_ZOOM_SCALE_FACTOR
         
@@ -316,16 +316,16 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     }
      */
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MapToDealerDetailViewSegue" {
-            if let destinationVC = segue.destinationViewController as? DealerViewController, let dealer = sender as? Dealer {
+            if let destinationVC = segue.destination as? DealerViewController, let dealer = sender as? Dealer {
                 destinationVC.dealer = dealer
             }
         }
     }
     
     
-    @IBAction func openMenu(sender: AnyObject) {
+    @IBAction func openMenu(_ sender: AnyObject) {
         if let _ = self.slideMenuController() {
             self.slideMenuController()?.openLeft()
         }

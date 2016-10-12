@@ -41,7 +41,7 @@ class DealerViewController: UIViewController {
         // add jump to map on single tap on map segment
         singleTap = UITapGestureRecognizer(target: self, action: #selector(DealerViewController.showOnMap(_:)))
         dealersDenMapImage!.addGestureRecognizer(singleTap!)
-        dealersDenMapImage!.userInteractionEnabled = true
+        dealersDenMapImage!.isUserInteractionEnabled = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,16 +49,16 @@ class DealerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func willMoveToParentViewController(parent: UIViewController?) {
-        super.willMoveToParentViewController(parent)
+    override func willMove(toParentViewController parent: UIViewController?) {
+        super.willMove(toParentViewController: parent)
         if parent == nil {
-            self.tabBarController?.tabBar.hidden = false
+            self.tabBarController?.tabBar.isHidden = false
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.tabBarController?.tabBar.hidden = true
-        let newlineChars = NSCharacterSet.newlineCharacterSet()
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+        let newlineChars = CharacterSet.newlines
         
         if let  artistImageId = self.dealer.ArtistImageId {
             self.artistImage.image = ImageManager.sharedInstance.retrieveFromCache(artistImageId, imagePlaceholder: UIImage(named: "defaultAvatarBig"))
@@ -67,7 +67,7 @@ class DealerViewController: UIViewController {
             self.artistImage.image = UIImage(named: "defaultAvatarBig")!;
         }
         
-        if let dealerDisplayName = self.dealer.DisplayName where !dealerDisplayName.isEmpty {
+        if let dealerDisplayName = self.dealer.DisplayName , !dealerDisplayName.isEmpty {
             self.displayName.text = self.dealer.DisplayName
             self.attendeeNickname.text = self.dealer.AttendeeNickname
         } else {
@@ -75,8 +75,8 @@ class DealerViewController: UIViewController {
             self.attendeeNickname.text = nil
         }
         
-        let shortDescription = self.dealer.ShortDescription!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
-        let finalStringShortDescription = shortDescription.joinWithSeparator("\n");
+        let shortDescription = self.dealer.ShortDescription!.utf16.split { newlineChars.contains(UnicodeScalar($0)!) }.flatMap(String.init)
+        let finalStringShortDescription = shortDescription.joined(separator: "\n");
         if (finalStringShortDescription == "") {
             self.artistShortDescription.text = nil
         }
@@ -85,8 +85,8 @@ class DealerViewController: UIViewController {
         }
         self.artistShortDescription.sizeToFit();
         
-        let aboutArtist = self.dealer.AboutTheArtistText!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
-        let finalStringAboutArtist = aboutArtist.joinWithSeparator("\n");
+        let aboutArtist = self.dealer.AboutTheArtistText!.utf16.split { newlineChars.contains(UnicodeScalar($0)!) }.flatMap(String.init)
+        let finalStringAboutArtist = aboutArtist.joined(separator: "\n");
         if (finalStringAboutArtist == "") {
             self.aboutArtist.text = "The artist did not provide any information about themselves to be shown here."
         }
@@ -99,8 +99,8 @@ class DealerViewController: UIViewController {
             self.artPreviewImage.image = artPreviewImage
             self.artPreviewImage.sizeToFit()
             
-            let artPreviewCaption = self.dealer.ArtPreviewCaption!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
-            let finalStringArtPreviewCaption = artPreviewCaption.joinWithSeparator("\n");
+            let artPreviewCaption = self.dealer.ArtPreviewCaption!.utf16.split { newlineChars.contains(UnicodeScalar($0)!) }.flatMap(String.init)
+            let finalStringArtPreviewCaption = artPreviewCaption.joined(separator: "\n");
             if (finalStringArtPreviewCaption == "") {
                 self.artPreviewCaption.text = ""
             }
@@ -110,21 +110,23 @@ class DealerViewController: UIViewController {
             self.artPreviewCaption.sizeToFit();
         } else {
             // if no image has been provided, hide the image section along with the caption
-            artPreviewImage.image = nil
+            if(self.artPreviewImage != nil) {
+                artPreviewImage.image = nil
+            }
             for subview in artPreviewImageView.subviews {
                 subview.removeFromSuperview()
             }
-            let heightConstraint = NSLayoutConstraint(item: artPreviewImageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 0)
+            let heightConstraint = NSLayoutConstraint(item: artPreviewImageView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 0)
             artPreviewImageView.addConstraint(heightConstraint)
         }
         
-        let AboutArt = self.dealer.AboutTheArtText!.utf16.split { newlineChars.characterIsMember($0) }.flatMap(String.init)
-        let finalStringAboutArt = AboutArt.joinWithSeparator("\n");
+        let AboutArt = self.dealer.AboutTheArtText!.utf16.split { newlineChars.contains(UnicodeScalar($0)!) }.flatMap(String.init)
+        let finalStringAboutArt = AboutArt.joined(separator: "\n");
         if (finalStringAboutArt == "") {
             self.aboutArt.text = nil
             
             // if neither text nor image have been provided, hide the entire about art section
-            if artPreviewImage.image == nil {
+            if artPreviewImage == nil || artPreviewImage.image == nil {
                 aboutArtLabel.text = nil
                 aboutArtLabelTopConstraint.constant = 0
                 dealersDenLabelTopConstraint.constant = 0
@@ -145,7 +147,7 @@ class DealerViewController: UIViewController {
             let offsetX = min(max(0.0, mapEntryLocation.x - segmentWidth / 2.0), mapImage.size.width - segmentWidth)
             let offsetY = min(max(0.0, mapEntryLocation.y - segmentHeight / 2.0), mapImage.size.height - segmentHeight)
             
-            if let croppedMap = CGImageCreateWithImageInRect(mapImage.CGImage, CGRect(x: offsetX, y: offsetY, width: segmentWidth, height: segmentHeight)) {
+            if let croppedMap = (mapImage.cgImage)?.cropping(to: CGRect(x: offsetX, y: offsetY, width: segmentWidth, height: segmentHeight)) {
             
                 // Initialise the context
                 let size = CGSize(width: segmentWidth, height: segmentHeight)
@@ -155,13 +157,13 @@ class DealerViewController: UIViewController {
                 let context = UIGraphicsGetCurrentContext()
                 
                 // Draw the map segment
-                UIImage(CGImage: croppedMap).drawInRect(CGRect(origin: CGPoint.zero, size: size))
+                UIImage(cgImage: croppedMap).draw(in: CGRect(origin: CGPoint.zero, size: size))
                 
-                CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
-                CGContextSetLineWidth(context, 2.0)
+                context?.setStrokeColor(UIColor.red.cgColor)
+                context?.setLineWidth(2.0)
                 
                 let highlightRect = CGRect(x: mapEntryLocation.x - offsetX - tapRadius, y: mapEntryLocation.y - offsetY - tapRadius, width: tapRadius * 2, height: tapRadius * 2)
-                CGContextStrokeEllipseInRect(context, highlightRect)
+                context?.strokeEllipse(in: highlightRect)
                 
                 // Drawing complete, retrieve the finished image and cleanup
                 self.dealersDenMapImage.image = UIGraphicsGetImageFromCurrentImageContext()
@@ -171,9 +173,9 @@ class DealerViewController: UIViewController {
         }
     }
     
-    func showOnMap(tapGesture: UITapGestureRecognizer) {
+    func showOnMap(_ tapGesture: UITapGestureRecognizer) {
         if let mapEntry = MapEntry.getByTargetId(dealer.Id) {
-            self.performSegueWithIdentifier("DealerDetailViewToMapSegue", sender: mapEntry)
+            self.performSegue(withIdentifier: "DealerDetailViewToMapSegue", sender: mapEntry)
         }
     }
     
@@ -187,12 +189,12 @@ class DealerViewController: UIViewController {
      }
      */
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DealerDetailViewToMapSegue" {
-            if let destinationVC = segue.destinationViewController as? MapViewController, let mapEntry = sender as? MapEntry {
+            if let destinationVC = segue.destination as? MapViewController, let mapEntry = sender as? MapEntry {
                 destinationVC.currentMapEntry = mapEntry
                 destinationVC.currentMapEntryRadiusMultiplier = 10.0
-                self.tabBarController?.tabBar.hidden = false
+                self.tabBarController?.tabBar.isHidden = false
             }
         }
     }

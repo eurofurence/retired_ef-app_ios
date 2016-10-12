@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 
 enum LeftMenu: Int {
-    case Settings = 0
-    case About
+    case settings = 0
+    case about
 }
 
 protocol LeftMenuProtocol : class {
-    func changeViewController(menu: LeftMenu)
+    func changeViewController(_ menu: LeftMenu)
 }
 
 class LeftViewController : UIViewController, LeftMenuProtocol {
@@ -38,22 +38,22 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.tableView.separatorColor = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
         
         let storyboard = UIStoryboard(name: "SlideMenu", bundle: nil)
-        let settingsTableViewController = storyboard.instantiateViewControllerWithIdentifier("SettingsTableView") as! SettingsTableViewController
+        let settingsTableViewController = storyboard.instantiateViewController(withIdentifier: "SettingsTableView") as! SettingsTableViewController
         self.settingsTableViewController = UINavigationController(rootViewController: settingsTableViewController)
         //self.settingsTableViewController = UINavigationController(rootViewController: settingsTableViewController)
         
-        let aboutViewController = storyboard.instantiateViewControllerWithIdentifier("AboutView") as! AboutViewController
+        let aboutViewController = storyboard.instantiateViewController(withIdentifier: "AboutView") as! AboutViewController
         self.aboutViewController = UINavigationController(rootViewController: aboutViewController)
         self.tableView.registerCellClass(MenuTableViewCell.self)
-        self.tableView.tableFooterView = UIView(frame: CGRectZero)
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.versionLabel.text = "Version: " + ConfigManager.sharedInstance.appVersion;
-        super.viewDidAppear(animated)
+        super.viewWillAppear(animated)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     
@@ -62,58 +62,57 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.view.layoutIfNeeded()
     }
     
-    func changeViewController(menu: LeftMenu) {
+    func changeViewController(_ menu: LeftMenu) {
         switch menu {
-        case .Settings:
+        case .settings:
             self.slideMenuController()?.changeMainViewController(self.settingsTableViewController, close: true)
-        case .About:
+        case .about:
             self.slideMenuController()?.changeMainViewController(self.aboutViewController, close: true)
         }
     }
 }
 
 extension LeftViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if let menu = LeftMenu(rawValue: indexPath.item) {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let menu = LeftMenu(rawValue: (indexPath as NSIndexPath).item) {
             switch menu {
-            case .Settings, .About:
+            case .settings, .about:
                 return MenuTableViewCell.height()
             }
         }
         return 0
     }
-}
-
-extension LeftViewController : UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menus.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        if let menu = LeftMenu(rawValue: indexPath.item) {
-            switch menu {
-        case .Settings, .About:
-        let cell = tableView.dequeueReusableCellWithIdentifier("MenuCell", forIndexPath: indexPath) as! MenuTableViewCell
-                cell.setData(menus[indexPath.row])
-                return cell
-            }
-        }
-        return UITableViewCell()
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let menu = LeftMenu(rawValue: indexPath.item) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let menu = LeftMenu(rawValue: (indexPath as NSIndexPath).item) {
             self.changeViewController(menu)
         }
     }
 }
 
+extension LeftViewController : UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menus.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if let menu = LeftMenu(rawValue: (indexPath as NSIndexPath).item) {
+            switch menu {
+        case .settings, .about:
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuTableViewCell
+                cell.setData(menus[(indexPath as NSIndexPath).row])
+                return cell
+            }
+        }
+        return UITableViewCell()
+    }
+}
+
 extension LeftViewController: UIScrollViewDelegate {
     
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.tableView == scrollView {
             
         }

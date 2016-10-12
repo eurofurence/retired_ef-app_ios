@@ -30,11 +30,11 @@ class ConfigManager {
     var appPackage = ""
     let slideMenuController = SlideMenuController()
     let config = Realm.Configuration(
+        fileURL: URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0].stringByAppendingPathComponent("cache.realm")),
+        readOnly: false,
         // Set the new schema version. This must be greater than the previously used
         // version (if you've never set a schema version before, the version is 0).
         schemaVersion: 20,
-        deleteRealmIfMigrationNeeded: true,
-        fileURL: NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0].stringByAppendingPathComponent("cache.realm")),
         // Set the block which will be called automatically when opening a Realm with
         // a schema version lower than the one set above
         migrationBlock: { migration, oldSchemaVersion in
@@ -49,42 +49,43 @@ class ConfigManager {
                 // Realm will automatically detect new properties and removed properties
                 // And will update the schema on disk automatically
             }
-    })
+        },
+        deleteRealmIfMigrationNeeded: true)
     
     static let sharedInstance = ConfigManager()
     
     init() {
-        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             self.appVersion = version
-            if let build = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as? String {
+            if let build = Bundle.main.infoDictionary!["CFBundleVersion"] as? String {
                            self.appVersion += " (" + build + ") ";
             }
         }//CFBundlePackageType
-        if let packageType = NSBundle.mainBundle().infoDictionary?["CFBundlePackageType"] as? String {
+        if let packageType = Bundle.main.infoDictionary?["CFBundlePackageType"] as? String {
             self.appPackage = packageType
-            if let signature = NSBundle.mainBundle().infoDictionary!["CFBundleSignature"] as? String {
+            if let signature = Bundle.main.infoDictionary!["CFBundleSignature"] as? String {
                 self.appPackage += "-" + signature;
             }
         }
     }
     
-    func createSliderMenu(window: UIWindow?) {
+    func createSliderMenu(_ window: UIWindow?) {
         let menuStoryboard = UIStoryboard(name: "SlideMenu", bundle: nil);
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil);
-        let mainViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
-        let leftViewController = menuStoryboard.instantiateViewControllerWithIdentifier("LeftView") as! LeftViewController
+        let mainViewController = mainStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
+        let leftViewController = menuStoryboard.instantiateViewController(withIdentifier: "LeftView") as! LeftViewController
         
         let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController);
         window?.rootViewController = slideMenuController;
         window?.makeKeyAndVisible();
     }
     
-    func diskImageDownloader(diskSpaceMB: Int = 150) -> ImageDownloader {
+    func diskImageDownloader(_ diskSpaceMB: Int = 150) -> ImageDownloader {
         let diskCapacity = diskSpaceMB * 1024 * 1024
-        let diskCache = NSURLCache(memoryCapacity: 0, diskCapacity: diskCapacity, diskPath: "image_disk_cache")
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        configuration.URLCache = diskCache;
-        let downloader = ImageDownloader(configuration: configuration,     downloadPrioritization: .FIFO, maximumActiveDownloads: 10)
+        let diskCache = URLCache(memoryCapacity: 0, diskCapacity: diskCapacity, diskPath: "image_disk_cache")
+        let configuration = URLSessionConfiguration.default
+        configuration.urlCache = diskCache;
+        let downloader = ImageDownloader(configuration: configuration,     downloadPrioritization: .fifo, maximumActiveDownloads: 10)
         UIImageView.af_sharedImageDownloader = downloader
         return downloader
     }

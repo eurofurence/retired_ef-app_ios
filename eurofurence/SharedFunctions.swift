@@ -10,66 +10,60 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
+public func <(lhs: Date, rhs: Date) -> Bool {
+    return lhs.compare(rhs) == .orderedAscending
 }
 
-public func <(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.compare(rhs) == .OrderedAscending
-}
-
-extension NSDate: Comparable { }
-
-public extension NSDate {
-    public class func ISOStringFromDate(date: NSDate) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+public extension Date {
+    public static func ISOStringFromDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
         
-        return dateFormatter.stringFromDate(date);
+        return dateFormatter.string(from: date);
     }
     
-    public class func dateFromISOString(string: String) -> NSDate? {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    public static func dateFromISOString(_ string: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
         
-        return dateFormatter.dateFromString(string)
+        return dateFormatter.date(from: string)
     }
 }
 
 public extension UIImage {
-    func makeImageWithColorAndSize(color: UIColor, size: CGSize) -> UIImage {
+    func makeImageWithColorAndSize(_ color: UIColor, size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
-        UIRectFill(CGRectMake(0, 0, size.width, size.height))
+        UIRectFill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
 }
 
 public extension String {
     
-    func stringByAppendingPathComponent(path: String) -> String {
+    func stringByAppendingPathComponent(_ path: String) -> String {
         
         let nsSt = self as NSString
         
-        return nsSt.stringByAppendingPathComponent(path)
+        return nsSt.appendingPathComponent(path)
     }
     
     func firstCharacterUpperCase() -> String {
-        let lowercaseString = self.lowercaseString
+        let lowercaseString = self.lowercased()
         
-        return lowercaseString.stringByReplacingCharactersInRange(lowercaseString.startIndex...lowercaseString.startIndex, withString: String(lowercaseString[lowercaseString.startIndex]).uppercaseString)
+        return lowercaseString.replacingCharacters(in: lowercaseString.startIndex..<lowercaseString.index(after: lowercaseString.startIndex), with: String(lowercaseString[lowercaseString.startIndex]).uppercased())
     }
     
-    static func className(aClass: AnyClass) -> String {
-        return NSStringFromClass(aClass).componentsSeparatedByString(".").last!
+    static func className(_ aClass: AnyClass) -> String {
+        return NSStringFromClass(aClass).components(separatedBy: ".").last!
     }
     
-    func substring(from: Int) -> String {
-        return self.substringFromIndex(self.startIndex.advancedBy(from))
+    func substring(_ from: Int) -> String {
+        return self.substring(from: self.characters.index(self.startIndex, offsetBy: from))
     }
     
     var length: Int {
@@ -85,26 +79,26 @@ extension UIView {
 
 public extension UITableView {
     
-    func registerCellClass(cellClass: AnyClass) {
+    func registerCellClass(_ cellClass: AnyClass) {
         let identifier = String.className(cellClass)
-        self.registerClass(cellClass, forCellReuseIdentifier: identifier)
+        self.register(cellClass, forCellReuseIdentifier: identifier)
     }
     
-    func registerCellNib(cellClass: AnyClass) {
+    func registerCellNib(_ cellClass: AnyClass) {
         let identifier = String.className(cellClass)
         let nib = UINib(nibName: identifier, bundle: nil)
-        self.registerNib(nib, forCellReuseIdentifier: identifier)
+        self.register(nib, forCellReuseIdentifier: identifier)
     }
     
-    func registerHeaderFooterViewClass(viewClass: AnyClass) {
+    func registerHeaderFooterViewClass(_ viewClass: AnyClass) {
         let identifier = String.className(viewClass)
-        self.registerClass(viewClass, forHeaderFooterViewReuseIdentifier: identifier)
+        self.register(viewClass, forHeaderFooterViewReuseIdentifier: identifier)
     }
     
-    func registerHeaderFooterViewNib(viewClass: AnyClass) {
+    func registerHeaderFooterViewNib(_ viewClass: AnyClass) {
         let identifier = String.className(viewClass)
         let nib = UINib(nibName: identifier, bundle: nil)
-        self.registerNib(nib, forHeaderFooterViewReuseIdentifier: identifier)
+        self.register(nib, forHeaderFooterViewReuseIdentifier: identifier)
     }
 }
 

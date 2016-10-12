@@ -25,7 +25,7 @@ class EventConferenceDay: Object {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let sortProperties = [SortDescriptor(property: "Date")]
-            let eventConferenceDay = realm.objects(EventConferenceDay).sorted(sortProperties)
+            let eventConferenceDay = realm.objects(EventConferenceDay.self).sorted(by: sortProperties)
             return eventConferenceDay
         } catch let error as NSError {
             print(error)
@@ -33,11 +33,11 @@ class EventConferenceDay: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> EventConferenceDay?{
+    static func getById(_ primaryKey:String) -> EventConferenceDay?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let eventConferenceDay = realm.objectForPrimaryKey(EventConferenceDay.self, key: primaryKey)
+            let eventConferenceDay = realm.object(ofType: EventConferenceDay.self, forPrimaryKey: primaryKey)
             return eventConferenceDay
         } catch let error as NSError {
             print(error)

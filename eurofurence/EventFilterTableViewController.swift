@@ -28,10 +28,10 @@ class EventFilterTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         switch category {
         case "All":
-           self.performSegueWithIdentifier("EventFilterToEventTableSegue", sender: self);
+           self.performSegue(withIdentifier: "EventFilterToEventTableSegue", sender: self);
         case "Room":
             self.navigationItem.title = "Room";
             room = EventConferenceRoom.getAll();
@@ -47,12 +47,12 @@ class EventFilterTableViewController: UITableViewController {
     }
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch category {
         case "All":
             break
@@ -72,8 +72,8 @@ class EventFilterTableViewController: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("eventFilterCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "eventFilterCell", for: indexPath)
         cell.backgroundColor = UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         switch category {
         case "All":
@@ -92,7 +92,7 @@ class EventFilterTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView(frame: .zero)
     }
     /*
@@ -140,12 +140,12 @@ class EventFilterTableViewController: UITableViewController {
     }
     */
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "EventFilterToEventTableSegue"
         {
-            if let destinationVC = segue.destinationViewController as? EventTableViewController{
+            if let destinationVC = segue.destination as? EventTableViewController{
                 let index = self.tableView.indexPathForSelectedRow!
                 destinationVC.eventByType = self.category
                 switch category {

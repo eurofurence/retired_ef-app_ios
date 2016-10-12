@@ -42,7 +42,7 @@ class InfoTableViewController: UITableViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         sortedInfosGroup();
     }
     
@@ -53,12 +53,12 @@ class InfoTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return sortedInfos.count;
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         let key = self.sortedKeys[section];
         if let infos = self.sortedInfos[key] {
@@ -70,12 +70,12 @@ class InfoTableViewController: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("infoCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath)
         cell.backgroundColor = UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
-        let key = self.sortedKeys[indexPath.section];
+        let key = self.sortedKeys[(indexPath as NSIndexPath).section];
         if let infos = self.sortedInfos[key] {
-            cell.textLabel!.text = infos[indexPath.row].Title;
+            cell.textLabel!.text = infos[(indexPath as NSIndexPath).row].Title;
         }
         
         // Configure the cell...
@@ -83,33 +83,33 @@ class InfoTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView(frame: .zero)
     }
     
-    override func tableView( tableView : UITableView,  titleForHeaderInSection section: Int)->String {
+    override func tableView( _ tableView : UITableView,  titleForHeaderInSection section: Int)->String {
         return sortedKeys[section]
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 50
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 60))
-        headerView.backgroundColor = UIColor.grayColor()
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 60))
+        headerView.backgroundColor = UIColor.gray
         headerView.tag = section
         
         let headerString = UILabel(frame: CGRect(x: 10, y: 10, width: tableView.frame.size.width-10, height: 30)) as UILabel
         headerString.text = self.sortedKeys[section]
-        headerString.textColor = UIColor.whiteColor()
-        headerString.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        headerString.textColor = UIColor.white
+        headerString.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         headerView .addSubview(headerString)
         
         let headerTapped = UITapGestureRecognizer (target: self, action:#selector(InfoTableViewController.sectionHeaderTapped(_:)))
@@ -118,7 +118,7 @@ class InfoTableViewController: UITableViewController {
         return headerView
     }
     
-    func sectionHeaderTapped(recognizer: UITapGestureRecognizer) {
+    func sectionHeaderTapped(_ recognizer: UITapGestureRecognizer) {
         //print("Tapping working")
         //print(recognizer.view?.tag)
         /**
@@ -182,20 +182,20 @@ class InfoTableViewController: UITableViewController {
      }
      */
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "infosListToViewSegue" {
-            if let destinationVC = segue.destinationViewController as? InfoViewController {
+            if let destinationVC = segue.destination as? InfoViewController {
                 let indexPath = self.tableView.indexPathForSelectedRow!
-                let key = self.sortedKeys[indexPath.section];
+                let key = self.sortedKeys[(indexPath as NSIndexPath).section];
                 if let infos = self.sortedInfos[key] {
-                    destinationVC.info = infos[indexPath.row];
+                    destinationVC.info = infos[(indexPath as NSIndexPath).row];
                 }
             }
         }
     }
-    @IBAction func openMenu(sender: AnyObject) {
+    @IBAction func openMenu(_ sender: AnyObject) {
         if let _ = self.slideMenuController() {
             self.slideMenuController()?.openLeft()
         }

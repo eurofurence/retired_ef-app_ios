@@ -20,10 +20,10 @@ class InfosTutorialViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewWillAppear(animated: Bool) {
-        if(UIApplication.instancesRespondToSelector(#selector(UIApplication.registerUserNotificationSettings(_:))))
+    override func viewWillAppear(_ animated: Bool) {
+        if(UIApplication.instancesRespond(to: #selector(UIApplication.registerUserNotificationSettings(_:))))
         {
-            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound , .Alert , .Badge], categories: nil))
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound , .alert , .badge], categories: nil))
         }
         else
         {

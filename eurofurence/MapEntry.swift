@@ -29,7 +29,7 @@ class MapEntry: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let mapEntries = realm.objects(MapEntry).sorted("Id")
+            let mapEntries = realm.objects(MapEntry.self).sorted(byProperty: "Id")
             return mapEntries
         } catch let error as NSError {
             print(error)
@@ -37,11 +37,11 @@ class MapEntry: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> MapEntry?{
+    static func getById(_ primaryKey:String) -> MapEntry?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let map = realm.objectForPrimaryKey(MapEntry.self, key: primaryKey)
+            let map = realm.object(ofType: MapEntry.self, forPrimaryKey: primaryKey)
             return map
         } catch let error as NSError {
             print(error)
@@ -49,11 +49,11 @@ class MapEntry: Object {
         return nil
     }
     
-    static func getByMapId(mapId:String) -> Results<MapEntry>? {
+    static func getByMapId(_ mapId:String) -> Results<MapEntry>? {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let mapEntries = realm.objects(MapEntry).sorted("Id").filter(NSPredicate(format: "MapId = %@", mapId))
+            let mapEntries = realm.objects(MapEntry.self).sorted(byProperty: "Id").filter(NSPredicate(format: "MapId = %@", mapId))
             return mapEntries
         } catch let error as NSError {
             print(error)
@@ -61,11 +61,11 @@ class MapEntry: Object {
         return nil
     }
     
-    static func getByTargetId(targetId:String) -> MapEntry? {
+    static func getByTargetId(_ targetId:String) -> MapEntry? {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let mapEntries = realm.objects(MapEntry).filter(NSPredicate(format: "TargetId = %@", targetId))
+            let mapEntries = realm.objects(MapEntry.self).filter(NSPredicate(format: "TargetId = %@", targetId))
             return mapEntries.first
         } catch let error as NSError {
             print(error)
@@ -73,14 +73,14 @@ class MapEntry: Object {
         return nil
     }
     
-    func getAbsoluteLocationForImage(image: UIImage)->CGPoint? {
+    func getAbsoluteLocationForImage(_ image: UIImage)->CGPoint? {
         if let relativeX = Double.init(RelativeX), let relativeY = Double.init(RelativeY) {
             return CGPoint(x: CGFloat(relativeX/100) * image.size.width, y: CGFloat(relativeY/100) * image.size.height)
         }
         return nil
     }
     
-    func getAbsoluteTapRadiusForImage(image: UIImage)->CGFloat? {
+    func getAbsoluteTapRadiusForImage(_ image: UIImage)->CGFloat? {
         if let relativeTapRadius = Double.init(RelativeTapRadius) {
             return CGFloat(relativeTapRadius) * image.size.height
         }

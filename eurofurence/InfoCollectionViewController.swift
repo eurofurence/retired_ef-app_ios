@@ -20,7 +20,7 @@ class InfoCollectionViewController: UICollectionViewController {
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        collectionView!.registerClass(InfoCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView!.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         // Do any additional setup after loading the view.
     }
     
@@ -45,39 +45,39 @@ class InfoCollectionViewController: UICollectionViewController {
     
     // MARK: UICollectionViewDataSource
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return  (sectionMenu?.count)!
     }
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width - 16, height: 60)
     }
     
     func createCollectionCellCustom() -> UIView{
-        let whiteRoundedCornerView = UIView(frame: CGRectMake(5,10,(collectionView!.frame.size.width)-10,110))
+        let whiteRoundedCornerView = UIView(frame: CGRect(x: 5,y: 10,width: (collectionView!.frame.size.width)-10,height: 110))
         whiteRoundedCornerView.backgroundColor = UIColor(red: 0/255.0, green: 120/255.0, blue: 106/255.0, alpha: 1.0)
         whiteRoundedCornerView.layer.masksToBounds = false
         whiteRoundedCornerView.layer.shadowOpacity = 1.55;
-        whiteRoundedCornerView.layer.shadowOffset = CGSizeMake(1, 0);
-        whiteRoundedCornerView.layer.shadowColor = UIColor(red: 53/255.0, green: 143/255.0, blue: 185/255.0, alpha: 1.0).CGColor
+        whiteRoundedCornerView.layer.shadowOffset = CGSize(width: 1, height: 0);
+        whiteRoundedCornerView.layer.shadowColor = UIColor(red: 53/255.0, green: 143/255.0, blue: 185/255.0, alpha: 1.0).cgColor
         whiteRoundedCornerView.layer.cornerRadius = 3.0
-        whiteRoundedCornerView.layer.shadowOffset = CGSizeMake(-1, -1)
+        whiteRoundedCornerView.layer.shadowOffset = CGSize(width: -1, height: -1)
         whiteRoundedCornerView.layer.shadowOpacity = 0.5
         return whiteRoundedCornerView
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! InfoCollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! InfoCollectionViewCell
         cell.cellTitle.text = sectionMenu![indexPath.row].Name;
         
         // Configure the cell
-        cell.contentView.backgroundColor=UIColor.clearColor()
+        cell.contentView.backgroundColor=UIColor.clear
         
         //let whiteRoundedCornerView = createCollectionCellCustom()
         //cell.contentView.addSubview(whiteRoundedCornerView)
@@ -116,7 +116,7 @@ class InfoCollectionViewController: UICollectionViewController {
      }
      */
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "infoCatToListSegue"
@@ -131,7 +131,7 @@ class InfoCollectionViewController: UICollectionViewController {
         }
     }
     
-    @IBAction func openMenu(sender: AnyObject) {
+    @IBAction func openMenu(_ sender: AnyObject) {
         if let _ = self.slideMenuController() {
             self.slideMenuController()?.openLeft()
         }

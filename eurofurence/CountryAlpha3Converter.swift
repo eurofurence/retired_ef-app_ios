@@ -296,12 +296,12 @@ class CountryAlpha3Converter {
         "Zimbabwe":"ZWE"
     ]
     
-    static func getAlpha3ForCountry(country:String)->String? {
+    static func getAlpha3ForCountry(_ country:String)->String? {
         return countryToAlpha3[country]
     }
     
-    static func getCountryForAlpha3(alpha3:String)->String? {
-        if let index = countryToAlpha3.values.indexOf(alpha3) {
+    static func getCountryForAlpha3(_ alpha3:String)->String? {
+        if let index = countryToAlpha3.values.index(of: alpha3) {
             return countryToAlpha3.keys[index]
         } else {
             return nil

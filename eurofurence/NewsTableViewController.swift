@@ -10,31 +10,31 @@ import UIKit
 import RealmSwift
 
 class NewsTableViewController: UITableViewController {
-    var annoucements = Results<Announcement>?()
+    var annoucements : Results<Announcement>?
     var filteredAnnouncements : [Announcement] = []
-    var refreshLabelTimer: NSTimer? = nil
+    var refreshLabelTimer: Timer? = nil
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewsTableViewController.notificationRefresh(_:)),name:"reloadData", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewsTableViewController.notificationRefresh(_:)),name:NSNotification.Name(rawValue: "reloadData"), object: nil)
         self.annoucements = Announcement.getAll()
-        self.tableView.backgroundColor = UIColor.blackColor()
+        self.tableView.backgroundColor = UIColor.black
         tableView.estimatedRowHeight = 70;
         tableView.rowHeight = UITableViewAutomaticDimension;
-        self.refreshControl?.addTarget(self, action: #selector(NewsTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(NewsTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         // Reset the application badge because all announcements can be assumed seen
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        UIApplication.shared.cancelAllLocalNotifications()
     }
     
     // Pull to refresh function
-    func refresh(sender:AnyObject) {
+    func refresh(_ sender:AnyObject) {
         ApiManager.sharedInstance.updateAllEntities(false, completion: {(isDataUpdated: Bool) in
             if isDataUpdated {
                 self.updateAnnouncements()
@@ -44,8 +44,8 @@ class NewsTableViewController: UITableViewController {
         })
     }
     
-    func notificationRefresh(notification: NSNotification){
-        dispatch_async(dispatch_get_main_queue()) {
+    func notificationRefresh(_ notification: Notification){
+        DispatchQueue.main.async {
             self.updateAnnouncements()
             self.tableView.reloadData()
         }
@@ -57,28 +57,28 @@ class NewsTableViewController: UITableViewController {
         var newAnnouncementIds: [String] = []
         self.filteredAnnouncements = []
         
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
-        formatter.timeZone = NSTimeZone(abbreviation: "UTC")
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         
         for announcement in annoucements! {
             
             let currentDate = NSDate();
-            let utcTimeZoneStr = formatter.stringFromDate(currentDate)
+            let utcTimeZoneStr = formatter.string(from: currentDate as Date)
             
             // Check whether we are currently within the announcements validity time frame
-            if let currentDateUtc = NSDate.dateFromISOString(utcTimeZoneStr),
-                let fromDate = NSDate.dateFromISOString(announcement.ValidFromDateTimeUtc),
-                let untilDate = NSDate.dateFromISOString(announcement.ValidUntilDateTimeUtc)
-                where (fromDate.compare(currentDateUtc) != NSComparisonResult.OrderedDescending && untilDate.compare(currentDateUtc) != NSComparisonResult.OrderedAscending) {
+            if let currentDateUtc = Date.dateFromISOString(utcTimeZoneStr),
+                let fromDate = Date.dateFromISOString(announcement.ValidFromDateTimeUtc),
+                let untilDate = Date.dateFromISOString(announcement.ValidUntilDateTimeUtc)
+                , (fromDate.compare(currentDateUtc) != ComparisonResult.orderedDescending && untilDate.compare(currentDateUtc) != ComparisonResult.orderedAscending) {
                 
                 self.filteredAnnouncements.append(announcement)
                 
                 // Check if we have new announcements
                 if oldAnnouncements.filter({ oldAnnouncement in
-                    if let oldAnnouncementDate = NSDate.dateFromISOString(oldAnnouncement.LastChangeDateTimeUtc),
-                        let newAnnouncementDate = NSDate.dateFromISOString(announcement.LastChangeDateTimeUtc) {
-                        return oldAnnouncement.Id == announcement.Id && oldAnnouncementDate.compare(newAnnouncementDate) != NSComparisonResult.OrderedAscending
+                    if let oldAnnouncementDate = Date.dateFromISOString(oldAnnouncement.LastChangeDateTimeUtc),
+                        let newAnnouncementDate = Date.dateFromISOString(announcement.LastChangeDateTimeUtc) {
+                        return oldAnnouncement.Id == announcement.Id && oldAnnouncementDate.compare(newAnnouncementDate) != ComparisonResult.orderedAscending
                     } else {
                         return oldAnnouncement.Id == announcement.Id
                     }
@@ -92,39 +92,39 @@ class NewsTableViewController: UITableViewController {
         return newAnnouncementIds
     }
     
-    func notifyAnnouncements(announcementIds: [String]) {
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+    func notifyAnnouncements(_ announcementIds: [String]) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
         if UserSettings<Bool>.NotifyOnAnnouncement.currentValue() {
             for announcementId in announcementIds {
                 if let announcement = Announcement.getById(announcementId) {
                     let notification = UILocalNotification()
                     notification.alertBody = announcement.Title
-                    notification.timeZone = NSTimeZone(abbreviation: "UTC")
-                    if let announcementDate = NSDate.dateFromISOString(announcement.ValidFromDateTimeUtc) {
+                    notification.timeZone = TimeZone(abbreviation: "UTC")
+                    if let announcementDate = Date.dateFromISOString(announcement.ValidFromDateTimeUtc) {
                         notification.fireDate = announcementDate
                     }
                     notification.soundName = UILocalNotificationDefaultSoundName
                     notification.userInfo = ["Announcement.Id": announcement.Id ]
-                    notification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
+                    notification.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber + 1
                     
-                    UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+                    UIApplication.shared.presentLocalNotificationNow(notification)
                 }
             }
         } else if announcementIds.count > 0 {
-            UIApplication.sharedApplication().applicationIconBadgeNumber = announcementIds.count
+            UIApplication.shared.applicationIconBadgeNumber = announcementIds.count
         }
         
         
-        if let tabBarItem = self.navigationController?.tabBarItem where announcementIds.count > 0 {
+        if let tabBarItem = self.navigationController?.tabBarItem , announcementIds.count > 0 {
             tabBarItem.badgeValue = String(announcementIds.count)
         }
     }
     
-    func fetchAnnouncements(completion: (isSuccessful: Bool)->Void) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let lastDatabaseUpdate = defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? NSDate
+    func fetchAnnouncements(_ completion: @escaping (_ isSuccessful: Bool)->Void) {
+        let defaults = UserDefaults.standard
+        let lastDatabaseUpdate = defaults.object(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT) as? Date
         ApiManager.sharedInstance.updateEntity("Announcement", since: lastDatabaseUpdate, completion: { result, isSuccessful in
-            completion(isSuccessful: isSuccessful)
+            completion(isSuccessful)
         })
     }
 
@@ -136,12 +136,12 @@ class NewsTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if self.filteredAnnouncements.count > 0 {
             return (self.filteredAnnouncements.count + 1)
@@ -150,7 +150,7 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.updateAnnouncements();
         self.tableView.reloadData();
         if let tabBarItem = self.navigationController?.tabBarItem {
@@ -158,7 +158,7 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if refreshLabelTimer != nil {
             refreshLabelTimer?.invalidate()
@@ -170,14 +170,14 @@ class NewsTableViewController: UITableViewController {
     }
     
     func updateRefreshLabel() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let userInfo = refreshLabelTimer?.userInfo, let newsLastRefreshLabel = userInfo as? UILabel, let lastDatabaseUpdate = defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT) as? NSDate {
+        let defaults = UserDefaults.standard
+        if let userInfo = refreshLabelTimer?.userInfo, let newsLastRefreshLabel = userInfo as? UILabel, let lastDatabaseUpdate = defaults.object(forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT) as? Date {
             
             newsLastRefreshLabel.text = getLastRefreshString(lastDatabaseUpdate)
         }
     }
     
-    func getLastRefreshString(lastRefresh: NSDate)->String {
+    func getLastRefreshString(_ lastRefresh: Date)->String {
         let lastUpdateSeconds = -1 * Int(lastRefresh.timeIntervalSinceNow)
         let lastUpdateMinutes = Int(lastUpdateSeconds / 60)
         let lastUpdateHours = Int(lastUpdateMinutes / 60)
@@ -212,19 +212,19 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
-    func instanciateCell(index :NSIndexPath, tableView: UITableView) -> UITableViewCell{
-        if index.row == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("NewsHeaderTableViewCell", forIndexPath: index) as! NewsHeaderTableViewCell
+    func instanciateCell(_ index :IndexPath, tableView: UITableView) -> UITableViewCell{
+        if (index as NSIndexPath).row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsHeaderTableViewCell", for: index) as! NewsHeaderTableViewCell
             
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if let lastDatabaseUpdate = defaults.objectForKey(ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT) as? NSDate {
+            let defaults = UserDefaults.standard
+            if let lastDatabaseUpdate = defaults.object(forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT) as? Date {
                 
                 if refreshLabelTimer != nil {
                     refreshLabelTimer?.invalidate()
                     refreshLabelTimer = nil
                 }
                 
-                refreshLabelTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(NewsTableViewController.updateRefreshLabel), userInfo: cell.newsLastRefreshLabel, repeats: true)
+                refreshLabelTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(NewsTableViewController.updateRefreshLabel), userInfo: cell.newsLastRefreshLabel, repeats: true)
                 
                 cell.newsLastRefreshLabel.text = getLastRefreshString(lastDatabaseUpdate)
                 
@@ -234,18 +234,18 @@ class NewsTableViewController: UITableViewController {
             
             return cell as UITableViewCell
             
-        } else if index.row == 1 && self.filteredAnnouncements.count == 0 {
-            return tableView.dequeueReusableCellWithIdentifier("NoAnnouncementsTableViewCell", forIndexPath: index)
+        } else if (index as NSIndexPath).row == 1 && self.filteredAnnouncements.count == 0 {
+            return tableView.dequeueReusableCell(withIdentifier: "NoAnnouncementsTableViewCell", for: index)
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("NewsTableViewCell", forIndexPath: index) as! NewsTableViewCell
-            cell.titleLabel.text = self.filteredAnnouncements[index.row - 1].Title
-            cell.descLabel.text = self.filteredAnnouncements[index.row - 1].Content
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: index) as! NewsTableViewCell
+            cell.titleLabel.text = self.filteredAnnouncements[(index as NSIndexPath).row - 1].Title
+            cell.descLabel.text = self.filteredAnnouncements[(index as NSIndexPath).row - 1].Content
             return cell as UITableViewCell
         }
 
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = instanciateCell(indexPath, tableView: tableView)
         
         
@@ -302,19 +302,19 @@ class NewsTableViewController: UITableViewController {
     }
     */
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "NewsTableViewSegue"
         {
-            if let destinationVC = segue.destinationViewController as? NewsViewController{
+            if let destinationVC = segue.destination as? NewsViewController{
                 let index = self.tableView.indexPathForSelectedRow!
-                destinationVC.news = self.filteredAnnouncements[index.row - 1]
+                destinationVC.news = self.filteredAnnouncements[(index as NSIndexPath).row - 1]
             }
         }
     }
     
-    @IBAction func openMenu(sender: AnyObject) {
+    @IBAction func openMenu(_ sender: AnyObject) {
         if let _ = self.slideMenuController() {
             self.slideMenuController()?.openLeft()
         }

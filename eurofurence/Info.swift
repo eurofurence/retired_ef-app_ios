@@ -43,7 +43,7 @@ class Info: Object {
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let info = realm.objects(Info)
+            let info = realm.objects(Info.self)
             return info
         } catch let error as NSError {
             print(error)
@@ -51,11 +51,11 @@ class Info: Object {
         return nil
     }
     
-    static func getById(primaryKey:String) -> Info?{
+    static func getById(_ primaryKey:String) -> Info?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
-            let info = realm.objectForPrimaryKey(Info.self, key: primaryKey)
+            let info = realm.object(ofType: Info.self, forPrimaryKey: primaryKey)
             return info
         } catch let error as NSError {
             print(error)
@@ -63,12 +63,12 @@ class Info: Object {
         return nil
     }
     
-    static func getByGroupId(primaryKey:String) -> Results<Info>?{
+    static func getByGroupId(_ primaryKey:String) -> Results<Info>?{
         do {
             Realm.Configuration.defaultConfiguration = ConfigManager.sharedInstance.config;
             let realm = try Realm()
             let predicate = NSPredicate(format: "InfoGroupId = %@", primaryKey)
-            let info = realm.objects(Info).filter(predicate).sorted("Position")
+            let info = realm.objects(Info.self).filter(predicate).sorted(byProperty: "Position")
             return info
         } catch let error as NSError {
             print(error)

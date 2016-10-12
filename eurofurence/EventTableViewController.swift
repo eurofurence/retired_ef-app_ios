@@ -11,7 +11,7 @@ import RealmSwift
 
 class EventTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate  {
     let searchController = UISearchController(searchResultsController: nil)
-    var events = Results<EventEntry>?()
+    var events : Results<EventEntry>?
     var eventsDays = EventConferenceDay.getAll();
     var eventsRooms = EventConferenceRoom.getAll();
     var eventsTracks = EventConferenceTrack.getAll();
@@ -21,7 +21,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     var filteredEvent = [EventEntry]()
     var eventByType = ""
     var eventTypeKey = ""
-    var lastUpdate = NSDate()
+    var lastUpdate = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.searchBar.delegate = self
-        self.searchController.searchBar.tintColor = UIColor.whiteColor();
+        self.searchController.searchBar.tintColor = UIColor.white;
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -39,8 +39,8 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         self.tableView.estimatedSectionHeaderHeight = 100.0;
         self.tableView.backgroundColor =  UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
         self.searchController.searchBar.scopeButtonTitles = ["Day", "Room", "Track"]
-        self.refreshControl?.addTarget(self, action: #selector(EventTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.refreshControl?.backgroundColor = UIColor.clearColor()
+        self.refreshControl?.addTarget(self, action: #selector(EventTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
+        self.refreshControl?.backgroundColor = UIColor.clear
     }
     
     func rateApp() {
@@ -50,7 +50,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
     }
     
     // Pull to refresh function
-    func refresh(sender:AnyObject) {
+    func refresh(_ sender:AnyObject) {
         ApiManager.sharedInstance.updateAllEntities(false, completion: {(isDataUpdated: Bool) in
             if isDataUpdated {
                 self.tableView.reloadData()
@@ -64,7 +64,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         for eventDay in eventsDays! {
             self.eventByDays.append(EventEntry.getByDayId(eventDay.Id)!);
         }
@@ -114,9 +114,9 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
      */
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         var eventNumber = 1;
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text != "" {
             return eventNumber;
         }
         
@@ -133,11 +133,11 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         return eventNumber
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.active && searchController.searchBar.text != "" {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.isActive && searchController.searchBar.text != "" {
             return self.filteredEvent.count
         }
-        var eventsInSection = Results<EventEntry>?();
+        var eventsInSection = Results<EventEntry>?(nilLiteral: ());
         switch self.searchController.searchBar.selectedScopeButtonIndex {
         case 0:
             eventsInSection =  EventEntry.getByDayId(eventsDays![section].Id)
@@ -152,14 +152,14 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         
     }
     
-    private func addBorderUtility(x x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, color: UIColor) ->CALayer {
+    private func addBorderUtility(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, color: UIColor) ->CALayer {
         let border = CALayer()
-        border.backgroundColor = color.CGColor
+        border.backgroundColor = color.cgColor
         border.frame = CGRect(x: x, y: y, width: width, height: height)
         return border;
     }
     
-    func createCellCustom(frame: CGRect) -> UIView{
+    func createCellCustom(_ frame: CGRect) -> UIView{
         
         let whiteRoundedCornerView = UIView(frame: frame)
         whiteRoundedCornerView.backgroundColor = UIColor(red: 35/255.0, green: 36/255.0, blue: 38/255.0, alpha: 1.0)
@@ -167,19 +167,19 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         return whiteRoundedCornerView
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "EventTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! EventTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! EventTableViewCell
         let event: EventEntry
-        if searchController.active && searchController.searchBar.text != "" {
-            event = self.filteredEvent[indexPath.row]
+        if searchController.isActive && searchController.searchBar.text != "" {
+            event = self.filteredEvent[(indexPath as NSIndexPath).row]
         } else {
-            cell.eventDayLabel.hidden = true;
+            cell.eventDayLabel.isHidden = true;
             
             if cell.eventDayLabelHeightConstraint != nil {
-                cell.eventDayLabelHeightConstraint!.active = true
+                cell.eventDayLabelHeightConstraint!.isActive = true
             } else {
-                cell.eventDayLabelHeightConstraint = NSLayoutConstraint(item: cell.eventDayLabel, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 0)
+                cell.eventDayLabelHeightConstraint = NSLayoutConstraint(item: cell.eventDayLabel, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 0)
                 cell.addConstraint(cell.eventDayLabelHeightConstraint!)
             }
             
@@ -195,13 +195,13 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
             }
             
         }
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text != "" {
             if let eventDay = EventEntry.getDayByEventId(event.ConferenceDayId) {
-                cell.eventDayLabel.hidden = false;
+                cell.eventDayLabel.isHidden = false;
                 cell.eventDayLabel.text = eventDay.Name + " – " + dayOfWeekStringFromDateString(eventDay.Date);
                 
                 if cell.eventDayLabelHeightConstraint != nil {
-                    cell.eventDayLabelHeightConstraint!.active = false
+                    cell.eventDayLabelHeightConstraint!.isActive = false
                 }
             }
         }
@@ -211,14 +211,14 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         
         if event.SubTitle.isEmpty {
             if cell.eventSubNameLabelHeightConstraint != nil {
-                cell.eventSubNameLabelHeightConstraint!.active = true
+                cell.eventSubNameLabelHeightConstraint!.isActive = true
             } else {
-                cell.eventSubNameLabelHeightConstraint = NSLayoutConstraint(item: cell.eventSubNameLabel, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 0)
+                cell.eventSubNameLabelHeightConstraint = NSLayoutConstraint(item: cell.eventSubNameLabel, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 0)
                 cell.addConstraint(cell.eventSubNameLabelHeightConstraint!)
             }
         } else {
             if cell.eventSubNameLabelHeightConstraint != nil {
-                cell.eventSubNameLabelHeightConstraint!.active = false
+                cell.eventSubNameLabelHeightConstraint!.isActive = false
             }
             cell.eventSubNameLabel.text = event.SubTitle
         }
@@ -229,41 +229,41 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
             cell.eventRoomLabel.text = "n/a"
         }
         cell.eventDurationLabel.text = "for " + formatedDuration[0] + " hour(s) " + formatedDuration[1] + " minute(s)"
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         //if event.IsDeviatingFromConBook != "0" {
         //    cell.eventDateLabel.textColor = UIColor.orangeColor()
         //    cell.eventDateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         //}
-        cell.tintColor = UIColor.whiteColor()
+        cell.tintColor = UIColor.white
         
         return cell
     }
     
-    func updateSearchResultsForSearchController(searchController: UISearchController)
+    func updateSearchResults(for searchController: UISearchController)
     {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     
     
-    func filterContentForSearchText(searchText: String, scope: String = "Day") {
+    func filterContentForSearchText(_ searchText: String, scope: String = "Day") {
         filteredEvent = [];
         for events in  self.eventByDays {
             let eventsAsArray = Array(events)
             let searchPredicate = NSPredicate(format: "Title contains[c] %@", searchText)
-            let results = (eventsAsArray as NSArray).filteredArrayUsingPredicate(searchPredicate);
-            self.filteredEvent.appendContentsOf(results as! [EventEntry])
+            let results = (eventsAsArray as NSArray).filtered(using: searchPredicate);
+            self.filteredEvent.append(contentsOf: results as! [EventEntry])
         }
         tableView.reloadData()
     }
     
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView(frame: .zero)
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var sectionName = "";
-        let  headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell") as! EventHeaderCellTableViewCell
-        if searchController.active && searchController.searchBar.text != "" {
+        let  headerCell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as! EventHeaderCellTableViewCell
+        if searchController.isActive && searchController.searchBar.text != "" {
             headerCell.headerCellLabel.text = "Results for : " + searchController.searchBar.text!;
             return headerCell;
         }
@@ -293,22 +293,22 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         return headerCell
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40.0
     }
     
     // MARK: - UISearchBar Delegate
-    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         self.tableView.reloadData()
     }
 
-    func dayOfWeekStringFromDateString(dateString: String)->String {
-        let dateFormatter = NSDateFormatter();
+    func dayOfWeekStringFromDateString(_ dateString: String)->String {
+        let dateFormatter = DateFormatter();
         dateFormatter.dateFormat = "yyyy-MM-dd";
-        if let eventDate = dateFormatter.dateFromString(dateString) {
-            let dateFormatter = NSDateFormatter()
+        if let eventDate = dateFormatter.date(from: dateString) {
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "EEEE dd MMMM"
-            return dateFormatter.stringFromDate(eventDate)
+            return dateFormatter.string(from: eventDate)
         }
         return dateString
     }
@@ -349,15 +349,15 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
      }
      */
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "EventTableViewSegue"
         {
-            if let destinationVC = segue.destinationViewController as? EventViewController{
+            if let destinationVC = segue.destination as? EventViewController{
                 let indexPath = self.tableView.indexPathForSelectedRow!
-                if searchController.active && searchController.searchBar.text != "" {
-                    destinationVC.event = self.filteredEvent[indexPath.row]
+                if searchController.isActive && searchController.searchBar.text != "" {
+                    destinationVC.event = self.filteredEvent[(indexPath as NSIndexPath).row]
                 } else {
                     switch self.searchController.searchBar.selectedScopeButtonIndex {
                     case 0:
@@ -376,7 +376,7 @@ class EventTableViewController: UITableViewController, UISearchResultsUpdating, 
         }
     }
     
-    @IBAction func openMenu(sender: AnyObject) {
+    @IBAction func openMenu(_ sender: AnyObject) {
         if let _ = self.slideMenuController() {
             self.slideMenuController()?.openLeft()
         }

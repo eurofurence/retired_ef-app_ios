@@ -31,20 +31,20 @@ class NewsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func willMoveToParentViewController(parent: UIViewController?) {
-        super.willMoveToParentViewController(parent)
+    override func willMove(toParentViewController parent: UIViewController?) {
+        super.willMove(toParentViewController: parent)
         if parent == nil {
-            self.tabBarController?.tabBar.hidden = false
+            self.tabBarController?.tabBar.isHidden = false
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.tabBarController?.tabBar.hidden = true
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
         self.titleLabel.text = news.Title
         self.areaLabel.text = news.Area
         self.authorLabel.text = news.Author
-        if let lastChangeDate = NSDate.dateFromISOString(news.LastChangeDateTimeUtc) {
-            self.lastChangeLabel.text = NSDateFormatter.localizedStringFromDate(lastChangeDate, dateStyle: NSDateFormatterStyle.MediumStyle, timeStyle: NSDateFormatterStyle.ShortStyle)
+        if let lastChangeDate = Date.dateFromISOString(news.LastChangeDateTimeUtc) {
+            self.lastChangeLabel.text = DateFormatter.localizedString(from: lastChangeDate, dateStyle: DateFormatter.Style.medium, timeStyle: DateFormatter.Style.short)
         }
         self.descriptionLabel.text = news.Content
     }

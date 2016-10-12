@@ -20,7 +20,7 @@ class InfoViewController: UIViewController {
     var info = Info()
     var linkViewLastButton: UIButton? = nil
     var linkViewLastBottomConstraint: NSLayoutConstraint? = nil
-    var buttonUrls: [UIButton:NSURL] = [:]
+    var buttonUrls: [UIButton:URL] = [:]
     
     static let htmlStyle = "<style>"
         + "html, p, ul, li { font: -apple-system-body; color: #FFF; }"
@@ -43,15 +43,15 @@ class InfoViewController: UIViewController {
         return true
     }
     
-    override func willMoveToParentViewController(parent: UIViewController?) {
-        super.willMoveToParentViewController(parent)
+    override func willMove(toParentViewController parent: UIViewController?) {
+        super.willMove(toParentViewController: parent)
         if parent == nil {
-            self.tabBarController?.tabBar.hidden = false
+            self.tabBarController?.tabBar.isHidden = false
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.tabBarController?.tabBar.hidden = true
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
         super.viewWillAppear(animated)
         
         if let infoGroup = InfoGroup.getById(info.InfoGroupId) {
@@ -78,7 +78,7 @@ class InfoViewController: UIViewController {
         do {
             let htmlText = WikiText.transformToHtml(info.Text, style: InfoViewController.htmlStyle)
             textView.attributedText = try NSAttributedString(
-                data: htmlText.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!,
+                data: htmlText.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
                 options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
                 documentAttributes: nil)
         } catch {
@@ -97,21 +97,21 @@ class InfoViewController: UIViewController {
             addLinkButton(infoUrl)
         }
         
-        linkLabel.hidden = buttonUrls.count == 0
+        linkLabel.isHidden = buttonUrls.count == 0
     }
     
-    func urlButtonAction(button: UIButton) {
+    func urlButtonAction(_ button: UIButton) {
         if let url = buttonUrls[button] {
-            UIApplication.sharedApplication().openURL(url)
+            UIApplication.shared.openURL(url)
         }
     }
     
-    func addLinkButton(infoUrl: InfoUrl) {
-        let linkButton = UIButton(type: UIButtonType.RoundedRect)
-        linkButton.setTitle(infoUrl.Text, forState: UIControlState.Normal)
+    func addLinkButton(_ infoUrl: InfoUrl) {
+        let linkButton = UIButton(type: UIButtonType.roundedRect)
+        linkButton.setTitle(infoUrl.Text, for: UIControlState())
         linkButton.accessibilityIdentifier = infoUrl.Text
         linkButton.translatesAutoresizingMaskIntoConstraints = false
-        linkButton.addTarget(self, action: #selector(InfoViewController.urlButtonAction(_:)), forControlEvents: .TouchUpInside)
+        linkButton.addTarget(self, action: #selector(InfoViewController.urlButtonAction(_:)), for: .touchUpInside)
 
         linkView.addSubview(linkButton)
         
@@ -120,21 +120,21 @@ class InfoViewController: UIViewController {
                 linkView.removeConstraint(linkViewLastBottomConstraint!)
             }
             // Top Constraint -> lastButton.Bottom
-            NSLayoutConstraint(item: linkButton, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: linkViewLastButton, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: 4).active = true
+            NSLayoutConstraint(item: linkButton, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: linkViewLastButton, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 4).isActive = true
         } else {
             // Top Constraint -> view.TopMargin
-            NSLayoutConstraint(item: linkButton, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: linkView, attribute: NSLayoutAttribute.TopMargin, multiplier: 1.0, constant: 0).active = true
+            NSLayoutConstraint(item: linkButton, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: linkView, attribute: NSLayoutAttribute.topMargin, multiplier: 1.0, constant: 0).isActive = true
         }
         // Bottom Constraint -> view.Bottom
-        linkViewLastBottomConstraint = NSLayoutConstraint(item: linkButton, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: linkView, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1.0, constant: 0)
-        linkViewLastBottomConstraint!.active = true
+        linkViewLastBottomConstraint = NSLayoutConstraint(item: linkButton, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: linkView, attribute: NSLayoutAttribute.bottomMargin, multiplier: 1.0, constant: 0)
+        linkViewLastBottomConstraint!.isActive = true
         // Leading Constraint -> view.LeadingMargin
-        NSLayoutConstraint(item: linkButton, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: linkView, attribute: NSLayoutAttribute.LeadingMargin, multiplier: 1.0, constant: 0).active = true
+        NSLayoutConstraint(item: linkButton, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: linkView, attribute: NSLayoutAttribute.leadingMargin, multiplier: 1.0, constant: 0).isActive = true
         // Trailing Constraint -> view.TrailingMargin
-        NSLayoutConstraint(item: linkButton, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: linkView, attribute: NSLayoutAttribute.TrailingMargin, multiplier: 1.0, constant: 0).active = true
+        NSLayoutConstraint(item: linkButton, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: linkView, attribute: NSLayoutAttribute.trailingMargin, multiplier: 1.0, constant: 0).isActive = true
         
         linkViewLastButton = linkButton
-        buttonUrls[linkButton] = NSURL(string: infoUrl.Target)
+        buttonUrls[linkButton] = URL(string: infoUrl.Target)
         
         linkView.layoutSubviews()
         

@@ -19,19 +19,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         Fabric.with([Crashlytics.self])
         
         
         UINavigationBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
-        UINavigationBar.appearance().barStyle = .Black
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        UINavigationBar.appearance().barStyle = .black
         UITabBar.appearance().tintColor = UIColor(red: 0/255.0, green: 137/255.0, blue: 122/255.0, alpha: 1.0)
         
         //UITabBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0;
+        UIApplication.shared.applicationIconBadgeNumber = 0;
         /*
          let notification = UILocalNotification()
          notification.alertBody = "Eurofurence app is running !"
@@ -46,9 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Enable background refresh based on user settings
         if UserSettings<Int>.RefreshTimer.currentValue() > 0 && UserSettings<Bool>.RefreshInBackground.currentValue() {
-            UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+            UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         } else {
-            UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalNever)
+            UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalNever)
         }
         
         
@@ -57,15 +57,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.showTutorial()
         }
         else {
-            UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
+            UIApplication.shared.setStatusBarHidden(false, with: .none)
             ConfigManager.sharedInstance.createSliderMenu(self.window);
         }
         return true
     }
     
     func updateOnStart() {
-        dispatch_async(dispatch_get_main_queue()) {
-                if let reachability = ApiManager.sharedInstance.reachability where reachability.isReachableViaWiFi() || UserSettings<Bool>.AutomaticRefreshOnMobile.currentValue() {
+        DispatchQueue.main.async {
+                if let reachability = ApiManager.sharedInstance.reachability , reachability.isReachableViaWiFi || UserSettings<Bool>.AutomaticRefreshOnMobile.currentValue() {
                     if (!ApiManager.sharedInstance.isDatabaseDownloaded() && UserSettings<Bool>.UpdateOnStart.currentValue()) {
                         ApiManager.sharedInstance.updateAllEntities(true);
                     }
@@ -75,24 +75,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     if (UserSettings<Bool>.UpdateOnStart.currentValue() && (!UserSettings<Bool>.AutomaticRefreshOnMobile.currentValue() && !UserSettings<Bool>.AutomaticRefreshOnMobileAsked.currentValue())) {
                         UserSettings<Bool>.AutomaticRefreshOnMobileAsked.setValue(true)
-                        let alert = UIAlertController(title: "Download database", message: "It seems that you are connected over cellular data, would you still like to allow updates/downloads via mobile network? It will allow you to use the app offline and can be changed in settings.", preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
-                        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { action in
+                        let alert = UIAlertController(title: "Download database", message: "It seems that you are connected over cellular data, would you still like to allow updates/downloads via mobile network? It will allow you to use the app offline and can be changed in settings.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
+                        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { action in
                             UserSettings<Bool>.AutomaticRefreshOnMobile.setValue(true)
                             ApiManager.sharedInstance.getAllFromAlert(action)
                         }))
-                        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                     }
                 }
         }
     }
     
     // Support for background fetch
-    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         // If we're not reachable via WiFi and the user has forbidden us to use mobile in background, do nothing.
-        if let reachability = ApiManager.sharedInstance.reachability where !(reachability.isReachableViaWiFi() ?? false) && !(UserSettings<Bool>.RefreshInBackgroundOnMobile.currentValue()) {
-            completionHandler(.Failed)
+        if let reachability = ApiManager.sharedInstance.reachability , !reachability.isReachableViaWiFi && !(UserSettings<Bool>.RefreshInBackgroundOnMobile.currentValue()) {
+            completionHandler(.failed)
             return
         }
         
@@ -110,15 +110,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if let navigationController = viewController as? UINavigationController, let newsTableViewController = navigationController.childViewControllers[0] as? NewsTableViewController {
                         newsTableViewController.fetchAnnouncements({ isSuccessful in
                             if !isSuccessful {
-                                completionHandler(.Failed)
+                                completionHandler(.failed)
                                 return
                             } else {
                                 let newAnnouncementIds = newsTableViewController.updateAnnouncements()
                                 if newAnnouncementIds.count > 0 {
-                                    completionHandler(.NewData)
+                                    completionHandler(.newData)
                                     return
                                 } else {
-                                    completionHandler(.NoData)
+                                    completionHandler(.noData)
                                     return
                                 }
                             }
@@ -127,20 +127,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        completionHandler(.Failed)
+        completionHandler(.failed)
     }
     
     func showTutorial() {
-        let rootVC = UIStoryboard(name: "Tutorial", bundle: nil).instantiateViewControllerWithIdentifier("TutorialPage") as! TutorialPageViewController
-        rootVC.view.frame = UIScreen.mainScreen().bounds
-        UIView.transitionWithView(self.window!, duration: 0.5, options: .TransitionCrossDissolve, animations: {
+        let rootVC = UIStoryboard(name: "Tutorial", bundle: nil).instantiateViewController(withIdentifier: "TutorialPage") as! TutorialPageViewController
+        rootVC.view.frame = UIScreen.main.bounds
+        UIView.transition(with: self.window!, duration: 0.5, options: .transitionCrossDissolve, animations: {
             self.window!.rootViewController = rootVC
             }, completion: nil)
     }
     
     func isTutorialAlreadyShown()->Bool{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let _ = defaults.stringForKey("appRunningForTheFirstTime"){
+        let defaults = UserDefaults.standard
+        if let _ = defaults.string(forKey: "appRunningForTheFirstTime"){
             return true;
         }
         else{
@@ -164,34 +164,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      }
      **/
     
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         AutomaticRefresh.sharedInstance.clearTimer()
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
     
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
     
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         AutomaticRefresh.sharedInstance.updateTimer()
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         //ApiManager.sharedInstance.updateAllEntities()
         //GetDiff, ReloadTable
     }
     
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        NSNotificationCenter.defaultCenter().postNotificationName("NewsListShouldRefresh", object: self)
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "NewsListShouldRefresh"), object: self)
     }
     
     

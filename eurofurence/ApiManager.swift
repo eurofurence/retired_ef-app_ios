@@ -11,6 +11,7 @@ import Alamofire
 import RealmSwift
 import ReachabilitySwift
 import SwiftyJSON
+import HockeySDK
 
 class ApiManager {
     static let LAST_DATABASE_UPDATE_DEFAULT = "lastDatabaseUpdate"
@@ -73,6 +74,7 @@ class ApiManager {
                 ImageManager.sharedInstance.clearCache(){
                     (result: Bool) in
                     print("Cache cleared")
+                    BITHockeyManager.shared().metricsManager.trackEvent(withName: "CacheCleared")
                 }
             }
         }
@@ -166,6 +168,7 @@ class ApiManager {
                         }) {
                             self.requestedObjects -= 1
                             print("Entity", entityName, "failed to instantiate")
+                            BITHockeyManager.shared().metricsManager.trackEvent(withName: "UpdateEntityFailed", properties: ["entityName":entityName,"error":"instatiation failed"], measurements: [:])
                         }
                     }
                 }
@@ -192,6 +195,7 @@ class ApiManager {
                 }
             }
         })
+        BITHockeyManager.shared().metricsManager.trackEvent(withName: "UpdateInitiated")
         print("Update initiated successfully: ", updateInitiated)
     }
     
@@ -253,21 +257,20 @@ class ApiManager {
                                             realm.create(entityType, value: responseJSON.object, update: true)
                                         }
                                     }
-                                    if completion != nil {
-                                        completion!(response.result.debugDescription, isSuccessful)
-                                    }
                                 } catch let error as NSError {
                                     print(error)
-                                    completion!(response.result.debugDescription, false)
                                 }
                             }
                         }
                         break
                     case .failure:
                         print("Request for", entityName, "failed!");
-                        if completion != nil {
-                            completion!(response.result.debugDescription, isSuccessful)
-                        }
+                    }
+                    
+                    completion?(response.result.debugDescription, isSuccessful)
+                    
+                    if !isSuccessful {
+                        BITHockeyManager.shared().metricsManager.trackEvent(withName: "UpdateEntityFailed", properties: ["entityName":entityName,"error":response.result.debugDescription], measurements: nil)
                     }
                 }
             )

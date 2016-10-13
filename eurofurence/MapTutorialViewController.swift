@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HockeySDK
 
 class MapTutorialViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class MapTutorialViewController: UIViewController {
         let defaults = UserDefaults.standard
         defaults.set(true, forKey: "appRunningForTheFirstTime")
         UIApplication.shared.setStatusBarHidden(false, with: .none)
+        BITHockeyManager.shared().metricsManager.trackEvent(withName: "TutorialCompleted")
         showApp()
     }
     

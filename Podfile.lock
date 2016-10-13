@@ -2,10 +2,10 @@ PODS:
   - Alamofire (4.0.1)
   - AlamofireImage (3.1.0):
     - Alamofire (~> 4.0)
-  - Crashlytics (3.8.2):
-    - Fabric (~> 1.6.3)
   - Eureka (2.0.0-beta.1)
-  - Fabric (1.6.9)
+  - HockeySDK (4.1.2):
+    - HockeySDK/DefaultLib (= 4.1.2)
+  - HockeySDK/DefaultLib (4.1.2)
   - ReachabilitySwift (3)
   - Realm (2.0.1):
     - Realm/Headers (= 2.0.1)
@@ -18,9 +18,8 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.0)
   - AlamofireImage (~> 3.0)
-  - Crashlytics
   - Eureka (from `https://github.com/xmartlabs/Eureka.git`)
-  - Fabric
+  - HockeySDK (~> 4.1.2)
   - ReachabilitySwift (from `https://github.com/ashleymills/Reachability.swift`)
   - Realm (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
   - RealmSwift (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
@@ -65,15 +64,14 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
-  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
   Eureka: d014adf16406745e1a78d5790ea37ed130a0a8e5
-  Fabric: bc5bec42cef4bcf1ee3ce0e218fc518e4b44dfbb
+  HockeySDK: c7523379550a4305cefc1cdfa7b5f9a5a3538180
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
   Realm: d1f6c7bc91e7e7668786ca894a10c42690365adc
   RealmSwift: 64e00af79bdcd7d2a7a23fdc1cb3faf22b80ae4c
   SlideMenuControllerSwift: 9c0a84f9a3fba51681debd7be77617094562ebcc
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: cf6737a4cdbb4345718df19dcd4454d0ebc1087b
+PODFILE CHECKSUM: e7585f71ca4f440384c0d838d280c35777936ca7
 
 COCOAPODS: 1.1.0.rc.2

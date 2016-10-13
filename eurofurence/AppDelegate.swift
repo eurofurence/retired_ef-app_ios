@@ -7,9 +7,8 @@
 //
 
 import UIKit
+import HockeySDK
 import ReachabilitySwift
-import Fabric
-import Crashlytics
 import RealmSwift
 import SlideMenuControllerSwift
 
@@ -21,8 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        Fabric.with([Crashlytics.self])
-        
+        BITHockeyManager.shared().configure(withIdentifier: "73340e8de50b45d284f2f4c90d0eacdb")
+        // Do some additional configuration if needed here
+        BITHockeyManager.shared().start()
+        BITHockeyManager.shared().authenticator.authenticateInstallation()
         
         UINavigationBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 98/255.0, blue: 87/255.0, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.white

@@ -361,6 +361,7 @@
 				BF7EAE1B1C74A91500A3F7D2 /* ShellScript */,
 				5866858CF9905657245A7DAF /* [CP] Embed Pods Frameworks */,
 				5B51189C568E89689346A9E4 /* [CP] Copy Pods Resources */,
+				9A253EA41DAEADA8007505E1 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -472,6 +473,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9A253EA41DAEADA8007505E1 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi";
 		};
 		BF7EAE1B1C74A91500A3F7D2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

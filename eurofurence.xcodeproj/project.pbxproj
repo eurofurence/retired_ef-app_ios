@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9A458BBF1D562E4B00CA9C49 /* CountryAlpha3Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */; };
 		9A458BC11D56A29100CA9C49 /* MapEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A458BC01D56A29100CA9C49 /* MapEntry.swift */; };
+		9A50B0F81DB15C3800ADBAC3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A50B0F71DB15C3800ADBAC3 /* GoogleService-Info.plist */; };
 		9A6101921D59BD5800A7B3CF /* WikiText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6101911D59BD5800A7B3CF /* WikiText.swift */; };
 		9A8AEA511D526755004A17E3 /* RoutingAppChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */; };
 		9ACB157B1D5F8A5D00C45B9E /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACB157A1D5F8A5D00C45B9E /* UserSettings.swift */; };
@@ -73,6 +74,7 @@
 		24992258A8A074888D8044CE /* Pods-eurofurence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eurofurence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence.debug.xcconfig"; sourceTree = "<group>"; };
 		9A458BBE1D562E4B00CA9C49 /* CountryAlpha3Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryAlpha3Converter.swift; sourceTree = "<group>"; };
 		9A458BC01D56A29100CA9C49 /* MapEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapEntry.swift; sourceTree = "<group>"; };
+		9A50B0F71DB15C3800ADBAC3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9A6101911D59BD5800A7B3CF /* WikiText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiText.swift; sourceTree = "<group>"; };
 		9A8AEA501D526754004A17E3 /* RoutingAppChooser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingAppChooser.swift; sourceTree = "<group>"; };
 		9ACB157A1D5F8A5D00C45B9E /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				BF00E05D1C4FEDE600F998AA /* AppDelegate.swift */,
 				BF00E05F1C4FEDE600F998AA /* ViewController.swift */,
 				BF00E0641C4FEDE700F998AA /* Assets.xcassets */,
+				9A50B0F71DB15C3800ADBAC3 /* GoogleService-Info.plist */,
 				BF00E0691C4FEDE700F998AA /* Info.plist */,
 			);
 			path = eurofurence;
@@ -361,6 +364,7 @@
 				BF7EAE1B1C74A91500A3F7D2 /* ShellScript */,
 				5866858CF9905657245A7DAF /* [CP] Embed Pods Frameworks */,
 				5B51189C568E89689346A9E4 /* [CP] Copy Pods Resources */,
+				9A50B0F61DB15B4200ADBAC3 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -422,6 +426,7 @@
 				BFCD6C071C90465E009D5C58 /* Tutorial.storyboard in Resources */,
 				BFC3A42E1D58DB8700C58A18 /* Default-568h@2x.png in Resources */,
 				BF00E0631C4FEDE700F998AA /* Main.storyboard in Resources */,
+				9A50B0F81DB15C3800ADBAC3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +477,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eurofurence/Pods-eurofurence-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9A50B0F61DB15B4200ADBAC3 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:1003745003618:ios:ccb2d0faa0f89da5\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${PROJECT_DIR}/../ServiceAccount.json\"";
 		};
 		BF7EAE1B1C74A91500A3F7D2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

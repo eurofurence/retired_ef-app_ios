@@ -8,6 +8,8 @@
 
 import UIKit
 import Eureka
+import Firebase
+import Crashlytics
 
 class SettingsTableViewController: FormViewController {
     
@@ -117,6 +119,27 @@ class SettingsTableViewController: FormViewController {
                     cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
             }
             +++ Section(header:"Experimental features", footer: "Allowing the app to try refreshing in background will only consume a small amount of data. This allows us to keep you updated on the latest announcements regarding delays and other important events at the con. Please note that background refreshing may not always work and can be unreliable!")
+            
+            /* Crash button for debug purposes in Firebase */
+            <<< ButtonRow("crashAppForFirebase") {
+                $0.title = "Crash the app (Firebase)"
+                }.onCellSelection { row in
+                    FIRCrashMessage("Test Crash Logging")
+                    fatalError("This is a test for crash logging with Firebase")
+                }.cellUpdate { cell, row in
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+                    cell.textLabel?.textColor = UIColor.red
+            }
+            
+            /* Crash button for debug purposes in Fabric/Crashlytics */
+            <<< ButtonRow("crashAppForFabric") {
+                $0.title = "Crash the app (Fabric)"
+                }.onCellSelection { row in
+                    Crashlytics.sharedInstance().crash()
+                }.cellUpdate { cell, row in
+                    cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+                    cell.textLabel?.textColor = UIColor.red
+            }
             <<< SwitchRow("switchRowRefreshInBackground") { row in      // initializer
                 row.title = "Refresh in background"
                 row.value = UserSettings<Bool>.RefreshInBackground.currentValue()

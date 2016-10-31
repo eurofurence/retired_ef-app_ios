@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 import AlamofireImage
+import Firebase
+import Crashlytics
 
 class ImageManager {
     static let _imageFileExtension = "jpg"
@@ -57,21 +59,43 @@ class ImageManager {
     /// caching run and prunes all old images from cache.
     private func pruneCache() {
         if newImageIds != nil {
+            let timeStarted = Date()
+            var deletedImages = 0
             for imageId in getCachedImageIds() {
                 if newImageIds?.index(of: imageId) == nil {
                     //print("pruning image", imageId)
                     deleteFromCache(getPathForId(imageId))
+                    deletedImages += 1
                 }
             }
+            FIRAnalytics.logEvent(withName: "images_cache_pruned", parameters: [
+                kFIRParameterValue: Date().timeIntervalSince(timeStarted) as NSObject,
+                kFIRParameterContentType: "duration" as NSObject,
+                "deleted_images": deletedImages as NSObject])
+            Answers.logCustomEvent(withName: "images_cache_pruned", customAttributes: [
+                kFIRParameterValue: Date().timeIntervalSince(timeStarted) as NSObject,
+                kFIRParameterContentType: "duration" as NSObject,
+                "deleted_images": deletedImages as NSObject])
             newImageIds = nil
         }
     }
     
     /// Clear all images in cache
     func clearCache(_ completion: (_ result: Bool) -> Void) {
+        var deletedImages = 0
+        let timeStarted = Date()
         for imageId in getCachedImageIds() {
             deleteFromCache(getPathForId(imageId))
+            deletedImages += 1
         }
+        FIRAnalytics.logEvent(withName: "images_cache_cleared", parameters: [
+            kFIRParameterValue: Date().timeIntervalSince(timeStarted) as NSObject,
+            kFIRParameterContentType: "duration" as NSObject,
+            "deleted_images": deletedImages as NSObject])
+        Answers.logCustomEvent(withName: "images_cache_cleared", customAttributes: [
+            kFIRParameterValue: Date().timeIntervalSince(timeStarted) as NSObject,
+            kFIRParameterContentType: "duration" as NSObject,
+            "deleted_images": deletedImages as NSObject])
         completion(true);
     }
     
@@ -82,7 +106,14 @@ class ImageManager {
             //print("Caching already in progress!")
             return
         }
+        let timeStarted = Date()
         isCaching = true
+        FIRAnalytics.logEvent(withName: "images_caching_initiated", parameters: [
+            kFIRParameterValue: timeStarted.description as NSObject,
+            kFIRParameterContentType: "date" as NSObject])
+        Answers.logCustomEvent(withName: "images_caching_initiated", customAttributes: [
+            kFIRParameterValue: timeStarted.description as NSObject,
+            kFIRParameterContentType: "date" as NSObject])
         
         //print("Caching images...")
         if LoadingOverlay.sharedInstance.isPresented() {
@@ -115,6 +146,14 @@ class ImageManager {
             // will only be executed if full caching run was performed
             self.pruneCache()
             print("Finished caching images.")
+            FIRAnalytics.logEvent(withName: "images_caching_completed", parameters: [
+                kFIRParameterValue: Date().timeIntervalSince(timeStarted) as NSObject,
+                kFIRParameterContentType: "duration" as NSObject,
+                "cached_images": self.doneCachingCount as NSObject])
+            Answers.logCustomEvent(withName: "images_caching_completed", customAttributes: [
+                kFIRParameterValue: Date().timeIntervalSince(timeStarted) as NSObject,
+                kFIRParameterContentType: "duration" as NSObject,
+                "cached_images": self.doneCachingCount as NSObject])
             (completion != nil) ? completion!() : ()
             self.toCacheCount = 0
             self.doneCachingCount = 0

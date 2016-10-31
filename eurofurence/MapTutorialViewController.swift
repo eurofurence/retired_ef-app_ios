@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import Crashlytics
 
 class MapTutorialViewController: UIViewController {
 
@@ -15,6 +17,13 @@ class MapTutorialViewController: UIViewController {
         let defaults = UserDefaults.standard
         defaults.set(true, forKey: "appRunningForTheFirstTime")
         UIApplication.shared.setStatusBarHidden(false, with: .none)
+        
+        FIRAnalytics.logEvent(withName: kFIREventTutorialComplete , parameters: [
+            kFIRParameterValue: Date().timeIntervalSince(UserDefaults.standard.object(forKey: "tutorialStarted") as! Date) as NSObject,
+            kFIRParameterContentType: "duration" as NSObject])
+        Answers.logCustomEvent(withName: kFIREventTutorialComplete , customAttributes: [
+            kFIRParameterValue: Date().timeIntervalSince(UserDefaults.standard.object(forKey: "tutorialStarted") as! Date) as NSObject,
+            kFIRParameterContentType: "duration" as NSObject])
         showApp()
     }
     

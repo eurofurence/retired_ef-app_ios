@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import Crashlytics
 
 class TutorialPageViewController: UIPageViewController {
     private(set) lazy var orderedViewControllers: [UIViewController] = {
@@ -39,6 +41,15 @@ class TutorialPageViewController: UIPageViewController {
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.lightGray
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.white
         UIPageControl.appearance().backgroundColor = UIColor(red: 4/255.0, green: 96/255.0, blue: 88/255.0, alpha: 0.9)
+        
+        let dateStart = Date()
+        UserDefaults.standard.set(dateStart, forKey: "tutorialStarted")
+        FIRAnalytics.logEvent(withName: kFIREventTutorialBegin, parameters: [
+            kFIRParameterValue: dateStart.description as NSObject,
+            kFIRParameterContentType: "date" as NSObject])
+        Answers.logCustomEvent(withName: kFIREventTutorialBegin, customAttributes: [
+            kFIRParameterValue: dateStart.description as NSObject,
+            kFIRParameterContentType: "date" as NSObject])
         // Do any additional setup after loading the view.
     }
 

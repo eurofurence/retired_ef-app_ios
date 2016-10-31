@@ -8,6 +8,8 @@
 
 import Foundation
 import Alamofire
+import Firebase
+import Crashlytics
 import RealmSwift
 import ReachabilitySwift
 import SwiftyJSON
@@ -31,6 +33,7 @@ class ApiManager {
         ConfigManager.sharedInstance.map
     ]
     private var requestedObjects = 0
+    private var updatedObjects = 0
     private var isUpdating = false
     
     init() {
@@ -70,6 +73,8 @@ class ApiManager {
                 let defaults = UserDefaults.standard
                 defaults.removeObject(forKey: ApiManager.LAST_DATABASE_UPDATE_DEFAULT)
                 defaults.removeObject(forKey: ApiManager.LAST_DATABASE_UPDATE_LOCAL_DEFAULT)
+                FIRAnalytics.logEvent(withName: "db_cache_cleared", parameters: [:])
+                Answers.logCustomEvent(withName: "db_cache_cleared", customAttributes: [:])
                 ImageManager.sharedInstance.clearCache(){
                     (result: Bool) in
                     print("Cache cleared")
@@ -108,6 +113,7 @@ class ApiManager {
             return
         }
         isUpdating = true
+        let timeStarted = Date()
         LoadingOverlay.sharedInstance.changeMessage("Downloading data...");
         LoadingOverlay.sharedInstance.showOverlay()
         verifyRealm()
@@ -136,6 +142,7 @@ class ApiManager {
                         let entityName = entity.Name
                         print("Updating entity", entityName, "from", entity.LastChangeDateTimeUtc)
                         self.requestedObjects += 1
+                        self.updatedObjects += 1
                         
                         if !self.updateEntity(entityName, since: lastDatabaseUpdate, completion: {
                             (result: String, isSuccessful:Bool) in
@@ -151,6 +158,18 @@ class ApiManager {
                             }
                             if (self.requestedObjects == 0) {
                                 self.isUpdating = false
+                                FIRAnalytics.logEvent(withName: "db_update_completed", parameters: [
+                                    kFIRParameterValue: Date().timeIntervalSince(timeStarted) as NSObject,
+                                    kFIRParameterContentType: "duration" as NSObject,
+                                    "forced_update": forceUpdate as NSObject,
+                                    "update_objects": self.updatedObjects as NSObject])
+                                Answers.logCustomEvent(withName: "db_update_completed", customAttributes: [
+                                    kFIRParameterValue: Date().timeIntervalSince(timeStarted) as NSObject,
+                                    kFIRParameterContentType: "duration" as NSObject,
+                                    "forced_update": forceUpdate as NSObject,
+                                    "update_objects": self.updatedObjects as NSObject])
+                                self.updatedObjects = 0
+                                
                                 ImageManager.sharedInstance.cacheAllImages(completion: {
                                     LoadingOverlay.sharedInstance.hideOverlay()
                                     
@@ -166,6 +185,14 @@ class ApiManager {
                         }) {
                             self.requestedObjects -= 1
                             print("Entity", entityName, "failed to instantiate")
+                            FIRAnalytics.logEvent(withName: "db_update_error", parameters: [
+                                kFIRParameterValue: entityName as NSObject,
+                                kFIRParameterContentType: "entity_name" as NSObject,
+                                "reason": "instantiation_failed" as NSObject])
+                            Answers.logCustomEvent(withName: "db_update_error", customAttributes: [
+                                kFIRParameterValue: entityName as NSObject,
+                                kFIRParameterContentType: "entity_name" as NSObject,
+                                "reason": "instantiation_failed" as NSObject])
                         }
                     }
                 }
@@ -183,6 +210,17 @@ class ApiManager {
                     completion!(false)
                 }
                 self.isUpdating = false
+                FIRAnalytics.logEvent(withName: "db_update_completed", parameters: [
+                    kFIRParameterValue: Date().timeIntervalSince(timeStarted) as NSObject,
+                    kFIRParameterContentType: "duration" as NSObject,
+                    "forced_update": forceUpdate as NSObject,
+                    "update_objects": self.updatedObjects as NSObject])
+                Answers.logCustomEvent(withName: "db_update_completed", customAttributes: [
+                    kFIRParameterValue: Date().timeIntervalSince(timeStarted) as NSObject,
+                    kFIRParameterContentType: "duration" as NSObject,
+                    "forced_update": forceUpdate as NSObject,
+                    "update_objects": self.updatedObjects as NSObject])
+                
                 if forceUpdate {
                     ImageManager.sharedInstance.cacheAllImages(completion: {
                         LoadingOverlay.sharedInstance.hideOverlay()
@@ -193,6 +231,14 @@ class ApiManager {
             }
         })
         print("Update initiated successfully: ", updateInitiated)
+        FIRAnalytics.logEvent(withName: "db_update_initiated", parameters: [
+            kFIRParameterValue: timeStarted.description as NSObject,
+            kFIRParameterContentType: "date" as NSObject,
+            "forced_update": forceUpdate as NSObject])
+        Answers.logCustomEvent(withName: "db_update_initiated", customAttributes: [
+            kFIRParameterValue: timeStarted.description as NSObject,
+            kFIRParameterContentType: "date" as NSObject,
+            "forced_update": forceUpdate as NSObject])
     }
     
     /// Fetches current data from API endpoint `entityName` into Realm, calling
@@ -259,6 +305,12 @@ class ApiManager {
                                 } catch let error as NSError {
                                     print(error)
                                     completion!(response.result.debugDescription, false)
+                                    FIRAnalytics.logEvent(withName: "db_update_error", parameters: [
+                                        kFIRParameterValue: entityName as NSObject,
+                                        kFIRParameterContentType: "entity_name" as NSObject])
+                                    Answers.logCustomEvent(withName: "db_update_error", customAttributes: [
+                                        kFIRParameterValue: entityName as NSObject,
+                                        kFIRParameterContentType: "entity_name" as NSObject])
                                 }
                             }
                         }
@@ -268,6 +320,12 @@ class ApiManager {
                         if completion != nil {
                             completion!(response.result.debugDescription, isSuccessful)
                         }
+                        FIRAnalytics.logEvent(withName: "db_update_error", parameters: [
+                            kFIRParameterValue: entityName as NSObject,
+                            kFIRParameterContentType: "entity_name" as NSObject])
+                        Answers.logCustomEvent(withName: "db_update_error", customAttributes: [
+                            kFIRParameterValue: entityName as NSObject,
+                            kFIRParameterContentType: "entity_name" as NSObject])
                     }
                 }
             )
